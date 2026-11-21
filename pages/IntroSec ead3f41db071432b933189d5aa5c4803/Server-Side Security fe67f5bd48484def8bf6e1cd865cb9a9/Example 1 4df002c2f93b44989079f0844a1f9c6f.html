@@ -589,7 +589,10 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style></head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Example 1</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Example 1</mark></p><p>query checks if the provided username and password match an entry in the database</p><pre class="code"><code>&lt;?php
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../site.css">
+</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Example 1</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Example 1</mark></p><p>query checks if the provided username and password match an entry in the database</p><pre class="code"><code>&lt;?php
 // connect to database
 $db = new PDO(CONNECTION_STRING, DB_USER, DB_PASS);
 $query = "SELECT * FROM users WHERE user = '" . $_POST["user"] .

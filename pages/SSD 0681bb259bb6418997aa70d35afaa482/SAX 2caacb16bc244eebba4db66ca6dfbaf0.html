@@ -589,7 +589,11 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style></head><body><article class="page sans"><header><h1 class="page-title">SAX</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://docs.oracle.com/javase/7/docs/api/org/xml/sax/ContentHandler.html#endElement(java.lang.String,%20java.lang.String,%20java.lang.String)">
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../site.css">
+</head><body><article class="page sans"><header><h1 class="page-title">SAX</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://docs.oracle.com/javase/7/docs/api/org/xml/sax/ContentHandler.html#endElement(java.lang.String,%20java.lang.String,%20java.lang.String)">
 https://docs.oracle.com/javase/7/docs/api/org/xml/sax/ContentHandler.html#endElement(java.lang.String, java.lang.String,
 java.lang.String)
 </a></p><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#07bd9e2f-733b-4629-8a5f-65efeff97b62">XML Parsers</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c4d7f1b4-1203-470b-bd65-84a2558b767f">Callbacks</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a77fe6c7-f55b-42ce-9874-b1ae43722fb2">Content handling: Examples</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#30fc3978-b260-4fb6-b3c4-fa49312d389e">Error Handling</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#340cbec2-2ca6-4288-823e-94b6588bf57c">Features</a></div></nav><p></p><h1 id="07bd9e2f-733b-4629-8a5f-65efeff97b62">XML Parsers</h1><p><mark class="highlight-blue">Standards for XML parsers</mark></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">
@@ -598,13 +602,9 @@ DOM
 SAX
 <p>= Simple API for XML (event-based)</p><p>“effective” standard, very popular</p><p>Versions for different programming languages (we only look at Java)</p></li></ul></div><p></p><p></p><p><mark class="highlight-blue">XML Parsers (General)</mark></p><div class="indented"><p>
 XML document
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
 XML parser
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
 App
 </p><p>XML parser: splits document into pieces and sends the “XML information set” to the application.</p></div><p></p><figure class="image"><a href="SAX%202caacb16bc244eebba4db66ca6dfbaf0/Untitled.png"><img src="SAX%202caacb16bc244eebba4db66ca6dfbaf0/Untitled.png" style="width: 192px"/></a></figure><p></p><p><mark class="highlight-blue">Event-based Parser</mark></p><div class="indented"><p>
 Events = callbacks sent to the application by the event-based parser

@@ -589,7 +589,10 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style></head><body><article class="page sans"><header><h1 class="page-title">Iterable, Iterator</h1><p class="page-description"></p></header><div class="page-body"><figure class="image"><a href="Iterable,%20Iterator%202839cb06ed7b4312b63b93744c3453c1/Untitled.png"><img src="Iterable,%20Iterator%202839cb06ed7b4312b63b93744c3453c1/Untitled.png" style="width: 451px"/></a></figure><p>Bei map müssen über keys und values unabhängig iteriert werden.</p><p></p><h1>Iterable</h1><pre class="code"><code>public interface Iterable extends java.lang.Iterable&lt;String&gt;{
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../site.css">
+</head><body><article class="page sans"><header><h1 class="page-title">Iterable, Iterator</h1><p class="page-description"></p></header><div class="page-body"><figure class="image"><a href="Iterable,%20Iterator%202839cb06ed7b4312b63b93744c3453c1/Untitled.png"><img src="Iterable,%20Iterator%202839cb06ed7b4312b63b93744c3453c1/Untitled.png" style="width: 451px"/></a></figure><p>Bei map müssen über keys und values unabhängig iteriert werden.</p><p></p><h1>Iterable</h1><pre class="code"><code>public interface Iterable extends java.lang.Iterable&lt;String&gt;{
 Iterator iterator();
 }</code></pre><p></p><h1>Iterator</h1><pre class="code"><code>public interface Iterator extends java.util.Iterator&lt;String&gt;{
 String next();

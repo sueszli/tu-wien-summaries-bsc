@@ -589,7 +589,11 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style></head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Semaphoren Patterns</h1><p class="page-description"></p></header><div class="page-body"><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e24439d6-a938-4f04-99b2-1c006b651257">Producer-Consumer Problem</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#91ece40b-867e-461d-8ee2-8d4cdbd2c58b">Priorität von Prozessen</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bdec222c-7220-45c5-8204-296ccf0357ac">Reader-Writer Problem</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#01d4550e-f236-469f-aa85-8052ac0d7964">Dining Philosophers Problem</a></div></nav><h1 id="e24439d6-a938-4f04-99b2-1c006b651257">Producer-Consumer Problem</h1><p>Producer generieren daten die sie über einen Puffer an Consumer übergeben.</p><p>Mutual exclusion</p><div class="indented"><p>Zu jedem Zeitpunkt darf nur ein Prozess auf den Puffer zugreifen.</p></div><p></p><p>Condition synchronization</p><div class="indented"><p>Ein Consumer darf nur dann lesen wenn mindestens 1 Element im Buffer steht</p></div><p></p><p></p><p><mark class="highlight-blue">Endloser Buffer-Speicher</mark></p><pre class="code"><code>append(v):
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../site.css">
+</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Semaphoren Patterns</h1><p class="page-description"></p></header><div class="page-body"><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e24439d6-a938-4f04-99b2-1c006b651257">Producer-Consumer Problem</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#91ece40b-867e-461d-8ee2-8d4cdbd2c58b">Priorität von Prozessen</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bdec222c-7220-45c5-8204-296ccf0357ac">Reader-Writer Problem</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#01d4550e-f236-469f-aa85-8052ac0d7964">Dining Philosophers Problem</a></div></nav><h1 id="e24439d6-a938-4f04-99b2-1c006b651257">Producer-Consumer Problem</h1><p>Producer generieren daten die sie über einen Puffer an Consumer übergeben.</p><p>Mutual exclusion</p><div class="indented"><p>Zu jedem Zeitpunkt darf nur ein Prozess auf den Puffer zugreifen.</p></div><p></p><p>Condition synchronization</p><div class="indented"><p>Ein Consumer darf nur dann lesen wenn mindestens 1 Element im Buffer steht</p></div><p></p><p></p><p><mark class="highlight-blue">Endloser Buffer-Speicher</mark></p><pre class="code"><code>append(v):
 b[in] := v;
 in := in + 1;take():
 w := b[out];
@@ -702,9 +706,7 @@ Wir spiegeln alles mit
 Reader können jetzt ausgehungert werden - Es warten alle neuen reader bei der
 <mark class="highlight-gray"><code>rsem</code></mark>
 queue sobald es einen writer bei Zeile
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">4</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">4</span></span></span></span></span><span>﻿</span></span>
 gibt.
 </p><p>
 Dann wird gewartet bis die alten reader
@@ -737,9 +739,7 @@ signal(y);
 Sollte die blockierte
 <mark class="highlight-gray"><code>rsem</code></mark>
 queue zu lange sein, muss der writer bei der
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">4</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">4</span></span></span></span></span><span>﻿</span></span>
 . Zeile so lange warten, bis alle reader aus der FIFO queue fertig sind.
 </p><p>Wir wollen, dass die queue sich wo anders anhäuft damit wir sofort mit einem writer die reader unterbrechen können.</p></div><p></p><p></p><p><mark class="highlight-blue">Lösung: Writer haben Priorität</mark></p><p>
 Es kann jeweils nur ein einziger reader in die

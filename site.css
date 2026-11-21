@@ -1,0 +1,70 @@
+@media screen {
+  body {
+    padding-inline: clamp(1rem, 4vw, 2rem);
+  }
+
+  .page-body a {
+    overflow-wrap: anywhere;
+  }
+
+  pre.code {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  pre.code:not(.code-wrap) {
+    white-space: pre;
+    word-break: normal;
+  }
+
+  .notion-text-equation-token {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-block: 0.15em;
+    vertical-align: middle;
+  }
+
+  figure.equation {
+    position: relative;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  figure.equation > .katex-display {
+    width: max-content;
+    margin-inline: auto;
+  }
+
+  figure.equation .katex-mathml,
+  .notion-text-equation-token .katex-mathml {
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .page {
+    overflow-wrap: anywhere;
+  }
+
+  .page-body .column-list {
+    display: block;
+  }
+
+  .page-body .column-list > .column {
+    width: 100% !important;
+    min-width: 0;
+    padding-inline: 0;
+  }
+
+  .page-body .callout > div {
+    min-width: 0;
+  }
+
+  .page-body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
