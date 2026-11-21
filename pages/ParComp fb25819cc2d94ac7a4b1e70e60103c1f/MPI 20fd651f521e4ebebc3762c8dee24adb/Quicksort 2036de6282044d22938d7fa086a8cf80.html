@@ -1,4 +1,4 @@
-<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>Quicksort</title><style>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Quicksort</title><style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
 html {
@@ -589,7 +589,7 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style></head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Quicksort</h1><p class="page-description"></p></header><div class="page-body"><p></p><p>Quicksort bottleneck: Partitioning</p><p></p><p>Idea:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>All processes get pivot element and partition locally.</li></ol><ol class="numbered-list" start="2" type="1"><li>Exclusive scan to compute indices of elements smaller, equal, larger than pivot</li></ol><ol class="numbered-list" start="3" type="1"><li>
+</style><link rel="stylesheet" href="../../../assets/responsive.css" media="screen"/></head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Quicksort</h1><p class="page-description"></p></header><div class="page-body"><p></p><p>Quicksort bottleneck: Partitioning</p><p></p><p>Idea:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>All processes get pivot element and partition locally.</li></ol><ol class="numbered-list" start="2" type="1"><li>Exclusive scan to compute indices of elements smaller, equal, larger than pivot</li></ol><ol class="numbered-list" start="3" type="1"><li>
 Redistribution to new distributed array
 <p>Split set of processes into those with small and large elements, recurse</p></li></ol></div><p></p><p></p><p><mark class="highlight-blue">Initial data distribution</mark></p><div class="indented"><p>
 Each process gets block of size

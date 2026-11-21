@@ -1,4 +1,4 @@
-<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>Advanced SQL</title><style>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Advanced SQL</title><style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
 html {
@@ -589,7 +589,7 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style></head><body><article class="page sans"><header><h1 class="page-title">Advanced SQL</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5a2167a3-a62d-470c-bb0f-a481e05fa751">Sub Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aae566ff-276f-417a-908b-512ff7432331">Rekursive Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f1ca0a30-172a-45fc-98c1-a3c84cbbd115">Views</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9b2739c1-5d0c-4642-97e8-6763381effbc">Window Functions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f61a0940-dd15-4908-a05c-f3ec181aa4a5">Sequences</a></div></nav><p></p><h1 id="5a2167a3-a62d-470c-bb0f-a481e05fa751">Sub Queries</h1><p>
+</style><link rel="stylesheet" href="../../assets/responsive.css" media="screen"/></head><body><article class="page sans"><header><h1 class="page-title">Advanced SQL</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5a2167a3-a62d-470c-bb0f-a481e05fa751">Sub Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aae566ff-276f-417a-908b-512ff7432331">Rekursive Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f1ca0a30-172a-45fc-98c1-a3c84cbbd115">Views</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9b2739c1-5d0c-4642-97e8-6763381effbc">Window Functions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f61a0940-dd15-4908-a05c-f3ec181aa4a5">Sequences</a></div></nav><p></p><h1 id="5a2167a3-a62d-470c-bb0f-a481e05fa751">Sub Queries</h1><p>
 ermöglicht durch
 <mark class="highlight-gray"><code>WITH</code></mark></p><p></p><pre class="code"><code>SELECT MatrNr, avg(Note)
 FROM pruefen

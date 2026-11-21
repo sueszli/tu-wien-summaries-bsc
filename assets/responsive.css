@@ -1,0 +1,49 @@
+body {
+    width: calc(100% - 2rem);
+    overflow-wrap: anywhere;
+}
+
+.column-list > .column,
+.bookmark-info {
+    min-width: 0;
+}
+
+pre,
+figure.equation,
+.table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+pre {
+    overflow-wrap: normal;
+}
+
+.katex {
+    overflow-wrap: normal;
+}
+
+@media (max-width: 960px) {
+    .notion-text-equation-token {
+        display: inline-block;
+        max-width: 100%;
+        overflow-x: auto;
+        vertical-align: middle;
+    }
+}
+
+@media (max-width: 600px) {
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .column-list {
+        display: block;
+    }
+
+    .column-list > .column {
+        /* The export sets individual column widths inline. */
+        width: 100% !important;
+        padding-inline: 0;
+    }
+}
