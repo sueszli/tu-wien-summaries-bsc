@@ -1,4 +1,4 @@
-<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Trigger</title><style>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>Trigger</title><style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
 html {
@@ -589,11 +589,13 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style><link rel="stylesheet" href="../../assets/responsive.css" media="screen"/></head><body><article class="page sans"><header><h1 class="page-title">Trigger</h1><p class="page-description"></p></header><div class="page-body"><p>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../site.css">
+</head><body><article class="page sans"><header><h1 class="page-title">Trigger</h1><p class="page-description"></p></header><div class="page-body"><p>
 (Event, Condition)
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
 Action
 </p><p></p><pre class="code"><code>CREATE TRIGGER name {BEFORE | AFTER} {INSERT | UPDATE | DELETE}
 ON tablename

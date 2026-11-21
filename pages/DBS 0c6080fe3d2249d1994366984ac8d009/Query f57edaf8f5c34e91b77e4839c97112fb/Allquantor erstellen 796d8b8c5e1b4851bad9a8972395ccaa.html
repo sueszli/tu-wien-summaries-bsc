@@ -1,4 +1,4 @@
-<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Allquantor erstellen</title><style>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>Allquantor erstellen</title><style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
 html {
@@ -589,7 +589,11 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style><link rel="stylesheet" href="../../../assets/responsive.css" media="screen"/></head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Allquantor erstellen</h1><p class="page-description"></p></header><div class="page-body"><p></p><h1>Allquantor</h1><p>"Allquantifizierte Queries"</p><p>SQL hat keinen Allquantor, es gibt 4 Workarounds.</p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><div class="indented"><p>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../site.css">
+</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Allquantor erstellen</h1><p class="page-description"></p></header><div class="page-body"><p></p><h1>Allquantor</h1><p>"Allquantifizierte Queries"</p><p>SQL hat keinen Allquantor, es gibt 4 Workarounds.</p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><div class="indented"><p>
 Wähle Studenten die
 <em>alle</em>
 4h LVAs gehört haben.
@@ -599,9 +603,7 @@ Vorlesung ( VorlNr, Titel, SWS, gelesenVon )</code></pre><p></p></div><p></p><p>
 durch 2 x
 <code>not exists</code></p><p>
 Logische Umformung:
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>⇔</mo><mi mathvariant="normal">¬</mi><mi mathvariant="normal">∃</mi><mi>x</mi><mo stretchy="false">(</mo><mi mathvariant="normal">¬</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\forall x F(x) \Leftrightarrow \neg \exists x(\neg F(x))</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel">⇔</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">¬∃</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span><span>﻿</span></span></p><p>Wir suchen Studenten der nicht eine 4h LVA nicht gehört hat.</p><pre class="code"><code>select s.*
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>⇔</mo><mi mathvariant="normal">¬</mi><mi mathvariant="normal">∃</mi><mi>x</mi><mo stretchy="false">(</mo><mi mathvariant="normal">¬</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\forall x F(x) \Leftrightarrow \neg \exists x(\neg F(x))</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel">⇔</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">¬∃</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span><span>﻿</span></span></p><p>Wir suchen Studenten der nicht eine 4h LVA nicht gehört hat.</p><pre class="code"><code>select s.*
 from Student s
 where not exists
 ( select *
@@ -616,19 +618,13 @@ durch
 und
 <code>except</code></p><p>
 Menge aller 4h LVAs
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊆</mo></mrow><annotation encoding="application/x-tex">\sube</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.7719400000000001em; vertical-align: -0.13597em"></span><span class="mrel">⊆</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊆</mo></mrow><annotation encoding="application/x-tex">\sube</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.7719400000000001em; vertical-align: -0.13597em"></span><span class="mrel">⊆</span></span></span></span></span><span>﻿</span></span>
 Menge aller von Student gehörten LVAs
 <mark class="highlight-gray">(Operator existiert nicht in SQL)</mark></p><p>
 Menge aller 4h LVAs
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo></mrow><annotation encoding="application/x-tex">-</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em"></span><span class="mord">−</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo></mrow><annotation encoding="application/x-tex">-</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em"></span><span class="mord">−</span></span></span></span></span><span>﻿</span></span>
 Menge aller von Student gehörten LVAs =
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi mathvariant="normal">∅</mi></mstyle></mrow><annotation encoding="application/x-tex">\small \empty</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.7250040000000001em; vertical-align: -0.050004em"></span><span class="mord sizing reset-size6 size5">∅</span></span></span></span></span><span>﻿</span></span><mark class="highlight-gray">wenn alle gehört</mark></p><pre class="code"><code>select s.*
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi mathvariant="normal">∅</mi></mstyle></mrow><annotation encoding="application/x-tex">\small \empty</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.7250040000000001em; vertical-align: -0.050004em"></span><span class="mord sizing reset-size6 size5">∅</span></span></span></span></span><span>﻿</span></span><mark class="highlight-gray">wenn alle gehört</mark></p><pre class="code"><code>select s.*
 from Student s
 where not exists
 ((select VorlNr

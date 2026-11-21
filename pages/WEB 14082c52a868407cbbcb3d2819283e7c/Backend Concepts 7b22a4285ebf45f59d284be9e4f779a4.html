@@ -1,4 +1,4 @@
-<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Backend Concepts</title><style>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>Backend Concepts</title><style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
 html {
@@ -589,7 +589,11 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style><link rel="stylesheet" href="../../assets/responsive.css" media="screen"/></head><body><article class="page sans"><header><h1 class="page-title">Backend Concepts</h1><p class="page-description"></p></header><div class="page-body"><figure class="image"><a href="Backend%20Concepts%207b22a4285ebf45f59d284be9e4f779a4/Untitled.png"><img src="Backend%20Concepts%207b22a4285ebf45f59d284be9e4f779a4/Untitled.png" style="width: 1056px"/></a></figure><p></p><p>Middleware</p><div class="indented"><p>sits beween backend and frontend. → When HTTP requests reach the backend the JSON files are parsed and available.</p><p>Transfers data.</p><p>Executes code that can manipulate request and response objects for every request-response cycle.</p><p></p></div><p></p><p>Environment Variables (to hide secrets)</p><div class="indented"><p>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../site.css">
+</head><body><article class="page sans"><header><h1 class="page-title">Backend Concepts</h1><p class="page-description"></p></header><div class="page-body"><figure class="image"><a href="Backend%20Concepts%207b22a4285ebf45f59d284be9e4f779a4/Untitled.png"><img src="Backend%20Concepts%207b22a4285ebf45f59d284be9e4f779a4/Untitled.png" style="width: 1056px"/></a></figure><p></p><p>Middleware</p><div class="indented"><p>sits beween backend and frontend. → When HTTP requests reach the backend the JSON files are parsed and available.</p><p>Transfers data.</p><p>Executes code that can manipulate request and response objects for every request-response cycle.</p><p></p></div><p></p><p>Environment Variables (to hide secrets)</p><div class="indented"><p>
 Environment variables provide a standard way for
 <span style="border-bottom: 0.05em solid">configurability</span>
 .
@@ -597,26 +601,18 @@ Environment variables provide a standard way for
 There are also several other ways to pass configuration to the program (pass parameters, read from configuration file, etc.)
 </p></div><p></p><p></p><h1>Common Web Architecture</h1><p><a href="https://herbertograca.com/2017/08/03/layered-architecture/">https://herbertograca.com/2017/08/03/layered-architecture/</a></p><p>
 Presentation
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
 Presentation
 </p><p>
 Routes
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
 Application
 </p><p>
 Modules
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
 Domain Model
 </p><p>
 Persistence Utilities
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∈</mo></mrow><annotation encoding="application/x-tex">\in</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">∈</span></span></span></span></span><span>﻿</span></span>
 Persistence
 </p><figure class="image"><a href="Backend%20Concepts%207b22a4285ebf45f59d284be9e4f779a4/Untitled%201.png"><img src="Backend%20Concepts%207b22a4285ebf45f59d284be9e4f779a4/Untitled%201.png" style="width: 480px"/></a></figure><p></p></div></article></body></html>

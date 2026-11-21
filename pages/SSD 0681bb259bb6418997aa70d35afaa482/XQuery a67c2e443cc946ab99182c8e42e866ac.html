@@ -1,4 +1,4 @@
-<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>XQuery</title><style>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>XQuery</title><style>
 /* cspell:disable-file */
 /* webkit printing magic: print all background colors */
 html {
@@ -589,11 +589,13 @@ font-size: 100% !important;
 }p {
 min-height: 1em !important;
 }
-</style><link rel="stylesheet" href="../../assets/responsive.css" media="screen"/></head><body><article class="page sans"><header><h1 class="page-title">XQuery</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9f38cad3-290d-488a-ab17-f5bb1065f1fc">Definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2a78ba9f-8b05-47b1-ad42-3dc7d54fdcc5">FLWOR Expressions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3991b998-8280-4b6f-8d60-e640a92bf2bb">Other Features</a></div></nav><p></p><h1 id="9f38cad3-290d-488a-ab17-f5bb1065f1fc">Definition</h1><p><mark class="highlight-blue">XQuery</mark></p><div class="indented"><p>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../site.css">
+</head><body><article class="page sans"><header><h1 class="page-title">XQuery</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9f38cad3-290d-488a-ab17-f5bb1065f1fc">Definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2a78ba9f-8b05-47b1-ad42-3dc7d54fdcc5">FLWOR Expressions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3991b998-8280-4b6f-8d60-e640a92bf2bb">Other Features</a></div></nav><p></p><h1 id="9f38cad3-290d-488a-ab17-f5bb1065f1fc">Definition</h1><p><mark class="highlight-blue">XQuery</mark></p><div class="indented"><p>
 XPath
-<style>
-@import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css");
-</style><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊂</mo></mrow><annotation encoding="application/x-tex">\subset</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">⊂</span></span></span></span></span><span>﻿</span></span>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊂</mo></mrow><annotation encoding="application/x-tex">\subset</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">⊂</span></span></span></span></span><span>﻿</span></span>
 XQuery
 </p><p>language for querying XML (and sorting and structuring query results)</p></div><p></p><p><mark class="highlight-blue">XQuery Processor</mark></p><div class="indented"><p>parsing getting semantics of text</p><p>analyzing static errors: searching syntax (independent of document), ...</p><p>evaluation dynamic errors: missing input document, division by zero, ...</p></div><p></p><figure class="image"><a href="XQuery%20a67c2e443cc946ab99182c8e42e866ac/Untitled.png"><img src="XQuery%20a67c2e443cc946ab99182c8e42e866ac/Untitled.png" style="width: 192px"/></a></figure><ul class="toggle"><li><details open=""><summary>Examples of usage</summary><pre class="code"><code>&lt;courses&gt;
 &lt;course semester="Summer"&gt;
