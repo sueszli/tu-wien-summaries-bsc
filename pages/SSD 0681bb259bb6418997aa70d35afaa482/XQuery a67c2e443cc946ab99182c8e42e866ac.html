@@ -597,7 +597,7 @@ min-height: 1em !important;
 XPath
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊂</mo></mrow><annotation encoding="application/x-tex">\subset</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5782em; vertical-align: -0.0391em"></span><span class="mrel">⊂</span></span></span></span></span><span>﻿</span></span>
 XQuery
-</p><p>language for querying XML (and sorting and structuring query results)</p></div><p></p><p><mark class="highlight-blue">XQuery Processor</mark></p><div class="indented"><p>parsing getting semantics of text</p><p>analyzing static errors: searching syntax (independent of document), ...</p><p>evaluation dynamic errors: missing input document, division by zero, ...</p></div><p></p><figure class="image"><a href="XQuery%20a67c2e443cc946ab99182c8e42e866ac/Untitled.png"><img src="XQuery%20a67c2e443cc946ab99182c8e42e866ac/Untitled.png" style="width: 192px"/></a></figure><ul class="toggle"><li><details open=""><summary>Examples of usage</summary><pre class="code"><code>&lt;courses&gt;
+</p><p>language for querying XML (and sorting and structuring query results)</p></div><p></p><p><mark class="highlight-blue">XQuery Processor</mark></p><div class="indented"><p>parsing getting semantics of text</p><p>analyzing static errors: searching syntax (independent of document), ...</p><p>evaluation dynamic errors: missing input document, division by zero, ...</p></div><p></p><figure class="image"><a href="XQuery%20a67c2e443cc946ab99182c8e42e866ac/Untitled.png"><img src="XQuery%20a67c2e443cc946ab99182c8e42e866ac/Untitled.png" style="width: 192px"/></a></figure><ul class="toggle"><li><details><summary>Examples of usage</summary><pre class="code"><code>&lt;courses&gt;
 &lt;course semester="Summer"&gt;
 &lt;title&gt; SSD &lt;/title&gt;
 &lt;day&gt; Thursday &lt;/day&gt;
@@ -632,7 +632,7 @@ W
 O
 <mark class="highlight-gray"><code>order by</code></mark></p><p>
 R
-<mark class="highlight-gray"><code>return</code></mark></p></div><p></p><hr/><ul class="toggle"><li><details open=""><summary>Example of FLWOR</summary><pre class="code"><code>for $d in doc("departments.xml")//dept_no
+<mark class="highlight-gray"><code>return</code></mark></p></div><p></p><hr/><ul class="toggle"><li><details><summary>Example of FLWOR</summary><pre class="code"><code>for $d in doc("departments.xml")//dept_no
 let $e := doc("employees.xml")//employee[dept_no = $d]
 where count($e) &gt;= 10
 order by avg($e/salary) descending
@@ -657,7 +657,7 @@ filters that list to keep only the desired pairs (at least 10 employees)
 sorts that lists by the given criteria (sorted desceding by average salary)
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray"><code>return</code></mark>
 constructs for each pair a resulting value
-</li></ul></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Element Constructors</mark></p><div class="indented"><p>One can create new elements and add them in the result, by wrapping query into elements.</p><ul class="toggle"><li><details open=""><summary>Example of Element Constructor</summary><p>Here we create an element and attribute.</p><pre class="code"><code>&lt;sorted_departments&gt; {
+</li></ul></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Element Constructors</mark></p><div class="indented"><p>One can create new elements and add them in the result, by wrapping query into elements.</p><ul class="toggle"><li><details><summary>Example of Element Constructor</summary><p>Here we create an element and attribute.</p><pre class="code"><code>&lt;sorted_departments&gt; {
 for $d in doc("departments.xml")//dept_no
 let $e := doc("employees.xml")//employee[dept_no = $d]
 where count($e) &gt;= 10

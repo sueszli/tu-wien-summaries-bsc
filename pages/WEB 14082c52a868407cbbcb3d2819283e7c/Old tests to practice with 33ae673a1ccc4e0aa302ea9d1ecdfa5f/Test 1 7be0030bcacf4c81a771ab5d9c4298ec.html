@@ -594,7 +594,7 @@ min-height: 1em !important;
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Test 1</h1><p class="page-description"></p></header><div class="page-body"><figure><div class="source"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/TU_Wien-Web_Engineering_VU_(Cito)_-_A1-Online-Test-Questions_2020-03-30.pdf">
 TU_Wien-Web_Engineering_VU_(Cito)_-_A1-Online-Test-Questions_2020-03-30.pdf
-</a></div></figure><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+</a></div></figure><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>
 You send an HTTP POST request with a JSON payload to a web server and receive a response. What can you tell from the headers of
 the response, which are given below?
 </summary><pre class="code"><code>HTTP/1.1 200 OK
@@ -602,22 +602,22 @@ Date: Mon, 30 Mar 2020 13:00:42 GMT
 Server: nginx
 Set-Cookie: sessionId=e8bb43229de9
 Content-Type: application/json;
-Content-Length: 232 </code></pre><p></p><p>Protocol Version: HTTP 1.1</p><p>Status Code: Success, OK</p><p>Date: Mon, 30 Mar 2020 13:00:42 GMT</p><p>Server: nginx</p><p>Server Sets cookie: with a specific ID that we will attach to each request from now on</p><p>Content-Type: Body contains data in JavaScript Object Notation JSON</p><p>Content-Length: The length in decimal number of octets / bytes.</p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+Content-Length: 232 </code></pre><p></p><p>Protocol Version: HTTP 1.1</p><p>Status Code: Success, OK</p><p>Date: Mon, 30 Mar 2020 13:00:42 GMT</p><p>Server: nginx</p><p>Server Sets cookie: with a specific ID that we will attach to each request from now on</p><p>Content-Type: Body contains data in JavaScript Object Notation JSON</p><p>Content-Length: The length in decimal number of octets / bytes.</p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>
 You are given the vague description to design a URL for a secure HTTP resource available on port 5000: it should serve a path to
 users, query a username, and target the profile fragment within the resource. Which of the following URLs is the most compatible
 with this description?
 </summary><p></p><p>Probably something like:</p><p><code>
 &lt;scheme&gt;://[&lt;user&gt;[:&lt;password&gt;]@]&lt;server&gt;[:&lt;port&gt;]/[&lt;path&gt;][?&lt;query&gt;][#&lt;fragment&gt;]
-</code></p><p><mark class="highlight-gray"><code>https://coolSite.com:5000/userPath?username=coolName#profile</code></mark><mark class="highlight-gray"></mark></p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details open=""><summary>You want to send an idempotent HTTP request with a message body. Which method can you use?</summary><p></p><p>Same effect even with multiple executions (idempoptent): PUT, DELETE</p><p>But DELETE does not have a message body.</p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+</code></p><p><mark class="highlight-gray"><code>https://coolSite.com:5000/userPath?username=coolName#profile</code></mark><mark class="highlight-gray"></mark></p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>You want to send an idempotent HTTP request with a message body. Which method can you use?</summary><p></p><p>Same effect even with multiple executions (idempoptent): PUT, DELETE</p><p>But DELETE does not have a message body.</p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>
 You are navigating to a large HTML document which includes three CSS files and ten images. How does your browser react?
-</summary><p></p><p>The browser fetches the content on the website through HTTP requests to the servers that the resource URLs lead to.</p><p></p><p>One process will not wait for the previous one to finish completely - will try to display contents as soon as possible.</p><p>Continuous Resource Fetching.</p><p></p><p>Process</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Construct Document Object Model (DOM) from parsing the HTML document</li></ol><ol class="numbered-list" start="2" type="1"><li>Construct Render Tree from CSS and HTML</li></ol><ol class="numbered-list" start="3" type="1"><li>Layout process (recursive): attaches coordinates to each node</li></ol><ol class="numbered-list" start="4" type="1"><li>Painting each node from the render tree using the UI backend</li></ol></div><p></p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details open=""><summary>What is wrong with the following HTML structure?</summary><pre class="code"><code>&lt;section class="important label"&gt;
+</summary><p></p><p>The browser fetches the content on the website through HTTP requests to the servers that the resource URLs lead to.</p><p></p><p>One process will not wait for the previous one to finish completely - will try to display contents as soon as possible.</p><p>Continuous Resource Fetching.</p><p></p><p>Process</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Construct Document Object Model (DOM) from parsing the HTML document</li></ol><ol class="numbered-list" start="2" type="1"><li>Construct Render Tree from CSS and HTML</li></ol><ol class="numbered-list" start="3" type="1"><li>Layout process (recursive): attaches coordinates to each node</li></ol><ol class="numbered-list" start="4" type="1"><li>Painting each node from the render tree using the UI backend</li></ol></div><p></p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>What is wrong with the following HTML structure?</summary><pre class="code"><code>&lt;section class="important label"&gt;
 &lt;strong style="border-bottom: 1px solid black;"&gt;
 &lt;h2&gt;Important Announcement&lt;/h2&gt;
 &lt;/strong&gt;
 &lt;section&gt;
 &lt;em&gt;Beware:&lt;/em&gt; of all the wrong things in this HTML.
 &lt;/section&gt;
-&lt;/section&gt;</code></pre><p></p><ol class="numbered-list" start="1" type="1"><li>&lt;/section&gt; tags are nested</li></ol><ol class="numbered-list" start="2" type="1"><li>h2 can not get &lt;strong&gt; this way</li></ol></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+&lt;/section&gt;</code></pre><p></p><ol class="numbered-list" start="1" type="1"><li>&lt;/section&gt; tags are nested</li></ol><ol class="numbered-list" start="2" type="1"><li>h2 can not get &lt;strong&gt; this way</li></ol></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 You want to display an image on your website. The image on your server has a resolution of a 12000x12000 pixels, but you only
 need 200x200 pixels. Initially, you write the following code
 </summary><pre class="code"><code>&lt;img src="img_12000_12000.jpg width="200"&gt;.</code></pre><p>Which of the following statements best describes what the browser is doing?</p><p></p><p>
@@ -633,7 +633,7 @@ Causing a syntax error because the source is defined as:
 img-12000w.jpg 12000w"
 sizes="(max-width: 200px) 200x, 12000px"
 src="img-12000w.jpg"
-alt="Description"&gt;</code></pre></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+alt="Description"&gt;</code></pre></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 You are reviewing code for an HTML form. While the markup looks the way it should in the browser, you can see how it could
 create accessibility issues. Which of the following changes are best suited to improve accessibility?
 </summary><pre class="code"><code>&lt;form action="/login"&gt;
@@ -665,7 +665,7 @@ Password
 &lt;input type="submit" value="Submit the form" name="action"/&gt;
 &lt;/p&gt;
 &lt;/form&gt;
-&lt;/body&gt;</code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png" style="width: 240px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+&lt;/body&gt;</code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png" style="width: 240px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which of the following selectors would you use to target the HTML element (and only that element) highlighted in bold below?
 </summary><pre class="code"><code>&lt;section id="siblingSec" class="sibling"&gt;
 &lt;h2&gt;Style my sibling&lt;/h2&gt;&lt;p class="sibling"&gt;
@@ -696,14 +696,14 @@ Which of the following selectors would you use to target the HTML element (and o
 &lt;/p&gt;
 &lt;/div&gt;&lt;/section&gt;</code></pre><p><a href="https://jsfiddle.net/r26y3et1/4/">https://jsfiddle.net/r26y3et1/4/</a></p><p></p><p>The selector to choose that Item:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>choose a div with id="firstContainer"</li></ol><ol class="numbered-list" start="2" type="1"><li>then choose the second child that is a div</li></ol><ol class="numbered-list" start="3" type="1"><li>and then its only child, which is a ul</li></ol></div><p></p><p></p><pre class="code"><code>div#firstContainer div ul{
 ...
-}</code></pre></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+}</code></pre></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which of the following CSS declarations is most likely to result in the following rendering in the browser given this
 markup/style declaration:
 </summary><pre class="code"><code>&lt;div style="border: 4px solid black;"&gt;
 &lt;div id="outer"&gt;
 &lt;span id="inner" style="font-size: 2em;"&gt;Some text&lt;/span&gt;
 &lt;/div&gt;
-&lt;/div&gt;</code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png" style="width: 494px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+&lt;/div&gt;</code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png" style="width: 494px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which one of the following HTML elements have we heard about in the lecture that is used to link to an external CSS stylesheet
 for integration into HTML?
 </summary><p></p><p>Integration into HTML</p><div class="indented"><p>External (prefered)</p><div class="indented"><p>
@@ -718,7 +718,7 @@ to external website
 in
 <code>&lt;head&gt;</code></p><p>overwrites any external CSS</p></div><p></p><p></p><p>Inline</p><div class="indented"><p>
 In HTML elements
-<code>&lt;tagname style="property:value;"&gt;content&lt;/tagname&gt;</code></p></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+<code>&lt;tagname style="property:value;"&gt;content&lt;/tagname&gt;</code></p></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which one of the following CSS properties for the selector section#content do you think is mostlikely to have produced this
 output in the browser? The HTML for the relevant part of the page is given as follows:
 </summary><pre class="code"><code>&lt;section id="content"&gt;
@@ -740,7 +740,7 @@ margin: 4px;
 border: 1px solid black;
 width: 100px;
 height: 40px;
-}</code></pre><p><a href="https://jsfiddle.net/ertk8L0y/1/">https://jsfiddle.net/ertk8L0y/1/</a></p><p></p><p>chooses section with id = "content" and div as is child</p><p><em>therefore all children of this section</em></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>
+}</code></pre><p><a href="https://jsfiddle.net/ertk8L0y/1/">https://jsfiddle.net/ertk8L0y/1/</a></p><p></p><p>chooses section with id = "content" and div as is child</p><p><em>therefore all children of this section</em></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 You are given this CSS code and have to figure out which of the following resulting CSS rules are true for the element
 <code>&lt;h1 class="alarm"&gt;...&lt;/h1&gt;</code>
 on a device with 300px width.
@@ -759,7 +759,7 @@ because the screen has &lt; 400 pixel
 and
 <code>h1.alarm</code>
 apply.
-</p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>You are given the following HTML and JavaScript code. What is the browser output if you enter 100 into the input?</summary><pre class="code"><code>&lt;label for="speed"&gt;Speed (km/h)&lt;/label&gt;
+</p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>You are given the following HTML and JavaScript code. What is the browser output if you enter 100 into the input?</summary><pre class="code"><code>&lt;label for="speed"&gt;Speed (km/h)&lt;/label&gt;
 &lt;input type="text" id="speed"&gt;
 &lt;div&gt;
 Speed &lt;span id="output"&gt;&lt;/span&gt;
@@ -798,7 +798,7 @@ return true;
 }
 }
 return false;
-}</code></pre><p><a href="https://jsfiddle.net/q5y60knb/1/">https://jsfiddle.net/q5y60knb/1/</a></p><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png" style="width: 276px"/></a></figure><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png" style="width: 291px"/></a></figure><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>What are promises in JavaScript?</summary><p class="block-color-gray">Analogy:</p><div class="indented"><p>
+}</code></pre><p><a href="https://jsfiddle.net/q5y60knb/1/">https://jsfiddle.net/q5y60knb/1/</a></p><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png" style="width: 276px"/></a></figure><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png" style="width: 291px"/></a></figure><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>What are promises in JavaScript?</summary><p class="block-color-gray">Analogy:</p><div class="indented"><p>
 Fans have subscribed the mailing subscription list of a singer so that they get instantly notified once the next album
 becomes becomes available or if something goes wrong.
 </p></div><p></p><p>Components:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
@@ -857,7 +857,7 @@ to produce the result. This changes the state of the
 object:
 </p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p><p>Example: Unsuccessful</p><div class="indented"><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
 setTimeout(() =&gt; reject(new Error("Whoops!")), 1000); //"whoops" is the error statement
-}); </code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details open=""><summary>Why are promises a solution to "callback hell" in JavaScript?</summary><p>
+}); </code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>Why are promises a solution to "callback hell" in JavaScript?</summary><p>
 In a “callback-based” style of asynchronous programming. A function that does something asynchronously (at a later point in
 time) should provide a
 <em>callback argument</em>

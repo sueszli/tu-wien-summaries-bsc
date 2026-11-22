@@ -622,7 +622,7 @@ statement;
 statement;
 statement;
 ...
-&lt;/script&gt;</code></pre></div><p></p><p>As event handlers</p><div class="indented"><pre class="code"><code>&lt;a href="http://www.bar.com" onmouseover="alert('hi');"&gt;</code></pre></div><p></p><p>Pseudo-URLs in links</p><div class="indented"><pre class="code"><code>&lt;a href="javascript:alert('You clicked');"&gt;Click me&lt;/a&gt;</code></pre></div><p></p><p></p><h1 id="b2c328af-3e31-4676-ad01-ab425665c500">Syntax</h1><ul class="toggle"><li><details open=""><summary>Key words for declaration, Scoping</summary><p><mark class="highlight-teal">Function-scope:</mark><code>var</code>
+&lt;/script&gt;</code></pre></div><p></p><p>As event handlers</p><div class="indented"><pre class="code"><code>&lt;a href="http://www.bar.com" onmouseover="alert('hi');"&gt;</code></pre></div><p></p><p>Pseudo-URLs in links</p><div class="indented"><pre class="code"><code>&lt;a href="javascript:alert('You clicked');"&gt;Click me&lt;/a&gt;</code></pre></div><p></p><p></p><h1 id="b2c328af-3e31-4676-ad01-ab425665c500">Syntax</h1><ul class="toggle"><li><details><summary>Key words for declaration, Scoping</summary><p><mark class="highlight-teal">Function-scope:</mark><code>var</code>
 → try to avoid
 </p><ul class="bulleted-list"><li style="list-style-type: disc">will only live in the function or the outer scope that it was called in</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Function scopes can nest with nested functions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-teal">hoisting</mark>
 : optimzing code before executing it within the virtual machine → During the hoisting process all
@@ -642,7 +642,7 @@ won´t cause an issue and is accessible everywhere within the function. → This
 const identifiers cannot change → improves memory efficiency. Useful for objects and functions that shouldn´t change.
 </li></ul><p><mark class="highlight-teal">Global Scope:</mark>
 no keyword
-</p><ul class="bulleted-list"><li style="list-style-type: disc">Variables are global by default if no keyword is used</li></ul><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Variables, Data types</summary><p>There are 8 basic data types in JavaScript.</p><ul class="bulleted-list"><li style="list-style-type: disc"><code>number</code>
+</p><ul class="bulleted-list"><li style="list-style-type: disc">Variables are global by default if no keyword is used</li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Variables, Data types</summary><p>There are 8 basic data types in JavaScript.</p><ul class="bulleted-list"><li style="list-style-type: disc"><code>number</code>
 for numbers of any kind: integer or floating-point
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><code>bigint</code>
 is for integer numbers of arbitrary length.
@@ -686,23 +686,23 @@ For
 returns
 <code>"object"</code>
 – this is an error in the language, it’s not actually an object.
-</li></ul><hr/><p>Type conversions:</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled.png" style="width: 432px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Strings, Template Literals</summary><p>Strings: (“…”, ‘…’)</p><ul class="bulleted-list"><li style="list-style-type: disc">
+</li></ul><hr/><p>Type conversions:</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled.png" style="width: 432px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Strings, Template Literals</summary><p>Strings: (“…”, ‘…’)</p><ul class="bulleted-list"><li style="list-style-type: disc">
 Backslash escapes (\) String concatenation with + operator: "Dear " +
 s1.name
 + ", thank you for…”
 </li></ul><p>JavaScript Template Literals (Replaces concatenation operations)</p><ul class="bulleted-list"><li style="list-style-type: disc">Use backquote (`) as delimiter</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Can span multiple lines (new line included in the string)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Can have embedded expressions → ${expression} — computes expression and replaces it with string value
 <pre class="code"><code>message	=	`Dear	${student.name}, Your	GPA, ${gpa(student)},
-is lower	than	the	average: ${averageGPA}`</code></pre></li></ul><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Operators</summary><ul class="bulleted-list"><li style="list-style-type: disc">Numerical operators: +,-,*,/,++,--,%</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+is lower	than	the	average: ${averageGPA}`</code></pre></li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Operators</summary><ul class="bulleted-list"><li style="list-style-type: disc">Numerical operators: +,-,*,/,++,--,%</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Comparison operators: &gt;,&gt;=,&lt;,&lt;=,==,!=,===,!==
 <p>Two kinds of comparison operators</p><pre class="code code-wrap"><code>console.log("1" == 1); // true - compares content
-console.log("1" === 1); // false - compares type + content</code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details open=""><summary>Functions, Callbacks</summary><p>
+console.log("1" === 1); // false - compares type + content</code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Functions, Callbacks</summary><p>
 Declared with keyword
 <code>function</code>
 :
 </p><ul class="bulleted-list"><li style="list-style-type: disc">
 Functions are first-class citizens, can be passed as parameters, can return other functions
-<ul class="toggle"><li><details open=""><summary><span style="border-bottom: 0.05em solid">Callbacks (= higher order functions)</span></summary><p>Here is a quick example:</p><pre class="code code-wrap"><code>function greeting(name) {
+<ul class="toggle"><li><details><summary><span style="border-bottom: 0.05em solid">Callbacks (= higher order functions)</span></summary><p>Here is a quick example:</p><pre class="code code-wrap"><code>function greeting(name) {
 alert('Hello ' + name);
 }function processUserInput(callback) {
 var name = prompt('Please enter your name.');
@@ -716,7 +716,7 @@ Note, however, that callbacks are often used to continue code execution after an
 <a href="https://developer.mozilla.org/en-US/docs/Glossary/Asynchronous">asynchronous</a>
 (In other words, actions that we initiate now, but they finish later) operation has completed — these
 are called asynchronous callbacks.
-</p><p>For instance, one such function is the setTimeout function.</p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary><span style="border-bottom: 0.05em solid">Callback Hell / Pyramid of Doom</span></summary><p>
+</p><p>For instance, one such function is the setTimeout function.</p><p></p></details></li></ul><ul class="toggle"><li><details><summary><span style="border-bottom: 0.05em solid">Callback Hell / Pyramid of Doom</span></summary><p>
 In a “callback-based” style of asynchronous programming. A function that does something asynchronously (at a
 later point in time) should provide a
 <em>callback argument</em>
@@ -727,7 +727,7 @@ sometimes called “callback hell” or “pyramid of doom”:
 </p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%201.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%201.png" style="width: 384px"/></a></figure></div><p></p><p>
 (Here the loadScript function executes the anonymous function that is its second parameter if script was
 loaded successfully → the goal is to load a series of scripts sequentially)
-</p><ul class="toggle"><li><details open=""><summary><span style="border-bottom: 0.05em solid">Callback Hell example</span></summary><p>
+</p><ul class="toggle"><li><details><summary><span style="border-bottom: 0.05em solid">Callback Hell example</span></summary><p>
 Take a look at the function
 <code>loadScript(src)</code>
 , that loads a script with the given
@@ -825,7 +825,7 @@ Since ES6:
 by specifying
 <em>default</em><pre class="code"><code>function	topGrade(student,	threshold=1.5) {
 return	gpa(student)	&lt;=	threshold;
-}</code></pre></li></ul><p></p><p><span style="border-bottom: 0.05em solid">Other function concepts:</span></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Anonymous functions (= lambda expressions)</summary><p>Named function:</p><div class="indented"><pre class="code code-wrap"><code>function greet(name){ return "Hello"; }</code></pre></div><p></p><p>Anonymous function: without a name,</p><div class="indented"><pre class="code code-wrap"><code>var greet = function(name){ return "Hello";}</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Arrow Functions</summary><p>
+}</code></pre></li></ul><p></p><p><span style="border-bottom: 0.05em solid">Other function concepts:</span></p><div class="indented"><ul class="toggle"><li><details><summary>Anonymous functions (= lambda expressions)</summary><p>Named function:</p><div class="indented"><pre class="code code-wrap"><code>function greet(name){ return "Hello"; }</code></pre></div><p></p><p>Anonymous function: without a name,</p><div class="indented"><pre class="code code-wrap"><code>var greet = function(name){ return "Hello";}</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Arrow Functions</summary><p>
 Their behavior are the same as of a function. They are
 <em>anonymous functions</em>
 with a special syntax. (syntactic sugar)
@@ -862,7 +862,7 @@ Arrow functions don’t have their own
 or
 <code>super</code>
 , so they transparently fit into the surrounding context. - That makes them very useful in some cases.
-</li></ul></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Objects</summary><pre class="code"><code>var	student	= new	Object();
+</li></ul></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Objects</summary><pre class="code"><code>var	student	= new	Object();
 student.nr	= 'e11912007';
 student.name	= 'A	Student';
 student.age	= 19;
@@ -870,7 +870,7 @@ student.hasSTEOP	= true;
 student	= {	nr	: 'e120...',
 name	: 'A	Student',
 age	: 19,
-hasSTEOP	: true	};</code></pre><p>Objects have no underlying class → (Almost) everything is an object!! Objects are associative arrays.</p><ul class="bulleted-list"><li style="list-style-type: disc">key = property, value = value</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Added when value assigned</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Support dynamically adding/deleting values</li></ul><p></p><ul class="toggle"><li><details open=""><summary>JSON - JavaScript Object Notation</summary><p>
+hasSTEOP	: true	};</code></pre><p>Objects have no underlying class → (Almost) everything is an object!! Objects are associative arrays.</p><ul class="bulleted-list"><li style="list-style-type: disc">key = property, value = value</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Added when value assigned</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Support dynamically adding/deleting values</li></ul><p></p><ul class="toggle"><li><details><summary>JSON - JavaScript Object Notation</summary><p>
 The
 <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>
 (JavaScript Object Notation) is a general format to represent values and objects. It is described as in
@@ -886,7 +886,7 @@ to convert JSON back into an object.
 Limitations: Cannot de/serialize JS
 <em>functions</em>
 → JSON can not transfer data that contains functions
-</p><p></p></details></li></ul></details></li></ul><ul class="toggle"><li><details open=""><summary>Classes</summary><p><strong>operator "new"</strong></p><div class="indented"><p>
+</p><p></p></details></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Classes</summary><p><strong>operator "new"</strong></p><div class="indented"><p>
 The regular
 <code>{...}</code>
 syntax allows to create one object. But often we need to create many similar objects, like multiple users or menu
@@ -941,9 +941,9 @@ The
 method is called automatically by
 <code>new</code>
 , so we can initialize the object there.
-</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Arrays</summary><p>Heterogenous Lists</p><ul class="bulleted-list"><li style="list-style-type: disc">Add/remove elements on start/end with: push/pop/shift/unshift</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Sort array: sort/reverse</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">can be concatenated with concat</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Arrays</summary><p>Heterogenous Lists</p><ul class="bulleted-list"><li style="list-style-type: disc">Add/remove elements on start/end with: push/pop/shift/unshift</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Sort array: sort/reverse</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">can be concatenated with concat</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 String conversion with join
-<figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%202.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%202.png" style="width: 240px"/></a></figure></li></ul><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Functions as Objects</summary><p>Functions are objects too: they can have properties and methods</p><ul class="bulleted-list"><li style="list-style-type: disc">Difference to pure objects: They can be called and can return a value</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+<figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%202.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%202.png" style="width: 240px"/></a></figure></li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Functions as Objects</summary><p>Functions are objects too: they can have properties and methods</p><ul class="bulleted-list"><li style="list-style-type: disc">Difference to pure objects: They can be called and can return a value</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Definition assigned as properties (use
 <code>new</code>
 and
@@ -973,7 +973,7 @@ this.hasSteop	= true;
 var	jc	= new	Student('e0828…', ‘Jurgen	Cito',	29,	false);
 jc.finishSteop();
 //Student	{	nr:	'e0828112',	name:	'Jurgen	Cito',	age:	29,	hasSteop:	true	}
-//typeof(jc) === 'object'</code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details open=""><summary>Events</summary><ul class="toggle"><li><details open=""><summary>Pop-up Boxes</summary><p>
+//typeof(jc) === 'object'</code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Events</summary><ul class="toggle"><li><details><summary>Pop-up Boxes</summary><p>
 Confirm boxes will return "true" if ok is selected, and return "false" if cancel is selected. Alert boxes will not
 return anything. Prompt boxes will return whatever is in the text box. (Note: prompt boxes also have an optional
 second parameter, which is the text that will already be in the text box.)
@@ -985,12 +985,12 @@ Test	me!
 header.onclick =	function(){alert('Clicked!');}	//Set	event	listener	-	only	one	listener	supported
 let	func =	function()	{alert('Clicked!');}
 header.addEventListener(“click",	func)
-header.removeEventListener(“click",	func)</code></pre></div><p></p><p>Event types</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png" style="width: 432px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Modules</summary><p><a href="https://www.samanthaming.com/tidbits/79-module-cheatsheet/">
+header.removeEventListener(“click",	func)</code></pre></div><p></p><p>Event types</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png" style="width: 432px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Modules</summary><p><a href="https://www.samanthaming.com/tidbits/79-module-cheatsheet/">
 https://www.samanthaming.com/tidbits/79-module-cheatsheet/
 </a></p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%204.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%204.png" style="width: 336px"/></a></figure></div><p></p><p>Establish namespace in separate module files: Ability to create named export or default exports</p><div class="indented"><p>Rule: One module per file, one file per module</p></div><p></p><p>Export specific elements:</p><div class="indented"><pre class="code"><code>export function gpa(student) {…}          //EITHER THIS WAY
 function gpa (student) {…}; export gpa;   //OR THIS WAY</code></pre></div><p></p><p>Import in other files:</p><div class="indented"><pre class="code"><code>import	*	as	Student	from	‘./student.js';
 s	=	{…};	s.gpa	=	Student.gpa(s);	//&lt;- now gpa is in the Student namespaceimport	{	gpa	}	from	‘./student.js’;
-s	=	{…};	s.gpa	=	gpa(s); //&lt;- now gpa can be accessed directly</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary><mark class="highlight-teal">Promises</mark></summary><p class="block-color-gray">Analogy:</p><div class="indented"><p>
+s	=	{…};	s.gpa	=	gpa(s); //&lt;- now gpa can be accessed directly</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">Promises</mark></summary><p class="block-color-gray">Analogy:</p><div class="indented"><p>
 Fans have subscribed the mailing subscription list of a singer so that they get instantly notified once the next album
 becomes becomes available or if something goes wrong.
 </p></div><p></p><p>Components:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
@@ -1049,7 +1049,7 @@ to produce the result. This changes the state of the
 object:
 </p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p><p>Example: Unsuccessful</p><div class="indented"><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
 setTimeout(() =&gt; reject(new Error("Whoops!")), 1000); //"whoops" is the error statement
-}); </code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary><mark class="highlight-teal">Consumers: then, catch, finally</mark></summary><p>
+}); </code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">Consumers: then, catch, finally</mark></summary><p>
 A Promise object serves as a link between the executor (the “producing code” or “singer”) and the consuming functions (the
 “fans”), which will receive the result or error.
 </p><p>Consuming functions can be registered (subscribed) using methods .then, .catch and .finally.</p><p></p><p><code>.then</code></p><div class="indented"><pre class="code"><code>promise.then(
@@ -1067,7 +1067,7 @@ The call
 is similar to
 <code>.then(f, f)</code>
 in the sense that f always runs when the promise is settled: be it resolve or reject.
-</p><p></p></div><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary><mark class="highlight-teal">async/await</mark></summary><p>
+</p><p></p></div><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">async/await</mark></summary><p>
 The async/await pattern: allows an asynchronous, non-blocking function to be structured in a way similar to an ordinary
 synchronous function.
 </p><p></p><p><code>await</code>
@@ -1105,7 +1105,7 @@ functions always return a promise.
 return 1
 }</code></pre></div><p></p><p>...is similar to:</p><div class="indented"><pre class="code code-wrap"><code>function foo() {
 return Promise.resolve(1)
-}</code></pre></div><p></p></details></li></ul><p></p><p>Inheritance</p><ul class="toggle"><li><details open=""><summary>Object Prototypes, Prototypal inheritance</summary><p>
+}</code></pre></div><p></p></details></li></ul><p></p><p>Inheritance</p><ul class="toggle"><li><details><summary>Object Prototypes, Prototypal inheritance</summary><p>
 In JavaScript, objects have a special hidden property
 <code>[[Prototype]]</code>
 , that is either null or references another object. That object is called “a prototype”.
@@ -1135,7 +1135,7 @@ Object.prototype is top of the prototype chain (its prototype is null) (similar 
 <pre class="code"><code>var aStudent	=	{	nr	: 'e120...',	...	};				//	aStudent		-&gt;	Object.prototype
 var students	=	[	aStudent,	...	];								//	students		-&gt;	Array.prototype			-&gt;	Object.prototpye
 var	jc	= new	Student('e08…', ...);							  //	aStudent	  -&gt;	Student.prototype		-&gt;	Object.prototype
-function	print() {	...	};												//	print				-&gt;	Function.prototype	-&gt;	Object.prototype</code></pre></li></ul><p>Existing prototypes can be extended at any time: its called "monkey-patching" and should be avoided!</p><div class="indented"><pre class="code"><code>String.prototype.distance	=	function() {	...	};			//	monkey	patching</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Class inheritance</summary><p>
+function	print() {	...	};												//	print				-&gt;	Function.prototype	-&gt;	Object.prototype</code></pre></li></ul><p>Existing prototypes can be extended at any time: its called "monkey-patching" and should be avoided!</p><div class="indented"><pre class="code"><code>String.prototype.distance	=	function() {	...	};			//	monkey	patching</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Class inheritance</summary><p>
 To extend a class:
 <code>class Child</code><strong><code>extends</code></strong><code>Parent</code>
 :

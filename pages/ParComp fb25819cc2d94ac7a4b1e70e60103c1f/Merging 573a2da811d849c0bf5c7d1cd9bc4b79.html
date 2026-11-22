@@ -782,7 +782,7 @@ Co-Ranks can be understood as the indices in
 from which the merging of segment
 <mark class="highlight-gray"><code>i</code></mark><mark class="highlight-gray">(with index</mark><mark class="highlight-gray"><code>i*(n+m)/p</code></mark><mark class="highlight-gray">)</mark>
 starts.
-</div></figure></div><p></p><figure class="image"><a href="Merging%20573a2da811d849c0bf5c7d1cd9bc4b79/Untitled%205.png"><img src="Merging%20573a2da811d849c0bf5c7d1cd9bc4b79/Untitled%205.png" style="width: 240px"/></a></figure><p></p><ul class="toggle"><li><details open=""><summary>Example</summary><p><mark class="highlight-gray"><code>A[j(i), j(i+1)-1]</code></mark><mark class="highlight-gray">and</mark><mark class="highlight-gray"><code>B[k(i),k(i+1)-1]</code></mark><mark class="highlight-gray">— merged —→</mark><code><mark class="highlight-gray">C[i*(n+m)/p, (i+1)*(n+m)/p-1]</mark></code></p><p></p><pre class="code"><code>A [0, 2, 4, 6]
+</div></figure></div><p></p><figure class="image"><a href="Merging%20573a2da811d849c0bf5c7d1cd9bc4b79/Untitled%205.png"><img src="Merging%20573a2da811d849c0bf5c7d1cd9bc4b79/Untitled%205.png" style="width: 240px"/></a></figure><p></p><ul class="toggle"><li><details><summary>Example</summary><p><mark class="highlight-gray"><code>A[j(i), j(i+1)-1]</code></mark><mark class="highlight-gray">and</mark><mark class="highlight-gray"><code>B[k(i),k(i+1)-1]</code></mark><mark class="highlight-gray">— merged —→</mark><code><mark class="highlight-gray">C[i*(n+m)/p, (i+1)*(n+m)/p-1]</mark></code></p><p></p><pre class="code"><code>A [0, 2, 4, 6]
 B [1, 3, 5, 7]
 \___/  \___/
 0      1     &lt;- segments (for each processor)C [0, 1, 2, 3, 4, 5, 6, 7]
@@ -871,7 +871,7 @@ or
 Either
 <mark class="highlight-gray"><code>j = 0</code></mark><mark class="highlight-gray"></mark>
 or
-<mark class="highlight-gray"><code>B[(k)-1] &lt; A[j]</code></mark></li></ol><ol class="numbered-list" start="4" type="1"><li><mark class="highlight-gray"><code>merge(A[0,…,(j)-1], B[0,…,(k)-1]) = C[0,…,i-1]</code></mark></li></ol></div><p></p><hr/><ul class="toggle"><li><details open=""><summary>Proof of lemma</summary><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-teal">Invariant</mark><p><mark class="highlight-gray"><code>j + k = i</code></mark></p></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-teal">Transivity</mark><p><mark class="highlight-gray"><code>C[(i')-1] ≤ C[(i)-1] ≤ C[(i'')-1]</code></mark><mark class="highlight-gray"></mark>
+<mark class="highlight-gray"><code>B[(k)-1] &lt; A[j]</code></mark></li></ol><ol class="numbered-list" start="4" type="1"><li><mark class="highlight-gray"><code>merge(A[0,…,(j)-1], B[0,…,(k)-1]) = C[0,…,i-1]</code></mark></li></ol></div><p></p><hr/><ul class="toggle"><li><details><summary>Proof of lemma</summary><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-teal">Invariant</mark><p><mark class="highlight-gray"><code>j + k = i</code></mark></p></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-teal">Transivity</mark><p><mark class="highlight-gray"><code>C[(i')-1] ≤ C[(i)-1] ≤ C[(i'')-1]</code></mark><mark class="highlight-gray"></mark>
 for any
 <mark class="highlight-gray"><code>i'</code></mark>
 ,
@@ -1031,7 +1031,7 @@ It is necessary because process
 requires co-ranks of process
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>i</mi><mo>+</mo><mn>1</mn></mstyle></mrow><annotation encoding="application/x-tex">\small i+1</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.668565em; vertical-align: -0.07499700000000001em"></span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.5799960000000001em; vertical-align: 0em"></span><span class="mord sizing reset-size6 size5">1</span></span></span></span></span><span>﻿</span></span>
 .
-</p><ul class="toggle"><li><details open=""><summary>implementation</summary><p>Cost: Redundant computation of coranks, more memory</p><pre class="code"><code>par (0 &lt;= i &lt; p) {
+</p><ul class="toggle"><li><details><summary>implementation</summary><p>Cost: Redundant computation of coranks, more memory</p><pre class="code"><code>par (0 &lt;= i &lt; p) {
 // 1) get coranks -&gt; not arrays but variables j1, j2, k1, k2
 corank(i*(n+m)/p, A, n, &amp;j1, B, m, &amp;k1);
 corank((i+1)*(n+m)/p, A, n, &amp;j2, B, m, &amp;k2); // compute again

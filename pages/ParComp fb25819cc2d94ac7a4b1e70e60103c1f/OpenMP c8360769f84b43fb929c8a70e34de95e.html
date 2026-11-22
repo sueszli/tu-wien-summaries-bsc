@@ -607,7 +607,7 @@ Ends with implicit barrier synchronization
 then only the master thread is active and memory is in consistent state (All updates to shared variables completed and visible).
 </p></li></ul><pre class="code"><code>#pragma omp parallel [clause ...]
 &lt;structured block&gt;
-// implicit barrier</code></pre><hr/><ul class="toggle"><li><details open=""><summary>Example</summary><p>Iterations of loop must be independent (ie. matrix-vector multiplication)</p><pre class="code"><code>for (i=0; i&lt;n; i++) {
+// implicit barrier</code></pre><hr/><ul class="toggle"><li><details><summary>Example</summary><p>Iterations of loop must be independent (ie. matrix-vector multiplication)</p><pre class="code"><code>for (i=0; i&lt;n; i++) {
 a[i] = f(i);
 }</code></pre><pre class="code"><code>#pragma omp parallel {
 int i;
@@ -616,7 +616,7 @@ int start = omp_get_thread_num()*block;
 int end = start+block;for (i=start; i&lt;end; i++) {
 a[i] = f(i);
 }
-}</code></pre></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>// conditional clause
+}</code></pre></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>// conditional clause
 if (scalar_expression)// controlling shared variables
 private (list)
 shared (list)
@@ -630,7 +630,7 @@ Here: If
 then fixed number of threads for this region must be
 <mark class="highlight-gray"><code>num_threads(2)</code></mark>
 else the number of threads in parallel region will be 1.
-</p><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>#pragma omp parallel if (n&lt;=1000) num_threads(2) {
+</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>#pragma omp parallel if (n&lt;=1000) num_threads(2) {
 int i;
 int block = n/omp_get_num_threads();
 int start = omp_get_thread_num()*block;
@@ -659,7 +659,7 @@ It’s best practice to set
 <mark class="highlight-gray"><code>default(none)</code></mark></p></div><p></p><pre class="code"><code>shared(&lt;list of vars&gt;)
 private(&lt;list of vars&gt;) // private but not initialized
 firstprivate(&lt;list of vars&gt;) // private and initialized in masterdefault(shared) // (default mode)
-default(none) // sharing mode must be explicit for all shared variables</code></pre><ul class="toggle"><li><details open=""><summary>Example</summary><p><em>Not controlled</em></p><div class="indented"><pre class="code"><code>int *a;
+default(none) // sharing mode must be explicit for all shared variables</code></pre><ul class="toggle"><li><details><summary>Example</summary><p><em>Not controlled</em></p><div class="indented"><pre class="code"><code>int *a;
 a = (int*)malloc(n*sizeof(a*)); // will be shared#pragma omp parallel {
 int i;
 int block = n/omp_get_num_threads();
@@ -681,7 +681,7 @@ a[i] = f(i);
 for (i=0; i&lt;n; i++) {
 // iterations split
 } // implicit barrier
-}</code></pre><ul class="toggle"><li><details open=""><summary>
+}</code></pre><ul class="toggle"><li><details><summary>
 Syntactic sugar:
 <mark class="highlight-gray"><code>#pragma omp parallel for</code></mark></summary><p>
 One can’t remove the second implicit barrier (see example below) because there is no
@@ -693,7 +693,7 @@ clause for
 for (i=0; i&lt;n; i++) {
 // iterations split
 }
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Loop must be in the standardized (canonical) form</summary><p>Illegal loops:</p><pre class="code"><code>#pragma omp parallel for
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Loop must be in the standardized (canonical) form</summary><p>Illegal loops:</p><pre class="code"><code>#pragma omp parallel for
 for (;;) {
 // C open loop
 }</code></pre><pre class="code"><code>#pragma omp parallel for
@@ -703,7 +703,7 @@ if (i%2==0) continue; // legal
 }</code></pre><pre class="code"><code>#pragma omp parallel for
 for (i=0; i&lt;n; i*=2) {
 a[i] = …;
-}</code></pre></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Example: remove redundant implicit barrier</summary><pre class="code"><code>#pragma omp parallel {
+}</code></pre></details></li></ul><hr/><ul class="toggle"><li><details><summary>Example: remove redundant implicit barrier</summary><pre class="code"><code>#pragma omp parallel {
 int i;
 #pragma omp for
 for (i=0; i&lt;n; i++) {
@@ -714,7 +714,7 @@ int i;
 for (i=0; i&lt;n; i++) {
 a[i] = f(i);
 }
-}</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: combined with single</summary><pre class="code"><code>#pragma omp parallel {
+}</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: combined with single</summary><pre class="code"><code>#pragma omp parallel {
 int i;
 #pragma omp single
 readarray(b,n); // (executed once - then all threads have same view of b)
@@ -724,7 +724,7 @@ a[i] = b[i];
 }
 // implicit barrier here
 #pragma omp single nowait
-writearray(a,n);} // implicit barrier here</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>schedule (type [,chunk])
+writearray(a,n);} // implicit barrier here</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>schedule (type [,chunk])
 ordered // don't use
 private (list)
 firstprivate (list)
@@ -736,27 +736,27 @@ nowait // remove implicit barrier at end of construct</code></pre><p></p></detai
 for (i=0; i&lt;n; i++) {
 // iterations split and vector operation
 }
-}</code></pre><hr/><ul class="toggle"><li><details open=""><summary>Example: Looping on vectors (arrays)</summary><pre class="code"><code>double a[n], b[n], c[n];#pragma omp simd
+}</code></pre><hr/><ul class="toggle"><li><details><summary>Example: Looping on vectors (arrays)</summary><pre class="code"><code>double a[n], b[n], c[n];#pragma omp simd
 for (i=0; i&lt;n; i++) {
 c[i] = a[i]+b[i];
 }</code></pre><pre class="code"><code>double a[n], b[n], c[n];#pragma omp parallel for simd //
 for (i=0; i&lt;n; i++) {
 c[i] = a[i]+b[i];
-}</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>safelen(length) // how much apart concurrent iterations are allowed to be
+}</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>safelen(length) // how much apart concurrent iterations are allowed to be
 simdlen(length)
 linear(list[ : linear-step])
 aligned(list[ : alignment])
 private(list)
 lastprivate(list)
 reduction(reduction-identifier : list)
-collapse(n)</code></pre></details></li></ul><p></p></div><p></p><h2 id="59a0cb05-fd78-4663-ae0d-2170b3742458">Taskloop-construct</h2><p><code><mark class="highlight-blue">taskloop</mark></code></p><div class="indented"><p>Turns chunks of iterations into tasks - runtime decides schedule (can potentially improve).</p><div class="indented"><p>Can’t use schedule clauses.</p></div><p></p><pre class="code"><code>#pragma omp taskloop</code></pre><hr/><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>#pragma omp parallel
+collapse(n)</code></pre></details></li></ul><p></p></div><p></p><h2 id="59a0cb05-fd78-4663-ae0d-2170b3742458">Taskloop-construct</h2><p><code><mark class="highlight-blue">taskloop</mark></code></p><div class="indented"><p>Turns chunks of iterations into tasks - runtime decides schedule (can potentially improve).</p><div class="indented"><p>Can’t use schedule clauses.</p></div><p></p><pre class="code"><code>#pragma omp taskloop</code></pre><hr/><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>#pragma omp parallel
 #pragma omp single nowait
 #pragma omp taskloop collapse(2)
 for (i=0; i&lt;m; i++) {
 for (j=0; j&lt;n; j++) {
 a[i][j] = i+j;
 }
-}</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>if([ taskloop :] scalar-expr)
+}</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>if([ taskloop :] scalar-expr)
 shared(list)
 private(list)
 firstprivate(list)
@@ -773,7 +773,7 @@ nogroup</code></pre></details></li></ul><p></p></div><p></p><h2 id="c6df6379-47e
 Code sections marked as
 <mark class="highlight-gray"><code>tasks</code></mark>
 can be suspended (deferred) and later be executed by any thread in the region (by any thread).
-</p><p>All tasks must be completed by end of parallel region.</p></div><p></p><hr/><ul class="toggle"><li><details open=""><summary>Example: Quicksort</summary><p>Quicksort calls are independent.</p><div class="indented"><p>We mark each call as a task and the runtime will spawn them dynamically.</p></div><p></p><pre class="code"><code>void QuickSort(int x[],int n) {
+</p><p>All tasks must be completed by end of parallel region.</p></div><p></p><hr/><ul class="toggle"><li><details><summary>Example: Quicksort</summary><p>Quicksort calls are independent.</p><div class="indented"><p>We mark each call as a task and the runtime will spawn them dynamically.</p></div><p></p><pre class="code"><code>void QuickSort(int x[],int n) {
 if (n&lt;=1) return;pivot = choosepivot(x,n);
 ix = partition(x,n,pivot);
 QuickSort(x,ix);
@@ -827,7 +827,7 @@ Bottleneck is the
 O
 </span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span>
 partition call.
-</p></li></ul></div><p></p><p>The QuickSort DAG is “strict” → randomized work-stealing is probably efficient.</p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Counting occurences in unordered array</summary><pre class="code"><code>int search(int x, int a[], int n) {
+</p></li></ul></div><p></p><p>The QuickSort DAG is “strict” → randomized work-stealing is probably efficient.</p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Counting occurences in unordered array</summary><pre class="code"><code>int search(int x, int a[], int n) {
 if (n==1) {
 return (a[0]==x) ? 1 : 0;
 } else {
@@ -851,7 +851,7 @@ lo
 Parallelism
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(n/\log n)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mord sizing reset-size6 size5">/</span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mop sizing reset-size6 size5">
 lo
-<span style="margin-right: 0.01389em">g</span></span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></li></ul><p></p></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>if(scalar-expression)
+<span style="margin-right: 0.01389em">g</span></span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></li></ul><p></p></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>if(scalar-expression)
 final(scalar-expression)
 untied
 default(shared | none)
@@ -869,14 +869,14 @@ priority(priority-value)</code></pre></details></li></ul></div><p></p><figure cl
 // B
 }
 // …
-}</code></pre><ul class="toggle"><li><details open=""><summary>Manual solution (inefficient)</summary><p>We explicitly assign a task to a thread.</p><pre class="code"><code>#pragma omp parallel
+}</code></pre><ul class="toggle"><li><details><summary>Manual solution (inefficient)</summary><p>We explicitly assign a task to a thread.</p><pre class="code"><code>#pragma omp parallel
 if (omp_get_thread_num()==0) {
 A(…); // do this
 } else if (omp_get_thread_num()==1) {
 B(…); // do that
 } else {
 …
-}</code></pre><p>There can be more sections than threads, then we need scheduling (a thread executes more than one section).</p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Loop with two independent tasks</summary><pre class="code"><code>int i;
+}</code></pre><p>There can be more sections than threads, then we need scheduling (a thread executes more than one section).</p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Loop with two independent tasks</summary><pre class="code"><code>int i;
 float a[N], b[N], c[N], d[N];
 for (i=0; i &lt; N; i++) {
 a[i] = …;
@@ -897,7 +897,7 @@ for (i=0; i &lt; N; i++) c[i] = a[i] + b[i];
 #pragma omp section // Task 2
 for (i=0; i &lt; N; i++) d[i] = a[i] * b[i];
 }
-}</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>private (list)
+}</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>private (list)
 firstprivate (list)
 lastprivate (list)
 reduction (operator: list)
@@ -905,7 +905,7 @@ nowait // remove implicit barrier at end of construct</code></pre></details></li
 #pragma omp single {
 // some thread
 } // implicit barrier
-}</code></pre><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>#pragma omp parallel {
+}</code></pre><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>#pragma omp parallel {
 int i;
 int block = n/omp_get_num_threads();
 int start = omp_get_thread_num()*block;
@@ -915,13 +915,13 @@ readarray(b, n);
 for (i=start; i&lt;end; i++) {
 a[i] = b[i];
 }#pragma omp barrier#pragma omp single nowait
-printf("done.");} // implicit barrier</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>private (list)
+printf("done.");} // implicit barrier</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>private (list)
 firstprivate (list)
 nowait // remove implicit barrier at end of construct</code></pre></details></li></ul></div><p></p><figure class="image"><a href="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%208.png"><img src="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%208.png" style="width: 192px"/></a></figure><p></p><h2 id="15612304-4ff1-4fdd-b0a3-34732de17ceb">Master-construct</h2><p><code><mark class="highlight-blue">master</mark></code></p><div class="indented"><p>Sequential code for master-thread in parallel construct.</p><div class="indented"><p>No mutual exclusion, no barrier.</p></div><p></p><pre class="code"><code>#pragma omp parallel {
 #pragma omp master {
 // master thread 0
 }
-}</code></pre><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>#pragma omp parallel {
+}</code></pre><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>#pragma omp parallel {
 int i;
 int block = n/omp_get_num_threads();
 int start = omp_get_thread_num()*block;
@@ -933,7 +933,7 @@ for (i=start; i&lt;end; i++) {
 a[i] = b[i];
 }#pragma omp barrier#pragma omp single
 printf("done.");
-// implicit barrier} // implicit barrier</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Clauses</summary><pre class="code"><code>private (list)
+// implicit barrier} // implicit barrier</code></pre><p></p></details></li></ul><hr/><ul class="toggle"><li><details><summary>Clauses</summary><pre class="code"><code>private (list)
 firstprivate (list)
 nowait // remove implicit barrier at end of construct</code></pre></details></li></ul></div><p></p><figure class="image"><a href="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%209.png"><img src="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%209.png" style="width: 192px"/></a></figure><p></p><p></p><h1 id="7f069951-f1c1-45f9-bfba-02a10e740212">Synchronization constructs</h1><p><mark class="highlight-teal">Data-races</mark>
 should be avoided
@@ -941,7 +941,7 @@ should be avoided
 Parallel threads update an
 <em>unprotected</em>
 shared variable so that the outcome of the program dependens on the relative order in which the threads perform their updates.
-</p><p>Compilers can not check whether programs have these race conditions.</p></div><p></p><p></p><p><code><mark class="highlight-blue">barrier</mark></code></p><div class="indented"><p>Semantically synchronizes threads.</p><div class="indented"><p>Can cause deadlock if threads execute part of code that does not contain barrier.</p></div><p></p><pre class="code"><code>#pragma omp barrier</code></pre><hr/><ul class="toggle"><li><details open=""><summary>Example: Merging by coranking</summary><pre class="code"><code>// global, read-only values A, B, n, m
+</p><p>Compilers can not check whether programs have these race conditions.</p></div><p></p><p></p><p><code><mark class="highlight-blue">barrier</mark></code></p><div class="indented"><p>Semantically synchronizes threads.</p><div class="indented"><p>Can cause deadlock if threads execute part of code that does not contain barrier.</p></div><p></p><pre class="code"><code>#pragma omp barrier</code></pre><hr/><ul class="toggle"><li><details><summary>Example: Merging by coranking</summary><pre class="code"><code>// global, read-only values A, B, n, m
 int j[p+1], k[p+1]; // allocate in advance
 j[p] = n; k[p] = m;#pragma omp parallel {
 int i = omp_get_thread_num();
@@ -975,11 +975,11 @@ construct
 Enforces
 <em>mutual exclusion</em>
 in code region (always at most 1 thread at a time).
-</p><p>Order with which threads enter critical section is not set.</p><p>Updates to shared variables won’t cause a race condition.</p></div><p></p><pre class="code"><code>#pragma omp critical [(&lt;name&gt;)]</code></pre><hr/><ul class="toggle"><li><details open=""><summary>Example: Counting accesses</summary><p>Without mutual exclusion we would get a race condition.</p><pre class="code"><code>int t = 0;#pragma omp parallel shared(t)
+</p><p>Order with which threads enter critical section is not set.</p><p>Updates to shared variables won’t cause a race condition.</p></div><p></p><pre class="code"><code>#pragma omp critical [(&lt;name&gt;)]</code></pre><hr/><ul class="toggle"><li><details><summary>Example: Counting accesses</summary><p>Without mutual exclusion we would get a race condition.</p><pre class="code"><code>int t = 0;#pragma omp parallel shared(t)
 #pragma omp critical
 t++; &lt;-- possible race condition on increment
 #pragma omp barrier
-print("Threads so far %d of %d by %d\n", t, omp_get_num_threads(), omp_get_thread_num());</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: min-max reductions</summary><p>Sequential algorithm</p><div class="indented"><pre class="code"><code>max = x[0]; min = x[0];
+print("Threads so far %d of %d by %d\n", t, omp_get_num_threads(), omp_get_thread_num());</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: min-max reductions</summary><p>Sequential algorithm</p><div class="indented"><pre class="code"><code>max = x[0]; min = x[0];
 for (i=1; i&lt;n; i++) {
 if (x[i]&lt;min) min = x[i];
 if (x[i]&gt;max) max = x[i];
@@ -1005,7 +1005,7 @@ if (x[i]&gt;max) {
 #pragma omp critical(MAX)
 if (x[i]&gt;max) max = x[i];
 }
-}</code></pre></div><p></p><p></p></details></li></ul></div><p></p><p></p><p><code><mark class="highlight-blue">opm_set_lock</mark></code><mark class="highlight-blue">(lock library routines)</mark></p><div class="indented"><p>Same as pthreds mutex: Dynnamic lock.</p><div class="indented"><p>Must be allocated/initialized and destroyed again.</p><p>No guarantee for fairness.</p></div><p></p><ul class="toggle"><li><details open=""><summary>Library</summary><pre class="code"><code>#include &lt;omp.h&gt;
+}</code></pre></div><p></p><p></p></details></li></ul></div><p></p><p></p><p><code><mark class="highlight-blue">opm_set_lock</mark></code><mark class="highlight-blue">(lock library routines)</mark></p><div class="indented"><p>Same as pthreds mutex: Dynnamic lock.</p><div class="indented"><p>Must be allocated/initialized and destroyed again.</p><p>No guarantee for fairness.</p></div><p></p><ul class="toggle"><li><details><summary>Library</summary><pre class="code"><code>#include &lt;omp.h&gt;
 // set
 void omp_set_lock(omp_lock_t *lock);
 void omp_set_nest_lock(omp_nest_lock_t *lock);// unset
@@ -1016,14 +1016,14 @@ int omp_test_nest_lock(omp_nest_lock_t *lock);</code></pre></details></li></ul><
 Concurrent and read-modify-write on shared variable in
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(1)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord sizing reset-size6 size5">1</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span>
 (optimistically).
-</p><div class="indented"><p>All updates on shared variable must be atomic.</p><p>Atomic = Opeartion can not be interrupted by other threads and completes in finite (bounded) time.</p></div><p></p><pre class="code"><code>#pragma omp atomic [operation_type]</code></pre><ul class="toggle"><li><details open=""><summary>Operations: Read, Write, Update, Capture (fetch and update)</summary><pre class="code"><code>#pragma omp atomic read
+</p><div class="indented"><p>All updates on shared variable must be atomic.</p><p>Atomic = Opeartion can not be interrupted by other threads and completes in finite (bounded) time.</p></div><p></p><pre class="code"><code>#pragma omp atomic [operation_type]</code></pre><ul class="toggle"><li><details><summary>Operations: Read, Write, Update, Capture (fetch and update)</summary><pre class="code"><code>#pragma omp atomic read
 pvar = svar; // read shared variable atomically#pragma omp atomic write
 svar = pvar; // write to shared variable atomically#pragma omp atomic capture
 &lt;expression statement&gt;#pragma omp atomic capture
 &lt;structured block&gt;#pragma omp atomic update
-&lt;expression statement&gt;</code></pre><ul class="toggle"><li><details open=""><summary><mark class="highlight-gray"><code>expression statement</code></mark></summary><p><mark class="highlight-gray"><code>expr</code></mark><mark class="highlight-gray"></mark>
+&lt;expression statement&gt;</code></pre><ul class="toggle"><li><details><summary><mark class="highlight-gray"><code>expression statement</code></mark></summary><p><mark class="highlight-gray"><code>expr</code></mark><mark class="highlight-gray"></mark>
 must also be evaluated atomically and must not have side effects.
-</p><figure class="image"><a href="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2010.png"><img src="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2010.png" style="width: 336px"/></a></figure><figure class="image"><a href="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2011.png"><img src="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2011.png" style="width: 336px"/></a></figure><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary><mark class="highlight-gray"><code>structured block</code></mark></summary><ol class="numbered-list" start="1" type="1"><li>Read of shared variable</li></ol><ol class="numbered-list" start="2" type="1"><li>Update with one of the built in operators of the OpenMP standard.</li></ol><p></p></details></li></ul></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Example: Counting accesses</summary><p>This solution is better than a critical section (see above).</p><pre class="code"><code>int t = 0;#pragma omp parallel shared(t)
+</p><figure class="image"><a href="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2010.png"><img src="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2010.png" style="width: 336px"/></a></figure><figure class="image"><a href="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2011.png"><img src="OpenMP%20c8360769f84b43fb929c8a70e34de95e/Untitled%2011.png" style="width: 336px"/></a></figure><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-gray"><code>structured block</code></mark></summary><ol class="numbered-list" start="1" type="1"><li>Read of shared variable</li></ol><ol class="numbered-list" start="2" type="1"><li>Update with one of the built in operators of the OpenMP standard.</li></ol><p></p></details></li></ul></details></li></ul><hr/><ul class="toggle"><li><details><summary>Example: Counting accesses</summary><p>This solution is better than a critical section (see above).</p><pre class="code"><code>int t = 0;#pragma omp parallel shared(t)
 #pragma atomic update
 t++; &lt;-- possible race condition on increment
 #pragma omp barrier
@@ -1057,7 +1057,7 @@ for (j=0; j&lt;n; j++) {
 Like round robin: thread
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>i</mi></mstyle></mrow><annotation encoding="application/x-tex">\small i</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.593568em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">i</span></span></span></span></span><span>﻿</span></span>
 executes chunk
-<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mo stretchy="false">(</mo><mi>i</mi><mtext></mtext><mo lspace="0.22em" rspace="0.22em"><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow></mo><mtext></mtext><mi>p</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small (i \bmod p)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mspace sizing reset-size6 size5" style="margin-right: 0.05555555555555555em"></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5"><span class="mord"><span class="mord mathrm">mod</span></span></span><span class="mspace sizing reset-size6 size5" style="margin-right: 0.05555555555555555em"></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5">p</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Example: Matrix-vector multiplication</summary><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mover accent="true"><mi>y</mi><mo>⃗</mo></mover><mo>=</mo><mi>X</mi><mo>⋅</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mstyle></mrow><annotation encoding="application/x-tex">\small \vec y = X \cdot \vec a</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.817596em; vertical-align: -0.174996em"></span><span class="mord accent sizing reset-size6 size5"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.714em"><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="mord mathnormal" style="margin-right: 0.03588em">y</span></span><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="accent-body" style="left: -0.17994em"><span class="overlay" style="height: 0.714em; width: 0.471em"><svg height="0.714em" preserveaspectratio="xMinYMin" style="width: 0.471em" viewbox="0 0 471 714" width="0.471em"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mo stretchy="false">(</mo><mi>i</mi><mtext></mtext><mo lspace="0.22em" rspace="0.22em"><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow></mo><mtext></mtext><mi>p</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small (i \bmod p)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mspace sizing reset-size6 size5" style="margin-right: 0.05555555555555555em"></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5"><span class="mord"><span class="mord mathrm">mod</span></span></span><span class="mspace sizing reset-size6 size5" style="margin-right: 0.05555555555555555em"></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5">p</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></p><div class="indented"><ul class="toggle"><li><details><summary>Example: Matrix-vector multiplication</summary><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mover accent="true"><mi>y</mi><mo>⃗</mo></mover><mo>=</mo><mi>X</mi><mo>⋅</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mstyle></mrow><annotation encoding="application/x-tex">\small \vec y = X \cdot \vec a</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.817596em; vertical-align: -0.174996em"></span><span class="mord accent sizing reset-size6 size5"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.714em"><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="mord mathnormal" style="margin-right: 0.03588em">y</span></span><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="accent-body" style="left: -0.17994em"><span class="overlay" style="height: 0.714em; width: 0.471em"><svg height="0.714em" preserveaspectratio="xMinYMin" style="width: 0.471em" viewbox="0 0 471 714" width="0.471em"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
 3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
 10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
 -1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
@@ -1084,7 +1084,7 @@ y[i] = 0;
 for (j=0;j&lt;m; j++) {
 y[i] += x[i][j]*A[j];
 }
-}</code></pre><p></p></details></li></ul></div><p></p></div><p></p><hr/><p><mark class="highlight-gray"><code>schedule(</code></mark><code>dynamic</code><mark class="highlight-gray"><code>[, chunksize])</code></mark><mark class="highlight-gray">- dynamic assignment</mark></p><div class="indented"><p><mark class="highlight-gray">chunksize argument is optional (default: 1)</mark></p><p>assignment as threads become free and request work</p><div class="indented"><ul class="toggle"><li><details open=""><summary>can be implemented as work-pool</summary><p>
+}</code></pre><p></p></details></li></ul></div><p></p></div><p></p><hr/><p><mark class="highlight-gray"><code>schedule(</code></mark><code>dynamic</code><mark class="highlight-gray"><code>[, chunksize])</code></mark><mark class="highlight-gray">- dynamic assignment</mark></p><div class="indented"><p><mark class="highlight-gray">chunksize argument is optional (default: 1)</mark></p><p>assignment as threads become free and request work</p><div class="indented"><ul class="toggle"><li><details><summary>can be implemented as work-pool</summary><p>
 Thread
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>t</mi></mstyle></mrow><annotation encoding="application/x-tex">\small t</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.553572em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">t</span></span></span></span></span><span>﻿</span></span>
 where
@@ -1127,7 +1127,7 @@ large → load imbalance
 equal work per chunk → static schedule
 <p>unequal work per chunk → dynamic, guided schedule</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 equal work per iteration → large chunksize
-<p>unequal work per iteration → small chunksize</p></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Example: loop with condition</summary><pre class="code"><code>#pragma parallel for &lt;schedule&gt;
+<p>unequal work per iteration → small chunksize</p></li></ul><hr/><ul class="toggle"><li><details><summary>Example: loop with condition</summary><pre class="code"><code>#pragma parallel for &lt;schedule&gt;
 for (i=0; i&lt;n; i++) {
 if (condition(i,b,c)) a[i] = f(a[i],b[i]);
 }</code></pre><ol class="numbered-list" start="1" type="a"><li><mark class="highlight-gray"><code>condition()</code></mark><mark class="highlight-gray"></mark>
@@ -1150,7 +1150,7 @@ Independence update to shared variable in region can’t effect other regions
 Loops are parallelizable if iterations are independent
 <mark class="highlight-gray">(has to be checked by programmer)</mark>
 :
-</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Array updates only</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Each element updated in ≤ 1 iteration</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Iterations dont read elements assigned by another iteration</li></ul></div><p></p><p>Some types of dependencies can be resolved, some must be avoided with different algorithms (ie. flow dependency).</p><hr/><ul class="toggle"><li><details open=""><summary>Example: Dependency within in same iteration (allowed)</summary><pre class="code"><code>#pragma omp parallel for
+</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Array updates only</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Each element updated in ≤ 1 iteration</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Iterations dont read elements assigned by another iteration</li></ul></div><p></p><p>Some types of dependencies can be resolved, some must be avoided with different algorithms (ie. flow dependency).</p><hr/><ul class="toggle"><li><details><summary>Example: Dependency within in same iteration (allowed)</summary><pre class="code"><code>#pragma omp parallel for
 for (i=0; i&lt;n; i++) {
 a[i] = f(i);
 b[i] = g(i);
@@ -1162,29 +1162,29 @@ for (i=0; i&lt;n; i++) b[i] = g(i);
 // implicit barrier (so a and b have correct values)
 #pragma omp parallel for
 for (i=0; i&lt;n; i++) c[i] = a[i]+b[i];
-// implicit barrier</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Loop carried dependencies (can be resolved)</summary><pre class="code"><code>for (i=0; i&lt;n-k; i++) {
+// implicit barrier</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Loop carried dependencies (can be resolved)</summary><pre class="code"><code>for (i=0; i&lt;n-k; i++) {
 a[i] = a[i] + a[i+k];
 }</code></pre><p>Eliminated with temporary variables</p><pre class="code"><code>#pragma omp parallel for firstprivate(k)
 for (i=0; i&lt;n-k; i++) {
 aa[i] = a[i] + a[i+k]; // stored in temporary array
 }
 // swap a, aa (when finished)
-tmp = a; a = aa; aa = tmp;</code></pre><p></p></details></li></ul></div><p></p><p></p><h2 id="19d05d53-d503-48c9-974c-8732a2bd9012">Reduction pattern</h2><p><mark class="highlight-blue">Reduction pattern</mark></p><div class="indented"><p>global reduction variable referenced in each iteration to perform an associative operation.</p><p>Can cause data races (because we access the shared variable).</p><pre class="code"><code>for (i=k; i&lt;n; i++) sum = sum+a[i];</code></pre><p>Can be handled in 4 different ways:</p><div class="indented"><ul class="toggle"><li><details open=""><summary><em>Parallel thinking</em>
+tmp = a; a = aa; aa = tmp;</code></pre><p></p></details></li></ul></div><p></p><p></p><h2 id="19d05d53-d503-48c9-974c-8732a2bd9012">Reduction pattern</h2><p><mark class="highlight-blue">Reduction pattern</mark></p><div class="indented"><p>global reduction variable referenced in each iteration to perform an associative operation.</p><p>Can cause data races (because we access the shared variable).</p><pre class="code"><code>for (i=k; i&lt;n; i++) sum = sum+a[i];</code></pre><p>Can be handled in 4 different ways:</p><div class="indented"><ul class="toggle"><li><details><summary><em>Parallel thinking</em>
 : Reduction clause (good performance)
 </summary><pre class="code"><code>#pragma omp parallel for reduction(+,sum)
-for (i=k; i&lt;n; i++) sum = sum+a[i];</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary><em>Sequential thinking</em>
+for (i=k; i&lt;n; i++) sum = sum+a[i];</code></pre></details></li></ul><ul class="toggle"><li><details><summary><em>Sequential thinking</em>
 : Ordered clause (bad performance)
 </summary><p>Probably close to sequential loop but also has overhead.</p><pre class="code"><code>#pragma omp parallel for ordered
 for (i=k; i&lt;n; i++) {
 #pragma omp ordered
 sum = sum+a[i];
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary><em>Concurrent thinking</em>
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary><em>Concurrent thinking</em>
 : Critical section (or dynamic locks)
 </summary><p>Could have reasonable performance if work in parallel region would be significantly larger.</p><p>Correct only if operator + is commutative.</p><pre class="code"><code>#pragma omp parallel for
 for (i=k; i&lt;n; i++) {
 #pragma omp critical
 sum = sum+a[i];
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary><em>Delegating to hardware</em>
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary><em>Delegating to hardware</em>
 : Atomic operations
 </summary><p>Correct only if operator + is commutative.</p><pre class="code"><code>#pragma omp parallel for
 for (i=k; i&lt;n; i++) {
@@ -1194,12 +1194,12 @@ sum = sum+a[i];
 Stores value of
 <mark class="highlight-gray"><code>a</code></mark><mark class="highlight-gray"></mark>
 from last iteration back to pointer.
-</p><hr/><ul class="toggle"><li><details open=""><summary>Example: getting last value</summary><pre class="code"><code>int t; // global#pragma omp parallel for lastprivate(t) // private copies of t
+</p><hr/><ul class="toggle"><li><details><summary>Example: getting last value</summary><pre class="code"><code>int t; // global#pragma omp parallel for lastprivate(t) // private copies of t
 for (i=0; i&lt;n; i++) {
 if (event(i)) t = i;
 else t = -1;
 }
-// now t is index of last event or -1</code></pre></details></li></ul></div><p></p><p></p><p><code><mark class="highlight-blue">collapse</mark></code></p><div class="indented"><p>Collapses nested loops</p><hr/><ul class="toggle"><li><details open=""><summary>Example: Initializing matrix</summary><pre class="code"><code>for (i=0; i&lt;n; i++) {
+// now t is index of last event or -1</code></pre></details></li></ul></div><p></p><p></p><p><code><mark class="highlight-blue">collapse</mark></code></p><div class="indented"><p>Collapses nested loops</p><hr/><ul class="toggle"><li><details><summary>Example: Initializing matrix</summary><pre class="code"><code>for (i=0; i&lt;n; i++) {
 for (j=0; j&lt;m; j++) {
 x[i][j] = f(i,j); // thread safe but time depends on i, j
 }
@@ -1216,13 +1216,13 @@ x[i][j] = f(i,j); // thread safe but time depends on i, j
 }
 }</code></pre><p>Using clause to collapse nested loops:</p><div class="indented"><p>
 Two loops are handled as one with iteration space
-<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>n</mi><mo>⋅</mo><mi>m</mi></mstyle></mrow><annotation encoding="application/x-tex">\small n \cdot m</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.400005em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">⋅</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.387504em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">m</span></span></span></span></span><span>﻿</span></span></p><ul class="toggle"><li><details open=""><summary>Transformation of compiler</summary><pre class="code"><code>#pragma omp parallel for
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>n</mi><mo>⋅</mo><mi>m</mi></mstyle></mrow><annotation encoding="application/x-tex">\small n \cdot m</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.400005em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">⋅</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.387504em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">m</span></span></span></span></span><span>﻿</span></span></p><ul class="toggle"><li><details><summary>Transformation of compiler</summary><pre class="code"><code>#pragma omp parallel for
 for (ij=0; ij&lt;n*m; ij++) {
 i = ij/m;
 j = ij%m;
 x[i][j] = f(i,j);
-}</code></pre></details></li></ul><p>Schedule is then easier to find.</p></div><p></p></details></li></ul></div><p></p><p></p><p><code><mark class="highlight-blue">reduction</mark></code></p><div class="indented"><p><mark class="highlight-gray"><code>reduction(&lt;operator&gt;:&lt;variable list&gt;)</code></mark></p><hr/><ul class="toggle"><li><details open=""><summary>Example: Sum</summary><pre class="code"><code>for (i=0; i&lt;n; i++) sum = sum+a[i];</code></pre><pre class="code"><code>sum = 0;#pragma omp parallel for reduction(+: sum)
-for (i=0; i&lt;n; i++) sum = sum+a[i];</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Sum with conditional</summary><pre class="code"><code>#pragma omp parallel shared(a) private(i) {
+}</code></pre></details></li></ul><p>Schedule is then easier to find.</p></div><p></p></details></li></ul></div><p></p><p></p><p><code><mark class="highlight-blue">reduction</mark></code></p><div class="indented"><p><mark class="highlight-gray"><code>reduction(&lt;operator&gt;:&lt;variable list&gt;)</code></mark></p><hr/><ul class="toggle"><li><details><summary>Example: Sum</summary><pre class="code"><code>for (i=0; i&lt;n; i++) sum = sum+a[i];</code></pre><pre class="code"><code>sum = 0;#pragma omp parallel for reduction(+: sum)
+for (i=0; i&lt;n; i++) sum = sum+a[i];</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Sum with conditional</summary><pre class="code"><code>#pragma omp parallel shared(a) private(i) {
 #pragma omp master
 a = 0;#pragma omp barrier // To avoid race condition
 #pragma omp for reduction(+:a)
@@ -1231,7 +1231,7 @@ if (i%2==0) a += i;
 }
 #pragma omp single
 printf ("Sum is %d\n", a);
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: All possible operations</summary><p>
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: All possible operations</summary><p>
 Possible operators:
 <mark class="highlight-gray"><code>+</code></mark>
 ,
@@ -1274,7 +1274,7 @@ task depends on tasks that return y or take it as their argument
 Used to resolve loop carried dependencies by requiring a region to be iterated in
 <em>sequential order</em>
 .
-</p><p>Most likely results in no parallelization (slow down through serialization).</p><hr/><ul class="toggle"><li><details open=""><summary>Example: Find primes</summary><p>
+</p><p>Most likely results in no parallelization (slow down through serialization).</p><hr/><ul class="toggle"><li><details><summary>Example: Find primes</summary><p>
 Sequential implementaion -
 <mark class="highlight-gray">Sieve-of-Erathostenes</mark>
 :
@@ -1311,7 +1311,7 @@ mark[j] = false;
 #pragma omp parallel for
 for (i=2; i&lt;n; i++) {
 if (mark[i]) prime[k++] = i; // &lt;-- ILLEGAL
-}</code></pre><p>Possible solutions:</p><div class="indented"><p>Removing the parallel for-construct altogether.</p><ul class="toggle"><li><details open=""><summary>
+}</code></pre><p>Possible solutions:</p><div class="indented"><p>Removing the parallel for-construct altogether.</p><ul class="toggle"><li><details><summary>
 Enforcing sequential order in parallel region with
 <mark class="highlight-gray"><code>order</code></mark><mark class="highlight-gray"></mark>
 (inefficient)
@@ -1327,7 +1327,7 @@ mark[j] = false;
 for (i=2; i&lt;n; i++) {
 #pragma omp ordered
 if (mark[i]) prime[k++] = i;
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>
 Index computation in parallel
 <mark class="highlight-gray">= Array compaction</mark>
 (efficient)

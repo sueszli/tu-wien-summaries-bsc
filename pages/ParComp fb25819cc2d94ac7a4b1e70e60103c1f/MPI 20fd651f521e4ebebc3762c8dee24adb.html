@@ -593,7 +593,7 @@ min-height: 1em !important;
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
 <link rel="stylesheet" href="../../site.css">
-</head><body><article class="page sans"><header><h1 class="page-title">MPI</h1><p class="page-description"></p></header><div class="page-body"><ul class="toggle"><li><details open=""><summary>CLI commands for compiling</summary><p>
+</head><body><article class="page sans"><header><h1 class="page-title">MPI</h1><p class="page-description"></p></header><div class="page-body"><ul class="toggle"><li><details><summary>CLI commands for compiling</summary><p>
 On batch systems:
 <mark class="highlight-gray"></mark><mark class="highlight-gray"><code>slurm srun</code></mark>
 ,
@@ -669,7 +669,7 @@ can be manipulated with collective operations (ie.
 ,
 <mark class="highlight-gray"><code>MPI_Comm_dup</code></mark>
 , ...)
-</p></div><p></p><p><mark class="highlight-teal"><code>MPI_Group</code></mark><mark class="highlight-teal">- process groups (local)</mark></p><div class="indented"><p>ordered set of processes used for one-sided communication</p><ul class="toggle"><li><details open=""><summary>can be manipulated locally</summary><pre class="code"><code>MPI_Group_union
+</p></div><p></p><p><mark class="highlight-teal"><code>MPI_Group</code></mark><mark class="highlight-teal">- process groups (local)</mark></p><div class="indented"><p>ordered set of processes used for one-sided communication</p><ul class="toggle"><li><details><summary>can be manipulated locally</summary><pre class="code"><code>MPI_Group_union
 MPI_Group_intersection
 MPI_Group_incl, MPI_Group_excl
 MPI_Group_translate_ranks
@@ -680,7 +680,7 @@ pointers
 pointers, values
 </p><p><em>Handles</em>
 special MPI typedef’s
-</p><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>int MPI_Reduce(
+</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>int MPI_Reduce(
 void *sendbuf, // IN
 void *recvbuf, // OUT
 int count, // IN
@@ -688,7 +688,7 @@ MPI_Datatype datatype, // IN (handle)
 MPI_Op op, // IN (handle)
 int root, // IN
 MPI_Comm comm // IN (handle)
-);</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Error-status</mark></p><div class="indented"><p>Good practice: checking error status</p><pre class="code"><code>err = MPI_&lt;some MPI function&gt;(…); // returns ie. MPI_SUCCESS</code></pre><ul class="toggle"><li><details open=""><summary>List of all error codes</summary><p>One can also define new ones.</p><pre class="code"><code>MPI_SUCCESS
+);</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Error-status</mark></p><div class="indented"><p>Good practice: checking error status</p><pre class="code"><code>err = MPI_&lt;some MPI function&gt;(…); // returns ie. MPI_SUCCESS</code></pre><ul class="toggle"><li><details><summary>List of all error codes</summary><p>One can also define new ones.</p><pre class="code"><code>MPI_SUCCESS
 MPI_ERR_BUFFER
 MPI_ERR_COUNT
 MPI_ERR_TYPE
@@ -704,12 +704,12 @@ MPI_ERR_LASTCODE</code></pre><p></p></details></li></ul></div><p></p><p><mark cl
 : handle to function that will be called on error (but usually it doesn’t work and the function will just abort)
 </p><pre class="code"><code>MPI_Comm_set_errhandler(comm,errhandle)</code></pre></div><p></p><p></p><p><mark class="highlight-blue">First and last coll of MPI in application (only called once)</mark></p><div class="indented"><pre class="code"><code>MPI_Init(&amp;argc,&amp;argv);
 MPI_Finalize();</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Size of communicator and process rank</mark></p><div class="indented"><pre class="code"><code>MPI_Comm_rank(MPI_COMM_WORLD,&amp;rank);
-MPI_Comm_size(MPI_COMM_WORLD,&amp;size);</code></pre><hr/><ul class="toggle"><li><details open=""><summary>Example: Check rank and size of communicator</summary><pre class="code"><code>#include &lt;mpi.h&gt;int main(int argc, char *argv[]) {
+MPI_Comm_size(MPI_COMM_WORLD,&amp;size);</code></pre><hr/><ul class="toggle"><li><details><summary>Example: Check rank and size of communicator</summary><pre class="code"><code>#include &lt;mpi.h&gt;int main(int argc, char *argv[]) {
 int rank, size;
 MPI_Init(&amp;argc, &amp;argv); // first call, performed by all -&gt; MPI_Initialized(flag)MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
 MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank); // Who am I?fprintf(stdout,"Here is %d out of %d\n", rank, size);MPI_Finalize(); // last call, performed by all -&gt; MPI_Finalized(flag)
 return 0;
-}</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Assign task to processor</summary><pre class="code"><code>MPI_Comm_size(MPI_COMM_WORLD,&amp;size);
+}</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Assign task to processor</summary><pre class="code"><code>MPI_Comm_size(MPI_COMM_WORLD,&amp;size);
 MPI_Comm_rank(MPI_COMM_WORLD,&amp;rank);if (size&lt;10 || size&gt;1000000) MPI_Abort(comm,errcode);if (rank==0) {
 // code for rank 0; may be special
 } else if (rank%2==0) {
@@ -764,7 +764,7 @@ MPI_Get_elements(status,datatype,count);</code></pre><p>
 Both are equivalent for basic datatypes such as
 <mark class="highlight-gray"><code>MPI_INT</code></mark>
 , ...
-</p><hr/><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>#include &lt;assert.h&gt;int recvbuf[600]; // large enough
+</p><hr/><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>#include &lt;assert.h&gt;int recvbuf[600]; // large enough
 count = 600; // equal or larger to what is being sentMPI_Status status;
 success = MPI_Recv(recvbuf,count,MPI_INT,2,THISMSG,comm,&amp;status);int realcount;
 MPI_Get_count(status,MPI_INT,&amp;realcount);
@@ -782,20 +782,20 @@ Stops blocking, when message with given source, and tag in comm have arrived and
 means message with source and tag ready for reception in comm (then
 <mark class="highlight-gray"><code>status</code></mark>
 is also updated).
-</p><hr/><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>#include &lt;assert.h&gt;MPI_Status status;
+</p><hr/><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>#include &lt;assert.h&gt;MPI_Status status;
 int tag = 777;MPI_Probe(MPI_ANY_SOURCE,tag,comm,&amp;status);
 // blocking call - returns when message with tag 777 has arrived
 assert(status.MPI_TAG==tag);int source = status.MPI_SOURCE;
 int count;
 MPI_Get_count(status,MPI_INT,&amp;count); // get count
 recvbuf = (int*)malloc(count*sizeof(int)); // allocate
-MPI_Recv(recvbuf,count,MPI_INT,source,tag,comm,MPI_STATUS_IGNORE);</code></pre></details></li></ul></li></ol></div><p></p><p></p><h2 id="3cdb407e-cc4d-46b3-9403-866260c14247">Examples</h2><p><mark class="highlight-blue">Examples</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Example: Sending double and integer</summary><pre class="code"><code>int a[N];
+MPI_Recv(recvbuf,count,MPI_INT,source,tag,comm,MPI_STATUS_IGNORE);</code></pre></details></li></ul></li></ol></div><p></p><p></p><h2 id="3cdb407e-cc4d-46b3-9403-866260c14247">Examples</h2><p><mark class="highlight-blue">Examples</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Example: Sending double and integer</summary><pre class="code"><code>int a[N];
 float area;
 MPI_Send(a,N,MPI_INT,j,TAG1,MPI_COMM_WORLD); // send a
 MPI_Send(&amp;area,1,MPI_FLOAT,j,TAG2,MPI_COMM_WORLD); // send area</code></pre><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="1.2em"><mo>↓</mo></mstyle></mrow><annotation encoding="application/x-tex">\large \downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.066656em; vertical-align: -0.23332799999999998em"></span><span class="mrel sizing reset-size6 size7">↓</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code>int a[N];
 float area;
 MPI_Recv(a,N,MPI_INT,j,TAG1,MPI_COMM_WORLD); // receive a
-MPI_Recv(&amp;area,1,MPI_FLOAT,j,TAG2,MPI_COMM_WORLD); // receive area</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Sending 500 integers</summary><p>
+MPI_Recv(&amp;area,1,MPI_FLOAT,j,TAG2,MPI_COMM_WORLD); // receive area</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Sending 500 integers</summary><p>
 Process2
 <mark class="highlight-gray">-</mark><em><mark class="highlight-gray">500 integers →</mark></em><em></em>
 Process500
@@ -805,17 +805,17 @@ int sendbuf[500] = {&lt;500 integers&gt;};
 MPI_Send(sendbuf,count,MPI_INT,4,THISMSGTAG,comm);} else if (rank==4) {
 int recvbuf[count + 100]; // equal or larger than what is being sent
 MPI_Status status;
-success = MPI_Recv(recvbuf,count,MPI_INT,2,THISMSGTAG,comm,&amp;status);}</code></pre><p><em>“Start reception of message</em><mark class="highlight-gray"><code><em>THISMSGTAG</em></code></mark><em>from rank 2 in</em><mark class="highlight-gray"><code><em>comm</em></code></mark><em>, store result in</em><mark class="highlight-gray"><code><em>recvbuf</em></code></mark><em>, at most 600 consecutive integers (otherwise</em><mark class="highlight-gray"><code><em>success==MPI_ERR_TRUNCATE</em></code></mark><em>)</em></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Non matching types</summary><p>Here the types dont match.</p><div class="indented"><p>Communication would take place but its bad practice.</p><p>Type could be lost → Processors could have different endianness.</p></div><p></p><pre class="code"><code>double a;
+success = MPI_Recv(recvbuf,count,MPI_INT,2,THISMSGTAG,comm,&amp;status);}</code></pre><p><em>“Start reception of message</em><mark class="highlight-gray"><code><em>THISMSGTAG</em></code></mark><em>from rank 2 in</em><mark class="highlight-gray"><code><em>comm</em></code></mark><em>, store result in</em><mark class="highlight-gray"><code><em>recvbuf</em></code></mark><em>, at most 600 consecutive integers (otherwise</em><mark class="highlight-gray"><code><em>success==MPI_ERR_TRUNCATE</em></code></mark><em>)</em></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Non matching types</summary><p>Here the types dont match.</p><div class="indented"><p>Communication would take place but its bad practice.</p><p>Type could be lost → Processors could have different endianness.</p></div><p></p><pre class="code"><code>double a;
 MPI_Send(&amp;a,1,MPI_DOUBLE,j,1111,MPI_COMM_WORLD);</code></pre><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="1.2em"><mo>↓</mo></mstyle></mrow><annotation encoding="application/x-tex">\large \downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.066656em; vertical-align: -0.23332799999999998em"></span><span class="mrel sizing reset-size6 size7">↓</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code>double a;
-MPI_Recv(a,sizeof(double),MPI_BYTE,i,1111,MPI_COMM_WORLD,MPI_STATUS_IGNORE);</code></pre><p></p></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Synchronization with 0-count message</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Example: One sided synchronization</summary><p>MPI processes are not synchronized - messages can be used.</p><div class="indented"><p>Receiving process cannnot proceed before message arrives.</p></div><p></p><pre class="code"><code>MPI_Send(NULL,0,MPI_INT,dest,tag,comm); // 0 count message
+MPI_Recv(a,sizeof(double),MPI_BYTE,i,1111,MPI_COMM_WORLD,MPI_STATUS_IGNORE);</code></pre><p></p></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Synchronization with 0-count message</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Example: One sided synchronization</summary><p>MPI processes are not synchronized - messages can be used.</p><div class="indented"><p>Receiving process cannnot proceed before message arrives.</p></div><p></p><pre class="code"><code>MPI_Send(NULL,0,MPI_INT,dest,tag,comm); // 0 count message
 ↓
-MPI_Recv(NULL,0,MPI_INT,source,tag,comm,&amp;status);</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Pairwise synchronization</summary><pre class="code"><code>MPI_Ssend(NULL,0,MPI_INT,dest,tag,comm); // blocks until message received
+MPI_Recv(NULL,0,MPI_INT,source,tag,comm,&amp;status);</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Pairwise synchronization</summary><pre class="code"><code>MPI_Ssend(NULL,0,MPI_INT,dest,tag,comm); // blocks until message received
 ↓
 MPI_Recv(NULL,0,MPI_INT,source,tag,comm,&amp;stat);</code></pre><p></p></details></li></ul></div><p></p><p></p><h2 id="361d4dd1-8f2a-4eab-bc07-c294682f6ee7">Safe programming</h2><p><mark class="highlight-blue">Unsafe programming</mark></p><div class="indented"><p>
 It’s possible that the program does not lead to a deadlock if multiple processors
 <mark class="highlight-gray">MPI_Send()</mark>
 to eachother simultaniously.
-</p><p>The exact conditions of local-completion depend on the implementation in the library.</p><hr/><ul class="toggle"><li><details open=""><summary>Example: 2d, 5-point stencil algorithm (unsafe)</summary><p>
+</p><p>The exact conditions of local-completion depend on the implementation in the library.</p><hr/><ul class="toggle"><li><details><summary>Example: 2d, 5-point stencil algorithm (unsafe)</summary><p>
 Given
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m \times n</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em"></span><span class="mord mathnormal">n</span></span></span></span></span><span>﻿</span></span>
 matrix
@@ -865,7 +865,7 @@ Assume we are looking at view of rank
 <ol class="numbered-list" start="1" type="i"><li>Receive rows and columns of 4 neighbour-processes.</li></ol><ol class="numbered-list" start="2" type="i"><li>Send rows and columns to 4 neighbour-processes.</li></ol></li></ol><ol class="numbered-list" start="2" type="1"><li>Parallel stencil computation</li></ol></div><p></p><p></p><p>If first receiving, then sending → deadlock</p><div class="indented"><p>
 Each receive blocks until send operation starts (this never happens if multiple interdependent blocks receive
 simultaniously)
-</p></div><p></p><p>If first sending, then receiving → unsafe</p><div class="indented"><p>Deadlock only based on message size and library implementation.</p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%204.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%204.png" style="width: 192px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: 1d-stencil (unsafe)</summary><p>
+</p></div><p></p><p>If first sending, then receiving → unsafe</p><div class="indented"><p>Deadlock only based on message size and library implementation.</p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%204.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%204.png" style="width: 192px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: 1d-stencil (unsafe)</summary><p>
 Arrays
 <mark class="highlight-gray"><code>a</code></mark>
 and
@@ -902,11 +902,11 @@ void *sendbuf, int sendcount, MPI_Datatype sendtype, int dest, int sendtag,
 // receive
 void *recvbuf, int recvcount, MPI_Datatype recvtype, int source, int recvtag,
 MPI_Comm comm, MPI_Status *status
-);</code></pre><ul class="toggle"><li><details open=""><summary>In depth</summary><p>Is equivalent to</p><pre class="code"><code>// immediate send
+);</code></pre><ul class="toggle"><li><details><summary>In depth</summary><p>Is equivalent to</p><pre class="code"><code>// immediate send
 MPI_Request request;
 MPI_Irecv(recvbuf,recvcount,recvtype,source,recvtag,comm,&amp;request);// receive (wait until received)
 MPI_Send(sendbuf,sendcount,sendtype,dest,sendtag,comm);// wait (until sent message received)
-MPI_Wait(&amp;request,status);</code></pre></details></li></ul><hr/><ul class="toggle"><li><details open=""><summary>Example: 1d-stencil (safe)</summary><p>
+MPI_Wait(&amp;request,status);</code></pre></details></li></ul><hr/><ul class="toggle"><li><details><summary>Example: 1d-stencil (safe)</summary><p>
 Arrays
 <mark class="highlight-gray"><code>a</code></mark>
 and
@@ -923,7 +923,7 @@ if (rank&lt;size-1) {
 MPI_Sendrecv(…,rank-1,…,rank+1,…);
 }for (i=0; i&lt;n/p; i++) {
 b[i] = a[i-1]+a[i]+a[i+1];
-}</code></pre><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Hillis-Steele prefix sums algorithm (safe)</summary><p>
+}</code></pre><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Hillis-Steele prefix sums algorithm (safe)</summary><p>
 Round
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>k</mi></mstyle></mrow><annotation encoding="application/x-tex">\small k</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.624996em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03148em">k</span></span></span></span></span><span>﻿</span></span>
 , each process
@@ -939,7 +939,7 @@ sends partial result to
 k
 </span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></li></ol></div><p></p><pre class="code"><code>MPI_Sendrecv(…, rank+2^k, …, rank-2^k, …);</code></pre><p></p></details></li></ul></div><p></p></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%207.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%207.png" style="width: 192px"/></a></figure><p></p><div class="indented"><p><mark class="highlight-teal">C) Immediate operations</mark><mark class="highlight-teal"><code>MPI_Isend</code></mark><mark class="highlight-teal">,</mark><mark class="highlight-teal"><code>MPI_Irecv</code></mark><mark class="highlight-teal">(nonblocking operations)</mark></p><div class="indented"><p>Immediate, non-blocking, local completion.</p><div class="indented"><p>Returns immediately (but initiates operation).</p><p>Can be used to prevent deadlocks and improve performance (overlapping communication with computation).</p></div><p></p><p><em>Sending</em></p><div class="indented"><pre class="code"><code>MPI_Isend(sendbuf,…,rank,tag,comm,request);</code></pre><p><mark class="highlight-gray"><code>sendbuf</code></mark>
 can not be reused until completion has been checked.
-</p><ul class="toggle"><li><details open=""><summary>In depth</summary><pre class="code"><code>MPI_Status status;
+</p><ul class="toggle"><li><details><summary>In depth</summary><pre class="code"><code>MPI_Status status;
 MPI_Request request;
 MPI_Isend(sendbuf,…,comm,&amp;request);// check progress information
 MPI_Test(&amp;request,flag,&amp;status);</code></pre><p>
@@ -949,7 +949,7 @@ then operation has completed.
 </p><p></p><pre class="code"><code>MPI_Isend(sendbuf,…,comm,&amp;request);
 MPI_Wait(&amp;request,&amp;status);</code></pre><p>
 Is equivalent to
-<mark class="highlight-gray"><code>MPI_Send();</code></mark></p><p></p></details></li></ul></div><p></p><p><em>Receiving</em></p><div class="indented"><pre class="code"><code>MPI_Irecv(recvbuf,…,rank,tag,comm,request);</code></pre><p>Messages are received after completion.</p></div><p></p><hr/><ul class="toggle"><li><details open=""><summary>Example: 2d, 5-point stencil algorithm (safe)</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%208.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%208.png" style="width: 288px"/></a></figure></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Test and completion calls</mark></p><div class="indented"><pre class="code"><code>MPI_Test(&amp;request,flag,&amp;status); // update status in flag (boolean)
+<mark class="highlight-gray"><code>MPI_Send();</code></mark></p><p></p></details></li></ul></div><p></p><p><em>Receiving</em></p><div class="indented"><pre class="code"><code>MPI_Irecv(recvbuf,…,rank,tag,comm,request);</code></pre><p>Messages are received after completion.</p></div><p></p><hr/><ul class="toggle"><li><details><summary>Example: 2d, 5-point stencil algorithm (safe)</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%208.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%208.png" style="width: 288px"/></a></figure></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Test and completion calls</mark></p><div class="indented"><pre class="code"><code>MPI_Test(&amp;request,flag,&amp;status); // update status in flag (boolean)
 MPI_Wait(&amp;request,&amp;status); // completion non-localMPI_Waitall(number,array_of_requests,array_of_statuses)
 MPI_TestallMPI_Waitany
 MPI_TestanyMPI_Waitsome
@@ -991,7 +991,7 @@ otype,
 target,tdisp,tcount,ttype,
 op,
 win
-);</code></pre></div><p></p><p><mark class="highlight-blue">Examples</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Example: Binary search</summary><pre class="code"><code>l = -1; // lower boundary
+);</code></pre></div><p></p><p><mark class="highlight-blue">Examples</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Example: Binary search</summary><pre class="code"><code>l = -1; // lower boundary
 u = n; // upper boundarydo {
 m = (l+u)/2; // half
 if (x&lt;A[m]) {
@@ -1032,7 +1032,7 @@ l = m; // lower &lt;- half
 } while (l+1&lt;u);i = l;</code></pre><p>Alternatively, instead of fences one could use:</p><pre class="code"><code>MPI_Win_lock(MPI_LOCK_SHARED,t,0,win);
 tix = m%p; // index at target
 MPI_Get(&amp;mA,1,MPI_INT,t,tix,1,MPI_INT,win);
-MPI_Win_unlock(t,win);</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Merge</summary><p><mark class="highlight-gray"><code>merge(A,n,B,m,C)</code></mark></p><p>
+MPI_Win_unlock(t,win);</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Merge</summary><p><mark class="highlight-gray"><code>merge(A,n,B,m,C)</code></mark></p><p>
 Sorted arrays distributed in evenly sized blocks
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>n</mi><mi mathvariant="normal">/</mi><mi>p</mi></mstyle></mrow><annotation encoding="application/x-tex">\small n/p</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mord sizing reset-size6 size5">/</span><span class="mord mathnormal sizing reset-size6 size5">p</span></span></span></span></span><span>﻿</span></span>
 .
@@ -1070,11 +1070,11 @@ block.
 Access epoch
 <mark class="highlight-gray"></mark>
 Origin has access to target
-</p><p>Exposure epoch Target must expose memory</p><hr/><p>Open epoch start of access or exposure</p><p>Close epoch synchronization, communication operations become visible</p><p>End of epoch Access and exposure completed (data arrived at target)</p></div><p></p><p></p><p><mark class="highlight-blue">Synchronization in epochs</mark></p><div class="indented"><p><mark class="highlight-teal">Active (global) synchronization</mark></p><div class="indented"><p>Active global synchronization (involves origin and target).</p><div class="indented"><p>Closes previous epoch, opens a new one.</p></div><p></p><p>Collective operation, called by all processes in comm of win.</p><pre class="code"><code>MPI_Win_fence(assert,win);</code></pre><ul class="toggle"><li><details open=""><summary>Example</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2014.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2014.png" style="width: 240px"/></a></figure><p></p></details></li></ul></div><p></p><p><mark class="highlight-teal">Active (dedicated) synchronization</mark></p><div class="indented"><p>Active global synchronization (involves origin and target).</p><p>Pairwise synchronization.</p><pre class="code"><code>// open/close access epoch (targets)
+</p><p>Exposure epoch Target must expose memory</p><hr/><p>Open epoch start of access or exposure</p><p>Close epoch synchronization, communication operations become visible</p><p>End of epoch Access and exposure completed (data arrived at target)</p></div><p></p><p></p><p><mark class="highlight-blue">Synchronization in epochs</mark></p><div class="indented"><p><mark class="highlight-teal">Active (global) synchronization</mark></p><div class="indented"><p>Active global synchronization (involves origin and target).</p><div class="indented"><p>Closes previous epoch, opens a new one.</p></div><p></p><p>Collective operation, called by all processes in comm of win.</p><pre class="code"><code>MPI_Win_fence(assert,win);</code></pre><ul class="toggle"><li><details><summary>Example</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2014.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2014.png" style="width: 240px"/></a></figure><p></p></details></li></ul></div><p></p><p><mark class="highlight-teal">Active (dedicated) synchronization</mark></p><div class="indented"><p>Active global synchronization (involves origin and target).</p><p>Pairwise synchronization.</p><pre class="code"><code>// open/close access epoch (targets)
 MPI_Win_start(…,group);
 MPI_Win_complete();// open/close exposure epoch (origin)
 MPI_Win_post(…,group);
-MPI_Win_wait();</code></pre><ul class="toggle"><li><details open=""><summary>Example</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2015.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2015.png" style="width: 288px"/></a></figure><p></p></details></li></ul></div><p></p><p><mark class="highlight-teal">Passive synchronization</mark></p><div class="indented"><p>Only origin process involved.</p><p>Not a lock (critical section)</p><div class="indented"><p>difficult to use for mutual exclusion, weak mechanism</p></div><p></p><pre class="code"><code>// open/close exposure epoch (origin)
+MPI_Win_wait();</code></pre><ul class="toggle"><li><details><summary>Example</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2015.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2015.png" style="width: 288px"/></a></figure><p></p></details></li></ul></div><p></p><p><mark class="highlight-teal">Passive synchronization</mark></p><div class="indented"><p>Only origin process involved.</p><p>Not a lock (critical section)</p><div class="indented"><p>difficult to use for mutual exclusion, weak mechanism</p></div><p></p><pre class="code"><code>// open/close exposure epoch (origin)
 MPI_Win_lock(locktype,target,assertion,win);
 MPI_Win_unlock(target,win);</code></pre></div><p></p></div><p></p><p></p><p></p><h1 id="a7a56b31-1586-4586-8adb-4956f73a9e88">Collective communication</h1><figure class="block-color-gray_background callout" style="white-space: pre-wrap; display: flex"><div style="font-size: 1.5em"><span class="icon">💡</span></div><div style="width: 100%">Collectives should be used whenever possible! (better conciseness, performance)</div></figure><p></p><p><mark class="highlight-blue">Collective communication</mark></p><div class="indented"><p>
 Collective operations = all processes in
@@ -1088,13 +1088,13 @@ then all other included processes
 and
 </p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">no other collective in between</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">same root (else it deadlocks)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">consistent arguments (same size and types)</li></ul></div><p></p></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2016.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2016.png" style="width: 144px"/></a></figure><p></p><p><mark class="highlight-blue">General properties</mark></p><div class="indented"><p>Collective operations are:</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">safe won’t interfere with one another</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">blocking completion is non-local and must be fully completed to return</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 not synchronizing any process can return independent of other processes
-<p><mark class="highlight-gray">(except</mark><mark class="highlight-gray"><code>MPI_Barrier(&amp;com)</code></mark><mark class="highlight-gray">)</mark></p></li></ul></div><p></p><hr/><ul class="toggle"><li><details open=""><summary>
+<p><mark class="highlight-gray">(except</mark><mark class="highlight-gray"><code>MPI_Barrier(&amp;com)</code></mark><mark class="highlight-gray">)</mark></p></li></ul></div><p></p><hr/><ul class="toggle"><li><details><summary>
 Example:
 <mark class="highlight-gray"><code>MPI_Bcast</code></mark></summary><p><mark class="highlight-gray"><code>Bcast</code></mark><mark class="highlight-gray">sends data from root → all.</mark></p><ul class="bulleted-list"><li style="list-style-type: disc">
 blocking
 <p>root: doesn’t return untill data has left buffer</p><p>non-root: doesn’t return until data has been received in buffer</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 not synchronizing
-<p>any process can return independent of other processes</p><p></p></li></ul></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Safe vs. Unsafe</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2017.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2017.png" style="width: 288px"/></a></figure><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2018.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2018.png" style="width: 288px"/></a></figure><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2019.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2019.png" style="width: 288px"/></a><figcaption>
+<p>any process can return independent of other processes</p><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Example: Safe vs. Unsafe</summary><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2017.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2017.png" style="width: 288px"/></a></figure><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2018.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2018.png" style="width: 288px"/></a></figure><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2019.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2019.png" style="width: 288px"/></a><figcaption>
 look at
 <mark class="highlight-gray"><code>comm1</code></mark><mark class="highlight-gray"></mark>
 /
@@ -1125,11 +1125,11 @@ No
 argument
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Amount of data for sender and receiver must be equal</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Buffers of size 0 don’t have to be sent
-<ul class="toggle"><li><details open=""><summary>
+<ul class="toggle"><li><details><summary>
 Example: Implementing
 <mark class="highlight-gray"><code>no-op</code></mark><mark class="highlight-gray"></mark>
 with collective operations
-</summary><p>“Nothing broadcast”</p><pre class="code"><code>MPI_Bcast(buffer,0,MPI_CHAR,…,root,comm);</code></pre><pre class="code"><code>MPI_Bcast(buffer,0,MPI_CHAR,…,root,comm);</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>
+</summary><p>“Nothing broadcast”</p><pre class="code"><code>MPI_Bcast(buffer,0,MPI_CHAR,…,root,comm);</code></pre><pre class="code"><code>MPI_Bcast(buffer,0,MPI_CHAR,…,root,comm);</code></pre></details></li></ul><ul class="toggle"><li><details><summary>
 Example: Implementing
 <mark class="highlight-gray"><code>no-op</code></mark><mark class="highlight-gray"></mark>
 with
@@ -1161,7 +1161,7 @@ data)
 : (semantic) Synchronization
 </p></div><p></p></div><p></p><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2022.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2022.png" style="width: 120px"/></a></figure><p></p><h2 id="f924564e-7d5a-4c3e-9859-f69fda7916dd">Operations</h2><p><mark class="highlight-blue">Duplicating communicators</mark></p><div class="indented"><p>Duplicates communicator: Same processes, but also copied to different comms.</p><pre class="code"><code>MPI_Comm_dup(comm, &amp;comm1);</code></pre><p><mark class="highlight-gray"><code>comm</code></mark><mark class="highlight-gray"></mark>
 can not interfere with
-<mark class="highlight-gray"><code>comm1</code></mark></p><hr/><ul class="toggle"><li><details open=""><summary>Example: Usage in libraries</summary><p>
+<mark class="highlight-gray"><code>comm1</code></mark></p><hr/><ul class="toggle"><li><details><summary>Example: Usage in libraries</summary><p>
 Good practice when writing libraries: here the library uses
 <mark class="highlight-gray"><code>libcomm</code></mark><mark class="highlight-gray"></mark>
 and there is no interference.
@@ -1177,7 +1177,7 @@ key defines relative order in
 group
 <mark class="highlight-gray"><code>MPI_Group</code></mark><mark class="highlight-gray"></mark>
 of ordered processes
-</p><hr/><ul class="toggle"><li><details open=""><summary>Example: Even-odd split</summary><p>Used in divide and conquer algorithms.</p><pre class="code"><code>MPI_Comm_rank(comm1,&amp;rank); // get rank in comm1int color = rank%2;
+</p><hr/><ul class="toggle"><li><details><summary>Example: Even-odd split</summary><p>Used in divide and conquer algorithms.</p><pre class="code"><code>MPI_Comm_rank(comm1,&amp;rank); // get rank in comm1int color = rank%2;
 int key = 0;
 MPI_Comm_split(comm1,color,key,&amp;comm2); // split by color// find process' new rank in comm2
 MPI_Comm_size(comm2,&amp;newsize);
@@ -1189,7 +1189,7 @@ in
 if rank odd:
 <mark class="highlight-gray"><code>color == 1</code></mark><mark class="highlight-gray"></mark>
 in
-<mark class="highlight-gray"></mark><code><mark class="highlight-gray">comm2</mark></code></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2023.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2023.png" style="width: 192px"/></a></figure><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Master-worker pattern (non-scalable)</summary><p>master gives workers their work, receives result</p><p>worker synchronize independently of master</p><hr/><p>
+<mark class="highlight-gray"></mark><code><mark class="highlight-gray">comm2</mark></code></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2023.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2023.png" style="width: 192px"/></a></figure><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Master-worker pattern (non-scalable)</summary><p>master gives workers their work, receives result</p><p>worker synchronize independently of master</p><hr/><p>
 If workers use
 <mark class="highlight-gray"><code>MPI_Barrier(comm)</code></mark>
 ,
@@ -1216,11 +1216,11 @@ to enter barrier and can only return when they have done so.
 Explicit
 <mark class="highlight-gray"><code>MPI_Barrier</code></mark><mark class="highlight-gray"></mark>
 calls should never be needed for correctness of MPI programs (there is always a way to program without them).
-</p><hr/><ul class="toggle"><li><details open=""><summary>Example: Timing a function</summary><pre class="code"><code>MPI_Barrier(comm); // processes hopefully now synchronizeddouble start = MPI_Wtime();
+</p><hr/><ul class="toggle"><li><details><summary>Example: Timing a function</summary><pre class="code"><code>MPI_Barrier(comm); // processes hopefully now synchronizeddouble start = MPI_Wtime();
 &lt;something to be timed&gt;
 double stop = MPI_Wtime();double local_time = stop-start;
 double spent_time; // time for slowest process
-MPI_Allreduce(&amp;local_time,&amp;spent_time,1,MPI_DOUBLE,MPI_MAX,comm);</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Bcast</mark></p><div class="indented"><p>distributes data: root → all</p><pre class="code"><code>MPI_Bcast(buffer,count,datatype,root,comm); // root stays the same for all</code></pre><p>Root sends data to all other non-root processes.</p><p>Any process can be the root.</p><hr/><ul class="toggle"><li><details open=""><summary>Example: Different sizes (unsafe)</summary><pre class="code"><code>int matrixdims[3]; // 3 dimensional matrixif (rank==0) {
+MPI_Allreduce(&amp;local_time,&amp;spent_time,1,MPI_DOUBLE,MPI_MAX,comm);</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Bcast</mark></p><div class="indented"><p>distributes data: root → all</p><pre class="code"><code>MPI_Bcast(buffer,count,datatype,root,comm); // root stays the same for all</code></pre><p>Root sends data to all other non-root processes.</p><p>Any process can be the root.</p><hr/><ul class="toggle"><li><details><summary>Example: Different sizes (unsafe)</summary><pre class="code"><code>int matrixdims[3]; // 3 dimensional matrixif (rank==0) {
 MPI_Bcast(matrixdims,3,MPI_INT,0,comm); // different sizes: 3
 } else {
 MPI_Bcast(matrixdims,2,MPI_INT,0,comm); // different sizes: 2
@@ -1228,7 +1228,7 @@ MPI_Bcast(matrixdims,2,MPI_INT,0,comm); // different sizes: 2
 sbuf,scount,stype, // sender
 rbuf,rcount,rtype, // receiver
 root,comm
-);</code></pre><ul class="toggle"><li><details open=""><summary>Alternative</summary><p>The implementation is much more efficient.</p><pre class="code"><code>// root
+);</code></pre><ul class="toggle"><li><details><summary>Alternative</summary><p>The implementation is much more efficient.</p><pre class="code"><code>// root
 if (rank==root) {
 // receive from others
 for (…i!=root…) {
@@ -1274,7 +1274,7 @@ can be prevented with
 argument for
 <mark class="highlight-gray"><code>sbuf</code></mark>
 .
-</p><p>this means: result from root is already in place.</p></div><p></p><hr/><ul class="toggle"><li><details open=""><summary>Example: Scatter-Gather pattern</summary><p>
+</p><p>this means: result from root is already in place.</p></div><p></p><hr/><ul class="toggle"><li><details><summary>Example: Scatter-Gather pattern</summary><p>
 Distribute data with
 <mark class="highlight-gray"><code>MPI_Scatter(A,...)</code></mark>
 of size
@@ -1301,7 +1301,7 @@ MPI_Gather( // root: b -&gt; c
 b,n/p,MPI_INT,
 c,n/p,MPI_INT,
 root,comm
-);</code></pre><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2029.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2029.png" style="width: 192px"/></a></figure><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: barrier (unsafe)</summary><p>
+);</code></pre><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2029.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2029.png" style="width: 192px"/></a></figure><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: barrier (unsafe)</summary><p>
 May have better performance than
 <mark class="highlight-gray"><code>send-recv</code></mark><mark class="highlight-gray"></mark>
 since we don’t actually send empty messages (but it depends on the implementation → unsafe)
@@ -1310,7 +1310,7 @@ MPI_Scatter(NULL,0,MPI_BYTE,NULL,0,MPI_BYTE,0,comm);</code></pre></details></li>
 sbuf,scount,stype, // send
 rbuf,rcount,rtype, // receive
 comm
-);</code></pre><ul class="toggle"><li><details open=""><summary>Alternative</summary><pre class="code"><code>MPI_Gather(sbuf,…,rbuf,…,0,comm);
+);</code></pre><ul class="toggle"><li><details><summary>Alternative</summary><pre class="code"><code>MPI_Gather(sbuf,…,rbuf,…,0,comm);
 MPI_Bcast(rbuf,size*rcount,rtype,…,0,comm);</code></pre><pre class="code"><code>for (i) { // all-to-all broadcast
 if (i==rank) MPI_Bcast(sbuf,…,i,comm);
 else MPI_Bcast(rbuf+i*rcount*extent(rtype),…,i,comm);
@@ -1365,7 +1365,7 @@ root,comm
 Block from process
 <mark class="highlight-gray"><code>i</code></mark><mark class="highlight-gray"></mark>
 is stored at:
-<mark class="highlight-gray"><code>rbuf+disp[i]*extent(rtype)</code></mark></p><hr/><ul class="toggle"><li><details open=""><summary>Example: Root gathers initially unknown amount of data from all processes</summary><p><mark class="highlight-gray"><code>scount</code></mark>
+<mark class="highlight-gray"><code>rbuf+disp[i]*extent(rtype)</code></mark></p><hr/><ul class="toggle"><li><details><summary>Example: Root gathers initially unknown amount of data from all processes</summary><p><mark class="highlight-gray"><code>scount</code></mark>
 and
 <mark class="highlight-gray"><code>rcounts[i]</code></mark>
 must match.
@@ -1476,7 +1476,7 @@ as argument for
 , then input is taken from
 <mark class="highlight-gray"><code>rbuf</code></mark>
 .
-</p><hr/><ul class="toggle"><li><details open=""><summary>Example: Single scalar</summary><pre class="code"><code>if (rank==root) {
+</p><hr/><ul class="toggle"><li><details><summary>Example: Single scalar</summary><pre class="code"><code>if (rank==root) {
 x = rank;
 MPI_Reduce(&amp;x,&amp;y,1,MPI_INT,MPI_SUM,root,comm);
 if (y!=(size*(size-1))/2) printf("Error!\n");
@@ -1484,7 +1484,7 @@ if (y!=(size*(size-1))/2) printf("Error!\n");
 } else {
 x = rank;
 MPI_Reduce(&amp;x,&amp;y,1,MPI_INT,MPI_SUM,root,comm);
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Ring</summary><p>Root passes vector to next process ... and so on ... until it reaches root again.</p><p><mark class="highlight-teal">Idea</mark></p><div class="indented"><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mi>x</mi><mn>3</mn></msub><mo>+</mo><mo>…</mo><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>y</mi></mstyle></mrow><annotation encoding="application/x-tex">
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Ring</summary><p>Root passes vector to next process ... and so on ... until it reaches root again.</p><p><mark class="highlight-teal">Idea</mark></p><div class="indented"><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mi>x</mi><mn>3</mn></msub><mo>+</mo><mo>…</mo><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>y</mi></mstyle></mrow><annotation encoding="application/x-tex">
 \small x_{0}+x_{1}+x_{2}+x_3+\ldots+x_{p-2}+x_{p-1}=y
 </annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.599994em; vertical-align: -0.07499700000000001em"></span><span class="minner sizing reset-size6 size5">…</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.776661em; vertical-align: -0.25166400000000005em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6391680000000001em; vertical-align: -0.25166400000000005em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel sizing reset-size6 size5">=</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 0.5625em; vertical-align: -0.174996em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03588em">y</span></span></span></span></span><span>﻿</span></span></p><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mo>…</mo><mo>+</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mi>y</mi></mstyle></mrow><annotation encoding="application/x-tex">
 \small (x_{0}+x_{1})+(x_{2}+x_3)+\ldots+(x_{p-2}+x_{p-1})=y
@@ -1534,7 +1534,7 @@ as argument for
 , then input is taken from
 <mark class="highlight-gray"><code>rbuf</code></mark>
 .
-</p></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2040.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2040.png" style="width: 96px"/></a></figure><p></p><p><mark class="highlight-blue">Reduce_scatter_block</mark></p><div class="indented"><pre class="code"><code>MPI_Reduce_scatter_block(sbuf,rbuf,count,type,op,comm);</code></pre><ul class="toggle"><li><details open=""><summary>Alternative</summary><p>
+</p></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2040.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2040.png" style="width: 96px"/></a></figure><p></p><p><mark class="highlight-blue">Reduce_scatter_block</mark></p><div class="indented"><pre class="code"><code>MPI_Reduce_scatter_block(sbuf,rbuf,count,type,op,comm);</code></pre><ul class="toggle"><li><details><summary>Alternative</summary><p>
 Can also be expressed through
 <mark class="highlight-gray"><code>Reduce_scatter</code></mark></p><p>Here we took an arbitrary size for the counts.</p><pre class="code"><code>MPI_Reduce_scatter_block(partial,result,n/p,MPI_FLOAT,MPI_SUM,comm);</code></pre><pre class="code"><code>for (i=0; i&lt;p; i++) counts[i] = n/p;
 MPI_Reduce_scatter(partial,result,counts,MPI_FLOAT,MPI_SUM,comm);</code></pre><p></p></details></li></ul><p>

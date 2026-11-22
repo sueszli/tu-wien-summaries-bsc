@@ -613,7 +613,7 @@ end = (rank+1)*n/pfor (i=start; i&lt;end; i++) {
 a[i] = f(i);
 }</code></pre><p><mark class="highlight-gray"><code>rank</code></mark><mark class="highlight-gray"></mark>
 is the virtual thread id and is set by the spawning thread.
-</p><ul class="toggle"><li><details open=""><summary>implementation (in depth)</summary><p>Using the argument struct</p><pre class="code"><code>typedef struct {
+</p><ul class="toggle"><li><details><summary>implementation (in depth)</summary><p>Using the argument struct</p><pre class="code"><code>typedef struct {
 int *array;
 int n;
 int rank;
@@ -629,7 +629,7 @@ int end = start+n/p;
 for (i=start; i&lt;end; i++) {
 a[i] = f(i);
 }
-}</code></pre><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>example: matrix-vector product</summary><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mover accent="true"><mi>y</mi><mo>⃗</mo></mover><mo>=</mo><mi>X</mi><mo>⋅</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mstyle></mrow><annotation encoding="application/x-tex">\small \vec y = X \cdot \vec a</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.817596em; vertical-align: -0.174996em"></span><span class="mord accent sizing reset-size6 size5"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.714em"><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="mord mathnormal" style="margin-right: 0.03588em">y</span></span><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="accent-body" style="left: -0.17994em"><span class="overlay" style="height: 0.714em; width: 0.471em"><svg height="0.714em" preserveaspectratio="xMinYMin" style="width: 0.471em" viewbox="0 0 471 714" width="0.471em"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+}</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>example: matrix-vector product</summary><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mover accent="true"><mi>y</mi><mo>⃗</mo></mover><mo>=</mo><mi>X</mi><mo>⋅</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mstyle></mrow><annotation encoding="application/x-tex">\small \vec y = X \cdot \vec a</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.817596em; vertical-align: -0.174996em"></span><span class="mord accent sizing reset-size6 size5"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.714em"><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="mord mathnormal" style="margin-right: 0.03588em">y</span></span><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="accent-body" style="left: -0.17994em"><span class="overlay" style="height: 0.714em; width: 0.471em"><svg height="0.714em" preserveaspectratio="xMinYMin" style="width: 0.471em" viewbox="0 0 471 714" width="0.471em"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
 3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
 10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
 -1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
@@ -646,7 +646,7 @@ y[i] = 0;
 for (j=0; j&lt;m; j++) {
 y[i] += x[i][j]*A[j];
 }
-}</code></pre></div><p></p><p>Parallel solution</p><div class="indented"><ul class="toggle"><li><details open=""><summary>using cache ineffectively</summary><p>
+}</code></pre></div><p></p><p>Parallel solution</p><div class="indented"><ul class="toggle"><li><details><summary>using cache ineffectively</summary><p>
 Thread with
 <mark class="highlight-gray"><code>id</code></mark>
 rank rank handles every
@@ -666,14 +666,14 @@ y[i] = 0;
 for (j=0;j&lt;m; j++) {
 y[i] += x[i][j]*a[j];
 }
-}</code></pre><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%203.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%203.png" style="width: 192px"/></a></figure></div><p></p></details></li></ul><p></p><p></p></div><p></p><h1 id="8eac42b3-f1c1-4bd3-8cae-5b759399aaeb">Synchronization</h1><p>Synchronization / coordination constructs (from concurrent computing) prevent malicious non-determinism (ie. race conditions).</p><div class="indented"><p>Allow solving algorithms under weak memory consistency assumptions.</p></div><p></p><p></p><p><mark class="highlight-blue">Race condition</mark></p><div class="indented"><p>Outcome of parallel program execution depends on the relative timing of the updates by processors/threads (in an undesired way).</p></div><p></p><p><mark class="highlight-blue">Data race</mark></p><div class="indented"><p>Several threads (or cores, processes, …) compete for updating a shared variable.</p><p>Outcome depends on relative timing.</p></div><p></p><p><mark class="highlight-blue">Deadlock</mark></p><div class="indented"><p>Two or more threads in situation where they depend on eachother and can’t progress.</p><p>Deadlocks spread to all threads and eventually the program can not terminate.</p><ul class="toggle"><li><details open=""><summary>example</summary><pre class="code"><code>pthread_mutex_t lock1 = PTHREAD_MUTEX_INITIALIZER;
+}</code></pre><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%203.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%203.png" style="width: 192px"/></a></figure></div><p></p></details></li></ul><p></p><p></p></div><p></p><h1 id="8eac42b3-f1c1-4bd3-8cae-5b759399aaeb">Synchronization</h1><p>Synchronization / coordination constructs (from concurrent computing) prevent malicious non-determinism (ie. race conditions).</p><div class="indented"><p>Allow solving algorithms under weak memory consistency assumptions.</p></div><p></p><p></p><p><mark class="highlight-blue">Race condition</mark></p><div class="indented"><p>Outcome of parallel program execution depends on the relative timing of the updates by processors/threads (in an undesired way).</p></div><p></p><p><mark class="highlight-blue">Data race</mark></p><div class="indented"><p>Several threads (or cores, processes, …) compete for updating a shared variable.</p><p>Outcome depends on relative timing.</p></div><p></p><p><mark class="highlight-blue">Deadlock</mark></p><div class="indented"><p>Two or more threads in situation where they depend on eachother and can’t progress.</p><p>Deadlocks spread to all threads and eventually the program can not terminate.</p><ul class="toggle"><li><details><summary>example</summary><pre class="code"><code>pthread_mutex_t lock1 = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t lock2 = PTHREAD_MUTEX_INITIALIZER;</code></pre><div class="column-list"><div class="column" style="width: 50%"><pre class="code"><code>…
 pthread_mutex_lock(&amp;lock1);
 pthread_mutex_lock(&amp;lock2);
 …</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code>…
 pthread_mutex_lock(&amp;lock2);
 pthread_mutex_lock(&amp;lock1);
-…</code></pre></div></div></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Shared resources</mark></p><div class="indented"><p>Simple variables, data structures, devices, ... accessible by multiple threads</p></div><p></p><p><mark class="highlight-blue">Critical section</mark></p><div class="indented"><p>The manipulated shared resources by code, are not allowed to be manipulated by other entities (threads, processes, ...) concurrently.</p></div><p></p><p><mark class="highlight-blue">Mutual exclusion property</mark></p><div class="indented"><p>There is at most one thread in critical section at any fiven time.</p></div><p></p><p></p><h2 id="16997797-85b4-49df-b387-22a76b2698bb">Safety</h2><p><mark class="highlight-blue">pthreads memory model for “safe” programs</mark></p><div class="indented"><p>Thread not allowed to update variables outside of critical sections.</p><p><mark class="highlight-gray">(Lock constructs used to ensure consistent memory views)</mark></p></div><p></p><p><mark class="highlight-blue">Thread safe functions</mark></p><div class="indented"><p>Function can be executed concurrently by any number of threads and will always produce the correct result.</p><ul class="toggle"><li><details open=""><summary>Non-thread safe functions have side effects</summary><ul class="bulleted-list"><li style="list-style-type: disc">Don’t protect (write access) to shared (ie. static) variables</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Keep a state over successive invocations</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Return pointers to static variables</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+…</code></pre></div></div></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Shared resources</mark></p><div class="indented"><p>Simple variables, data structures, devices, ... accessible by multiple threads</p></div><p></p><p><mark class="highlight-blue">Critical section</mark></p><div class="indented"><p>The manipulated shared resources by code, are not allowed to be manipulated by other entities (threads, processes, ...) concurrently.</p></div><p></p><p><mark class="highlight-blue">Mutual exclusion property</mark></p><div class="indented"><p>There is at most one thread in critical section at any fiven time.</p></div><p></p><p></p><h2 id="16997797-85b4-49df-b387-22a76b2698bb">Safety</h2><p><mark class="highlight-blue">pthreads memory model for “safe” programs</mark></p><div class="indented"><p>Thread not allowed to update variables outside of critical sections.</p><p><mark class="highlight-gray">(Lock constructs used to ensure consistent memory views)</mark></p></div><p></p><p><mark class="highlight-blue">Thread safe functions</mark></p><div class="indented"><p>Function can be executed concurrently by any number of threads and will always produce the correct result.</p><ul class="toggle"><li><details><summary>Non-thread safe functions have side effects</summary><ul class="bulleted-list"><li style="list-style-type: disc">Don’t protect (write access) to shared (ie. static) variables</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Keep a state over successive invocations</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Return pointers to static variables</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 call thread-unsafe functions
 <p><mark class="highlight-gray">these unsafe functions can also be system functions:</mark></p><div class="indented"><p class="block-color-gray">
 ie.
@@ -685,7 +685,7 @@ keep internal state in static variables
 solution: using
 <code><mark class="highlight-gray">random_r()</mark></code>
 with an explicit state, locking, ...
-</p><p class="block-color-gray">problem: serialization can lead to slowdown, deadlocks, ...</p></div><p></p></li></ul></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: concurrent read and thread-safety</summary><p>
+</p><p class="block-color-gray">problem: serialization can lead to slowdown, deadlocks, ...</p></div><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Example: concurrent read and thread-safety</summary><p>
 Where
 <mark class="highlight-gray"><code>x</code></mark><mark class="highlight-gray"></mark>
 is the input.
@@ -740,7 +740,7 @@ if (flag) {
 a = x;
 flag = 0;
 }
-unlock(&amp;lock);</code></pre></div></div></div><p></p><p></p><p><mark class="highlight-blue">Example: using locks</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>unsafe program: race condition</summary><p>
+unlock(&amp;lock);</code></pre></div></div></div><p></p><p></p><p><mark class="highlight-blue">Example: using locks</mark></p><div class="indented"><ul class="toggle"><li><details><summary>unsafe program: race condition</summary><p>
 initial value:
 <mark class="highlight-gray"><code>x = 0;</code></mark></p><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>if (flag) {
 a = x;
@@ -757,7 +757,7 @@ Either
 is some unintended value of
 <mark class="highlight-gray"><code>x</code></mark><mark class="highlight-gray"></mark>
 (before it was initialized) or 27.
-</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Both threads might enter critical secion</li></ul></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>safe program (implements pattern)</summary><p>
+</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Both threads might enter critical secion</li></ul></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>safe program (implements pattern)</summary><p>
 what is the intended value of
 <mark class="highlight-gray"><code>a</code></mark><mark class="highlight-gray"></mark>
 for thread0, thread1?
@@ -779,7 +779,7 @@ unlock(&amp;lock);</code></pre></div></div><p>Conclusion:</p><div class="indente
 Both read and write accesses to
 <mark class="highlight-gray"><code>x</code></mark><mark class="highlight-gray"></mark>
 now protected by lock (mutex).
-</p><p>Mutual exclusion, consistent memory ensured by locking.</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>unsafe program: deadlock</summary><p>
+</p><p>Mutual exclusion, consistent memory ensured by locking.</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>unsafe program: deadlock</summary><p>
 what is the intended value of
 <mark class="highlight-gray"><code>a</code></mark><mark class="highlight-gray"></mark>
 for thread0, thread1?
@@ -796,7 +796,7 @@ unlock(&amp;lock1);
 unlock(&amp;lock2);</code></pre><pre class="code"><code>lock(&amp;lock1);
 flag = 1;
 x = 27;
-unlock(&amp;lock1);</code></pre><hr/><p>Conclusion: Deadlock</p><div class="indented"><p>Deadlock occurs if thread0 and thread1 try to progress “simultaniously” by each alternately executing one instruction</p></div><p></p><p></p></details></li></ul></div><p></p><p><mark class="highlight-blue">Example: using global locks</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>List procesing: locking entire list</summary><p><mark class="highlight-gray"><code>delete(e)</code></mark>
+unlock(&amp;lock1);</code></pre><hr/><p>Conclusion: Deadlock</p><div class="indented"><p>Deadlock occurs if thread0 and thread1 try to progress “simultaniously” by each alternately executing one instruction</p></div><p></p><p></p></details></li></ul></div><p></p><p><mark class="highlight-blue">Example: using global locks</mark></p><div class="indented"><ul class="toggle"><li><details><summary>List procesing: locking entire list</summary><p><mark class="highlight-gray"><code>delete(e)</code></mark>
 operation:
 </p><div class="indented"><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-gray"><code>lock(listlock)</code></mark></li></ol><ol class="numbered-list" start="2" type="1"><li>
 scan sequentially until element
@@ -806,7 +806,7 @@ is found
 dereference / free
 <mark class="highlight-gray"><code>e</code></mark><mark class="highlight-gray"></mark>
 from list via its predecessor
-</li></ol><ol class="numbered-list" start="4" type="1"><li><mark class="highlight-gray"><code>unlock(listlock)</code></mark></li></ol></div><p></p><hr/><p><em>This is inefficient: Thread using list blocks all other threads for</em><em><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(n)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></em><em>steps for list of size</em><em><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>n</mi></mstyle></mrow><annotation encoding="application/x-tex">\small n</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.387504em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span></span></span></span></span><span>﻿</span></span></em><em>.</em></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>List procesing: locking each element individually</summary><p><mark class="highlight-gray"><code>insert(e)</code></mark>
+</li></ol><ol class="numbered-list" start="4" type="1"><li><mark class="highlight-gray"><code>unlock(listlock)</code></mark></li></ol></div><p></p><hr/><p><em>This is inefficient: Thread using list blocks all other threads for</em><em><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(n)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></em><em>steps for list of size</em><em><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>n</mi></mstyle></mrow><annotation encoding="application/x-tex">\small n</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.387504em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span></span></span></span></span><span>﻿</span></span></em><em>.</em></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>List procesing: locking each element individually</summary><p><mark class="highlight-gray"><code>insert(e)</code></mark>
 operation:
 </p><div class="indented"><p>
 We want to insert element
@@ -848,7 +848,7 @@ Insert: first lock
 Delete: first lock
 <mark class="highlight-gray"><code>e2</code></mark>
 , then
-<mark class="highlight-gray"><code>e1</code></mark></li></ul></div><p></p><p>Then by executing them both a deadlock occurs</p></div><p></p><p></p></details></li></ul></div><p></p><p><mark class="highlight-blue">Example: using read/write locks</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Reading arbitrary value</summary><pre class="code"><code>pthread_rwlock_t lock = PTHREAD_RWLOCK_INITIALIZER;
+<mark class="highlight-gray"><code>e1</code></mark></li></ul></div><p></p><p>Then by executing them both a deadlock occurs</p></div><p></p><p></p></details></li></ul></div><p></p><p><mark class="highlight-blue">Example: using read/write locks</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Reading arbitrary value</summary><pre class="code"><code>pthread_rwlock_t lock = PTHREAD_RWLOCK_INITIALIZER;
 flag = false;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>rdlock(&amp;lock);
 if (flag) {
 a = x;
@@ -866,7 +866,7 @@ Therefore the thread0, thread1 either read the old
 value (
 <mark class="highlight-gray"><code>== 0</code></mark>
 ) or new value set by thread2.
-</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>
+</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>
 Reading newly assigned value (deadlock possible) → can be solved with
 <mark class="highlight-teal">condiction variables</mark></summary><pre class="code"><code>pthread_rwlock_t lock = PTHREAD_RWLOCK_INITIALIZER;
 flag = false;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>rdlock(&amp;lock);
@@ -903,16 +903,16 @@ pthread_cond_wait(&amp;cond, &amp;lock); // wait and release lock temporarily
 // thread has been signaled, condition holds, lock is acquired again// :: critical section
 unlock(&amp;lock);</code></pre></div><p></p><p>
 Thread broadcasting signal (signaling thread)
-<mark class="highlight-gray">— can be done inside or outside the critical section</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary><mark class="highlight-teal"><em>Inside</em></mark></summary><pre class="code"><code>lock(&amp;lock);
+<mark class="highlight-gray">— can be done inside or outside the critical section</mark></p><div class="indented"><ul class="toggle"><li><details><summary><mark class="highlight-teal"><em>Inside</em></mark></summary><pre class="code"><code>lock(&amp;lock);
 // critical section ::... // establishing condition
 cond_signal(&amp;cond); // signal if condition holds// :: critical section
 unlock(&amp;lock);</code></pre><ul class="bulleted-list"><li style="list-style-type: disc">
 Advantage: Establishing condition in critical section → therefore it should hold when suspended thread is resumed.
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Disadvantage: Suspended thread will block on mutex again - until signaling thread leaves the section.
-</li></ul></details></li></ul><ul class="toggle"><li><details open=""><summary><mark class="highlight-teal"><em>Outside</em></mark></summary><pre class="code"><code>lock(&amp;lock);
+</li></ul></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal"><em>Outside</em></mark></summary><pre class="code"><code>lock(&amp;lock);
 ... // establishing condition (in critical section)
-unlock(&amp;lock);cond_signal(&amp;cond); // signal</code></pre><ul class="bulleted-list"><li style="list-style-type: disc">Advantage: Suspended thread can immediately continue without blocking.</li></ul></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Readers-writers lock (with condition variables and locks) → unfair</summary><pre class="code"><code>typedef struct {
+unlock(&amp;lock);cond_signal(&amp;cond); // signal</code></pre><ul class="bulleted-list"><li style="list-style-type: disc">Advantage: Suspended thread can immediately continue without blocking.</li></ul></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Readers-writers lock (with condition variables and locks) → unfair</summary><pre class="code"><code>typedef struct {
 int readers; // actice readers
 int writer;	// (boolean) active writer
 int waiting; // pending writes (writers in queue)
@@ -949,7 +949,7 @@ pthread_cond_broadcast(&amp;rwlock-&gt;reader_ok); // reader || no waiting write
 }</code></pre><p>
 The signal in the release function could also be sent outside the critical section, but it would change up the semantics
 (readers/writers can be changed by other threads after unlock).
-</p><p>This way, we release the signal but keep the lock - therefore the signalled threads get blocked when they wake up.</p><p>Correctness can be proven using invariants.</p><p></p><p><mark class="highlight-teal">Problem: Unfairness</mark></p><div class="indented"><p>Threads acquiring write can starve threads wanting to acquire read.</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Newer writer can starve older writer</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Newer reader can acquire lock before older reader or writer</li></ul></div><p></p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details open=""><summary>Barrier synchronization (with condition variables and locks) → inefficient</summary><p>
+</p><p>This way, we release the signal but keep the lock - therefore the signalled threads get blocked when they wake up.</p><p>Correctness can be proven using invariants.</p><p></p><p><mark class="highlight-teal">Problem: Unfairness</mark></p><div class="indented"><p>Threads acquiring write can starve threads wanting to acquire read.</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Newer writer can starve older writer</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Newer reader can acquire lock before older reader or writer</li></ul></div><p></p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Barrier synchronization (with condition variables and locks) → inefficient</summary><p>
 Each thread executing
 <mark class="highlight-gray"><code>&lt;barrier&gt;</code></mark>
 must wait until all or some number of threads have also executed
@@ -982,7 +982,7 @@ up if it was negative
 atomic decrement → blocks
 <mark class="highlight-gray"><code>x</code></mark><mark class="highlight-gray"></mark>
 if it turned negative
-<mark class="highlight-gray">(wait, P)</mark></p></div><p></p><p>If there is no thread in queue, the signals are not lost (contrary to condition variables).</p><p></p></div><p></p><h2 id="f79595fa-bf9e-41c3-8365-88bd87505450">Atomic operation</h2><p><mark class="highlight-blue">Atomic operation</mark></p><div class="indented"><p>Update to memory location or complex object that is atomic (can not be delayed, in one, uninterrupted):</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Indivisible either the whole result or nothing is seen by other threads</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Time bounded completed in finite time (wait-free, independent of other threads)</li></ul></div><p></p><p>Usually done by hardware:</p><div class="indented"><p>Require expensive hardware support and complex interaction with memory system (ie. cache-line invalidation).</p><ul class="bulleted-list"><li style="list-style-type: disc">load/stores atomic loads and stores (can be ordered in program)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">ready-modify-write read, update, store</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Swap swap two memory locations (based on condition)</li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example: finding all primes in interval</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Finding all primes in interval with atomic operation</summary><p>
+<mark class="highlight-gray">(wait, P)</mark></p></div><p></p><p>If there is no thread in queue, the signals are not lost (contrary to condition variables).</p><p></p></div><p></p><h2 id="f79595fa-bf9e-41c3-8365-88bd87505450">Atomic operation</h2><p><mark class="highlight-blue">Atomic operation</mark></p><div class="indented"><p>Update to memory location or complex object that is atomic (can not be delayed, in one, uninterrupted):</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Indivisible either the whole result or nothing is seen by other threads</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Time bounded completed in finite time (wait-free, independent of other threads)</li></ul></div><p></p><p>Usually done by hardware:</p><div class="indented"><p>Require expensive hardware support and complex interaction with memory system (ie. cache-line invalidation).</p><ul class="bulleted-list"><li style="list-style-type: disc">load/stores atomic loads and stores (can be ordered in program)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">ready-modify-write read, update, store</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Swap swap two memory locations (based on condition)</li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example: finding all primes in interval</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Finding all primes in interval with atomic operation</summary><p>
 Find all primes between
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mn>2</mn></mstyle></mrow><annotation encoding="application/x-tex">\small 2</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5799960000000001em; vertical-align: 0em"></span><span class="mord sizing reset-size6 size5">2</span></span></span></span></span><span>﻿</span></span>
 and
@@ -1005,7 +1005,7 @@ if (isPrime(j)) printf("Found %d\n",j);
 Unsafe because of multiple threads update
 <mark class="highlight-gray"><code>i</code></mark><mark class="highlight-gray"></mark>
 at the same time.
-</p><ul class="toggle"><li><details open=""><summary><mark class="highlight-gray"><code>i++</code></mark><mark class="highlight-gray"></mark>
+</p><ul class="toggle"><li><details><summary><mark class="highlight-gray"><code>i++</code></mark><mark class="highlight-gray"></mark>
 is not atomic
 </summary><p><mark class="highlight-gray"><code>i++</code></mark>
 actually translates to:
@@ -1029,7 +1029,7 @@ j = i;
 i++;
 if (isPrime(j)) printf("Found %d\n",j);
 pthread_mutex_unlock(&amp;count_lock); // :: critical section
-}</code></pre><ul class="toggle"><li><details open=""><summary>
+}</code></pre><ul class="toggle"><li><details><summary>
 Alternative: putting
 <mark class="highlight-gray"><code>isPrime()</code></mark><mark class="highlight-gray"></mark>
 out of the critical section

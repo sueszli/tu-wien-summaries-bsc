@@ -610,7 +610,7 @@ wait(S);
 w := take();
 signal(S);
 consume(w);
-}</code></pre></div></div><ul class="toggle"><li><details open=""><summary>Über die Reihenfolge</summary><p>
+}</code></pre></div></div><ul class="toggle"><li><details><summary>Über die Reihenfolge</summary><p>
 Die Reihenfolge beim Consumer für die Zeilen 2, 3 ist relevant, wenn man sie vertauscht entsteht ein Deadlock weil der Consumer
 <code>S.value</code>
 auf 0 reduziert und der Producer nicht mehr durch kann.

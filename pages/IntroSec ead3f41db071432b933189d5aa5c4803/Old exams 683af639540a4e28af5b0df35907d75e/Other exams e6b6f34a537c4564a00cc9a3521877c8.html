@@ -592,7 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../site.css">
-</head><body><article class="page sans"><header><h1 class="page-title">Other exams</h1><p class="page-description"></p></header><div class="page-body"><h2>Buffer Overflow</h2><ul class="toggle"><li><details open=""><summary>original image</summary><figure class="image"><a href="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png"><img src="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png" style="width: 935px"/></a></figure></details></li></ul><pre class="code"><code>void next_tag(char* buf) {
+</head><body><article class="page sans"><header><h1 class="page-title">Other exams</h1><p class="page-description"></p></header><div class="page-body"><h2>Buffer Overflow</h2><ul class="toggle"><li><details><summary>original image</summary><figure class="image"><a href="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png"><img src="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png" style="width: 935px"/></a></figure></details></li></ul><pre class="code"><code>void next_tag(char* buf) {
 strncpy(buf, "FOOBAR", 6);
 }void main (int argc, char* argv[]) {
 char a[8];
@@ -613,7 +613,7 @@ checks the length of the input
 and
 <code>b</code>
 are stored on the stack
-</li></ul><ul class="toggle"><li><details open=""><summary>Solution</summary><ul class="bulleted-list"><li style="list-style-type: disc">
+</li></ul><ul class="toggle"><li><details><summary>Solution</summary><ul class="bulleted-list"><li style="list-style-type: disc">
 ❌ we can overwrite
 <code>a</code>
 to contain

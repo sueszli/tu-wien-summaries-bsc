@@ -623,7 +623,7 @@ More specific subinterfaces inherit from it:
 ,
 <code><mark class="highlight-gray">Text</mark></code>
 , ...
-</p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Visit all child nodes of “courses.xml”</summary><pre class="code"><code>visitNode(coursedoc.getDocumentElement());private void visitNode(Node node) {
+</p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Visit all child nodes of “courses.xml”</summary><pre class="code"><code>visitNode(coursedoc.getDocumentElement());private void visitNode(Node node) {
 //iterate over all children
 for (int i = 0; i &lt; node.getChildNodes().getLength(); i++) {
 //recursively visit all nodes
@@ -650,7 +650,7 @@ course: semester="Summer"
 title: "Semi-structured Data (SSD)"
 day: "Thursday"
 time: "09:15"
-location: "HS8"</code></pre><ul class="toggle"><li><details open=""><summary>Reading document</summary><pre class="code"><code>import jave.io.*;
+location: "HS8"</code></pre><ul class="toggle"><li><details><summary>Reading document</summary><pre class="code"><code>import jave.io.*;
 import javax.xml.parsers.*;
 import org.w3c.dom. *;public class Course {public static void main(String[] args) throws Exception {
 // ... see above ...Document coursedoc = builder.parse(args[0]);//call visit node starting from the root node
@@ -677,7 +677,7 @@ for (int i = 0; i &lt; nodelist.getLength(); i++) {
 visitNode(nodelist.item(i));
 }
 }
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Create and validate document</summary><pre class="code"><code>import java.io.File;
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Create and validate document</summary><pre class="code"><code>import java.io.File;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;

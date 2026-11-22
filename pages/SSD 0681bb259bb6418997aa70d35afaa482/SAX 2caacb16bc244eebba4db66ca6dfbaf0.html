@@ -612,7 +612,7 @@ Events = callbacks sent to the application by the event-based parser
 beginning of parsing
 </p><p><mark class="highlight-gray"><code>startElement(...)</code></mark><mark class="highlight-gray"></mark>
 beginning of element
-</p><div class="indented"><ul class="toggle"><li><details open=""><summary>in depth</summary><p><mark class="highlight-gray"><code>public void startElement(... , Attributes atts) throws SAXException</code></mark></p><hr/><p><mark class="highlight-gray"><code>Attribute</code></mark><mark class="highlight-gray"></mark>
+</p><div class="indented"><ul class="toggle"><li><details><summary>in depth</summary><p><mark class="highlight-gray"><code>public void startElement(... , Attributes atts) throws SAXException</code></mark></p><hr/><p><mark class="highlight-gray"><code>Attribute</code></mark><mark class="highlight-gray"></mark>
 is an interface with some useful methods:
 </p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray"><code>getLength()</code></mark>
 - number of attributes
@@ -647,7 +647,7 @@ customized handling for external entities
 </p></div><p></p><p></p><p></p><h1 id="a77fe6c7-f55b-42ce-9874-b1ae43722fb2">Content handling: Examples</h1><p><mark class="highlight-blue">Example 1) Simple SAX program</mark></p><div class="indented"><pre class="code"><code>&lt;?xml version="1.0"?&gt;
 &lt;course&gt;Semi-structured Data&lt;/course&gt;</code></pre><pre class="code"><code>startElement: course
 characters: Semi-structured Data
-endElement: course</code></pre><p>Program consists of 2 classes:</p><div class="indented"><ul class="toggle"><li><details open=""><summary><code><mark class="highlight-gray">CourseApp</mark></code></summary><pre class="code"><code>import org.xml.sax.*;
+endElement: course</code></pre><p>Program consists of 2 classes:</p><div class="indented"><ul class="toggle"><li><details><summary><code><mark class="highlight-gray">CourseApp</mark></code></summary><pre class="code"><code>import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 public class CourseApp {public static void main(String[] args) throws Exception {//create XMLReader (parser reads and calls callbacks in handler)
 XMLReader parser = XMLReaderFactory.createXMLReader();//install the content handler
@@ -658,7 +658,7 @@ for (int i =0; i &lt; args.length; i++) {
 parser.parse(args[i]);
 }
 }
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary><code><mark class="highlight-gray">MyHandler</mark></code></summary><p>contains handlers for 3 kinds of callbacks</p><pre class="code"><code>import org.xml.sax.*;
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary><code><mark class="highlight-gray">MyHandler</mark></code></summary><p>contains handlers for 3 kinds of callbacks</p><pre class="code"><code>import org.xml.sax.*;
 import org.xml.sax.helpers.*; // implements other methods
 public class MyHandler implements ContentHandler {//SAX calls this method when it encounters a start tag
 public void startElement(String namespaceURI, String localName, String qualifiedName, Attributes atts) throws SAXException {
@@ -676,7 +676,7 @@ Use the default-handler package
 (implements all interface methods with empty body so we don’t have to).
 </p><div class="indented"><p><a href="https://docs.oracle.com/javase/8/docs/api/org/xml/sax/helpers/DefaultHandler.html">
 https://docs.oracle.com/javase/8/docs/api/org/xml/sax/helpers/DefaultHandler.html
-</a></p></div><p></p></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example 2)</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Input</summary><pre class="code"><code>&lt;products&gt;
+</a></p></div><p></p></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example 2)</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Input</summary><pre class="code"><code>&lt;products&gt;
 &lt;product&gt;
 &lt;name&gt;Product A&lt;/name&gt; &lt;!-- fst --&gt;
 &lt;value&gt;100&lt;/value&gt;
@@ -709,8 +709,8 @@ https://docs.oracle.com/javase/8/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 &lt;/product&gt;
 &lt;/product&gt;
 &lt;/product&gt;
-&lt;/products&gt;</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Output</summary><pre class="code"><code>Total value of Product A: 1900
-Total value of Product D: 1300</code></pre></details></li></ul><p>Handler:</p><div class="indented"><ul class="toggle"><li><details open=""><summary><code><mark class="highlight-gray">TopProducts</mark></code></summary><pre class="code"><code>import org.xml.sax.*;
+&lt;/products&gt;</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Output</summary><pre class="code"><code>Total value of Product A: 1900
+Total value of Product D: 1300</code></pre></details></li></ul><p>Handler:</p><div class="indented"><ul class="toggle"><li><details><summary><code><mark class="highlight-gray">TopProducts</mark></code></summary><pre class="code"><code>import org.xml.sax.*;
 public class TopProducts implements DefaultHandler {
 String eleText;
 private int level = 0;
@@ -739,7 +739,7 @@ value = 0;
 Programming an
 <mark class="highlight-gray"><code>ErrorHandler</code></mark>
 to handle parsing errors (otherwise parsing errors will be ignored).
-</p><p>Example:</p><div class="indented"><ul class="toggle"><li><details open=""><summary>Installing error handler</summary><pre class="code"><code>import org.xml.sax.*;
+</p><p>Example:</p><div class="indented"><ul class="toggle"><li><details><summary>Installing error handler</summary><pre class="code"><code>import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 public class CourseApp {
 public static void main(String[] args) throws Exception {
@@ -752,7 +752,7 @@ for (int i =0; i &lt; args.length; i++) {
 parser.parse(args[i]);
 }
 }
-}</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Implementing methods</summary><pre class="code"><code>import org.xml.sax.*;
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Implementing methods</summary><pre class="code"><code>import org.xml.sax.*;
 import org.xml.sax.helpers.*;public class MyHandler extends DefaultHandler {public void fatalError(SAXParseException ex) throws SAXException {
 printError("FATAL ERROR", ex)
 }public void error(SAXParseException ex) throws SAXException {
@@ -771,7 +771,7 @@ ex.getMessage());
 → minor error
 </p></div><p></p><p></p><p></p><h1 id="340cbec2-2ca6-4288-823e-94b6588bf57c">Features</h1><p><mark class="highlight-blue">Features</mark></p><div class="indented"><p><a href="https://xerces.apache.org/xerces2-j/features.html">https://xerces.apache.org/xerces2-j/features.html</a></p><p>
 Used to configure parser with:
-<mark class="highlight-gray"><code>setFeature(java.lang.String name, boolean value)</code></mark></p><ul class="block-color-gray toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>import org.xml.sax.*;
+<mark class="highlight-gray"><code>setFeature(java.lang.String name, boolean value)</code></mark></p><ul class="block-color-gray toggle"><li><details><summary>Example</summary><pre class="code"><code>import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 public class CourseApp {
 public static void main(String[] args) throws Exception {
@@ -792,7 +792,7 @@ parser.parse(args[i]);
 - if feature can not be assigned
 </p><div class="indented"><p>ie. turn on validation in a non-validating parser</p></div><p></p><p><mark class="highlight-gray"><code>SAXNotSupportedException</code></mark>
 - if feature can not be activated
-</p><div class="indented"><p>ie. turn on validation (in a validating parser) when part of the document has already been parsed</p></div><p></p></div><p></p></div><p></p><p></p><p><mark class="highlight-gray">Example of features:</mark><mark class="highlight-blue">Namespace awareness</mark></p><div class="indented"><p><a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.xml/org/xml/sax/package-summary.html#sax2-standard-feature-flags-heading">http://xml.org/sax/features/namespaces</a></p><ul class="toggle"><li><details open=""><summary>
+</p><div class="indented"><p>ie. turn on validation (in a validating parser) when part of the document has already been parsed</p></div><p></p></div><p></p></div><p></p><p></p><p><mark class="highlight-gray">Example of features:</mark><mark class="highlight-blue">Namespace awareness</mark></p><div class="indented"><p><a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.xml/org/xml/sax/package-summary.html#sax2-standard-feature-flags-heading">http://xml.org/sax/features/namespaces</a></p><ul class="toggle"><li><details><summary>
 Reminder:
 <mark class="highlight-gray"><code>startElement(...)</code></mark><mark class="highlight-gray"></mark>
 is called at the beggining of every element

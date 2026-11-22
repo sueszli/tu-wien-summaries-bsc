@@ -617,7 +617,7 @@ We can climb up with
 </p><pre class="code"><code>GET /show.php?page=../../../etc/passwd HTTP/2
 Host: example.com</code></pre><p></p><p><mark class="highlight-teal">Prevention: Defense in Depth</mark><mark class="highlight-gray">(choose multiple defense mechanisms)</mark></p><ol class="numbered-list" start="1" type="1"><li>Not using user controlled input for filenames</li></ol><ol class="numbered-list" start="2" type="1"><li>
 Validating, filtering user input
-<p>only allow file names from static list</p><p>compare them with canonical path</p><ul class="block-color-gray toggle"><li><details open=""><summary>example</summary><pre class="code"><code>&lt;?php
+<p>only allow file names from static list</p><p>compare them with canonical path</p><ul class="block-color-gray toggle"><li><details><summary>example</summary><pre class="code"><code>&lt;?php
 $pdir = "/var/www/html/pages/";
 $file = realpath($pdir . $_GET["file"]); &lt;- concatenates user input to path
 if ($file !== false &amp;&amp; strncmp($file, $pdir, strlen($pdir)) === 0) { &lt;- canonical path

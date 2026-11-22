@@ -606,7 +606,7 @@ Count number of elements of each “key” (magnitude)
 <pre class="code"><code>for (i=0; i&lt;R; i++) bucket[i] = 0; // initialize range
 for (i=0; i&lt;n; i++) bucket[A[i]]++; // count occurences of each value in range</code></pre><p></p></li></ol><ol class="numbered-list" start="2" type="1"><li>
 Compute start index of each bucket with exclusive prefix-sums
-<ul class="block-color-gray toggle"><li><details open=""><summary>Implementation</summary><pre class="code"><code>for (i=1; i&lt;R; i++) bucket[i] += bucket[i-1]; // add previous value to this one
+<ul class="block-color-gray toggle"><li><details><summary>Implementation</summary><pre class="code"><code>for (i=1; i&lt;R; i++) bucket[i] += bucket[i-1]; // add previous value to this one
 // shift all entries to right
 for (i=R-1; i&gt;0; i--) bucket[i] = bucket[i-1];
 bucket[0] = 0;</code></pre></details></li></ul><pre class="code"><code>Exscan(bucket);</code></pre><p></p></li></ol><ol class="numbered-list" start="3" type="1"><li>

@@ -638,7 +638,7 @@ Alle Attribute aus
 müssen auch in
 <code>GROUP BY</code>
 sein,
-<p>außer sie werden in einer aggregierenden Funktion benutzt.</p><ul class="block-color-gray toggle"><li><details open=""><summary><mark class="highlight-gray">Grund</mark></summary><pre class="code"><code>     Pets
+<p>außer sie werden in einer aggregierenden Funktion benutzt.</p><ul class="block-color-gray toggle"><li><details><summary><mark class="highlight-gray">Grund</mark></summary><pre class="code"><code>     Pets
 ----------------
 A    B    C
 ----------------
@@ -661,7 +661,7 @@ benutzen.
 Dann müssen sie auch in
 <code>GROUP BY</code>
 benutzt werden.
-</p><ul class="block-color-gray toggle"><li><details open=""><summary><mark class="highlight-gray">Beispiel</mark></summary><p><mark class="highlight-gray"><code>Student ( MatrNr , Name , Semester )</code></mark></p><p>Angenommen wir suchen alle Namen von Studierenden die am längsten studieren</p><pre class="code"><code>select Name, max(Semester)
+</p><ul class="block-color-gray toggle"><li><details><summary><mark class="highlight-gray">Beispiel</mark></summary><p><mark class="highlight-gray"><code>Student ( MatrNr , Name , Semester )</code></mark></p><p>Angenommen wir suchen alle Namen von Studierenden die am längsten studieren</p><pre class="code"><code>select Name, max(Semester)
 from Student;</code></pre><pre class="code"><code>select Name, max(Semester)
 from Student
 group by Name;</code></pre><pre class="code"><code>select Name

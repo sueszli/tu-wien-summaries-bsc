@@ -620,7 +620,7 @@ zero or one
 zero or more
 </p><p><mark class="highlight-gray"><code>child+</code></mark>
 one or more
-</p></div><p></p><p>Can be used for more complex expressions</p></div><p></p><figure class="image"><a href="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png"><img src="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png" style="width: 240px"/></a></figure><p></p><p><mark class="highlight-blue">Namespaces</mark></p><div class="indented"><p>The validator does not care about name spaces - they make no difference</p><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>&lt;!ELEMENT course (title, assessment, univ:assessment)&gt;
+</p></div><p></p><p>Can be used for more complex expressions</p></div><p></p><figure class="image"><a href="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png"><img src="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png" style="width: 240px"/></a></figure><p></p><p><mark class="highlight-blue">Namespaces</mark></p><div class="indented"><p>The validator does not care about name spaces - they make no difference</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>&lt;!ELEMENT course (title, assessment, univ:assessment)&gt;
 &lt;!ATTLIST course xmlns CDATA #FIXED "www.oeh.ac.at"&gt;
 &lt;!ATTLIST course xmlns:univ CDATA #REQUIRED&gt;
 &lt;!ELEMENT title (#PCDATA)&gt;

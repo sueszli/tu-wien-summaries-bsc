@@ -612,7 +612,7 @@ Properties:
 Methods:
 <mark class="highlight-gray"><code>document.createElement</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>document.getElementsByTagName</code></mark>
 , …
-</p></div><p></p><ul class="toggle"><li><details open=""><summary>Example: Reading properties</summary><pre class="code"><code>&lt;UL id="t1"&gt;
+</p></div><p></p><ul class="toggle"><li><details><summary>Example: Reading properties</summary><pre class="code"><code>&lt;UL id="t1"&gt;
 &lt;LI&gt;Item 1&lt;/LI&gt;
 &lt;/UL&gt;</code></pre><pre class="code"><code>document.getElementById('t1').nodeName
 // -&gt; returns 'UL'
@@ -623,10 +623,10 @@ document.getElementById('t1').innerHTML
 document.getElementById('t1').children[0].nodeName
 // -&gt; returns 'LI'
 document.getElementById('t1').children[0].innerText
-// -&gt; returns 'Item 1'</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Manipulating properties</summary><pre class="code"><code>let list = document.getElementById('t1');
+// -&gt; returns 'Item 1'</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Manipulating properties</summary><pre class="code"><code>let list = document.getElementById('t1');
 let item = document.createElement('LI');
 item.innerText = 'Item 2';
-list.appendChild(item);</code></pre></details></li></ul><ul class="toggle"><li><details open=""><summary>Example: Adding Event Handlers</summary><pre class="code"><code>let list = document.getElementById('t1');
+list.appendChild(item);</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Adding Event Handlers</summary><pre class="code"><code>let list = document.getElementById('t1');
 list.addEventListener('click', (event) =&gt; {
 alert(`Clicked: ${event.target.innerText}`);
 });</code></pre></details></li></ul></div></article></body></html>

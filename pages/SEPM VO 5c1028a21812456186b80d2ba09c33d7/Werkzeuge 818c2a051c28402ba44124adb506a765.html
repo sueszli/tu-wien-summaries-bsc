@@ -683,7 +683,7 @@ Resource res = new FileSystemResource("beans.xml");
 XmlBeanFactory factory = new XmlBeanFactory(res);
 IPresentation ui = factory.getBean("presentation", IPresentation.class);
 ui.show();
-}</code></pre><ul class="toggle"><li><details open=""><summary>Konfigurationsdatei (In Spring boot: beans = komponenten)</summary><pre class="code"><code>&lt;? xml version="1.0" encoding="UTF-8"?&gt;
+}</code></pre><ul class="toggle"><li><details><summary>Konfigurationsdatei (In Spring boot: beans = komponenten)</summary><pre class="code"><code>&lt;? xml version="1.0" encoding="UTF-8"?&gt;
 &lt;beans&gt;&lt;bean class="MyPersistence" id="persistence"&gt;
 &lt;property name="path"&gt;path/to/db&lt;/property&gt;
 &lt;property name="businessLogic" ref="businessLogic" /&gt;

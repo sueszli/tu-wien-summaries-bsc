@@ -871,7 +871,7 @@ Synchronized code is build on top of a simple
 .
 </p><div class="indented"><p>Easy to use but many limitations.</p><p>One thread can lock an object at a time (kritischen Abschnitt betreten).</p><p>We now encapsulate task creation and management (previously done by threads) and the tasks themselves (runnables).</p></div><p></p><p></p><h2 id="fc918062-86c0-4c03-8455-534b4b48feab">Lock</h2><p><code>Lock</code>
 Interface in
-<code>java.util.concurrent.locks</code></p><p>Example: Solve Deadlock</p><ul class="toggle"><li><details open=""><summary>Example</summary><pre class="code"><code>  public static void main(String[] args) {
+<code>java.util.concurrent.locks</code></p><p>Example: Solve Deadlock</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>  public static void main(String[] args) {
 final Friend alphonse = new Friend("Alphonse");
 final Friend gaston = new Friend("Gaston");
 new Thread(new BowLoop(alphonse, gaston)).start();
