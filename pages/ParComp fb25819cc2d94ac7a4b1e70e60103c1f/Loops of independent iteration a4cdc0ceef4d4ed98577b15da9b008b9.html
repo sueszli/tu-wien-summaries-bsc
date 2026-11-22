@@ -591,7 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Loops of independent iteration</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0f7eb8cd-c590-49df-86c2-75115fd2fa28">Loops</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9db789c3-64be-4e6d-a57c-3a830784e389">Parallelization</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#301b712b-52df-40a8-a1cf-2047062dd69a">Dependencies</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ac5b72b8-48e5-4b8f-9974-64df3f288769">Loop carried dependencies</a></div></nav><p></p><h1 id="0f7eb8cd-c590-49df-86c2-75115fd2fa28">Loops</h1><p><mark class="highlight-blue">Examples of data independent loops</mark></p><div class="indented"><ul class="toggle"><li><details open=""><summary>Example 1: Addition</summary><pre class="code"><code>for (i=0; i&lt;n; i++) {
 a[i] = b[i]+c[i];

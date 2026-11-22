@@ -27,15 +27,6 @@
     word-break: normal;
   }
 
-  .notion-text-equation-token {
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
-    overflow-x: auto;
-    padding-block: 0.15em;
-    vertical-align: middle;
-  }
-
   figure.equation {
     position: relative;
     max-width: 100%;
