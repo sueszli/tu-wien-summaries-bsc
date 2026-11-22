@@ -591,40 +591,47 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Advanced SQL</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5a2167a3-a62d-470c-bb0f-a481e05fa751">Sub Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aae566ff-276f-417a-908b-512ff7432331">Rekursive Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f1ca0a30-172a-45fc-98c1-a3c84cbbd115">Views</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9b2739c1-5d0c-4642-97e8-6763381effbc">Window Functions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f61a0940-dd15-4908-a05c-f3ec181aa4a5">Sequences</a></div></nav><p></p><h1 id="5a2167a3-a62d-470c-bb0f-a481e05fa751">Sub Queries</h1><p>
 ermöglicht durch
-<mark class="highlight-gray"><code>WITH</code></mark></p><p></p><pre class="code"><code>SELECT MatrNr, avg(Note)
-FROM pruefen
-GROUP BY MatrNr
-HAVING avgNote &gt;= all ( SELECT avg(Note)
-FROM pruefen
-GROUP BY MatrNr
-);</code></pre><pre class="code"><code>WITH
--- Matrikelnummer mit dazugehöriger Durchschnittsnote
-avgNote AS (
-SELECT MatrNr, avg(Note) AS dsN FROM pruefen GROUP BY MatrNr
-),
--- Tupel aus avgNote mit maximaler dsN
-bestAvgNote AS (
-SELECT MatrNr, dsN FROM avgNote WHERE dsN = (SELECT max(dsN) FROM avgNote))
-)SELECT MatrNr, dsN FROM bestAvgNote;</code></pre><p></p><p></p><p></p><p></p><p></p><h1 id="aae566ff-276f-417a-908b-512ff7432331">Rekursive Queries</h1><p><a href="https://www.postgresql.org/docs/current/queries-with.html">https://www.postgresql.org/docs/current/queries-with.html</a></p><p><a href="https://martinheinz.dev/blog/18">
+<mark class="highlight-gray"><code>WITH</code></mark></p><p></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> MatrNr, <span class="hljs-built_in">avg</span>(Note)
+<span class="hljs-keyword">FROM</span> pruefen
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> MatrNr
+<span class="hljs-keyword">HAVING</span> avgNote <span class="hljs-operator">&gt;=</span> <span class="hljs-keyword">all</span> ( <span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">avg</span>(Note)
+												<span class="hljs-keyword">FROM</span> pruefen
+												<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> MatrNr
+											);</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">WITH</span>
+		<span class="hljs-comment">-- Matrikelnummer mit dazugehöriger Durchschnittsnote</span>
+		avgNote <span class="hljs-keyword">AS</span> (
+				<span class="hljs-keyword">SELECT</span> MatrNr, <span class="hljs-built_in">avg</span>(Note) <span class="hljs-keyword">AS</span> dsN <span class="hljs-keyword">FROM</span> pruefen <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> MatrNr
+		),
+		<span class="hljs-comment">-- Tupel aus avgNote mit maximaler dsN</span>
+		bestAvgNote <span class="hljs-keyword">AS</span> (
+				<span class="hljs-keyword">SELECT</span> MatrNr, dsN <span class="hljs-keyword">FROM</span> avgNote <span class="hljs-keyword">WHERE</span> dsN <span class="hljs-operator">=</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">max</span>(dsN) <span class="hljs-keyword">FROM</span> avgNote))&#32;
+		)
+
+<span class="hljs-keyword">SELECT</span> MatrNr, dsN <span class="hljs-keyword">FROM</span> bestAvgNote;</code></pre><p></p><p></p><p></p><p></p><p></p><h1 id="aae566ff-276f-417a-908b-512ff7432331">Rekursive Queries</h1><p><a href="https://www.postgresql.org/docs/current/queries-with.html">https://www.postgresql.org/docs/current/queries-with.html</a></p><p><a href="https://martinheinz.dev/blog/18">
 https://martinheinz.dev/blog/18
 </a></p><p><a href="https://www.citusdata.com/blog/2018/05/15/fun-with-sql-recursive-ctes/">
 https://www.citusdata.com/blog/2018/05/15/fun-with-sql-recursive-ctes/
 </a></p><p></p><p>
 ermöglicht durch
-<mark class="highlight-gray"><code>WITH RECURSIVE</code></mark><mark class="highlight-gray"></mark></p><pre class="code"><code>WITH RECURSIVE tablename(attr, attr, ...) AS (
--- nicht rekursive query
-SELECT ...
-UNION [ALL] -- ALL erlaubt duplicates
--- rekursive query
-SELECT ...
-)SELECT ...</code></pre><p></p><pre class="code"><code>WITH RECURSIVE t (n) AS ( -- wie create table t (n);
-SELECT 1
-UNION ALL
-SELECT n+1 FROM t WHERE n &lt; 100
-)SELECT n FROM t;</code></pre><ul class="toggle"><li><details><summary>Erklärung</summary><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-gray"><code>CTE</code></mark>
+<mark class="highlight-gray"><code>WITH RECURSIVE</code></mark><mark class="highlight-gray"></mark></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">WITH</span> <span class="hljs-keyword">RECURSIVE</span> tablename(attr, attr, ...) <span class="hljs-keyword">AS</span> (
+				<span class="hljs-comment">-- nicht rekursive query</span>
+				<span class="hljs-keyword">SELECT</span> ...
+		<span class="hljs-keyword">UNION</span> [<span class="hljs-keyword">ALL</span>] <span class="hljs-comment">-- ALL erlaubt duplicates</span>
+				<span class="hljs-comment">-- rekursive query</span>
+				<span class="hljs-keyword">SELECT</span> ...
+)
+
+<span class="hljs-keyword">SELECT</span> ...</code></pre><p></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">WITH</span> <span class="hljs-keyword">RECURSIVE</span> t (n) <span class="hljs-keyword">AS</span> ( <span class="hljs-comment">-- wie create table t (n);</span>
+				<span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span>
+		<span class="hljs-keyword">UNION</span> <span class="hljs-keyword">ALL</span>
+				<span class="hljs-keyword">SELECT</span> n<span class="hljs-operator">+</span><span class="hljs-number">1</span> <span class="hljs-keyword">FROM</span> t <span class="hljs-keyword">WHERE</span> n <span class="hljs-operator">&lt;</span> <span class="hljs-number">100</span>
+)
+
+<span class="hljs-keyword">SELECT</span> n <span class="hljs-keyword">FROM</span> t;</code></pre><ul class="toggle"><li><details><summary>Erklärung</summary><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-gray"><code>CTE</code></mark>
 : definierst eine temporären table über eine Abfrage.
 </li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-gray"><code>SELECT 1</code></mark>
 : das dient quasi als Basis für alles andere. Bis dahin hast eine Tabelle t(n integer) wo nur 1 drin steht.
@@ -637,35 +644,39 @@ Mit
 fügst du allen rows aus
 <mark class="highlight-gray"><code>n</code></mark><mark class="highlight-gray"></mark>
 eins hinzu - es ist keine neue Spalte
-<mark class="highlight-gray"><code>n+1</code></mark></p></li></ol></details></li></ul><p></p><pre class="code"><code>WITH RECURSIVE voraus (v) AS (
--- alle direkten vorgänger von 5216
-SELECT vorgnr
-FROM voraussetzen
-WHERE nachfnr = 5216
-UNION
--- alle vorgänger, der vorgänger aus 'voraus'
-SELECT voraussetzen.vorgnr
-FROM voraus, voraussetzen -- vorheriger schritt x voraussetzungstabelle
-WHERE voraus.v=voraussetzen.nachfnr
-)SELECT v FROM voraus;</code></pre><pre class="code"><code>WITH RECURSIVE voraus (v, c) AS (
-SELECT vorgnr, 1
-FROM voraussetzen
-WHERE nachfnr = 5216
-UNION
-SELECT voraussetzen.vorgnr, voraus.c+1
-FROM voraus, voraussetzen
-WHERE voraus.v=voraussetzen.nachfnr
-)-- findet zusätzlich die distanz von jeder node zu 5216
-SELECT v, max(c) FROM voraus;</code></pre><p></p><p></p><p></p><p></p><p></p><h1 id="f1ca0a30-172a-45fc-98c1-a3c84cbbd115">Views</h1><p>Gespeicherte queries als virtuelle Tabellen</p><p><mark class="highlight-blue">zB aus Datenschutzgründen</mark></p><div class="indented"><pre class="code"><code>create view prüfenSicht as
-select MatrNr, VorlNr, PersNr from prüfen;</code></pre></div><p></p><p><mark class="highlight-blue">Implementierung von Generalisierung</mark></p><div class="indented"><pre class="code"><code>create table Professor (PersNr ..., Name ..., Rang ..., Raum ...);
-create table Assistent (PersNr ..., Name ..., Fachgebiet ..., Boss ...);
-create table AndereAngestellte (PersNr ..., Name ...);</code></pre><p>Tupel vom Untertyp gehören automatisch zum Obertyp - Obertyp als View</p><div class="indented"><pre class="code"><code>create view Angestellte as
-(select PersNr, Name from Professor) union
-(select PersNr, Name from Assistent) union
-(select * from AndereAngestellte)</code></pre></div><p></p><p>Typen vom Obertyp werden vererbt - Untertyp als View</p><div class="indented"><pre class="code"><code>create view Professor as
-select * from Angestellte natural join ProfDaten;
-create view Assistent as
-select * from Angestellte natural join AssiDaten;</code></pre></div><p></p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="9b2739c1-5d0c-4642-97e8-6763381effbc">Window Functions</h1><p>
+<mark class="highlight-gray"><code>n+1</code></mark></p></li></ol></details></li></ul><p></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">WITH</span> <span class="hljs-keyword">RECURSIVE</span> voraus (v) <span class="hljs-keyword">AS</span> (
+				<span class="hljs-comment">-- alle direkten vorgänger von 5216</span>
+				<span class="hljs-keyword">SELECT</span> vorgnr
+				<span class="hljs-keyword">FROM</span> voraussetzen
+				<span class="hljs-keyword">WHERE</span> nachfnr <span class="hljs-operator">=</span> <span class="hljs-number">5216</span>
+		<span class="hljs-keyword">UNION</span>
+				<span class="hljs-comment">-- alle vorgänger, der vorgänger aus &#x27;voraus&#x27;</span>
+				<span class="hljs-keyword">SELECT</span> voraussetzen.vorgnr
+				<span class="hljs-keyword">FROM</span> voraus, voraussetzen <span class="hljs-comment">-- vorheriger schritt x voraussetzungstabelle</span>
+				<span class="hljs-keyword">WHERE</span> voraus.v<span class="hljs-operator">=</span>voraussetzen.nachfnr
+)
+
+<span class="hljs-keyword">SELECT</span> v <span class="hljs-keyword">FROM</span> voraus;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">WITH</span> <span class="hljs-keyword">RECURSIVE</span> voraus (v, c) <span class="hljs-keyword">AS</span> (
+				<span class="hljs-keyword">SELECT</span> vorgnr, <span class="hljs-number">1</span>
+				<span class="hljs-keyword">FROM</span> voraussetzen
+				<span class="hljs-keyword">WHERE</span> nachfnr <span class="hljs-operator">=</span> <span class="hljs-number">5216</span>
+		<span class="hljs-keyword">UNION</span>
+				<span class="hljs-keyword">SELECT</span> voraussetzen.vorgnr, voraus.c<span class="hljs-operator">+</span><span class="hljs-number">1</span>
+				<span class="hljs-keyword">FROM</span> voraus, voraussetzen
+				<span class="hljs-keyword">WHERE</span> voraus.v<span class="hljs-operator">=</span>voraussetzen.nachfnr
+)
+
+<span class="hljs-comment">-- findet zusätzlich die distanz von jeder node zu 5216</span>
+<span class="hljs-keyword">SELECT</span> v, <span class="hljs-built_in">max</span>(c) <span class="hljs-keyword">FROM</span> voraus;</code></pre><p></p><p></p><p></p><p></p><p></p><h1 id="f1ca0a30-172a-45fc-98c1-a3c84cbbd115">Views</h1><p>Gespeicherte queries als virtuelle Tabellen</p><p><mark class="highlight-blue">zB aus Datenschutzgründen</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> prüfenSicht <span class="hljs-keyword">as</span>
+		<span class="hljs-keyword">select</span> MatrNr, VorlNr, PersNr <span class="hljs-keyword">from</span> prüfen;</code></pre></div><p></p><p><mark class="highlight-blue">Implementierung von Generalisierung</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> Professor (PersNr ..., Name ..., Rang ..., Raum ...);
+<span class="hljs-keyword">create table</span> Assistent (PersNr ..., Name ..., Fachgebiet ..., Boss ...);
+<span class="hljs-keyword">create table</span> AndereAngestellte (PersNr ..., Name ...);</code></pre><p>Tupel vom Untertyp gehören automatisch zum Obertyp - Obertyp als View</p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> Angestellte <span class="hljs-keyword">as</span>
+		(<span class="hljs-keyword">select</span> PersNr, Name <span class="hljs-keyword">from</span> Professor) <span class="hljs-keyword">union</span>
+		(<span class="hljs-keyword">select</span> PersNr, Name <span class="hljs-keyword">from</span> Assistent) <span class="hljs-keyword">union</span>
+		(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> AndereAngestellte)</code></pre></div><p></p><p>Typen vom Obertyp werden vererbt - Untertyp als View</p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> Professor <span class="hljs-keyword">as</span>
+		<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> Angestellte <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span> ProfDaten;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> Assistent <span class="hljs-keyword">as</span>
+		<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> Angestellte <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span> AssiDaten;</code></pre></div><p></p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="9b2739c1-5d0c-4642-97e8-6763381effbc">Window Functions</h1><p>
 Aggregatsfunktionen ohne
 <mark class="highlight-gray"><code>GROUP BY</code></mark><mark class="highlight-gray"></mark>
 durch
@@ -675,23 +686,24 @@ zB
 ,
 <mark class="highlight-gray"><code>row_number()</code></mark>
 ,
-<mark class="highlight-gray"><code>rank()</code></mark></p></div><p></p><p></p><pre class="code"><code>SELECT StockNr, Typ
-FROM Bienenstock
-WHERE (
-SELECT COUNT(*) OVER ()
-FROM Arbeiter NATURAL JOIN bestaeubt
-WHERE arbeitetInTyp=Typ AND ...
-GROUP BY Feldkennzahl, Ort
-LIMIT 1) -- mit LIMIT ist Aufruf von count(*) sinnlos
-) ...;</code></pre><p></p><pre class="code"><code>SELECT matrnr, count(*) AS anzahl
-FROM hoeren
-GROUP BY matrnr;</code></pre><pre class="code"><code>SELECT DISTINCT matrnr, count(*) OVER (PARTITION BY matrnr) AS anzahl
-FROM hoeren;</code></pre><p></p><p></p><p></p><p></p><p></p><h1 id="f61a0940-dd15-4908-a05c-f3ec181aa4a5">Sequences</h1><p>erzeugt Zahlenfolge</p><pre class="code"><code>CREATE SEQUENCE name
-[INCREMENT [BY] inc]
-[MINVALUE min | NO MINVALUE]
-[MAXVALUE max | NO MAXVALUE]
-[START [WITH] start] [CACHE cache]
-[[NO] CYCLE] -- falls max erreicht</code></pre><p><mark class="highlight-gray"><code>nextval(name)</code></mark><mark class="highlight-gray"></mark>
+<mark class="highlight-gray"><code>rank()</code></mark></p></div><p></p><p></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> StockNr, Typ
+<span class="hljs-keyword">FROM</span> Bienenstock
+<span class="hljs-keyword">WHERE</span> (
+		<span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">OVER</span> ()
+		<span class="hljs-keyword">FROM</span> Arbeiter <span class="hljs-keyword">NATURAL</span> <span class="hljs-keyword">JOIN</span> bestaeubt
+		<span class="hljs-keyword">WHERE</span> arbeitetInTyp<span class="hljs-operator">=</span>Typ <span class="hljs-keyword">AND</span> ...
+		<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> Feldkennzahl, Ort
+		LIMIT <span class="hljs-number">1</span>) <span class="hljs-comment">-- mit LIMIT ist Aufruf von count(*) sinnlos</span>
+&#9;
+) ...;</code></pre><p></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> matrnr, <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">AS</span> anzahl
+<span class="hljs-keyword">FROM</span> hoeren
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> matrnr;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> matrnr, <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">OVER</span> (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> matrnr) <span class="hljs-keyword">AS</span> anzahl
+<span class="hljs-keyword">FROM</span> hoeren;</code></pre><p></p><p></p><p></p><p></p><p></p><h1 id="f61a0940-dd15-4908-a05c-f3ec181aa4a5">Sequences</h1><p>erzeugt Zahlenfolge</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">CREATE</span> SEQUENCE name
+		[INCREMENT [<span class="hljs-keyword">BY</span>] inc]
+		[MINVALUE min <span class="hljs-operator">|</span> <span class="hljs-keyword">NO</span> MINVALUE]
+		[MAXVALUE max <span class="hljs-operator">|</span> <span class="hljs-keyword">NO</span> MAXVALUE]
+		[<span class="hljs-keyword">START</span> [<span class="hljs-keyword">WITH</span>] <span class="hljs-keyword">start</span>] [CACHE cache]
+		[[<span class="hljs-keyword">NO</span>] <span class="hljs-keyword">CYCLE</span>] <span class="hljs-comment">-- falls max erreicht</span></code></pre><p><mark class="highlight-gray"><code>nextval(name)</code></mark><mark class="highlight-gray"></mark>
 inkrementiert und returned Wert
 </p><p><mark class="highlight-gray"><code>currval(name)</code></mark><mark class="highlight-gray"></mark>
 returned letzten
@@ -699,9 +711,11 @@ returned letzten
 Wert
 </p><p><mark class="highlight-gray"><code>setval(name)</code></mark><mark class="highlight-gray"></mark>
 setzt counter in neuen Zustand
-</p><p></p><pre class="code"><code>CREATE SEQUENCE persnr_seq
-START WITH 2200 INCREMENT BY 5
-MINVALUE 2200
-MAXVALUE 15000
-NO CYCLE;INSERT INTO Professor VALUES (nextval('persnr_seq'), 'Peter')
-SELECT curval('persnr_seq')</code></pre><p></p></div></article></body></html>
+</p><p></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">CREATE</span> SEQUENCE persnr_seq
+		<span class="hljs-keyword">START</span> <span class="hljs-keyword">WITH</span> <span class="hljs-number">2200</span> INCREMENT <span class="hljs-keyword">BY</span> <span class="hljs-number">5</span>
+		MINVALUE <span class="hljs-number">2200</span>
+		MAXVALUE <span class="hljs-number">15000</span>
+		<span class="hljs-keyword">NO</span> <span class="hljs-keyword">CYCLE</span>;
+
+<span class="hljs-keyword">INSERT INTO</span> Professor <span class="hljs-keyword">VALUES</span> (nextval(<span class="hljs-string">&#x27;persnr_seq&#x27;</span>), <span class="hljs-string">&#x27;Peter&#x27;</span>)
+<span class="hljs-keyword">SELECT</span> curval(<span class="hljs-string">&#x27;persnr_seq&#x27;</span>)</code></pre><p></p></div></article></body></html>

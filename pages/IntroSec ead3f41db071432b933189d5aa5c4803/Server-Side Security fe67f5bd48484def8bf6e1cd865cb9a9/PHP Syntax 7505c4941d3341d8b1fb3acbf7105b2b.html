@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">PHP Syntax</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Hypertext Preprocessor PHP</mark></p><p>Server-side scripting language.</p><p>
 Variable names start with
@@ -608,17 +609,17 @@ request body parameters
 PHP session (preserved across multiple requests) parameters
 </p></div><p></p><p></p><p>
 Example:
-<mark class="highlight-gray">(Vulnerable to XSS, do not use)</mark></p><pre class="code"><code>&lt;HTML&gt;
-&lt;BODY&gt;
-&lt;P&gt;&lt;?php echo "Hello " . $_GET["name"]; ?&gt;&lt;/P&gt;
-&lt;/BODY&gt;
-&lt;/HTML&gt;</code></pre><pre class="code"><code>GET /index.php?name=Mauro HTTP/2
+<mark class="highlight-gray">(Vulnerable to XSS, do not use)</mark></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">HTML</span>&gt;</span>
+	 <span class="hljs-tag">&lt;<span class="hljs-name">BODY</span>&gt;</span>
+		 <span class="hljs-tag">&lt;<span class="hljs-name">P</span>&gt;</span><span class="hljs-meta">&lt;?php echo &quot;Hello &quot; . $_GET[&quot;name&quot;]; ?&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">P</span>&gt;</span>
+	 <span class="hljs-tag">&lt;/<span class="hljs-name">BODY</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">HTML</span>&gt;</span></code></pre><pre class="code"><code>GET /index.php?name=Mauro HTTP/2
 Host: example.com</code></pre><p>
 Writing
 <code>Host: example.com</code>
 is necessary because the same IP address can host multiple websites.
-</p><pre class="code"><code>&lt;HTML&gt;
-&lt;BODY&gt;
-&lt;P&gt;Hello Mauro&lt;/P&gt;
-&lt;/BODY&gt;
-&lt;/HTML&gt;</code></pre></div></article></body></html>
+</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">HTML</span>&gt;</span>
+	 <span class="hljs-tag">&lt;<span class="hljs-name">BODY</span>&gt;</span>
+		 <span class="hljs-tag">&lt;<span class="hljs-name">P</span>&gt;</span>Hello Mauro<span class="hljs-tag">&lt;/<span class="hljs-name">P</span>&gt;</span>
+	 <span class="hljs-tag">&lt;/<span class="hljs-name">BODY</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">HTML</span>&gt;</span></code></pre></div></article></body></html>

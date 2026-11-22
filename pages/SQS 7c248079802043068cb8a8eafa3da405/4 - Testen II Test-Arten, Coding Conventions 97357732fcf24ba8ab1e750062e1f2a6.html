@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">4 - Testen II: Test-Arten, Coding Conventions</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cc51b30f-b187-4516-ae06-d9f05613851c">Software Testen Grundlagen</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5b075aeb-fea5-41d2-8eb4-5548979c44cf">Teststufen</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8f9aa1f3-063c-45c0-bc37-f3d91dd99b49">Testentwurfsverfahren</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5d6e9675-3a10-4486-8969-04d2a374e821">Unit Tests</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#90b1887c-cd1b-4d91-946c-f8c3a1b66593">JUnit</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e71cffcb-923c-48fa-8f55-3768ea549ec1">TDD</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#46588751-559c-43ca-95c6-c7e06006b28f">
 Test Abdeckung: Kontrollflussorientierte Testverfahren
@@ -609,10 +610,14 @@ Partitionierung von Eingabedaten für Bedingungsüberdeckung (
 JUnit 5
 </a></figure><p></p><p><mark class="highlight-gray">Unit Tests Grobstruktur</mark></p><div class="indented"><ol class="block-color-gray numbered-list" start="1" type="1"><li>Set-Up (Vorbereitung)</li></ol><ol class="block-color-gray numbered-list" start="2" type="1"><li>Exercise (Ausführung)</li></ol><ol class="block-color-gray numbered-list" start="3" type="1"><li>Verify (Auswertung)</li></ol><ol class="block-color-gray numbered-list" start="4" type="1"><li>Tear-Down (Nachbearbeitung / zerstören)</li></ol></div><p></p><p></p><p><mark class="highlight-blue">Testframework für Unit Tests</mark></p><div class="indented"><p>
 Automatische Ausführung von Komponententests:
-<em>xUnit</em></p><p><mark class="highlight-gray">JUnit, CPPUnit, NUnit, ...</mark></p></div><p></p><p></p><p><mark class="highlight-blue">Benennung</mark></p><div class="indented"><p>Testmethoden einheitlich benannt</p><p><mark class="highlight-gray"><code>(Test)&lt;UseCase/Method&gt;_should&lt;ExcpectedOutcome&gt;</code></mark></p><ul class="toggle"><li><details><summary>Beispiele</summary><pre class="code"><code>@Test
-public void testAdd_shouldContainAddedWord() {...}@Test
-public void testAdd_moreThanMax_shouldReplaceFirstWord() {...}@Test
-public void testRemove_Null_shouldThrowNullPointerException() {...}</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Unit Testing - Best Practices</mark></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">
+<em>xUnit</em></p><p><mark class="highlight-gray">JUnit, CPPUnit, NUnit, ...</mark></p></div><p></p><p></p><p><mark class="highlight-blue">Benennung</mark></p><div class="indented"><p>Testmethoden einheitlich benannt</p><p><mark class="highlight-gray"><code>(Test)&lt;UseCase/Method&gt;_should&lt;ExcpectedOutcome&gt;</code></mark></p><ul class="toggle"><li><details><summary>Beispiele</summary><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldContainAddedWord</span><span class="hljs-params">()</span> {...}
+
+<span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_moreThanMax_shouldReplaceFirstWord</span><span class="hljs-params">()</span> {...}
+
+<span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testRemove_Null_shouldThrowNullPointerException</span><span class="hljs-params">()</span> {...}</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Unit Testing - Best Practices</mark></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">
 Testfälle sind isoliert
 <p>keine Abhängigkeiten zueinander: Jeder Testfall bereitet eigene Daten vor, räumt sie auf</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Keine Logik in Tests (Abfragen, Schleifen, try/catch)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Jeder Testfall testet nur einen Aspekt bzw Zustand

@@ -592,146 +592,206 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">pthreads in C</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://hpc-tutorials.llnl.gov/posix/">https://hpc-tutorials.llnl.gov/posix/</a></p><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#137ecf92-7749-4694-8551-94b10082e895">Spawning</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5eee7dc7-7a11-42bf-99ed-392aaef6a851">Error codes</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#55d7601f-348a-49eb-9d2c-9e3155d968b5">Finalizing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13f86ba0-4797-4b0a-b9ff-82e001256e14">Binding threads to cores</a></div></nav><p></p><p><mark class="highlight-blue">pthreads for C</mark></p><div class="indented"><p>Main program is main thread - waits for termination of additional threads.</p><p>Thread code = C functions that return error code or status information</p><p><mark class="highlight-gray"><code>&lt;pthread.h&gt;</code></mark>
 header
 </p><p><mark class="highlight-gray"><code>pthread_</code></mark><mark class="highlight-gray"></mark>
 prefix for names and functions
-</p><pre class="code"><code>gcc -Wall -o pthreadshello pthreadshello.c -pthread</code></pre></div><p></p><p></p><h2 id="137ecf92-7749-4694-8551-94b10082e895">Spawning</h2><p><mark class="highlight-blue">spawning thread</mark></p><div class="indented"><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_create(
-pthread_t *thread, // pointer as thread ID (thread object, opaque)
-const pthread_attr_t *attr, // attributes
-void *(*start_routine)(void *), // function of thread
-void *arg // arguments of funciton
-);</code></pre><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_attr_init(pthread_attr_t *attr); int
-pthread_attr_destroy(pthread_attr_t *attr);</code></pre><pre class="code"><code>void *start_routine(void *genericargs) { // executed by thread
-myarg_t *realargs = (myarg_t*)genericargs;
+</p><pre class="code"><code>gcc -Wall -o pthreadshello pthreadshello.c -pthread</code></pre></div><p></p><p></p><h2 id="137ecf92-7749-4694-8551-94b10082e895">Spawning</h2><p><mark class="highlight-blue">spawning thread</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_create</span><span class="hljs-params">(
+	<span class="hljs-type">pthread_t</span> *thread, <span class="hljs-comment">// pointer as thread ID (thread object, opaque)</span>
+	<span class="hljs-type">const</span> <span class="hljs-type">pthread_attr_t</span> *attr, <span class="hljs-comment">// attributes</span>
+	<span class="hljs-type">void</span> *(*start_routine)(<span class="hljs-type">void</span> *), <span class="hljs-comment">// function of thread</span>
+	<span class="hljs-type">void</span> *arg <span class="hljs-comment">// arguments of funciton</span>
+)</span>;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_attr_init</span><span class="hljs-params">(<span class="hljs-type">pthread_attr_t</span> *attr)</span>; <span class="hljs-type">int</span>
+<span class="hljs-title function_">pthread_attr_destroy</span><span class="hljs-params">(<span class="hljs-type">pthread_attr_t</span> *attr)</span>;</code></pre><pre class="code"><code>void *start_routine(void *genericargs) { // executed by thread
+	myarg_t *realargs = (myarg_t*)genericargs;
 }</code></pre><pre class="code"><code>struct { // pointer to arguments must have been allocated by spawning thread on heap
-// args
+	// args
 } *</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Example for spawning</mark></p><div class="indented"><p>
 starting
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>p</mi></mstyle></mrow><annotation encoding="application/x-tex">\small p</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.5625em; vertical-align: -0.174996em"></span><span class="mord mathnormal sizing reset-size6 size5">p</span></span></span></span></span><span>﻿</span></span>
 threads
-<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">;</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mstyle></mrow><annotation encoding="application/x-tex">\small [0;p-1]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mopen sizing reset-size6 size5">[</span><span class="mord sizing reset-size6 size5">0</span><span class="mpunct sizing reset-size6 size5">;</span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5">p</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">−</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5">1</span><span class="mclose sizing reset-size6 size5">]</span></span></span></span></span><span>﻿</span></span></p><ul class="toggle"><li><details><summary>example (with race condition)</summary><pre class="code"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;// pthreads header
-#include &lt;pthread.h&gt;// global state; number of threads (bad practice)
-int threads_glob;// code for thread functions
-void *something(void *argument){
-int rank = (int)argument; // bad practice (casting)
-printf("Thread rank %d of %d responding\n", rank, threads_glob);
-pthread_exit(NULL);
-}// main
-int main(int argc, char *argv[]){
-int threads = 1; // default
-int i;
-pthread_t *handle;
-for (i=1; i&lt;argc &amp;&amp; argv[i][0]=='-'; i++) {
-if (argv[i][1]=='t') {
-i++;
-sscanf(argv[i], "%d", &amp;threads); // get number of threads from commandline
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">;</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mstyle></mrow><annotation encoding="application/x-tex">\small [0;p-1]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mopen sizing reset-size6 size5">[</span><span class="mord sizing reset-size6 size5">0</span><span class="mpunct sizing reset-size6 size5">;</span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5">p</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">−</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5">1</span><span class="mclose sizing reset-size6 size5">]</span></span></span></span></span><span>﻿</span></span></p><ul class="toggle"><li><details><summary>example (with race condition)</summary><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+
+<span class="hljs-comment">// pthreads header</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-comment">// global state; number of threads (bad practice)</span>
+<span class="hljs-type">int</span> threads_glob;
+
+
+<span class="hljs-comment">// code for thread functions</span>
+<span class="hljs-type">void</span> *<span class="hljs-title function_">something</span><span class="hljs-params">(<span class="hljs-type">void</span> *argument)</span>{
+	<span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
+	pthread_exit(<span class="hljs-literal">NULL</span>);
 }
-}
-threads_glob = threads;
-handle = (pthread_t*)malloc(threads*sizeof(pthread_t));// fork the threads
-for (i=0; i&lt;threads; i++) {
-pthread_create(&amp;handle[i],NULL,something,(void*)i); // bad practice (casting)
-}// ...
+
+
+<span class="hljs-comment">// main</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span>{
+ &#9;<span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
+	<span class="hljs-type">int</span> i;
+	<span class="hljs-type">pthread_t</span> *handle;
+&#9;
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+			i++;
+			<span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
+		}
+	}
+&#9;
+	threads_glob = threads;
+&#9;
+	handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
+
+	<span class="hljs-comment">// fork the threads</span>
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+		pthread_create(&amp;handle[i],<span class="hljs-literal">NULL</span>,something,(<span class="hljs-type">void</span>*)i); <span class="hljs-comment">// bad practice (casting)</span>
+	}
+
+	<span class="hljs-comment">// ...</span>
 }</code></pre><p>This program is non deterministic - race condition:</p><div class="indented"><p>
 Variable
 <mark class="highlight-gray"><code>i</code></mark><mark class="highlight-gray"></mark>
 read by many threads.
-</p><p>Value may have been overwritten before thread copied into local.</p></div><p></p><p>Solution:</p><div class="indented"><p>Spawning “master” threads puts rank for each spawned thread into seperate location.</p><p>No race condition: Master thread writes each rank value once, before spawned thread starts and reads.</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>example (without race condition)</summary><p>Spawning “master” threads puts rank for each spawned thread into seperate location.</p><p>No race condition: Master thread writes each rank value once, before spawned thread starts and reads.</p><pre class="code"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;assert.h&gt;// pthreads header
-#include &lt;pthread.h&gt;// global state; number of threads (bad practice)
-int threads_glob;// code for thread functions
-void *something(void *argument){
-int rank = (int)argument; // bad practice (casting)
-printf("Thread rank %d of %d responding\n", rank, threads_glob);
-pthread_exit(NULL);
-}// main
-int main(int argc, char *argv[]){
-int threads = 1; // default
-int rank;
-pthread_t *handle;
-for (i=1; i&lt;argc &amp;&amp; argv[i][0]=='-'; i++) {
-if (argv[i][1]=='t') {
-rank[i] = i;
-sscanf(argv[i], "%d", &amp;threads); // get number of threads from commandline
+</p><p>Value may have been overwritten before thread copied into local.</p></div><p></p><p>Solution:</p><div class="indented"><p>Spawning “master” threads puts rank for each spawned thread into seperate location.</p><p>No race condition: Master thread writes each rank value once, before spawned thread starts and reads.</p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>example (without race condition)</summary><p>Spawning “master” threads puts rank for each spawned thread into seperate location.</p><p>No race condition: Master thread writes each rank value once, before spawned thread starts and reads.</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;assert.h&gt;</span></span>
+
+<span class="hljs-comment">// pthreads header</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-comment">// global state; number of threads (bad practice)</span>
+<span class="hljs-type">int</span> threads_glob;
+
+
+<span class="hljs-comment">// code for thread functions</span>
+<span class="hljs-type">void</span> *<span class="hljs-title function_">something</span><span class="hljs-params">(<span class="hljs-type">void</span> *argument)</span>{
+	<span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
+	pthread_exit(<span class="hljs-literal">NULL</span>);
 }
+
+
+<span class="hljs-comment">// main</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span>{
+ &#9;<span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
+	<span class="hljs-type">int</span> rank;
+	<span class="hljs-type">pthread_t</span> *handle;
+&#9;&#9;
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+			rank[i] = i;
+			<span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
+		}
+	}
+&#9;
+	threads_glob = threads;
+
+	handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
+	rank = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));
+
+	<span class="hljs-comment">// fork the threads</span>
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+		rank[i] = i;
+		errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
+		assert(errcode==<span class="hljs-number">0</span>);
+	}
+&#9;
+	<span class="hljs-comment">// join the threads again</span>
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+		pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
+	}&#9;
+
+	<span class="hljs-built_in">free</span>(rank);
+	<span class="hljs-built_in">free</span>(handle);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre><p>The performance is limited when we scale up because the sequential part is too big (amdahl):</p><div class="indented"><p>Thread creation is expensive.</p><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// fork the threads</span>
+<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+	rank[i] = i;
+	errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
+	assert(errcode==<span class="hljs-number">0</span>);
 }
-threads_glob = threads;handle = (pthread_t*)malloc(threads*sizeof(pthread_t));
-rank = (int*)malloc(threads*sizeof(int));// fork the threads
-for (i=0; i&lt;threads; i++) {
-rank[i] = i;
-errcode = pthread_create(&amp;handle[i], NULL, something, &amp;rank[i]);
-assert(errcode==0);
-}
-// join the threads again
-for (i=0; i&lt;threads; i++) {
-pthread_join(handle[i],NULL); // wait to terminate
-}free(rank);
-free(handle);
-return 0;
-}</code></pre><p>The performance is limited when we scale up because the sequential part is too big (amdahl):</p><div class="indented"><p>Thread creation is expensive.</p><pre class="code"><code>// fork the threads
-for (i=0; i&lt;threads; i++) {
-rank[i] = i;
-errcode = pthread_create(&amp;handle[i], NULL, something, &amp;rank[i]);
-assert(errcode==0);
-}// join the threads again
-for (i=0; i&lt;threads; i++) {
-pthread_join(handle[i],NULL); // wait to terminate
-}	</code></pre></div><p></p><p>Solutions:</p><div class="indented"><ol class="numbered-list" start="1" type="a"><li>Spawn recursively</li></ol><ol class="numbered-list" start="2" type="a"><li>
+
+<span class="hljs-comment">// join the threads again</span>
+<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+	pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
+}&#9;</code></pre></div><p></p><p>Solutions:</p><div class="indented"><ol class="numbered-list" start="1" type="a"><li>Spawn recursively</li></ol><ol class="numbered-list" start="2" type="a"><li>
 postpone thread creation overhead by keeping threads alive and only exit at the very end. (ie. wait on
 <em>condition variable</em>
 , broadcast wakeup, ...)
-</li></ol><figure class="image"><a href="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled.png"><img src="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled.png" style="width: 432px"/></a></figure><p></p></div><p></p></details></li></ul><ul class="toggle"><li><details><summary>example (increased performance through recursive spawn)</summary><pre class="code"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;assert.h&gt;// pthreads header
-#include &lt;pthread.h&gt;// global state; number of threads (bad practice)
-int threads_glob;// code for thread functions
-void *something(void *argument){
-int rank = (int)argument; // bad practice (casting)
-printf("Thread rank %d of %d responding\n", rank, threads_glob);
-pthread_exit(NULL);
-}// main
-int main(int argc, char *argv[]){
-int threads = 1; // default
-int rank;
-pthread_t *handle;
-for (i=1; i&lt;argc &amp;&amp; argv[i][0]=='-'; i++) {
-if (argv[i][1]=='t') {
-rank[i] = i;
-sscanf(argv[i], "%d", &amp;threads); // get number of threads from commandline
+</li></ol><figure class="image"><a href="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled.png"><img src="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled.png" style="width: 432px"/></a></figure><p></p></div><p></p></details></li></ul><ul class="toggle"><li><details><summary>example (increased performance through recursive spawn)</summary><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;assert.h&gt;</span></span>
+
+<span class="hljs-comment">// pthreads header</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-comment">// global state; number of threads (bad practice)</span>
+<span class="hljs-type">int</span> threads_glob;
+
+
+<span class="hljs-comment">// code for thread functions</span>
+<span class="hljs-type">void</span> *<span class="hljs-title function_">something</span><span class="hljs-params">(<span class="hljs-type">void</span> *argument)</span>{
+	<span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
+	pthread_exit(<span class="hljs-literal">NULL</span>);
 }
-}
-threads_glob = threads;handle = (pthread_t*)malloc(threads*sizeof(pthread_t));
-rank = (int*)malloc(threads*sizeof(int));// fork the threads
-for (i=0; i&lt;threads; i++) {
-rank[i] = i;
-errcode = pthread_create(&amp;handle[i], NULL, something, &amp;rank[i]);
-assert(errcode==0);
-}
-// join the threads again
-for (i=0; i&lt;threads; i++) {
-pthread_join(handle[i],NULL); // wait to terminate
-}free(rank);
-free(handle);
-return 0;
+
+
+<span class="hljs-comment">// main</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span>{
+ &#9;<span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
+	<span class="hljs-type">int</span> rank;
+	<span class="hljs-type">pthread_t</span> *handle;
+&#9;&#9;
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+			rank[i] = i;
+			<span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
+		}
+	}
+&#9;
+	threads_glob = threads;
+
+	handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
+	rank = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));
+
+	<span class="hljs-comment">// fork the threads</span>
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+		rank[i] = i;
+		errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
+		assert(errcode==<span class="hljs-number">0</span>);
+	}
+&#9;
+	<span class="hljs-comment">// join the threads again</span>
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+		pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
+	}&#9;
+
+	<span class="hljs-built_in">free</span>(rank);
+	<span class="hljs-built_in">free</span>(handle);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre><p></p></details></li></ul></div><p></p><p></p><h2 id="5eee7dc7-7a11-42bf-99ed-392aaef6a851">Error codes</h2><p><mark class="highlight-blue">pthread error codes</mark></p><div class="indented"><p>
 Good practice: checking return value (
 <mark class="highlight-gray"><code>error</code></mark>
 )
-</p><pre class="code"><code>#include &lt;pthread.h&gt;
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
 error = pthread_&lt;any pthreads function&gt;
-if (error!=0) {
-fprintf(stderr, "Thread %d in trouble with %d\", myid, error);
-// ...
-}</code></pre></div><p></p><p></p><h2 id="55d7601f-348a-49eb-9d2c-9e3155d968b5">Finalizing</h2><p><mark class="highlight-blue">finalizing thread</mark></p><div class="indented"><pre class="code"><code>#include &lt;pthread.h&gt;
-void pthread_exit(void *status);</code></pre><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_join(pthread_t thread, void **status); // allows catching status</code></pre></div><p></p><figure class="image"><a href="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled%201.png"><img src="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled%201.png" style="width: 240px"/></a></figure><p></p><h2 id="13f86ba0-4797-4b0a-b9ff-82e001256e14">Binding threads to cores</h2><p><mark class="highlight-blue">Binding threads to cores</mark></p><div class="indented"><p><mark class="highlight-gray"><code>_np</code></mark><mark class="highlight-gray"></mark>
+<span class="hljs-keyword">if</span> (error!=<span class="hljs-number">0</span>) {
+	<span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;Thread %d in trouble with %d\&quot;, myid, error);
+	// ...
+}</span></code></pre></div><p></p><p></p><h2 id="55d7601f-348a-49eb-9d2c-9e3155d968b5">Finalizing</h2><p><mark class="highlight-blue">finalizing thread</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">void</span> <span class="hljs-title function_">pthread_exit</span><span class="hljs-params">(<span class="hljs-type">void</span> *status)</span>;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_join</span><span class="hljs-params">(<span class="hljs-type">pthread_t</span> thread, <span class="hljs-type">void</span> **status)</span>; <span class="hljs-comment">// allows catching status</span></code></pre></div><p></p><figure class="image"><a href="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled%201.png"><img src="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled%201.png" style="width: 240px"/></a></figure><p></p><h2 id="13f86ba0-4797-4b0a-b9ff-82e001256e14">Binding threads to cores</h2><p><mark class="highlight-blue">Binding threads to cores</mark></p><div class="indented"><p><mark class="highlight-gray"><code>_np</code></mark><mark class="highlight-gray"></mark>
 non-portable, non-standard extension to pthreads.
-</p><pre class="code"><code>#define _GNU_SOURCE
-#include &lt;pthread.h&gt;int pthread_setaffinity_np(pthread_t thread, size_t cpusetsize, const cpu_set_t *cpuset);
-int pthread_getaffinity_np(pthread_t thread, size_t cpusetsize, cpu_set_t *cpuset);</code></pre></div><p></p></div></article></body></html>
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> _GNU_SOURCE</span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_setaffinity_np</span><span class="hljs-params">(<span class="hljs-type">pthread_t</span> thread, <span class="hljs-type">size_t</span> cpusetsize, <span class="hljs-type">const</span> <span class="hljs-type">cpu_set_t</span> *cpuset)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_getaffinity_np</span><span class="hljs-params">(<span class="hljs-type">pthread_t</span> thread, <span class="hljs-type">size_t</span> cpusetsize, <span class="hljs-type">cpu_set_t</span> *cpuset)</span>;</code></pre></div><p></p></div></article></body></html>

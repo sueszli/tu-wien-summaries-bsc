@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Test 2</h1><p class="page-description"></p></header><div class="page-body"><figure><div class="block-color-gray source"><a href="Test%202%20ecc344d846914199ba6430006266348d/TU_Wien-Web_Engineering_VU_(Cito)_-_A2-Online-Test-Questions_2020-06-15.pdf">
 TU_Wien-Web_Engineering_VU_(Cito)_-_A2-Online-Test-Questions_2020-06-15.pdf
@@ -607,38 +608,38 @@ we heard about in the lecture is the closest related to this description?
 → inability to manage server software
 </p><p></p><hr/><p>
 Given the following request to your API:
-<code>https://localhost/frame/oak.jpg?quality=large</code></p><p>An implemented endpoint:</p><pre class="code"><code>app.get('/frame/:style.:ending', (req, res) =&gt; {
-if(!req.query.quality) {
-return res.sendStatus(404);
-}
-res.sendFile(path.join(__dirname, "../resources/frame/" + req.query.quality, `${req.params.
-style}.${req.params.ending}`));
+<code>https://localhost/frame/oak.jpg?quality=large</code></p><p>An implemented endpoint:</p><pre class="code"><code class="hljs language-javascript">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/frame/:style.:ending&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+ <span class="hljs-keyword">if</span>(!req.<span class="hljs-property">query</span>.<span class="hljs-property">quality</span>) {
+	 <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">sendStatus</span>(<span class="hljs-number">404</span>);
+ }
+ res.<span class="hljs-title function_">sendFile</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;../resources/frame/&quot;</span> + req.<span class="hljs-property">query</span>.<span class="hljs-property">quality</span>, <span class="hljs-string">`<span class="hljs-subst">${req.params.
+style}</span>.<span class="hljs-subst">${req.params.ending}</span>`</span>));
 });</code></pre><p>Which of the following answers captures best what is going on?</p><p></p><p class="block-color-gray"><mark class="highlight-gray">Our endpoint responds to</mark><code><mark class="highlight-gray">/frame</mark></code><mark class="highlight-gray">-requests with a static file that contains the received: name, file type (ie. jpg), quality (ie. large).</mark></p><p><mark class="highlight-gray">If the request query does not contain a value for</mark><code><mark class="highlight-gray">?quality=</mark></code><mark class="highlight-gray">then we respond with the not found status</mark><code><mark class="highlight-gray">404</mark></code><mark class="highlight-gray">.</mark></p><p><mark class="highlight-gray">Else we respond with the found file</mark><code><mark class="highlight-gray">&lt;style&gt;.&lt;ending&gt;</mark></code><mark class="highlight-gray">from the directory</mark><code><mark class="highlight-gray">../resources/frame/&lt;quality&gt;/</mark></code><mark class="highlight-gray">.</mark></p><p></p><p></p><hr/><p>What is a session cookie?</p><p><mark class="highlight-gray">A cookie called</mark><code><mark class="highlight-gray"><mark class="highlight-gray">session</mark></mark></code><mark class="highlight-gray"><mark class="highlight-gray"><mark class="highlight-gray">that is used to create stateful Web-Applications.</mark></mark></mark></p><p></p><hr/><p>What is middleware (as part of backend abstractions/Node.js)?</p><p><mark class="highlight-gray">Enables backend-templating and conversion of http-requests to javascript objects and vice versa:</mark></p><p><mark class="highlight-gray">Backend</mark><mark class="highlight-gray"><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></mark><mark class="highlight-gray">Frontend stringifies javascript-objects to JSON</mark></p><p><mark class="highlight-gray">Backend</mark><mark class="highlight-gray"><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>←</mo></mrow><annotation encoding="application/x-tex">\larr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">←</span></span></span></span></span><span>﻿</span></span></mark><mark class="highlight-gray">Frontend converts request bodies to javascript-objects</mark></p><ul class="block-color-gray toggle"><li><details><summary><mark class="highlight-gray">more precisely</mark></summary><p>
 The middleware sits between the backend and frontend as a sort of pipeline that can manipulate requests and responds. (Anything
 that calls app, like app.use(), app.get(), Routing is also a form of middleware!)
-</p><p>With next() we can call the next middleware function in the pipeline.</p><p>The conversion of requests to json objects happens in the first pipeline step with use(req.json())</p><p></p></details></li></ul><p></p><hr/><p>What are declarative frontends?</p><p><mark class="highlight-gray">Using templates instead of imperatively defining DOM changes command by command.</mark></p><p><mark class="highlight-gray">Using binding to define relationships between DOM and data.</mark></p><p></p><hr/><p>In the following component, we see the use of a computed property. What is wrong in this example?</p><pre class="code"><code>&lt;template&gt;
-&lt;label&gt;From &lt;input type="text" v-model="range.min"&gt;&lt;/label&gt;
-&lt;label&gt;To &lt;input type="text" v-model="range.max"&gt;&lt;/label&gt;
-{{ randomInRange }}
-&lt;/template&gt;
-&lt;script&gt;
-export default {
-name : 'RandomNumber',
-data : function {
-return {
-range : {
-min: 4,
-max: 8
-}
-}
-},
-computed : {
-randomInRange : function() {
-Math.floor(Math.random() * (range.max - range.min + 1)) + range.min
-}
-}
-}
-&lt;/script&gt;</code></pre><p></p><p><mark class="highlight-gray">
+</p><p>With next() we can call the next middleware function in the pipeline.</p><p>The conversion of requests to json objects happens in the first pipeline step with use(req.json())</p><p></p></details></li></ul><p></p><hr/><p>What are declarative frontends?</p><p><mark class="highlight-gray">Using templates instead of imperatively defining DOM changes command by command.</mark></p><p><mark class="highlight-gray">Using binding to define relationships between DOM and data.</mark></p><p></p><hr/><p>In the following component, we see the use of a computed property. What is wrong in this example?</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>From <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;range.min&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>To <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;range.max&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+		{{ randomInRange }}
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+		<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+				name : <span class="hljs-string">&#x27;RandomNumber&#x27;</span>,
+				data : <span class="hljs-keyword">function</span> {
+						<span class="hljs-keyword">return</span> {
+								range : {
+										<span class="hljs-attr">min</span>: <span class="hljs-number">4</span>,
+										<span class="hljs-attr">max</span>: <span class="hljs-number">8</span>
+								}
+						}
+				},
+				computed : {
+						randomInRange : <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+								<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() * (range.<span class="hljs-property">max</span> - range.<span class="hljs-property">min</span> + <span class="hljs-number">1</span>)) + range.<span class="hljs-property">min</span>
+						}
+				}
+		}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p></p><p><mark class="highlight-gray">
 The computed randomInRange function does not return what it computed- which therefore can not be binded to the template.
 </mark></p><p class="block-color-gray"><mark class="highlight-gray">Also range.max and range.min should be this.range.max and this.range.min</mark></p><p></p><hr/><p>
 Which one of these concepts in frontend abstractions best describes data binding in templates where changes in the input can also influence
@@ -667,63 +668,68 @@ And, vice-versa, when the form input in the "
 " into the form input, the object in data is set to range:
 <code>{ min: 9, max: 14 }</code>
 ).
-</p><pre class="code"><code>&lt;template&gt;
-&lt;FromToRange /&gt;
-&lt;/template&gt;
-&lt;script&gt;
-import FromToRange from "@/components/FromToRange";
-export default {
-components : {
-FromToRange
+</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">FromToRange</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+		<span class="hljs-keyword">import</span> <span class="hljs-title class_">FromToRange</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@/components/FromToRange&quot;</span>;
+&#9;&#9;
+		<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+				components : {
+						<span class="hljs-title class_">FromToRange</span>
+				}
+				data : <span class="hljs-function">() =&gt;</span> {
+						<span class="hljs-keyword">return</span> {
+								range : {
+										min : <span class="hljs-number">0</span>,
+										<span class="hljs-attr">max</span>: <span class="hljs-number">0</span>
+								}
+						}
+				}
+		}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p>Which of the following answers describes a best practice solution to enable reactive and bidirectional binding for this component in Vue?</p><p></p><p><mark class="highlight-red">????</mark></p><p></p><p></p><hr/><p>Given the following code that uses HTML/JavaScript with DOM and Event Handling:</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;range&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;numSlider&quot;</span> <span class="hljs-attr">oninput</span>=<span class="hljs-string">&quot;updateValue(this.value)&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;numInput&quot;</span> <span class="hljs-attr">onchange</span>=<span class="hljs-string">&quot;updateValue(this.value)&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">updateValue</span>(<span class="hljs-params">value</span>) {
+		<span class="hljs-keyword">const</span> span = <span class="hljs-title function_">getSpan</span>(<span class="hljs-string">&#x27;mm&#x27;</span>);
+		<span class="hljs-keyword">if</span>(<span class="hljs-built_in">isNaN</span>(value)) {
+				<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeChild</span>(span);
+				<span class="hljs-keyword">return</span>;
+		}
+		<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;numSlider&#x27;</span>).<span class="hljs-property">value</span> = value;
+		<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;numInput&#x27;</span>).<span class="hljs-property">value</span> = value;
+		span.<span class="hljs-property">innerText</span> = <span class="hljs-string">`<span class="hljs-subst">${value * <span class="hljs-number">10</span>}</span> mm`</span>;
 }
-data : () =&gt; {
-return {
-range : {
-min : 0,
-max: 0
-}
-}
-}
-}
-&lt;/script&gt;</code></pre><p>Which of the following answers describes a best practice solution to enable reactive and bidirectional binding for this component in Vue?</p><p></p><p><mark class="highlight-red">????</mark></p><p></p><p></p><hr/><p>Given the following code that uses HTML/JavaScript with DOM and Event Handling:</p><pre class="code"><code>&lt;html&gt;
-&lt;body&gt;
-&lt;input type="range" id="numSlider" oninput="updateValue(this.value)"&gt;
-&lt;input type="text" id="numInput" onchange="updateValue(this.value)"&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><pre class="code"><code>function updateValue(value) {
-const span = getSpan('mm');
-if(isNaN(value)) {
-document.body.removeChild(span);
-return;
-}
-document.getElementById('numSlider').value = value;
-document.getElementById('numInput').value = value;
-span.innerText = `${value * 10} mm`;
-}function getSpan(id) {
-let el = document.getElementById(id);
-if(!el) {
-el = document.createElement('span');
-el.id = id;
-document.body.appendChild(el);
-}
-return el;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getSpan</span>(<span class="hljs-params">id</span>) {
+		<span class="hljs-keyword">let</span> el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(id);
+		<span class="hljs-keyword">if</span>(!el) {
+				el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;span&#x27;</span>);
+				el.<span class="hljs-property">id</span> = id;
+				<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(el);
+		}
+		<span class="hljs-keyword">return</span> el;
 }
 </code></pre><p>
 Which of the following Vue components is the equivalent to this code above that most closely follows declarative rendering with
 bidirectional binding?
-</p><p class="block-color-gray"><mark class="highlight-gray">One that:</mark></p><div class="indented"><ul class="block-color-gray bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray">uses</mark><mark class="highlight-gray"><code>v-if</code></mark><mark class="highlight-gray">and</mark><code><mark class="highlight-gray">v-else</mark></code><mark class="highlight-gray">to show a DOM</mark><code><mark class="highlight-gray">span</mark></code><mark class="highlight-gray">element based on the value of the</mark><code><mark class="highlight-gray">span</mark></code><mark class="highlight-gray">variable.</mark></li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray">uses</mark><code><mark class="highlight-gray">v-on</mark></code><mark class="highlight-gray">to update the</mark><code><mark class="highlight-gray">spam</mark></code><mark class="highlight-gray">DOM elements value if the inputs in the HTML change (through two way binding with</mark><code><mark class="highlight-gray">v-model</mark></code><mark class="highlight-gray">)</mark></li></ul></div><p></p><p></p><p></p><hr/><p>Here is an endpoint in Node.js:</p><pre class="code"><code>app.post('/users/:id', (res,req) =&gt; {
-switch (req.query.method) {
-case 'addBlogPost':
-// add a post to the user's blog
-...
-return res.sendStatus(200);
-case 'deleteBlogPost':
-// delete a post from the user's blog
-...
-return res.sendStatus(204);
-default:
-return res.sendStatus(400);
-}
+</p><p class="block-color-gray"><mark class="highlight-gray">One that:</mark></p><div class="indented"><ul class="block-color-gray bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray">uses</mark><mark class="highlight-gray"><code>v-if</code></mark><mark class="highlight-gray">and</mark><code><mark class="highlight-gray">v-else</mark></code><mark class="highlight-gray">to show a DOM</mark><code><mark class="highlight-gray">span</mark></code><mark class="highlight-gray">element based on the value of the</mark><code><mark class="highlight-gray">span</mark></code><mark class="highlight-gray">variable.</mark></li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray">uses</mark><code><mark class="highlight-gray">v-on</mark></code><mark class="highlight-gray">to update the</mark><code><mark class="highlight-gray">spam</mark></code><mark class="highlight-gray">DOM elements value if the inputs in the HTML change (through two way binding with</mark><code><mark class="highlight-gray">v-model</mark></code><mark class="highlight-gray">)</mark></li></ul></div><p></p><p></p><p></p><hr/><p>Here is an endpoint in Node.js:</p><pre class="code"><code class="hljs language-javascript">app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/users/:id&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">res,req</span>) =&gt;</span> {
+		<span class="hljs-keyword">switch</span> (req.<span class="hljs-property">query</span>.<span class="hljs-property">method</span>) {
+				<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;addBlogPost&#x27;</span>:
+				<span class="hljs-comment">// add a post to the user&#x27;s blog</span>
+				...
+				<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">sendStatus</span>(<span class="hljs-number">200</span>);
+&#9;&#9;&#9;&#9;
+				<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;deleteBlogPost&#x27;</span>:
+				<span class="hljs-comment">// delete a post from the user&#x27;s blog</span>
+				...
+				<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">sendStatus</span>(<span class="hljs-number">204</span>);
+&#9;&#9;&#9;&#9;
+				<span class="hljs-attr">default</span>:
+				<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">sendStatus</span>(<span class="hljs-number">400</span>);
+		}
 });</code></pre><p>What REST principle is violated here?</p><p><mark class="highlight-gray">
 This is not a resource-oriented API! The query contains a method to execute functions on the server. This is an RPC interface.
 </mark></p><p><mark class="highlight-gray">It violates the 4.1. principle: Uniform Interface - Identification of Resources.</mark></p><p></p><hr/><p>
@@ -734,9 +740,9 @@ endpoint. When retrieving a specific user, the JSON representation also contains
 Your web service depends on a database. For development you have a local instance of the database running on localhost. When deploying your
 application to production, you connect to an external database server. What backend abstraction would you use to manage the database
 credentials within your code?
-</p><p></p><p><mark class="highlight-gray">In Node.js I would use external variables to pass the configuration data to the program like so:</mark></p><pre class="code"><code>const	db	=	require('db')
-db.connect({
-host:	process.env.DB_HOST,
-username:	process.env.DB_USER,
-password:	process.env.DB_PASS
-})</code></pre><p><mark class="highlight-gray">Other ways to pass configuration to the program (pass parameters, read from configuration file, etc.)</mark></p><pre class="code"><code>const	port	=	process.argv.length	&gt;=	3	?	+process.argv[2] : 3000;</code></pre><p></p></div></article></body></html>
+</p><p></p><p><mark class="highlight-gray">In Node.js I would use external variables to pass the configuration data to the program like so:</mark></p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	db	=	<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;db&#x27;</span>)&#9;
+db.<span class="hljs-title function_">connect</span>({&#9;
+		<span class="hljs-attr">host</span>:	process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_HOST</span>,&#9;
+		<span class="hljs-attr">username</span>:	process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_USER</span>,&#9;
+		<span class="hljs-attr">password</span>:	process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_PASS</span>&#9;
+})</code></pre><p><mark class="highlight-gray">Other ways to pass configuration to the program (pass parameters, read from configuration file, etc.)</mark></p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	port	=	process.<span class="hljs-property">argv</span>.<span class="hljs-property">length</span>	&gt;=	<span class="hljs-number">3</span>	?	+process.<span class="hljs-property">argv</span>[<span class="hljs-number">2</span>] : <span class="hljs-number">3000</span>;</code></pre><p></p></div></article></body></html>

@@ -592,235 +592,311 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Map, HashMap</h1><p class="page-description"></p></header><div class="page-body"><p>Assoziative Datenstrukturen:</p><div class="indented"><p>zB Arrays: lückenlos, Suche nach Werten (values) mit Index (key)</p><p>Braucht einen Suchalgorithmus</p><p>Keys sind unique</p><p></p><p>Hash-Tabelle nutzt die .hashCode() Funktion → Berechnet Index im Array daraus</p><p>Bei Kollision wird die nächste freie Stelle im Array gesucht → Erschwert das Suchen von Werten</p><p>
 Ab bestimmten Füllungsgrad
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em"></span><span class="mord mathnormal" style="margin-right: 0.0037em">α</span></span></span></span></span><span>﻿</span></span>
 wird das Array vergrößert
-</p></div><p></p><p></p><pre class="code"><code>public interface Assoc {
-String put(String k, String v);
-String get(String k); //gets v
-boolean containsKey(String k);
-boolean containsValue(String v);
-}</code></pre><pre class="code"><code>public interface Map {
-String put(String key, String value);
-String get(String key);
-String remove(String key);
-boolean containsKey(String key);
-boolean containsValue(String value);
-Collection keys();
-Collection values();
-int size();
-}</code></pre><p></p><h1>Implementierung</h1><pre class="code"><code>public class SimpleAssoc {
-private int top; //index of top elem in array
-private String[] ks = new String [8];
-private String[] vs = new String [8];
-private int find(String s, String[] a) {
-int i = 0;
-//linear search
-if (s == null){
-while (i &lt; top &amp;&amp;	!(null == a[i]))
-i++;
-return i;
-} else {
-while (i &lt; top &amp;&amp;	!(s.equals(a[i])))
-i++;
-return i;
+</p></div><p></p><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Assoc</span> {
+	String <span class="hljs-title function_">put</span><span class="hljs-params">(String k, String v)</span>;&#32;
+	String <span class="hljs-title function_">get</span><span class="hljs-params">(String k)</span>; <span class="hljs-comment">//gets v </span>
+	<span class="hljs-type">boolean</span> <span class="hljs-title function_">containsKey</span><span class="hljs-params">(String k)</span>;
+	<span class="hljs-type">boolean</span> <span class="hljs-title function_">containsValue</span><span class="hljs-params">(String v)</span>;
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Map</span> {
+	String <span class="hljs-title function_">put</span><span class="hljs-params">(String key, String value)</span>;
+	String <span class="hljs-title function_">get</span><span class="hljs-params">(String key)</span>;
+	String <span class="hljs-title function_">remove</span><span class="hljs-params">(String key)</span>;
+	<span class="hljs-type">boolean</span> <span class="hljs-title function_">containsKey</span><span class="hljs-params">(String key)</span>;
+	<span class="hljs-type">boolean</span> <span class="hljs-title function_">containsValue</span><span class="hljs-params">(String value)</span>;
+	Collection <span class="hljs-title function_">keys</span><span class="hljs-params">()</span>;
+	Collection <span class="hljs-title function_">values</span><span class="hljs-params">()</span>;
+	<span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
+}</code></pre><p></p><h1>Implementierung</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleAssoc</span> {
+	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> top; <span class="hljs-comment">//index of top elem in array</span>
+	<span class="hljs-keyword">private</span> String[] ks = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span> [<span class="hljs-number">8</span>];
+	<span class="hljs-keyword">private</span> String[] vs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span> [<span class="hljs-number">8</span>];
+&#9;
+	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">find</span><span class="hljs-params">(String s, String[] a)</span> {
+		<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+		<span class="hljs-comment">//linear search</span>
+		<span class="hljs-keyword">if</span> (s == <span class="hljs-literal">null</span>){
+			<span class="hljs-keyword">while</span> (i &lt; top &amp;&amp;	!(<span class="hljs-literal">null</span> == a[i]))
+				i++;
+			<span class="hljs-keyword">return</span> i;
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">while</span> (i &lt; top &amp;&amp;	!(s.equals(a[i])))
+				i++;
+			<span class="hljs-keyword">return</span> i;
+		}
+	}
+&#9;
+	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">put</span><span class="hljs-params">(String k, String v)</span> {
+		<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> find(k, ks); <span class="hljs-comment">//find index of k in ks</span>
+&#9;&#9;
+		<span class="hljs-comment">//double size</span>
+		<span class="hljs-keyword">if</span> (i == top &amp;&amp; ++top == ks.length) {
+			String[] nks = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[(top * <span class="hljs-number">2</span>)];
+			String[] nvs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[(top * <span class="hljs-number">2</span>)];
+			<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; i; j++) {
+				nks[j] = ks[j]; nvs[j] = vs[j];
+			}&#9;
+			ks = nks; vs = nvs;
+		}
+		ks[i] = k;
+&#9;&#9;
+		<span class="hljs-comment">//actual operation</span>
+		<span class="hljs-type">String</span> <span class="hljs-variable">old</span> <span class="hljs-operator">=</span> vs[i];
+		vs[i] = v;
+		<span class="hljs-keyword">return</span> old;
+	}
+&#9;
+	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">remove</span><span class="hljs-params">(String k)</span> {
+		<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> find(k, ks);
+		<span class="hljs-type">String</span> <span class="hljs-variable">old</span> <span class="hljs-operator">=</span> vs[i];
+		<span class="hljs-keyword">if</span> (i &lt; top) {
+		<span class="hljs-comment">//last array entry [top] = null to prevent index out of bound</span>
+			ks[i] = ks[--top]; <span class="hljs-comment">//fill hole</span>
+			ks[top] = <span class="hljs-literal">null</span>;&#32;&#9;&#9;&#9;
+			vs[i] = vs[top];
+			vs[top] = <span class="hljs-literal">null</span>;
+		}
+		<span class="hljs-keyword">return</span> old;
+	}
+&#9;
+	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">get</span><span class="hljs-params">(String k)</span> {
+		<span class="hljs-keyword">return</span> vs[find(k, ks)];
+	}
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsKey</span><span class="hljs-params">(String k)</span> {
+		<span class="hljs-keyword">return</span> find(k, ks) &lt; top;
+	}
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsValue</span><span class="hljs-params">(String v)</span> {
+		<span class="hljs-keyword">return</span> find(v, vs) &lt; top;
+	}
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> top; }
+}</code></pre><h1>HashTab</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HashTab</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Assoc</span> {
+    <span class="hljs-keyword">private</span> String[] ks = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">65</span>];
+    <span class="hljs-keyword">private</span> String[] vs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">65</span>];
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+
+		<span class="hljs-keyword">public</span> <span class="hljs-title function_">HashTab</span><span class="hljs-params">()</span> {
+        clear();
+    }
+
+		<span class="hljs-comment">//search ks</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">find</span><span class="hljs-params">(String k)</span> {
+        <span class="hljs-keyword">if</span> (k == <span class="hljs-literal">null</span>)
+            <span class="hljs-keyword">return</span> ks.length - <span class="hljs-number">1</span>; <span class="hljs-comment">// ks[ks.length-1] = null</span>
+
+        <span class="hljs-comment">// linear search</span>
+        <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> k.hashCode() &amp; (ks.length - <span class="hljs-number">2</span>);
+        <span class="hljs-keyword">while</span> (ks[i] != <span class="hljs-literal">null</span> &amp;&amp; !ks[i].equals(k)) { <span class="hljs-comment">//if not there because of collision</span>
+            i = (i + <span class="hljs-number">1</span>) &amp; (ks.length - <span class="hljs-number">2</span>);
+        }
+        <span class="hljs-keyword">return</span> i;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">put</span><span class="hljs-params">(String k, String v)</span> {
+        <span class="hljs-keyword">if</span> (k == <span class="hljs-literal">null</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        }
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> find(k);
+        <span class="hljs-type">String</span> <span class="hljs-variable">old</span> <span class="hljs-operator">=</span> vs[i];
+        vs[i] = v;
+
+        <span class="hljs-keyword">if</span> (ks[i] == <span class="hljs-literal">null</span>) {
+            ks[i] = k;
+            <span class="hljs-comment">// doubles size</span>
+            <span class="hljs-keyword">if</span> (++count &gt;= <span class="hljs-number">0.75</span> * ks.length) {
+                String[] oks = ks, ovs = vs;
+                ks = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[(oks.length * <span class="hljs-number">2</span>) - <span class="hljs-number">1</span>];
+                vs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[(oks.length * <span class="hljs-number">2</span>) - <span class="hljs-number">1</span>];
+                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; oks.length; j++) {
+                    <span class="hljs-keyword">if</span> (oks[j] != <span class="hljs-literal">null</span>) {
+                        ks[i = find(oks[j])] = oks[j];
+                        vs[i] = ovs[j];
+                    }
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> old;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">get</span><span class="hljs-params">(String k)</span> {
+        <span class="hljs-keyword">return</span> vs[find(k)];
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsKey</span><span class="hljs-params">(String k)</span> {
+        <span class="hljs-keyword">return</span> ks[find(k)] != <span class="hljs-literal">null</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsValue</span><span class="hljs-params">(String v)</span> {
+        <span class="hljs-comment">// linear search in vs[]</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; vs.length - <span class="hljs-number">1</span>; i++) {
+            <span class="hljs-keyword">if</span> (v == <span class="hljs-literal">null</span> ? (ks[i] != v &amp;&amp; vs[i] == v) : v.equals(vs[i]))
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; ks.length - <span class="hljs-number">1</span>; i++) {
+            <span class="hljs-keyword">if</span> (ks[i] != <span class="hljs-literal">null</span>)
+                s += (s.isEmpty() ? <span class="hljs-string">&quot;(&quot;</span> : <span class="hljs-string">&quot;, (&quot;</span>) + ks[i] + <span class="hljs-string">&quot;, &quot;</span> + vs[i] + <span class="hljs-string">&quot;)&quot;</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;{&quot;</span> + s + <span class="hljs-string">&quot;}&quot;</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span> <span class="hljs-params">( Object o)</span> {
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span> == o) { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }
+		<span class="hljs-keyword">if</span> (o == <span class="hljs-literal">null</span> || o.getClass() != HashTab.class)
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> ;
+		<span class="hljs-type">HashTab</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> ( HashTab )o;
+		<span class="hljs-keyword">if</span> (count != t.count) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; ks. length - <span class="hljs-number">1</span>; i++) {
+			<span class="hljs-keyword">if</span> (ks[i] != <span class="hljs-literal">null</span> &amp;&amp; (vs[i] == <span class="hljs-literal">null</span> ? {
+				!t.containsKey(ks[i]) || t.get(ks[i]) != <span class="hljs-literal">null</span> : !vs[i].equals(t.get(ks[i]))))
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+			}
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	}
+
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span><span class="hljs-params">()</span> {
+      <span class="hljs-type">int</span> <span class="hljs-variable">h</span> <span class="hljs-operator">=</span> count;
+      <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; ks.length - <span class="hljs-number">1</span>; i++) {
+          <span class="hljs-keyword">if</span> (ks[i] != <span class="hljs-literal">null</span>) {
+              h += ks[i].hashCode();
+              <span class="hljs-keyword">if</span> (vs[i] != <span class="hljs-literal">null</span>)
+                  h += vs[i].hashCode();
+          }
+      }
+      <span class="hljs-keyword">return</span> h;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clear</span><span class="hljs-params">()</span> {
+      ks = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">65</span>];
+      vs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">65</span>];
+      count = <span class="hljs-number">0</span>;
+  }
+
+  <span class="hljs-keyword">public</span> String <span class="hljs-title function_">remove</span><span class="hljs-params">(String k)</span> {
+      <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> find(k);
+      <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> vs[i];
+      <span class="hljs-keyword">if</span> (i &lt; ks.length - <span class="hljs-number">1</span>) {
+          ks[i] = vs[i] = <span class="hljs-literal">null</span>;
+          count--;
+          <span class="hljs-keyword">for</span> (i = (i + <span class="hljs-number">1</span>) &amp; (ks.length - <span class="hljs-number">2</span>); ks[i] != <span class="hljs-literal">null</span>; i = (i + <span class="hljs-number">1</span>) &amp; (ks.length - <span class="hljs-number">2</span>)) {
+              <span class="hljs-type">String</span> <span class="hljs-variable">ki</span> <span class="hljs-operator">=</span> ks[i], vi = vs[i];
+              ks[i] = vs[i] = <span class="hljs-literal">null</span>;
+              count--;
+              put(ki, vi);
+          }
+      }
+      <span class="hljs-keyword">return</span> result;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> {
+      <span class="hljs-keyword">return</span> count;
+  }
+
+  <span class="hljs-keyword">public</span> Collection <span class="hljs-title function_">keys</span><span class="hljs-params">()</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KeySet</span>(<span class="hljs-built_in">this</span>);
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">keyArray</span><span class="hljs-params">(String[] keys)</span> {
+      <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, j = -<span class="hljs-number">1</span>;
+      <span class="hljs-keyword">while</span> (i &lt; keys.length &amp;&amp; ++j &lt; ks.length - <span class="hljs-number">1</span>) {
+          <span class="hljs-keyword">if</span> (ks[j] != <span class="hljs-literal">null</span>) {
+              keys[i++] = ks[j];
+          }
+      }
+      <span class="hljs-keyword">return</span> i;
+  }
+
+  <span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">keyIterator</span><span class="hljs-params">()</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashTabKeyIter</span>(ks);
+  }
 }
-}
-public String put(String k, String v) {
-int i = find(k, ks); //find index of k in ks
-//double size
-if (i == top &amp;&amp; ++top == ks.length) {
-String[] nks = new String[(top * 2)];
-String[] nvs = new String[(top * 2)];
-for (int j = 0; j &lt; i; j++) {
-nks[j] = ks[j]; nvs[j] = vs[j];
-}
-ks = nks; vs = nvs;
-}
-ks[i] = k;
-//actual operation
-String old = vs[i];
-vs[i] = v;
-return old;
-}
-public String remove(String k) {
-int i = find(k, ks);
-String old = vs[i];
-if (i &lt; top) {
-//last array entry [top] = null to prevent index out of bound
-ks[i] = ks[--top]; //fill hole
-ks[top] = null;
-vs[i] = vs[top];
-vs[top] = null;
-}
-return old;
-}
-public String get(String k) {
-return vs[find(k, ks)];
-}
-public boolean containsKey(String k) {
-return find(k, ks) &lt; top;
-}
-public boolean containsValue(String v) {
-return find(v, vs) &lt; top;
-}
-public int size() { return top; }
-}</code></pre><h1>HashTab</h1><pre class="code"><code>public class HashTab implements Assoc {
-private String[] ks = new String[65];
-private String[] vs = new String[65];
-private int count = 0;public HashTab() {
-clear();
-}//search ks
-private int find(String k) {
-if (k == null)
-return ks.length - 1; // ks[ks.length-1] = null// linear search
-int i = k.hashCode() &amp; (ks.length - 2);
-while (ks[i] != null &amp;&amp; !ks[i].equals(k)) { //if not there because of collision
-i = (i + 1) &amp; (ks.length - 2);
-}
-return i;
-}public String put(String k, String v) {
-if (k == null) {
-return null;
-}int i = find(k);
-String old = vs[i];
-vs[i] = v;if (ks[i] == null) {
-ks[i] = k;
-// doubles size
-if (++count &gt;= 0.75 * ks.length) {
-String[] oks = ks, ovs = vs;
-ks = new String[(oks.length * 2) - 1];
-vs = new String[(oks.length * 2) - 1];
-for (int j = 0; j &lt; oks.length; j++) {
-if (oks[j] != null) {
-ks[i = find(oks[j])] = oks[j];
-vs[i] = ovs[j];
-}
-}
-}
-}
-return old;
-}public String get(String k) {
-return vs[find(k)];
-}public boolean containsKey(String k) {
-return ks[find(k)] != null;
-}public boolean containsValue(String v) {
-// linear search in vs[]
-for (int i = 0; i &lt; vs.length - 1; i++) {
-if (v == null ? (ks[i] != v &amp;&amp; vs[i] == v) : v.equals(vs[i]))
-return true;
-}
-return false;
-}public String toString() {
-String s = "";
-for (int i = 0; i &lt; ks.length - 1; i++) {
-if (ks[i] != null)
-s += (s.isEmpty() ? "(" : ", (") + ks[i] + ", " + vs[i] + ")";
-}
-return "{" + s + "}";
-}public boolean equals ( Object o) {
-if (this == o) { return true; }
-if (o == null || o.getClass() != HashTab.class)
-return false ;
-HashTab t = ( HashTab )o;
-if (count != t.count) return false;
-for (int i = 0; i &lt; ks. length - 1; i++) {
-if (ks[i] != null &amp;&amp; (vs[i] == null ? {
-!t.containsKey(ks[i]) || t.get(ks[i]) != null : !vs[i].equals(t.get(ks[i]))))
-return false;
-}
-}
-return true;
-}public int hashCode() {
-int h = count;
-for (int i = 0; i &lt; ks.length - 1; i++) {
-if (ks[i] != null) {
-h += ks[i].hashCode();
-if (vs[i] != null)
-h += vs[i].hashCode();
-}
-}
-return h;
-}public void clear() {
-ks = new String[65];
-vs = new String[65];
-count = 0;
-}public String remove(String k) {
-int i = find(k);
-String result = vs[i];
-if (i &lt; ks.length - 1) {
-ks[i] = vs[i] = null;
-count--;
-for (i = (i + 1) &amp; (ks.length - 2); ks[i] != null; i = (i + 1) &amp; (ks.length - 2)) {
-String ki = ks[i], vi = vs[i];
-ks[i] = vs[i] = null;
-count--;
-put(ki, vi);
-}
-}
-return result;
-}public int size() {
-return count;
-}public Collection keys() {
-return new KeySet(this);
-}public int keyArray(String[] keys) {
-int i = 0, j = -1;
-while (i &lt; keys.length &amp;&amp; ++j &lt; ks.length - 1) {
-if (ks[j] != null) {
-keys[i++] = ks[j];
-}
-}
-return i;
-}public Iterator keyIterator() {
-return new HashTabKeyIter(ks);
-}
-}public Collection values() { ... }
-}</code></pre><p></p><h1>Iteration über Keys</h1><pre class="code"><code>public class KeySet implements Collection {
-private HashTab tab;public KeySet(HashTab t) {
-tab = t;
-}public void add(String element) {
-if (!tab.containsKey(element))
-tab.put(element, null);
-}public int contains(String e) {
-return tab.containsKey(e) ? 1 : 0;
-}public int removeAll(String e) {
-if (tab.containsKey(e)) {
-tab.remove(e);
-return 1;
-}
-return 0;
-}public void clear() {
-tab.clear();
-}public int size() {
-return tab.size();
-}public String[] toArray() {
-String[] keys = new String[size()];
-tab.keyArray(keys);
-return keys;
-}public Iterator iterator() {
-return tab.keyIterator();
-}public String toString() {
-String s = "";
-for (String e : this)
-s += s.equals("") ? e : ", " + e;
-return "{" + s + "}";
-}public boolean equals ( Object o) { ... }public int hashCode () { ... }
-}</code></pre><p></p><pre class="code"><code>public class HashTabKeyIter implements Iterator {
-private String[] ks;
-private int i;public HashTabKeyIter(String[] a) {
-ks = a;
-}public boolean hasNext() {
-for (int j = i; j &lt; ks.length - 1; j++) {
-if (ks[j] != null) {
-return true;
-}
-}
-return false;
-}public String next() {
-while (i &lt; ks.length - 1 &amp;&amp; ks[i] == null)
-i++;
-return ks[i++];
-}
+
+<span class="hljs-keyword">public</span> Collection <span class="hljs-title function_">values</span><span class="hljs-params">()</span> { ... }
+}</code></pre><p></p><h1>Iteration über Keys</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KeySet</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Collection</span> {
+    <span class="hljs-keyword">private</span> HashTab tab;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">KeySet</span><span class="hljs-params">(HashTab t)</span> {
+        tab = t;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String element)</span> {
+        <span class="hljs-keyword">if</span> (!tab.containsKey(element))
+            tab.put(element, <span class="hljs-literal">null</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(String e)</span> {
+        <span class="hljs-keyword">return</span> tab.containsKey(e) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeAll</span><span class="hljs-params">(String e)</span> {
+        <span class="hljs-keyword">if</span> (tab.containsKey(e)) {
+            tab.remove(e);
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clear</span><span class="hljs-params">()</span> {
+        tab.clear();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> tab.size();
+    }
+
+    <span class="hljs-keyword">public</span> String[] toArray() {
+        String[] keys = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[size()];
+        tab.keyArray(keys);
+        <span class="hljs-keyword">return</span> keys;
+    }
+
+    <span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> tab.keyIterator();
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-keyword">for</span> (String e : <span class="hljs-built_in">this</span>)
+            s += s.equals(<span class="hljs-string">&quot;&quot;</span>) ? e : <span class="hljs-string">&quot;, &quot;</span> + e;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;{&quot;</span> + s + <span class="hljs-string">&quot;}&quot;</span>;
+    }
+
+<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span> <span class="hljs-params">( Object o)</span> { ... }
+
+<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span> <span class="hljs-params">()</span> { ... }
+}</code></pre><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HashTabKeyIter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Iterator</span> {
+    <span class="hljs-keyword">private</span> String[] ks;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> i;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HashTabKeyIter</span><span class="hljs-params">(String[] a)</span> {
+        ks = a;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> i; j &lt; ks.length - <span class="hljs-number">1</span>; j++) {
+            <span class="hljs-keyword">if</span> (ks[j] != <span class="hljs-literal">null</span>) {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">next</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">while</span> (i &lt; ks.length - <span class="hljs-number">1</span> &amp;&amp; ks[i] == <span class="hljs-literal">null</span>)
+            i++;
+        <span class="hljs-keyword">return</span> ks[i++];
+    }
 }</code></pre><p></p><h1>Java Library</h1><p>Die meisten eher ineffzient</p><p><code>HashMap&lt;K,V&gt;</code></p><p><code>TreeMap&lt;K,V&gt;</code></p></div></article></body></html>

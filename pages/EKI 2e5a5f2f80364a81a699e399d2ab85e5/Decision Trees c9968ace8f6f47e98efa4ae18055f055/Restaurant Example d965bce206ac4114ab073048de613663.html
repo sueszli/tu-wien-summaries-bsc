@@ -637,17 +637,25 @@ c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span
 - examples: (x, y) pairs
 - attributes: attributes of values x_1, x_2, ... x_n in x in example
 - classification: y_j = true / false
-*/function DTL(examples, attributes, parent_examples) returns a decision tree
-if examples is empty then return MAJORITY(parent_examples.classifications)
-else if all examples have the same classification then return the classification
-else if attributes is empty then return MAJORITY(examples.classification)
-else
-A = empty
-for each Attribute A' do
-A ← maxImportance(A, A', examples)tree ← a new decision tree with root test Afor each (value v of A) do //all possible values from domain of A
-exs ← {e : e ∈ examples | e.A = v} //all examples where this value occured
-subtree ← DTL(exs, attributes\{A}, examples) //recursive call
-add a new branch to tree with label "A = v" and subtree subtreereturn tree</code></pre><p>The algorithm is recursive, every sub tree is an independent problem with fewer examples and one less attribute.</p><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-teal">no examples left</mark><p>
+*/
+
+function DTL(examples, attributes, parent_examples) returns a decision tree
+	if examples is empty then return MAJORITY(parent_examples.classifications)
+	else if all examples have the same classification then return the classification
+	else if attributes is empty then return MAJORITY(examples.classification)
+	else
+		A = empty
+		for each Attribute A' do
+			A ← maxImportance(A, A', examples)
+
+		tree ← a new decision tree with root test A
+
+		for each (value v of A) do //all possible values from domain of A&#32;&#9;&#9;
+			exs ← {e : e ∈ examples | e.A = v} //all examples where this value occured
+			subtree ← DTL(exs, attributes\{A}, examples) //recursive call
+			add a new branch to tree with label "A = v" and subtree subtree
+
+		return tree</code></pre><p>The algorithm is recursive, every sub tree is an independent problem with fewer examples and one less attribute.</p><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-teal">no examples left</mark><p>
 then it means that there is no example with this combination of values → We return a default value: the majority function on
 examples in the parents.
 </p></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-teal">Remaining examples are all positive or negative</mark><p>we are done</p></li></ol><ol class="numbered-list" start="3" type="1"><li><mark class="highlight-teal">no attributes left but both positive and negative examples</mark><p>

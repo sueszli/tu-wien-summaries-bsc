@@ -625,19 +625,19 @@ evaluate goals with
 <mark class="highlight-teal">utility function</mark></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">use expected utility for decisions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-teal">resolve conflicting goals</mark>
 - goals are weighted differently, the aim is to optimize a set of values
 </li></ul><figure class="image"><a href="All%20exam%20questions%20so%20far%20+%20answers%209bc2776bdce543368b2f608fc1aa084a/Untitled%204.png"><img src="All%20exam%20questions%20so%20far%20+%20answers%209bc2776bdce543368b2f608fc1aa084a/Untitled%204.png" style="width: 240px"/></a></figure></details></li></ul></details></li></ul><ul class="toggle"><li><details><summary>goal based agent vs. utility based agent</summary><p>The goal based agent</p><ul class="bulleted-list"><li style="list-style-type: disc">can not deal with conflicting goals because it does not have a utility function.</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Does not consider expected utility when planning - just goals, actions, effects.</li></ul></details></li></ul><p></p><h2>Uninformed search algorithms</h2><ul class="toggle"><li><details><summary>Formal description of a search problem</summary><p class="block-color-gray">Real World → Search problem → Search Algorithm</p><div class="indented"><p>We define states, actions, solutions (= selecting a state space) through abstraction.</p><p>Then we turn states into nodes for the search algorithm.</p></div><p></p><p></p><p><mark class="highlight-teal">Solution</mark></p><p>A solution is a sequence of actions leading from the initial state to a goal state.</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Initial state</li></ol><ol class="numbered-list" start="2" type="1"><li>Successor function</li></ol><ol class="numbered-list" start="3" type="1"><li>Goal test</li></ol><ol class="numbered-list" start="4" type="1"><li>path cost (additive)</li></ol></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>All algorithms</summary><ul class="toggle"><li><details><summary>Breadth-first search BFS</summary><p>Frontier as queue.</p><p>The space and time complexity is too high.</p><p class="block-color-gray">Here the goal test is done at generation time.</p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function BREADTH-FIRST-SEARCH(problem) returns a solution, or failure
-node ← a node with STATE = problem.INITIAL-STATE, PATH-COST = 0
-if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
-frontier ← a FIFO queue with node as the only element
-explored ← an empty set
-loop do
-if EMPTY?(frontier) then return failure
-node ← POP(frontier)
-add node.STATE to explored
-for each action in problem.ACTIONS(node.STATE) do
-child ← CHILD-NODE(problem, node, action)
-if child.STATE is not in explored or frontier then
-if problem.GOAL-TEST(child.STATE) then return SOLUTION(child)
-frontier ← INSERT(child,frontier)</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	node ← a node with STATE = problem.INITIAL-STATE, PATH-COST = 0
+	if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
+	frontier ← a FIFO queue with node as the only element
+	explored ← an empty set
+	loop do
+	if EMPTY?(frontier) then return failure
+		node ← POP(frontier)
+		add node.STATE to explored
+		for each action in problem.ACTIONS(node.STATE) do
+			child ← CHILD-NODE(problem, node, action)
+			if child.STATE is not in explored or frontier then
+				if problem.GOAL-TEST(child.STATE) then return SOLUTION(child)
+					frontier ← INSERT(child,frontier)</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 yes, if
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord mathnormal">b</span></span></span></span></span><span>﻿</span></span>
 is finite
@@ -664,20 +664,20 @@ d
 </span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 1.0991079999999998em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8491079999999999em"><span style="top: -3.063em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p></details></li></ul></div><p></p><p><mark class="highlight-teal">space complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>b</mi><mi>d</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b^d)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.099108em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.849108em"><span style="top: -3.063em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-teal">solution optimality</mark>
 yes, if step costs are identical
 </p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Uniform-cost search UCS</summary><p>Fronier as priority queue ordered by costs.</p><p class="block-color-gray">Here the goal test is done at expansion time.</p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function UNIFORM-COST-SEARCH(problem) returns a solution, or failure
-node ← a node with STATE = problem.INITIAL-STATE, PATH-COST = 0
-frontier ← a priority queue ordered by PATH-COST, with node as the only element
-explored ← an empty set
-loop do
-if EMPTY?(frontier) then return failure
-node ← POP(frontier)
-if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
-add node.STATE to explored
-for each action in problem.ACTIONS(node.STATE) do
-child ← CHILD-NODE(problem, node, action)
-if child.STATE is not in explored or frontier then
-frontier ← INSERT(child,frontier)
-else if child.STATE is in frontier with higher PATH-COST then
-replace that frontier node with child</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	node ← a node with STATE = problem.INITIAL-STATE, PATH-COST = 0
+	frontier ← a priority queue ordered by PATH-COST, with node as the only element
+	explored ← an empty set
+	loop do
+		if EMPTY?(frontier) then return failure
+		node ← POP(frontier)
+		if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
+		add node.STATE to explored
+		for each action in problem.ACTIONS(node.STATE) do
+			child ← CHILD-NODE(problem, node, action)
+			if child.STATE is not in explored or frontier then
+				frontier ← INSERT(child,frontier)
+			else if child.STATE is in frontier with higher PATH-COST then
+				replace that frontier node with child</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 Yes, if step-cost
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mi>ε</mi></mrow><annotation encoding="application/x-tex">\geq \varepsilon</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.7719400000000001em; vertical-align: -0.13597em"></span><span class="mrel">≥</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em"></span><span class="mord mathnormal">ε</span></span></span></span></span><span>﻿</span></span>
 and
@@ -760,17 +760,19 @@ DFS limited with
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>cutoff</mtext></mrow><annotation encoding="application/x-tex">\text{cutoff}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord text"><span class="mord">cutoff</span></span></span></span></span></span><span>﻿</span></span>
 subtree/subgraph.
 </p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function DEPTH-LIMITED-SEARCH(problem, limit) returns a solution, or failure/cutoff
-return RECURSIVE-DLS(MAKE-NODE(problem.INITIAL-STATE), problem, limit)function RECURSIVE-DLS(node, problem, limit) returns a solution, or failure/cutoff
-if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
-else if limit = 0 then return cutoff
-else
-cutoff occurred? ← false
-for each action in problem.ACTIONS(node.STATE) do
-child ← CHILD-NODE(problem, node, action)
-result ← RECURSIVE-DLS(child, problem, limit − 1)
-if result = cutoff then cutoff occurred? ← true
-else if result != failure then return result
-if cutoff occurred? then return cutoff else return failure</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	return RECURSIVE-DLS(MAKE-NODE(problem.INITIAL-STATE), problem, limit)
+
+function RECURSIVE-DLS(node, problem, limit) returns a solution, or failure/cutoff
+	if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
+	else if limit = 0 then return cutoff
+	else
+	cutoff occurred? ← false
+		for each action in problem.ACTIONS(node.STATE) do
+			child ← CHILD-NODE(problem, node, action)
+			result ← RECURSIVE-DLS(child, problem, limit − 1)
+			if result = cutoff then cutoff occurred? ← true
+			else if result != failure then return result
+		if cutoff occurred? then return cutoff else return failure</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 No - May not terminate (even for finite search space)
 </p><p><mark class="highlight-teal">time complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>b</mi><mi mathvariant="normal">ℓ</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b^\ell)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.099108em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.849108em"><span style="top: -3.063em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">ℓ</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-teal">space complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>b</mi><mi mathvariant="normal">ℓ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b\ell )</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mord">ℓ</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-teal">solution optimality</mark>
 No
@@ -779,9 +781,9 @@ Iteratively increasing
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">ℓ</mi></mrow><annotation encoding="application/x-tex">\ell</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord">ℓ</span></span></span></span></span><span>﻿</span></span>
 in DLS to gain completeness.
 </p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function ITERATIVE-DEEPENING-SEARCH(problem) returns a solution, or failure
-for depth = 0 to ∞ do
-result ← DEPTH-LIMITED-SEARCH(problem, depth)
-if result 6= cutoff then return result</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	for depth = 0 to ∞ do
+	result ← DEPTH-LIMITED-SEARCH(problem, depth)
+	if result 6= cutoff then return result</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 Yes - if
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord mathnormal">b</span></span></span></span></span><span>﻿</span></span>
 is finite

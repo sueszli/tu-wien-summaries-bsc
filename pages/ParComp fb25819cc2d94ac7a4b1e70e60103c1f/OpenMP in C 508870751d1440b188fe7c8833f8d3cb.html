@@ -591,49 +591,64 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">OpenMP in C</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#885c4349-14f7-4b51-9189-6a84c7287a3c">Compiling</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f39af18b-c72c-41e6-b593-f123b86a4afd">Setting environment variables</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2e734fcd-97cb-42c5-83fa-a259111d8ec7">Accessing thread number</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#54ee91de-df52-41ae-bf5f-0657e0a4f4b3">Benchmarking</a></div></nav><p></p><p></p><h1 id="885c4349-14f7-4b51-9189-6a84c7287a3c">Compiling</h1><p><mark class="highlight-blue">Header</mark></p><div class="indented"><pre class="code"><code>&lt;omp.h&gt;</code></pre></div><p></p><p><mark class="highlight-blue">Compiling and setting environment variables</mark></p><div class="indented"><p>Most C compilers now support OpenMP, usually no special support needed.</p><pre class="code"><code>gcc -Wall -fopenmp -o openmphello –O3 openmphello.c</code></pre></div><p></p><p></p><p></p><h1 id="f39af18b-c72c-41e6-b593-f123b86a4afd">Setting environment variables</h1><p><mark class="highlight-blue">Setting default number of threads</mark></p><div class="indented"><p><mark class="highlight-gray">(Listed in increasing priority)</mark></p><ol class="numbered-list" start="1" type="1"><li>
 Environment variable in shell
 <p>
 can be changed by environment variable
-<mark class="highlight-gray"></mark><mark class="highlight-gray"><code>OMP_NUM_THREADS</code></mark><mark class="highlight-gray">in</mark><code><mark class="highlight-gray">tcshell/scshell/bash</mark></code></p><pre class="code"><code>#!/bin/bash
+<mark class="highlight-gray"></mark><mark class="highlight-gray"><code>OMP_NUM_THREADS</code></mark><mark class="highlight-gray">in</mark><code><mark class="highlight-gray">tcshell/scshell/bash</mark></code></p><pre class="code"><code class="hljs language-bash"><span class="hljs-meta">#!/bin/bash</span>
 setenv OMP_NUM_THREADS t</code></pre></li></ol><ol class="numbered-list" start="2" type="1"><li>
 Explicit setting by library call
 <pre class="code"><code>omp_set_num_threads(t);</code></pre></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Clause
 <mark class="highlight-gray"></mark><mark class="highlight-gray"><code>num_threads(t)</code></mark><mark class="highlight-gray"></mark>
 in
-<mark class="highlight-gray"><code>#pragma omp parallel</code></mark></li></ol><p></p></div><p></p><p></p><h1 id="2e734fcd-97cb-42c5-83fa-a259111d8ec7">Accessing thread number</h1><p><mark class="highlight-blue">Library routines for explicit thread number access</mark></p><div class="indented"><p>Master thread always has number 0.</p><pre class="code"><code>#include &lt;omp.h&gt;void omp_set_num_threads(int num_threads);
-int omp_get_num_threads(void);
-int omp_get_max_threads(void);
-int omp_get_thread_num(void);
-int omp_get_num_procs(void);</code></pre><ul class="toggle"><li><details><summary>Example: Set number of threads and print thread ID</summary><pre class="code"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;omp.h&gt; // OpenMP headerint main(int argc, char *argv[]) {
-int threads, myid;
-int i;
-threads = 1; // shared variable
-// read from commandline
-for (i=1; i&lt;argc &amp;&amp; argv[i][0]=='-'; i++) {
-if (argv[i][1]=='t') {
-sscanf(argv[++i],"%d",&amp;threads);
-}
-}printf("Maximum number of threads possible is %d\n", omp_get_max_threads());// check if below max, else set to max
-if (threads &lt; omp_get_max_threads()) {
-if (threads&lt;1) {
-threads = 1;
-}
-omp_set_num_threads(threads);
-} else {
-threads = omp_get_max_threads();
-}
-#pragma omp parallel num_threads(threads) {
-int myid = omp_get_thread_num(); // private variable
-printf("Thread %d of %d active\n", myid, threads);
-}return 0;
+<mark class="highlight-gray"><code>#pragma omp parallel</code></mark></li></ol><p></p></div><p></p><p></p><h1 id="2e734fcd-97cb-42c5-83fa-a259111d8ec7">Accessing thread number</h1><p><mark class="highlight-blue">Library routines for explicit thread number access</mark></p><div class="indented"><p>Master thread always has number 0.</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;omp.h&gt;</span></span>
+
+<span class="hljs-type">void</span> <span class="hljs-title function_">omp_set_num_threads</span><span class="hljs-params">(<span class="hljs-type">int</span> num_threads)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">omp_get_num_threads</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">omp_get_max_threads</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">omp_get_thread_num</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">omp_get_num_procs</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;</code></pre><ul class="toggle"><li><details><summary>Example: Set number of threads and print thread ID</summary><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;omp.h&gt;</span> <span class="hljs-comment">// OpenMP header</span></span>
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> {
+	<span class="hljs-type">int</span> threads, myid;
+	<span class="hljs-type">int</span> i;
+	threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// shared variable</span>
+&#9;
+	<span class="hljs-comment">// read from commandline</span>
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+				<span class="hljs-built_in">sscanf</span>(argv[++i],<span class="hljs-string">&quot;%d&quot;</span>,&amp;threads);
+		}
+	}
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Maximum number of threads possible is %d\n&quot;</span>, omp_get_max_threads());
+
+	<span class="hljs-comment">// check if below max, else set to max</span>
+	<span class="hljs-keyword">if</span> (threads &lt; omp_get_max_threads()) {
+		<span class="hljs-keyword">if</span> (threads&lt;<span class="hljs-number">1</span>) {
+			threads = <span class="hljs-number">1</span>;
+		}
+		omp_set_num_threads(threads);
+	} <span class="hljs-keyword">else</span> {
+		threads = omp_get_max_threads();
+	}
+&#9;
+	<span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp parallel num_threads(threads) {</span>
+		<span class="hljs-type">int</span> myid = omp_get_thread_num(); <span class="hljs-comment">// private variable</span>
+		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread %d of %d active\n&quot;</span>, myid, threads);
+	}
+
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre></details></li></ul></div><p></p><p></p><p></p><h1 id="54ee91de-df52-41ae-bf5f-0657e0a4f4b3">Benchmarking</h1><p><mark class="highlight-blue">Timing computations for benchmarking</mark></p><div class="indented"><p>used for performance evaluation:</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">thread safe</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">non deterministic: influenced by OS and other active users.</li></ul></div><p></p><p>
 Wall-clock time in seconds since some time in the past returned by
 <mark class="highlight-gray"><code>omp_get_wtime()</code></mark>
 .
-</p><pre class="code"><code>#include &lt;omp.h&gt;double omp_get_wtime(void);
-double omp_get_wtick(void);</code></pre></div><p></p><figure class="image"><a href="OpenMP%20in%20C%20508870751d1440b188fe7c8833f8d3cb/Untitled.png"><img src="OpenMP%20in%20C%20508870751d1440b188fe7c8833f8d3cb/Untitled.png" style="width: 240px"/></a></figure></div></article></body></html>
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;omp.h&gt;</span></span>
+
+<span class="hljs-type">double</span> <span class="hljs-title function_">omp_get_wtime</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;
+<span class="hljs-type">double</span> <span class="hljs-title function_">omp_get_wtick</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;</code></pre></div><p></p><figure class="image"><a href="OpenMP%20in%20C%20508870751d1440b188fe7c8833f8d3cb/Untitled.png"><img src="OpenMP%20in%20C%20508870751d1440b188fe7c8833f8d3cb/Untitled.png" style="width: 240px"/></a></figure></div></article></body></html>

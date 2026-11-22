@@ -596,17 +596,17 @@ min-height: 1em !important;
 </head><body><article class="page sans"><header><h1 class="page-title">Überblick</h1><p class="page-description"></p></header><div class="page-body"><h1>Betriebssystem</h1><p>Bietet Abstraktionen, macht Hardware nutzbar.</p><div class="indented"><p>"ungestörte" Abarbeitung Prozess Scheduling</p><p>"unendlich" großer Speicher Speicherverwaltung</p><p>"private" Maschine Zugriffsschutz, Datensicherheit</p></div><p></p><p></p><p>
 Ein Betriebssystem ist
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">...</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.10556em; vertical-align: 0em"></span><span class="mord">...</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-blue">1) Benutzer-Computer-Interface</mark></p><div class="indented"><p>Verschiedene Abstraktionsniveaus.</p><pre class="code"><code>          ┌───────────────────┐   User, Programmer
-│Anwendungsprogramme│
-|   ┌───────────────┤-- Application programming interface API
-Software  |   │  Libraries    │
-|   │   ┌───────────┤-- Application binary interface ABI
-|   │   │ OS        │
+          │Anwendungsprogramme│
+          |   ┌───────────────┤-- Application programming interface API
+Software  |   │  Libraries    │&#32;&#32;&#32;
+          |   │   ┌───────────┤-- Application binary interface ABI
+          |   │   │ OS        │&#32;&#32;&#32;
 --------- ├───┴───┴───────────┤-- Instruction Set Architecture ISA
-│Ausführungshardware│
-│   ┌───────────────┤
+          │Ausführungshardware│&#32;&#32;&#32;
+          │   ┌───────────────┤&#32;&#32;&#32;
 Hardware  │   │Adr.übersetzung│   OS-Designer
-├───┴───────────────│
-...</code></pre><p>Interfaces nutzen das darunterliegende.</p><p>API hohe Abstraktion, hardware unabhängig, source code, library aufrufe</p><p>ABI source code compiliert, hardware abhängig</p><p>ISA Bit-Muster von RISC, CISC</p></div><p></p><p><mark class="highlight-blue">2) Dienstleister</mark></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Programm-Ausführung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+          ├───┴───────────────│
+					  &#9;		...</code></pre><p>Interfaces nutzen das darunterliegende.</p><p>API hohe Abstraktion, hardware unabhängig, source code, library aufrufe</p><p>ABI source code compiliert, hardware abhängig</p><p>ISA Bit-Muster von RISC, CISC</p></div><p></p><p><mark class="highlight-blue">2) Dienstleister</mark></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Programm-Ausführung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Programm-Erstellung
 <mark class="highlight-gray">(compiler, debugger, ...)</mark></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">I/O, Filezugriff, Netzwerkkommunikation</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Zugangskontrolle

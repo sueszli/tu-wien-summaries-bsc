@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Everything related to testing</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b8566479-d3cd-4b5d-8527-1084b874b8fd">Definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dfd5abdd-56a0-4338-95ba-8c0a7f3a20f1">Prinzipien</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b7751a8c-bf7a-4232-a16a-1596b4d0dd81">Teststufen</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7022c3b0-a41e-4a75-9e80-e311655f01fc">Test-Entwurfsverfahren</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a7e2cec4-640e-4ad4-8a02-d587fb44de40">Test-Automatisierung</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d4ed33ef-8581-47ad-b2ea-4765b37ea938">_________________________________________</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#53f20c68-d5aa-4777-b706-1e40038d3b43">Testfälle</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e90412c2-7b6b-4e51-98d7-18c7fc6793b0">Äquivalenzklassen, Grenzwerte</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9d952ab4-79fe-4a5f-9ce1-021727a59abe">
 Test Abdeckung: Kontrollflussorientierte Testverfahren
@@ -685,20 +686,29 @@ Keine Logik in Tests
 Jeder Testfall testet nur einen Aspekt bzw Zustand
 <p><mark class="highlight-gray">Nur ein Testfall per Methode, keine Zufallsdaten sondern Äquivalenzklassen</mark></p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Namenskonventionen einhalten
-<p><mark class="highlight-gray">Testmethoden einheitlich benannt</mark></p><p><mark class="highlight-gray"><code>(Test)&lt;UseCase/Method&gt;_should&lt;ExcpectedOutcome&gt;</code></mark></p><ul class="block-color-gray toggle"><li><details><summary><mark class="highlight-gray">Beispiele</mark></summary><pre class="code"><code>@Test
-public void testAdd_shouldContainAddedWord() {...}@Test
-public void testAdd_moreThanMax_shouldReplaceFirstWord() {...}@Test
-public void testRemove_Null_shouldThrowNullPointerException() {...}</code></pre></details></li></ul></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verständliche Fehlermeldungen bei Assertions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Klassen und Testklassen liegen im selben Package</li></ul></div><p></p><p></p><p>JUnit</p><div class="indented"><p><a href="https://docs.junit.org/5.13.1/user-guide/index.html">https://docs.junit.org/5.13.1/user-guide/index.html</a></p><p>Testframework für Unit Tests, Automatische Ausführung von Komponententests</p><ul class="toggle"><li><details><summary><mark class="highlight-blue">Lifecycle Annotations</mark></summary><pre class="code"><code>class StandardTest {
-@BeforeAll
-static void initAll() {...}
-@AfterAll
-static void tearDownAll() {...}
-@BeforeEach
-void init() {...}
-@AfterEach
-void tearDown() {...}
-@Test
-void testAdd_shouldDoSomething() {...}
+<p><mark class="highlight-gray">Testmethoden einheitlich benannt</mark></p><p><mark class="highlight-gray"><code>(Test)&lt;UseCase/Method&gt;_should&lt;ExcpectedOutcome&gt;</code></mark></p><ul class="block-color-gray toggle"><li><details><summary><mark class="highlight-gray">Beispiele</mark></summary><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldContainAddedWord</span><span class="hljs-params">()</span> {...}
+
+<span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_moreThanMax_shouldReplaceFirstWord</span><span class="hljs-params">()</span> {...}
+
+<span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testRemove_Null_shouldThrowNullPointerException</span><span class="hljs-params">()</span> {...}</code></pre></details></li></ul></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verständliche Fehlermeldungen bei Assertions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Klassen und Testklassen liegen im selben Package</li></ul></div><p></p><p></p><p>JUnit</p><div class="indented"><p><a href="https://docs.junit.org/5.13.1/user-guide/index.html">https://docs.junit.org/5.13.1/user-guide/index.html</a></p><p>Testframework für Unit Tests, Automatische Ausführung von Komponententests</p><ul class="toggle"><li><details><summary><mark class="highlight-blue">Lifecycle Annotations</mark></summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">StandardTest</span> {
+&#9;
+	<span class="hljs-meta">@BeforeAll</span>
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initAll</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@AfterAll</span>
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDownAll</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@BeforeEach</span>
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@AfterEach</span>
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDown</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@Test</span>
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldDoSomething</span><span class="hljs-params">()</span> {...}
 }</code></pre><p><mark class="highlight-gray"><code>@BeforeClass</code></mark>
 wird einmal bei der Initialisierung der Klasse ausgeführt.
 </p><p><mark class="highlight-gray"><code>@AfterClass</code></mark>
@@ -709,21 +719,25 @@ wird vor jeder Test-Methode ausgeführt
 wird nach jeder Test-Methode ausgefüht
 </p><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-blue">Assertions in JUnit</mark></summary><p>
 Zusicherungen nach
-<mark class="highlight-gray"><code>org.junit.jupiter.api.Assertions;</code></mark></p><div class="indented"><p>Bessere Lesbarkeit wenn statisch importiert:</p><p><mark class="highlight-gray"><code>import static org.junit.jupiter.api.Assertions.assertEquals;</code></mark></p></div><p></p><pre class="code"><code>assertEquals(1, person.getId(), “Person ID not as expected");org.opentest4j.AssertionFailedError: Person ID not as expected ==&gt;
+<mark class="highlight-gray"><code>org.junit.jupiter.api.Assertions;</code></mark></p><div class="indented"><p>Bessere Lesbarkeit wenn statisch importiert:</p><p><mark class="highlight-gray"><code>import static org.junit.jupiter.api.Assertions.assertEquals;</code></mark></p></div><p></p><pre class="code"><code class="hljs language-java">assertEquals(<span class="hljs-number">1</span>, person.getId(), “Person ID not as expected<span class="hljs-string">&quot;);
+
+org.opentest4j.AssertionFailedError: Person ID not as expected ==&gt;
 Expected :1
-Actual :0</code></pre><pre class="code"><code>assertAll(
-() -&gt; assertTrue(...),
-() -&gt; assertEquals(...)
+Actual :0</span></code></pre><pre class="code"><code>assertAll(
+	() -&gt; assertTrue(...),
+	() -&gt; assertEquals(...)
 )</code></pre><p></p><p>
 Für Exceptions:
 <mark class="highlight-gray"><code>assertThrows(Class&lt;T&gt; expectedType, Executable executable)</code></mark></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-blue">Parametrisierte Tests</mark></summary><p>
 Eigene dependency:
-<mark class="highlight-gray"><code>juni-jupiter-params</code></mark></p><p><mark class="highlight-gray"><code>@ParameterizedTest</code></mark></p><div class="indented"><p><mark class="highlight-gray"><code>@ValueSource(ints = { 1, 2, 3 })</code></mark></p><p><mark class="highlight-gray"><code>@EnumSource(TimeUnit.class)</code></mark></p><p><mark class="highlight-gray"><code>@MethodSource("stringProvider")</code></mark></p><p><mark class="highlight-gray"><code>@CsvFileSource(resources = "/data.csv")</code></mark></p><p>...</p></div><p></p><p></p><pre class="code"><code>@ParameterizedTest
-@MethodSource ("palindromeData")
-void isPalindrome_shouldReturnTrue(String string) {
-assertThat(isPalindrome (string) ).isTrue();
-}private static Stream&lt;String&gt; palindromeData () {
-return Stream.of("radar", "anna", "otto", "Reittier", "Programmieren");
+<mark class="highlight-gray"><code>juni-jupiter-params</code></mark></p><p><mark class="highlight-gray"><code>@ParameterizedTest</code></mark></p><div class="indented"><p><mark class="highlight-gray"><code>@ValueSource(ints = { 1, 2, 3 })</code></mark></p><p><mark class="highlight-gray"><code>@EnumSource(TimeUnit.class)</code></mark></p><p><mark class="highlight-gray"><code>@MethodSource("stringProvider")</code></mark></p><p><mark class="highlight-gray"><code>@CsvFileSource(resources = "/data.csv")</code></mark></p><p>...</p></div><p></p><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@ParameterizedTest</span>
+<span class="hljs-meta">@MethodSource</span> (<span class="hljs-string">&quot;palindromeData&quot;</span>)
+<span class="hljs-keyword">void</span> <span class="hljs-title function_">isPalindrome_shouldReturnTrue</span><span class="hljs-params">(String string)</span> {
+	assertThat(isPalindrome (string) ).isTrue();
+}
+
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Stream&lt;String&gt; <span class="hljs-title function_">palindromeData</span> <span class="hljs-params">()</span> {
+	<span class="hljs-keyword">return</span> Stream.of(<span class="hljs-string">&quot;radar&quot;</span>, <span class="hljs-string">&quot;anna&quot;</span>, <span class="hljs-string">&quot;otto&quot;</span>, <span class="hljs-string">&quot;Reittier&quot;</span>, <span class="hljs-string">&quot;Programmieren&quot;</span>);
 }</code></pre></details></li></ul></div><p></p><p></p><p>AssertJ</p><div class="indented"><ul class="toggle"><li><details><summary><mark class="highlight-blue">Assertions mit AssertJ</mark></summary><p><a href="https://joel-costigliola.github.io/assertj/">https://joel-costigliola.github.io/assertj/</a></p><p>Eigenes Assertion-Framework</p><p>Bessere Lesbarkeit, Nachvollziehbarkeit indem Methoden aufeinanderfolgend aufgerufen werden können.</p><pre class="code"><code>JUnit:   assertEquals(customer.getId(), person.getId());
 AssertJ: assertThat(person.getId()).isEqual(customer.getId());</code></pre></details></li></ul></div><p></p><p></p><p></p><h1 id="1e178f35-d0dc-4436-9e1a-a7a67e08905a">Test Doubles</h1><p><mark class="highlight-blue">Test doubles</mark></p><div class="indented"><p>= Generischer Begriff für Austausch von echten Komponenten durch eine alternative Implementierung für Testzwecke.</p><p>Komponenten mit einfacheren “doubles” ersetzen zum Testen.</p><hr/><p>Komponenten nicht leicht vom restlichen System isolierbar für Komponententests:</p><div class="indented"><p>Abhängigkeiten: sie interagieren miteinadner, rufen andere Schnittstellen auf wie zB die Datenbank</p><p>Nicht Determinismus: sie nutzen nicht deterministische Werte wie zB Systemzeit</p></div><p></p><p>Vorteile:</p><div class="indented"><p>- Isolation - Keine Abhängigkeiten - geringere Komplexität - Reduktion der Ausführungszeit.</p></div><p></p></div><p></p><p></p><p></p><p><mark class="highlight-blue">Dummy Object</mark></p><div class="indented"><p>Nicht zum Testen</p><p>Nicht zum Verwenden, nicht ausführbar</p><hr/><p>Quasi “leeres” Argument - Platzhalter ohne Funktionalität</p><p><mark class="highlight-gray">zB</mark><mark class="highlight-gray"><code>DummyCustomer</code></mark><mark class="highlight-gray">Klasse implementiert</mark><mark class="highlight-gray"><code>ICustomer</code></mark><mark class="highlight-gray">aber wirft</mark><mark class="highlight-gray"><code>NotImplementedException</code></mark></p></div><p></p><p></p><p><mark class="highlight-blue">Fake Object</mark></p><div class="indented"><p>Nicht zum Testen</p><p>Zum Verwenden, ausführbare Implementierung</p><hr/><p>Wenn reale Implementierung zu langsam oder nicht verfügbar</p><p><mark class="highlight-gray">zB simulierte Datenquelle, In-Memory Datenbank - keine Echtdaten</mark></p><p></p></div><p></p><p><mark class="highlight-blue">Stub</mark></p><div class="indented"><p>Zum Testen</p><p>Zum Verwenden, ausführbare Implementierung</p><hr/><p>Liefert vordefinierte Werte, Exceptions, Pfad wird vorbestimmt.</p><p>Erlaubt Testen von Pfaden die von außen nicht beeinflusst und durchlaufen werden können.</p><ul class="block-color-gray toggle"><li><details><summary>Beispiel: Asynchrone Abfrage an einem Server</summary><p>Original</p><div class="indented"><figure class="image"><a href="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled.png"><img src="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled.png" style="width: 288px"/></a></figure></div><p></p><p>Stub</p><div class="indented"><figure class="image"><a href="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%201.png"><img src="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%201.png" style="width: 288px"/></a></figure><figure class="image"><a href="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%202.png"><img src="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%202.png" style="width: 288px"/></a></figure><p></p></div><p></p></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Mock</mark></p><div class="indented"><p>Zum Testen</p><p>Zum Verwenden, ausführbare Implementierung</p><hr/><p>Gleich wie Stub, aber die Parameter die an Mock gegeben werden, werden auch im Test überprüft.</p><p>Mock erkennt wenn unerwartete Werte erhalten werden - Assertion und Exception.</p><ul class="block-color-gray toggle"><li><details><summary>Fortsetzung Beispiel: Asynchrone Abfrage an einem Server</summary><p>Mock - Version 1: Ohne Assertions</p><div class="indented"><figure class="image"><a href="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%203.png"><img src="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%203.png" style="width: 288px"/></a></figure></div><p></p><p>Mock - Version 2: Mit Assertions</p><div class="indented"><figure class="image"><a href="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%204.png"><img src="5%20-%20Testen%20III%20Test%20Doubles,%20Fehlermuster,%20Refacto%20db245713603b4b508d4922ec76b9cb3f/Untitled%204.png" style="width: 288px"/></a></figure></div><p></p><p></p></details></li></ul><hr/><p><em>Mockito</em></p><p><a href="http://site.mockito.org/">http://site.mockito.org</a></p><p><a href="https://javadoc.io/static/org.mockito/mockito-core/5.24.0/org.mockito/org/mockito/Mockito.html">
 https://javadoc.io/static/org.mockito/mockito-core/5.24.0/org.mockito/org/mockito/Mockito.html

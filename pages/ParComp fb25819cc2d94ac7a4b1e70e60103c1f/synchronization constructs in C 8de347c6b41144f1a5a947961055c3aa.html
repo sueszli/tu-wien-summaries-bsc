@@ -592,62 +592,83 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">synchronization constructs in C</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1d560519-8223-46ec-a4f7-a5352c4c8f18">Locks (mutex)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#96a0a008-7423-4020-b795-fdc1a18a1ba5">Condition variables</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ce5d2afa-512b-4869-9c4e-9673ff808c3e">Barrier</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#03414b86-0b54-41a1-b9cc-c95700714d40">Semaphores</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#afa94612-2625-4558-af5f-71b877ea3a22">Atomic operation</a></div></nav><p></p><h1 id="1d560519-8223-46ec-a4f7-a5352c4c8f18">Locks (mutex)</h1><p>
 Have the type
-<mark class="highlight-gray"></mark><mark class="highlight-gray"><code>pthread_mutex_t</code></mark></p><p></p><p><mark class="highlight-blue">Allocation and initialization</mark></p><div class="indented"><pre class="code"><code>pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;</code></pre></div><p></p><p><mark class="highlight-blue">Dynamic allocation (init and destroy)</mark></p><div class="indented"><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutex_attr *attr);
-int pthread_mutex_destroy(pthread_mutex_t *mutex);</code></pre></div><p></p><p><mark class="highlight-blue">Acquire and release</mark></p><div class="indented"><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_mutex_lock(pthread_mutex_t *mutex);
-int pthread_mutex_unlock(pthread_mutex_t *mutex);
-int pthread_mutex_trylock(pthread_mutex_t *mutex);</code></pre><p><mark class="highlight-gray"><code>trylock</code></mark><mark class="highlight-gray"></mark>
+<mark class="highlight-gray"></mark><mark class="highlight-gray"><code>pthread_mutex_t</code></mark></p><p></p><p><mark class="highlight-blue">Allocation and initialization</mark></p><div class="indented"><pre class="code"><code>pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;</code></pre></div><p></p><p><mark class="highlight-blue">Dynamic allocation (init and destroy)</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_mutex_init</span><span class="hljs-params">(<span class="hljs-type">pthread_mutex_t</span> *mutex, <span class="hljs-type">const</span> pthread_mutex_attr *attr)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_mutex_destroy</span><span class="hljs-params">(<span class="hljs-type">pthread_mutex_t</span> *mutex)</span>;</code></pre></div><p></p><p><mark class="highlight-blue">Acquire and release</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_mutex_lock</span><span class="hljs-params">(<span class="hljs-type">pthread_mutex_t</span> *mutex)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_mutex_unlock</span><span class="hljs-params">(<span class="hljs-type">pthread_mutex_t</span> *mutex)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_mutex_trylock</span><span class="hljs-params">(<span class="hljs-type">pthread_mutex_t</span> *mutex)</span>;</code></pre><p><mark class="highlight-gray"><code>trylock</code></mark><mark class="highlight-gray"></mark>
 is not held by other tread: acquires lock if available, else returns
-<mark class="highlight-gray"><code>EBUSY</code></mark></p><pre class="code"><code>pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+<mark class="highlight-gray"><code>EBUSY</code></mark></p><pre class="code"><code class="hljs language-c"><span class="hljs-type">pthread_mutex_t</span> lock = PTHREAD_MUTEX_INITIALIZER;
 ...
 pthread_mutex_lock(&amp;lock);
-... // critical section
-pthread_mutex_unlock(&amp;lock);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Recursive lock</mark></p><div class="indented"><p>Recursive lock possible with pthreads:</p><div class="indented"><p>Locking and unlocking done by same thread multiple times.</p><p>But the number of lock-unlock pairs must stay consistent.</p></div><p></p><pre class="code"><code>pthread_mutex_t lock = PTHREAD_RECURSIVE_MUTEX_INITIALIZER;pthread_mutex_lock(&amp;lock);
+... <span class="hljs-comment">// critical section</span>
+pthread_mutex_unlock(&amp;lock);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Recursive lock</mark></p><div class="indented"><p>Recursive lock possible with pthreads:</p><div class="indented"><p>Locking and unlocking done by same thread multiple times.</p><p>But the number of lock-unlock pairs must stay consistent.</p></div><p></p><pre class="code"><code class="hljs language-c"><span class="hljs-type">pthread_mutex_t</span> lock = PTHREAD_RECURSIVE_MUTEX_INITIALIZER;
+
 pthread_mutex_lock(&amp;lock);
-... // perhaps in "thread_safe" function
+pthread_mutex_lock(&amp;lock);
+... <span class="hljs-comment">// perhaps in &quot;thread_safe&quot; function</span>
 pthread_mutex_unlock(&amp;lock);
-pthread_mutex_unlock(&amp;lock);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Reader/writer locks</mark></p><div class="indented"><p>are more flexible: allow concurrent reading but not writing</p><div class="indented"><p>allow several threads to aquire lock for reading shared variables but only a single thread is acquired for writing.</p></div><p></p><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_rwlock_init(pthread_rwlock_t *rwlock, const pthread_rwlockattr_t *attr);
-int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock);
-int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock);int pthread_rwlock_unlock(pthread_rwlock_t *rwlock);int pthread_rwlock_tryrdlock(pthread_rwlock_t *rwlock);
-int pthread_rwlock_trywrlock(pthread_rwlock_t *rwlock);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Once locks</mark></p><div class="indented"><p>
+pthread_mutex_unlock(&amp;lock);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Reader/writer locks</mark></p><div class="indented"><p>are more flexible: allow concurrent reading but not writing</p><div class="indented"><p>allow several threads to aquire lock for reading shared variables but only a single thread is acquired for writing.</p></div><p></p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_rwlock_init</span><span class="hljs-params">(<span class="hljs-type">pthread_rwlock_t</span> *rwlock, <span class="hljs-type">const</span> <span class="hljs-type">pthread_rwlockattr_t</span> *attr)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_rwlock_destroy</span><span class="hljs-params">(<span class="hljs-type">pthread_rwlock_t</span> *rwlock)</span>;
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_rwlock_rdlock</span><span class="hljs-params">(<span class="hljs-type">pthread_rwlock_t</span> *rwlock)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_rwlock_wrlock</span><span class="hljs-params">(<span class="hljs-type">pthread_rwlock_t</span> *rwlock)</span>;
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_rwlock_unlock</span><span class="hljs-params">(<span class="hljs-type">pthread_rwlock_t</span> *rwlock)</span>;
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_rwlock_tryrdlock</span><span class="hljs-params">(<span class="hljs-type">pthread_rwlock_t</span> *rwlock)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_rwlock_trywrlock</span><span class="hljs-params">(<span class="hljs-type">pthread_rwlock_t</span> *rwlock)</span>;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Once locks</mark></p><div class="indented"><p>
 Mutex-like variable ensures that some initialization routine
 <mark class="highlight-gray"><code>init_routine</code></mark>
 is executed exactly once.
-</p><pre class="code"><code>#include &lt;pthread.h&gt;
-pthread_once_t once_init = PTHREAD_ONCE_INIT;
-int pthread_once(pthread_once_t *once_init, void (*init_routine)(void)));</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Spinlocks</mark></p><div class="indented"><p>Same semantic as the other mutex locks but different implementation/pragmatics.</p><p>
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">pthread_once_t</span> once_init = PTHREAD_ONCE_INIT;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_once</span><span class="hljs-params">(<span class="hljs-type">pthread_once_t</span> *once_init, <span class="hljs-type">void</span> (*init_routine)(<span class="hljs-type">void</span>))</span>);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Spinlocks</mark></p><div class="indented"><p>Same semantic as the other mutex locks but different implementation/pragmatics.</p><p>
 Active waiting with
 <mark class="highlight-gray"><code>while(!flag);</code></mark></p><p>Optimized for short, critical sections and only one thread per core.</p><div class="indented"><p>Possibly faster on dedicated (parallel) apps on dedicated systems.</p><p>
 In contrast to other mutex locks it can not be suspended (put to sleep) by OS and resumed when lock is released. → No expensive OS
 suspension required.
-</p></div><p></p><p>Bad performance on systems with more threads than processors.</p><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_spin_destroy(pthread_spinlock_t *lock);
-int pthread_spin_init(pthread_spinlock_t *lock, int pshared);int pthread_spin_unlock(pthread_spinlock_t *lock);</code></pre></div><p></p><p></p><p></p><h1 id="96a0a008-7423-4020-b795-fdc1a18a1ba5">Condition variables</h1><p><mark class="highlight-blue">Allocation and initialization</mark></p><div class="indented"><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_cond_init(pthread_cond_t *cond, const pthread_cond_attr *attr);
-int pthread_cond_destroy(pthread_cond_t *cond);</code></pre></div><p></p><p><mark class="highlight-blue">Waiting for signal</mark></p><div class="indented"><p>Thread suspended (waits), lock is temporarily relinquished (released).</p><p>When resumed later by a signal from other thread, it has acquired lock.</p><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);</code></pre></div><p></p><p><mark class="highlight-blue">Signaling</mark></p><div class="indented"><pre class="code"><code>#include &lt;pthread.h&gt;
-int pthread_cond_signal(pthread_cond_t *cond); // single thread
-int pthread_cond_broadcast(pthread_cond_t *cond); // all threads</code></pre></div><p></p><p></p><p></p><h1 id="ce5d2afa-512b-4869-9c4e-9673ff808c3e">Barrier</h1><p><mark class="highlight-blue">Nonstandard pthreads barrier</mark></p><div class="indented"><pre class="code"><code>#include &lt;pthreads.h&gt;
-int pthread_barrier_init(pthrad_barrier_t *barrier, pthread_barrierattr_t *attr, unsigned count);
-int pthread_barrier_destroy(pthread_barrier_t *barrier);
-int pthread_barrier_wait(pthread_barrier_t *barrier);</code></pre><p><mark class="highlight-gray"><code>count</code></mark>
+</p></div><p></p><p>Bad performance on systems with more threads than processors.</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_spin_destroy</span><span class="hljs-params">(<span class="hljs-type">pthread_spinlock_t</span> *lock)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_spin_init</span><span class="hljs-params">(<span class="hljs-type">pthread_spinlock_t</span> *lock, <span class="hljs-type">int</span> pshared)</span>;
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_spin_unlock</span><span class="hljs-params">(<span class="hljs-type">pthread_spinlock_t</span> *lock)</span>;</code></pre></div><p></p><p></p><p></p><h1 id="96a0a008-7423-4020-b795-fdc1a18a1ba5">Condition variables</h1><p><mark class="highlight-blue">Allocation and initialization</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_cond_init</span><span class="hljs-params">(<span class="hljs-type">pthread_cond_t</span> *cond, <span class="hljs-type">const</span> pthread_cond_attr *attr)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_cond_destroy</span><span class="hljs-params">(<span class="hljs-type">pthread_cond_t</span> *cond)</span>;</code></pre></div><p></p><p><mark class="highlight-blue">Waiting for signal</mark></p><div class="indented"><p>Thread suspended (waits), lock is temporarily relinquished (released).</p><p>When resumed later by a signal from other thread, it has acquired lock.</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_cond_wait</span><span class="hljs-params">(<span class="hljs-type">pthread_cond_t</span> *cond, <span class="hljs-type">pthread_mutex_t</span> *mutex)</span>;</code></pre></div><p></p><p><mark class="highlight-blue">Signaling</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_cond_signal</span><span class="hljs-params">(<span class="hljs-type">pthread_cond_t</span> *cond)</span>; <span class="hljs-comment">// single thread</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_cond_broadcast</span><span class="hljs-params">(<span class="hljs-type">pthread_cond_t</span> *cond)</span>; <span class="hljs-comment">// all threads</span></code></pre></div><p></p><p></p><p></p><h1 id="ce5d2afa-512b-4869-9c4e-9673ff808c3e">Barrier</h1><p><mark class="highlight-blue">Nonstandard pthreads barrier</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthreads.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_barrier_init</span><span class="hljs-params">(<span class="hljs-type">pthrad_barrier_t</span> *barrier, <span class="hljs-type">pthread_barrierattr_t</span> *attr, <span class="hljs-type">unsigned</span> count)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_barrier_destroy</span><span class="hljs-params">(<span class="hljs-type">pthread_barrier_t</span> *barrier)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">pthread_barrier_wait</span><span class="hljs-params">(<span class="hljs-type">pthread_barrier_t</span> *barrier)</span>;</code></pre><p><mark class="highlight-gray"><code>count</code></mark>
 = number of threads to synchronize.
 </p><p>
 Executing thread blocks until
 <mark class="highlight-gray"><code>count</code></mark><em></em>
 threads have been reached.
-</p></div><p></p><p></p><p></p><h1 id="03414b86-0b54-41a1-b9cc-c95700714d40">Semaphores</h1><p><mark class="highlight-blue">Semaphores</mark></p><div class="indented"><p>Can be shared across processes</p><pre class="code"><code>#include &lt;semaphore.h&gt;
-int sem_init(sem_t *sem, int pshared, unsigned int value);int sem_wait(sem_t *sem); // decrement
-Int sem_trywait(sem_t *sem);int sem_post(sem_t *sem); // increment</code></pre></div><p></p><p></p><p></p><h1 id="afa94612-2625-4558-af5f-71b877ea3a22">Atomic operation</h1><p><mark class="highlight-blue">Atomic operation</mark></p><div class="indented"><p>
+</p></div><p></p><p></p><p></p><h1 id="03414b86-0b54-41a1-b9cc-c95700714d40">Semaphores</h1><p><mark class="highlight-blue">Semaphores</mark></p><div class="indented"><p>Can be shared across processes</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;semaphore.h&gt;</span></span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_init</span><span class="hljs-params">(<span class="hljs-type">sem_t</span> *sem, <span class="hljs-type">int</span> pshared, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> value)</span>;
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_wait</span><span class="hljs-params">(<span class="hljs-type">sem_t</span> *sem)</span>; <span class="hljs-comment">// decrement</span>
+Int <span class="hljs-title function_">sem_trywait</span><span class="hljs-params">(<span class="hljs-type">sem_t</span> *sem)</span>;
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_post</span><span class="hljs-params">(<span class="hljs-type">sem_t</span> *sem)</span>; <span class="hljs-comment">// increment</span></code></pre></div><p></p><p></p><p></p><h1 id="afa94612-2625-4558-af5f-71b877ea3a22">Atomic operation</h1><p><mark class="highlight-blue">Atomic operation</mark></p><div class="indented"><p>
 Special hardware operation in
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(1)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord sizing reset-size6 size5">1</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span>
 .
-</p><p>in modern multi-core processors:</p><pre class="code"><code>fetch_and_inc(a); // atomically return old value of a, increment
-fetch_and_dec(a); // atomically return old value of a, decrement
-fetch_and_add(a,x); // FAA - atomically return old value of a, add x to atest_and_setcompare_and_swap(e,u,a); //  if content of a is equal to e, replace content of a with u, atomically, return success status (CAS)load_linked
-store_conditional //(LL/SC)</code></pre></div><p></p></div></article></body></html>
+</p><p>in modern multi-core processors:</p><pre class="code"><code class="hljs language-c">fetch_and_inc(a); <span class="hljs-comment">// atomically return old value of a, increment</span>
+fetch_and_dec(a); <span class="hljs-comment">// atomically return old value of a, decrement</span>
+fetch_and_add(a,x); <span class="hljs-comment">// FAA - atomically return old value of a, add x to a</span>
+
+test_and_set
+
+<span class="hljs-title function_">compare_and_swap</span><span class="hljs-params">(e,u,a)</span>; <span class="hljs-comment">//  if content of a is equal to e, replace content of a with u, atomically, return success status (CAS)</span>
+
+load_linked
+store_conditional <span class="hljs-comment">//(LL/SC)</span></code></pre></div><p></p></div></article></body></html>

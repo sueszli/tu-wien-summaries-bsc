@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Applications prefix-sums, reduction</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#027c3188-3b91-4e52-a0a1-a06910aefed8">Applications of reduction</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c0a9f9c1-aad6-4af4-aab4-75954794cec7">Cutoff computation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a90112dc-ba32-4de7-abac-8efd1b585ee8">Applications of prefix-sums</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2228518e-ffd2-415f-acf2-3a40d3a93d1a">Array compaction: Load balancing</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1b180cd4-8536-41de-a90a-516e73abcf21">Array compaction: Partitioning for QuickSort</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#302a05be-fd6f-4ca4-9d2b-245930222784">Blocking technique</a></div></nav><p></p><h1 id="027c3188-3b91-4e52-a0a1-a06910aefed8">Applications of reduction</h1><h2 id="c0a9f9c1-aad6-4af4-aab4-75954794cec7">Cutoff computation</h2><p><mark class="highlight-blue">Cutoff computation</mark></p><div class="indented"><p><mark class="highlight-gray"><code>done = allreduce(localdone, AND);</code></mark></p><p><mark class="highlight-gray"><code>localdone</code></mark><mark class="highlight-gray"></mark>
 =
@@ -601,34 +602,34 @@ here
 is the associative operation, and we distribute result to all processes (
 <em>Reduction-to-all</em>
 ).
-</p><pre class="code"><code>// Parallelizable part
-do {
-for (i=0; i&lt;n; i++) {
-x[i] = f(i);
-}
-// convergence check
-done = allreduce(localdone, AND);
-} while (!done)</code></pre></div><p></p><p></p><p></p><h1 id="a90112dc-ba32-4de7-abac-8efd1b585ee8">Applications of prefix-sums</h1><h2 id="2228518e-ffd2-415f-acf2-3a40d3a93d1a">Array compaction: Load balancing</h2><p><mark class="highlight-blue">Sequential solution</mark></p><div class="indented"><p>
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// Parallelizable part</span>
+<span class="hljs-keyword">do</span> {
+	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+		x[i] = f(i);
+	}
+	<span class="hljs-comment">// convergence check</span>
+	done = allreduce(localdone, AND);
+} <span class="hljs-keyword">while</span> (!done)</code></pre></div><p></p><p></p><p></p><h1 id="a90112dc-ba32-4de7-abac-8efd1b585ee8">Applications of prefix-sums</h1><h2 id="2228518e-ffd2-415f-acf2-3a40d3a93d1a">Array compaction: Load balancing</h2><p><mark class="highlight-blue">Sequential solution</mark></p><div class="indented"><p>
 Input arrays:
 <code><mark class="highlight-gray">a</mark></code>
 ,
-<mark class="highlight-gray"><code>active</code></mark></p><pre class="code"><code>for (i=0; i&lt;n; i++) {
-if (active[i]) {
-a[i] = f(b[i]+c[i]);
-}
+<mark class="highlight-gray"><code>active</code></mark></p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+	<span class="hljs-keyword">if</span> (active[i]) {
+		a[i] = f(b[i]+c[i]);
+	}
 }</code></pre><p>
 Work:
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo>+</mo><mi mathvariant="normal">∣</mi><mtext mathvariant="monospace">active</mtext><mi mathvariant="normal">∣</mi><mo>⋅</mo><mi>f</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(n + |\texttt{active}| \cdot f)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5">∣</span><span class="mord text sizing reset-size6 size5"><span class="mord texttt">active</span></span><span class="mord sizing reset-size6 size5">∣</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">⋅</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.10764em">f</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></p><div class="indented"><p>
 where
 <mark class="highlight-gray"><code>|active|</code></mark><mark class="highlight-gray"></mark>
 ist the number of indices set to
-<mark class="highlight-gray"><code>true</code></mark></p></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Solution: Without array compaction</mark></p><div class="indented"><p>There are no dependencies between loop iterations → Data parallel computation.</p><pre class="code"><code>par (0 &lt;= j &lt; p) {
-// i: j*(n/p) ---&gt; (j+1)*(n/p)-1
-for (i=j*(n/p); i&lt;(j+1)*(n/p); i++) {
-if (active[i]) {
-a[i] = f(b[i]+c[i]);
-}
-}
+<mark class="highlight-gray"><code>true</code></mark></p></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Solution: Without array compaction</mark></p><div class="indented"><p>There are no dependencies between loop iterations → Data parallel computation.</p><pre class="code"><code class="hljs language-c">par (<span class="hljs-number">0</span> &lt;= j &lt; p) {
+	<span class="hljs-comment">// i: j*(n/p) ---&gt; (j+1)*(n/p)-1 </span>
+	<span class="hljs-keyword">for</span> (i=j*(n/p); i&lt;(j+<span class="hljs-number">1</span>)*(n/p); i++) {
+		<span class="hljs-keyword">if</span> (active[i]) {
+			a[i] = f(b[i]+c[i]);
+		}
+	}
 }</code></pre><p>
 Work:
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>+</mo><mi>O</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mtext mathvariant="monospace">active</mtext><mi mathvariant="normal">∣</mi><mo>⋅</mo><mi>f</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(n) + O( |\texttt{active}| \cdot f)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord sizing reset-size6 size5">∣</span><span class="mord text sizing reset-size6 size5"><span class="mord texttt">active</span></span><span class="mord sizing reset-size6 size5">∣</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">⋅</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.10764em">f</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></p><p>
@@ -643,19 +644,25 @@ Lower work to
 by iterating only over active indices:
 </p><p>
 Split into blocks of size
-<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi mathvariant="normal">∣</mi><mtext mathvariant="monospace">active</mtext><mi mathvariant="normal">∣</mi><mi mathvariant="normal">/</mi><mi>p</mi></mstyle></mrow><annotation encoding="application/x-tex">\small |\texttt{active}|/p</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5">∣</span><span class="mord text sizing reset-size6 size5"><span class="mord texttt">active</span></span><span class="mord sizing reset-size6 size5">∣/</span><span class="mord mathnormal sizing reset-size6 size5">p</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code>par (i=0; i&lt;n; i++) {
-index[i] = active[i] ? 1 : 0;
-}Exscan(index,n); // exclusive prefix computationm = index[n-1] + (active[n-1] ? 1 : 0); // m = |active| -&gt; used belowpar (i=0; i&lt;n; i++) {
-if (active[i]) {
-compact[index[i]] = i;
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi mathvariant="normal">∣</mi><mtext mathvariant="monospace">active</mtext><mi mathvariant="normal">∣</mi><mi mathvariant="normal">/</mi><mi>p</mi></mstyle></mrow><annotation encoding="application/x-tex">\small |\texttt{active}|/p</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5">∣</span><span class="mord text sizing reset-size6 size5"><span class="mord texttt">active</span></span><span class="mord sizing reset-size6 size5">∣/</span><span class="mord mathnormal sizing reset-size6 size5">p</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-c">par (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+	index[i] = active[i] ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
 }
-}</code></pre><pre class="code"><code>par (j=0; j&lt;m; j++) {
-i = compact[j];
-a[i] = f(b[i]+c[i]);
+
+Exscan(index,n); <span class="hljs-comment">// exclusive prefix computation</span>
+
+m = index[n<span class="hljs-number">-1</span>] + (active[n<span class="hljs-number">-1</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>); <span class="hljs-comment">// m = |active| -&gt; used below</span>
+
+par (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+	<span class="hljs-keyword">if</span> (active[i]) {
+		compact[index[i]] = i;
+	}
+}</code></pre><pre class="code"><code class="hljs language-c">par (j=<span class="hljs-number">0</span>; j&lt;m; j++) {
+	i = compact[j];
+	a[i] = f(b[i]+c[i]);
 }</code></pre><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>            0     1      2      3     4      -&gt; n = 5
 active  = [true, true, false, false, true]   -&gt; m = 3
 index   = [ 1,    1,     0,     0,    1  ]
-↓ Exscan
+	↓ Exscan
 index   = [ 0,    1,     2,     2,    2  ]</code></pre><p>
 Now we can copy values with their index for the new compact array in
 <mark class="highlight-gray"><code>index</code></mark>
@@ -712,34 +719,50 @@ margin-right: 0.0625em;
 top: -2.4570000000000003em;
 margin-left: 0em;
 margin-right: 0.0625em;
-"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size4 size2 mtight"><span class="mord mathtt mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.143em"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span><span>﻿</span></span></p><p></p></li></ol></div><p></p></div><p></p><p><mark class="highlight-blue">Parallel partitioning algorithm</mark></p><div class="indented"><pre class="code"><code>par (i=0; i&lt;n; i++) {
-index[i] = (a[i]&lt;a[k]) ? 1 : 0;
-}Exscan(index,n); // exclusive prefix computation
-n1 = index[n-1]+(active[n-1] ? 1 : 0); // num of smaller elementspar (i=0; i&lt;n; i++) {
-if (a[i]&lt;a[k]) {
-aa[index[i]] = a[i]; // store value of each element smaller than a[k]
+"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size4 size2 mtight"><span class="mord mathtt mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.143em"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span><span>﻿</span></span></p><p></p></li></ol></div><p></p></div><p></p><p><mark class="highlight-blue">Parallel partitioning algorithm</mark></p><div class="indented"><pre class="code"><code class="hljs language-c">par (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+	index[i] = (a[i]&lt;a[k]) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
 }
-}// same for equal to and larger than pivot elements
-...// copy back
-par (i=0; i&lt;n1; i++) {
-a[i] = aa[i];
-}// same for equal to and larger than pivot elements
+
+Exscan(index,n); <span class="hljs-comment">// exclusive prefix computation</span>
+n1 = index[n<span class="hljs-number">-1</span>]+(active[n<span class="hljs-number">-1</span>] ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>); <span class="hljs-comment">// num of smaller elements</span>
+
+par (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+	<span class="hljs-keyword">if</span> (a[i]&lt;a[k]) {
+		aa[index[i]] = a[i]; <span class="hljs-comment">// store value of each element smaller than a[k]</span>
+	}
+}
+
+<span class="hljs-comment">// same for equal to and larger than pivot elements</span>
+...
+
+<span class="hljs-comment">// copy back</span>
+par (i=<span class="hljs-number">0</span>; i&lt;n1; i++) {
+	a[i] = aa[i];
+}
+
+<span class="hljs-comment">// same for equal to and larger than pivot elements</span>
 ...</code></pre><ul class="toggle"><li><details><summary>Example: getting 3 partitions</summary><p>find smaller</p><div class="indented"><pre class="code"><code>         0  1  2  3  4       n = 5 (indices)
 a =     [1, 4, 5, 3, 2]      k = 3
 index = [0, 1, 1, 1, 1]      (after Exscan for elements &lt; a[k])</code></pre><pre class="code"><code>if (a[i] &lt; a[k]) // i = {0,4}
-aa[index[i]] = a[i];
-\_______/    \___/
-{0,1}      {1,2}aa = [1,2]</code></pre></div><p></p><p>find equal</p><div class="indented"><pre class="code"><code>         0  1  2  3  4       n = 5 (indices)
+		aa[index[i]] = a[i];
+			\_______/    \___/
+		  &#9;{0,1}      {1,2}
+
+aa = [1,2]</code></pre></div><p></p><p>find equal</p><div class="indented"><pre class="code"><code>         0  1  2  3  4       n = 5 (indices)
 a =     [1, 4, 5, 3, 2]      k = 3
 index = [0, 0, 0, 0, 1]      (after Exscan for elements = a[k])</code></pre><pre class="code"><code>if (a[i] == a[k]) // i = {3}
-aa[index[i]] = a[i];
-\_______/    \___/
-{0}        {3}ab = [3]</code></pre></div><p></p><p>find larger</p><div class="indented"><pre class="code"><code>         0  1  2  3  4       n = 5 (indices)
+		aa[index[i]] = a[i];
+			\_______/    \___/
+		  &#9; {0}        {3}
+
+ab = [3]</code></pre></div><p></p><p>find larger</p><div class="indented"><pre class="code"><code>         0  1  2  3  4       n = 5 (indices)
 a =     [1, 4, 5, 3, 2]      k = 3
 index = [0, 0, 1, 2, 2]      (after Exscan for elements &gt; a[k])</code></pre><pre class="code"><code>if (a[i] == a[k]) // i = {1,2}
-aa[index[i]] = a[i];
-\_______/    \___/
-{0,1}      {4,5}ac = [4,5]</code></pre></div><p></p></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Runtime analysis</mark></p><div class="indented"><p>
+		aa[index[i]] = a[i];
+			\_______/    \___/
+		  &#9;{0,1}      {4,5}
+
+ac = [4,5]</code></pre></div><p></p></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Runtime analysis</mark></p><div class="indented"><p>
 Running time:
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><msub><mi>T</mi><mi mathvariant="normal">∞</mi></msub></mstyle></mrow><annotation encoding="application/x-tex">\small T_\infin</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.749997em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal" style="margin-right: 0.13889em">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.13703999999999997em"><span style="top: -2.45em; margin-left: -0.13889em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span><mark class="highlight-gray">(if choice of pivot is good - with max</mark><mark class="highlight-gray"><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn></mstyle></mrow><annotation encoding="application/x-tex">\small n/2</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mord sizing reset-size6 size5">/2</span></span></span></span></span><span>﻿</span></span></mark><mark class="highlight-gray">elements in both segments)</mark></p><div class="indented"><p><em>Sequential</em></p><div class="indented"><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><msub><mi>T</mi><mi mathvariant="normal">∞</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≤</mo><msub><mi>T</mi><mi mathvariant="normal">∞</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small T_\infin(n) \leq T_\infin(n/2) + O(n)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal" style="margin-right: 0.13889em">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.13703999999999997em"><span style="top: -2.45em; margin-left: -0.13889em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel sizing reset-size6 size5">≤</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal" style="margin-right: 0.13889em">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.13703999999999997em"><span style="top: -2.45em; margin-left: -0.13889em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">∞</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mord sizing reset-size6 size5">/2</span><span class="mclose sizing reset-size6 size5">)</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">n</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></p><p>
 Solution:

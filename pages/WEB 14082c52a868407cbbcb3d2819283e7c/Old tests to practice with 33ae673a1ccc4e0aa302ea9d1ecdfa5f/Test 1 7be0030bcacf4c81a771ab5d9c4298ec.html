@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Test 1</h1><p class="page-description"></p></header><div class="page-body"><figure><div class="source"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/TU_Wien-Web_Engineering_VU_(Cito)_-_A1-Online-Test-Questions_2020-03-30.pdf">
 TU_Wien-Web_Engineering_VU_(Cito)_-_A1-Online-Test-Questions_2020-03-30.pdf
@@ -602,7 +603,7 @@ Date: Mon, 30 Mar 2020 13:00:42 GMT
 Server: nginx
 Set-Cookie: sessionId=e8bb43229de9
 Content-Type: application/json;
-Content-Length: 232 </code></pre><p></p><p>Protocol Version: HTTP 1.1</p><p>Status Code: Success, OK</p><p>Date: Mon, 30 Mar 2020 13:00:42 GMT</p><p>Server: nginx</p><p>Server Sets cookie: with a specific ID that we will attach to each request from now on</p><p>Content-Type: Body contains data in JavaScript Object Notation JSON</p><p>Content-Length: The length in decimal number of octets / bytes.</p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>
+Content-Length: 232&#32;</code></pre><p></p><p>Protocol Version: HTTP 1.1</p><p>Status Code: Success, OK</p><p>Date: Mon, 30 Mar 2020 13:00:42 GMT</p><p>Server: nginx</p><p>Server Sets cookie: with a specific ID that we will attach to each request from now on</p><p>Content-Type: Body contains data in JavaScript Object Notation JSON</p><p>Content-Length: The length in decimal number of octets / bytes.</p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>
 You are given the vague description to design a URL for a secure HTTP resource available on port 5000: it should serve a path to
 users, query a username, and target the profile fragment within the resource. Which of the following URLs is the most compatible
 with this description?
@@ -610,100 +611,115 @@ with this description?
 &lt;scheme&gt;://[&lt;user&gt;[:&lt;password&gt;]@]&lt;server&gt;[:&lt;port&gt;]/[&lt;path&gt;][?&lt;query&gt;][#&lt;fragment&gt;]
 </code></p><p><mark class="highlight-gray"><code>https://coolSite.com:5000/userPath?username=coolName#profile</code></mark><mark class="highlight-gray"></mark></p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>You want to send an idempotent HTTP request with a message body. Which method can you use?</summary><p></p><p>Same effect even with multiple executions (idempoptent): PUT, DELETE</p><p>But DELETE does not have a message body.</p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>
 You are navigating to a large HTML document which includes three CSS files and ten images. How does your browser react?
-</summary><p></p><p>The browser fetches the content on the website through HTTP requests to the servers that the resource URLs lead to.</p><p></p><p>One process will not wait for the previous one to finish completely - will try to display contents as soon as possible.</p><p>Continuous Resource Fetching.</p><p></p><p>Process</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Construct Document Object Model (DOM) from parsing the HTML document</li></ol><ol class="numbered-list" start="2" type="1"><li>Construct Render Tree from CSS and HTML</li></ol><ol class="numbered-list" start="3" type="1"><li>Layout process (recursive): attaches coordinates to each node</li></ol><ol class="numbered-list" start="4" type="1"><li>Painting each node from the render tree using the UI backend</li></ol></div><p></p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>What is wrong with the following HTML structure?</summary><pre class="code"><code>&lt;section class="important label"&gt;
-&lt;strong style="border-bottom: 1px solid black;"&gt;
-&lt;h2&gt;Important Announcement&lt;/h2&gt;
-&lt;/strong&gt;
-&lt;section&gt;
-&lt;em&gt;Beware:&lt;/em&gt; of all the wrong things in this HTML.
-&lt;/section&gt;
-&lt;/section&gt;</code></pre><p></p><ol class="numbered-list" start="1" type="1"><li>&lt;/section&gt; tags are nested</li></ol><ol class="numbered-list" start="2" type="1"><li>h2 can not get &lt;strong&gt; this way</li></ol></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
+</summary><p></p><p>The browser fetches the content on the website through HTTP requests to the servers that the resource URLs lead to.</p><p></p><p>One process will not wait for the previous one to finish completely - will try to display contents as soon as possible.</p><p>Continuous Resource Fetching.</p><p></p><p>Process</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Construct Document Object Model (DOM) from parsing the HTML document</li></ol><ol class="numbered-list" start="2" type="1"><li>Construct Render Tree from CSS and HTML</li></ol><ol class="numbered-list" start="3" type="1"><li>Layout process (recursive): attaches coordinates to each node</li></ol><ol class="numbered-list" start="4" type="1"><li>Painting each node from the render tree using the UI backend</li></ol></div><p></p></details></li></ul><p class="block-color-gray"></p><ul class="block-color-gray toggle"><li><details><summary>What is wrong with the following HTML structure?</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;important label&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;border-bottom: 1px solid black;&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Important Announcement<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+	 <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Beware:<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> of all the wrong things in this HTML.
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre><p></p><ol class="numbered-list" start="1" type="1"><li>&lt;/section&gt; tags are nested</li></ol><ol class="numbered-list" start="2" type="1"><li>h2 can not get &lt;strong&gt; this way</li></ol></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 You want to display an image on your website. The image on your server has a resolution of a 12000x12000 pixels, but you only
 need 200x200 pixels. Initially, you write the following code
-</summary><pre class="code"><code>&lt;img src="img_12000_12000.jpg width="200"&gt;.</code></pre><p>Which of the following statements best describes what the browser is doing?</p><p></p><p>
+</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;img_12000_12000.jpg width=&quot;</span><span class="hljs-attr">200</span>&quot;&gt;</span>.</code></pre><p>Which of the following statements best describes what the browser is doing?</p><p></p><p>
 Causing a syntax error because the source is defined as:
-<code>src="img_12000_12000.jpg width="</code></p><p>To scale an image one needs css or js:</p><pre class="code"><code>&lt;img src="img_12000_12000.jpg" width="200" alt="Description"&gt;
-&lt;img src="img_12000_12000.jpg" style="width: 200px;" alt="Description"&gt;</code></pre><p></p><p>Alternatively we could fetch the enitre picture and scale it in the frontend with:</p><p><span style="border-bottom: 0.05em solid">Responsive and adaptive images</span></p><div class="indented"><p>Fetch respective image, size or version (additional download!)</p><p>Use JavaScript, CSS media queries, and/or HTML5 markup</p><pre class="code"><code>&lt;picture&gt;
-&lt;source	src="pic-mobile.jpg"	media="(max-width: 200px)"	/&gt;
-&lt;source	src="pic-desktop.jpg"	/&gt;
-&lt;img src="default.png"	/&gt;	&lt;!-- User Agent not supporting picture element --&gt;
-&lt;/picture&gt;</code></pre><pre class="code"><code>&lt;img src="img_12000_12000.jpg" style="
-@media	(max-width:	200px) { width: 200px; }
-"&gt;</code></pre><pre class="code"><code>&lt;img srcset="img-200w.jpg 200w,
-img-12000w.jpg 12000w"
-sizes="(max-width: 200px) 200x, 12000px"
-src="img-12000w.jpg"
-alt="Description"&gt;</code></pre></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
+<code>src="img_12000_12000.jpg width="</code></p><p>To scale an image one needs css or js:</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;img_12000_12000.jpg&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Description&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;img_12000_12000.jpg&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 200px;&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Description&quot;</span>&gt;</span></code></pre><p></p><p>Alternatively we could fetch the enitre picture and scale it in the frontend with:</p><p><span style="border-bottom: 0.05em solid">Responsive and adaptive images</span></p><div class="indented"><p>Fetch respective image, size or version (additional download!)</p><p>Use JavaScript, CSS media queries, and/or HTML5 markup</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">picture</span>&gt;</span>&#9;
+		<span class="hljs-tag">&lt;<span class="hljs-name">source</span>	<span class="hljs-attr">src</span>=<span class="hljs-string">&quot;pic-mobile.jpg&quot;</span>	<span class="hljs-attr">media</span>=<span class="hljs-string">&quot;(max-width: 200px)&quot;</span>	/&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">source</span>	<span class="hljs-attr">src</span>=<span class="hljs-string">&quot;pic-desktop.jpg&quot;</span>	/&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;default.png&quot;</span>	/&gt;</span>	<span class="hljs-comment">&lt;!-- User Agent not supporting picture element --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">picture</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;img_12000_12000.jpg&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;
+	@media	(max-width:	200px) { width: 200px; }
+&quot;</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;img-200w.jpg 200w,
+             img-12000w.jpg 12000w&quot;</span>
+     <span class="hljs-attr">sizes</span>=<span class="hljs-string">&quot;(max-width: 200px) 200x, 12000px&quot;</span>
+     <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;img-12000w.jpg&quot;</span>
+     <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Description&quot;</span>&gt;</span></code></pre></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 You are reviewing code for an HTML form. While the markup looks the way it should in the browser, you can see how it could
 create accessibility issues. Which of the following changes are best suited to improve accessibility?
-</summary><pre class="code"><code>&lt;form action="/login"&gt;
-&lt;b&gt;Login&lt;/b&gt;
-&lt;br&gt;&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;
-Username&lt;br&gt;
-Password
-&lt;/td&gt;
-&lt;td&gt;
-&lt;input name="field_1"&gt;&lt;br&gt;
-&lt;input name="field_2"&gt;&lt;br&gt;
-&lt;input type="submit" value="Login"&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;&lt;/form&gt;</code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled.png" style="width: 338px"/></a></figure><ol class="numbered-list" start="1" type="1"><li>No semantics of "Login" → Only increased size</li></ol><ol class="numbered-list" start="2" type="1"><li>Screen Reader Linearization → (no logical) binding of label and field - Where do I fill in what?</li></ol><pre class="code"><code>&lt;head&gt;
-&lt;h1&gt;Login&lt;/h1&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;form action="/login"&gt;
-&lt;p&gt;
-&lt;label for="userName"&gt;Username:&lt;/label&gt;
-&lt;input type="text" id="userName" name="userName"/&gt;
-&lt;/p&gt;&lt;p&gt;
-&lt;label for="password"&gt;Password&lt;/label&gt;
-&lt;input type="text" id="password" name="password"/&gt;
-&lt;/p&gt;&lt;p&gt;
-&lt;input type="submit" value="Submit the form" name="action"/&gt;
-&lt;/p&gt;
-&lt;/form&gt;
-&lt;/body&gt;</code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png" style="width: 240px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
+</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/login&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+
+	<span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+				Username<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+				Password
+			<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+&#9;&#9;
+			<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;field_1&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;field_2&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;Login&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled.png" style="width: 338px"/></a></figure><ol class="numbered-list" start="1" type="1"><li>No semantics of "Login" → Only increased size</li></ol><ol class="numbered-list" start="2" type="1"><li>Screen Reader Linearization → (no logical) binding of label and field - Where do I fill in what?</li></ol><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Login<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/login&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;userName&quot;</span>&gt;</span>Username:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userName&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;userName&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;password&quot;</span>&gt;</span>Password<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;Submit the form&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;action&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%201.png" style="width: 240px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which of the following selectors would you use to target the HTML element (and only that element) highlighted in bold below?
-</summary><pre class="code"><code>&lt;section id="siblingSec" class="sibling"&gt;
-&lt;h2&gt;Style my sibling&lt;/h2&gt;&lt;p class="sibling"&gt;
-&lt;div class="listContainer" id="firstContainer"&gt;
-&lt;ul class="bigList"&gt;
-&lt;li&gt;First&lt;/li&gt;
-&lt;li&gt;Second&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div&gt;
-&lt;ul class="bigList"&gt;
-&lt;li&gt;Third&lt;/li&gt;
-&lt;li&gt;Forth&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/p&gt;&lt;div&gt;
-&lt;p class="sibling"&gt;
-&lt;ul class="bigList"&gt;
-&lt;li&gt;First&lt;/li&gt;
-&lt;li&gt;Second&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="listContainer"&gt;
-&lt;ul class="bigList"&gt;
-&lt;li&gt;Last&lt;/li&gt;
-&lt;li&gt;Actually Last&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/p&gt;
-&lt;/div&gt;&lt;/section&gt;</code></pre><p><a href="https://jsfiddle.net/r26y3et1/4/">https://jsfiddle.net/r26y3et1/4/</a></p><p></p><p>The selector to choose that Item:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>choose a div with id="firstContainer"</li></ol><ol class="numbered-list" start="2" type="1"><li>then choose the second child that is a div</li></ol><ol class="numbered-list" start="3" type="1"><li>and then its only child, which is a ul</li></ol></div><p></p><p></p><pre class="code"><code>div#firstContainer div ul{
-...
+</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;siblingSec&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sibling&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Style my sibling<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+	<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sibling&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;listContainer&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;firstContainer&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bigList&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>First<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Second<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bigList&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Third<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Forth<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+	<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sibling&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bigList&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>First<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Second<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;listContainer&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bigList&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Last<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Actually Last<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre><p><a href="https://jsfiddle.net/r26y3et1/4/">https://jsfiddle.net/r26y3et1/4/</a></p><p></p><p>The selector to choose that Item:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>choose a div with id="firstContainer"</li></ol><ol class="numbered-list" start="2" type="1"><li>then choose the second child that is a div</li></ol><ol class="numbered-list" start="3" type="1"><li>and then its only child, which is a ul</li></ol></div><p></p><p></p><pre class="code"><code>div#firstContainer div ul{
+	...
 }</code></pre></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which of the following CSS declarations is most likely to result in the following rendering in the browser given this
 markup/style declaration:
-</summary><pre class="code"><code>&lt;div style="border: 4px solid black;"&gt;
-&lt;div id="outer"&gt;
-&lt;span id="inner" style="font-size: 2em;"&gt;Some text&lt;/span&gt;
-&lt;/div&gt;
-&lt;/div&gt;</code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png" style="width: 494px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
+</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;border: 4px solid black;&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;outer&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;inner&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;font-size: 2em;&quot;</span>&gt;</span>Some text<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%202.png" style="width: 494px"/></a></figure></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which one of the following HTML elements have we heard about in the lecture that is used to link to an external CSS stylesheet
 for integration into HTML?
 </summary><p></p><p>Integration into HTML</p><div class="indented"><p>External (prefered)</p><div class="indented"><p>
@@ -721,83 +737,101 @@ In HTML elements
 <code>&lt;tagname style="property:value;"&gt;content&lt;/tagname&gt;</code></p></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 Which one of the following CSS properties for the selector section#content do you think is mostlikely to have produced this
 output in the browser? The HTML for the relevant part of the page is given as follows:
-</summary><pre class="code"><code>&lt;section id="content"&gt;
-&lt;div&gt;Cats&lt;/div&gt;
-&lt;div&gt;Dogs&lt;/div&gt;
-&lt;div&gt;Tigers&lt;/div&gt;
-&lt;div&gt;Tortoises&lt;/div&gt;
-&lt;div&gt;Ducks&lt;/div&gt;
-&lt;div&gt;Pumas&lt;/div&gt;
-&lt;div&gt;Hyenas&lt;/div&gt;
-&lt;div&gt;Pigs&lt;/div&gt;
-&lt;div&gt;Cows&lt;/div&gt;
-&lt;div&gt;Foxes&lt;/div&gt;
-&lt;div&gt;Wolfs&lt;/div&gt;
-&lt;div&gt;Bison&lt;/div&gt;
-&lt;/section&gt;</code></pre><pre class="code"><code>section#content div {
-padding: 10px;
-margin: 4px;
-border: 1px solid black;
-width: 100px;
-height: 40px;
+</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Cats<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Dogs<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Tigers<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Tortoises<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Ducks<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Pumas<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Hyenas<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Pigs<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Cows<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Foxes<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Wolfs<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Bison<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-css"><span class="hljs-selector-tag">section</span><span class="hljs-selector-id">#content</span> <span class="hljs-selector-tag">div</span> {
+ <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+ <span class="hljs-attribute">margin</span>: <span class="hljs-number">4px</span>;
+ <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;
+ <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;
+ <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
 }</code></pre><p><a href="https://jsfiddle.net/ertk8L0y/1/">https://jsfiddle.net/ertk8L0y/1/</a></p><p></p><p>chooses section with id = "content" and div as is child</p><p><em>therefore all children of this section</em></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 You are given this CSS code and have to figure out which of the following resulting CSS rules are true for the element
 <code>&lt;h1 class="alarm"&gt;...&lt;/h1&gt;</code>
 on a device with 300px width.
-</summary><pre class="code"><code>h1 {
---alarm-color: darkred;
-}h1.alarm {
-font-size: 2em;
-color: var(--alarm-color, red);
-}@media only screen and (max-width: 400px) {
-h1.alarm {
-font-size: 1em;
+</summary><pre class="code"><code class="hljs language-css"><span class="hljs-selector-tag">h1</span> {
+ <span class="hljs-attr">--alarm-color</span>: darkred;
 }
+
+<span class="hljs-selector-tag">h1</span><span class="hljs-selector-class">.alarm</span> {&#32;
+ <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2em</span>;
+ <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--alarm-color, red);
+}
+
+<span class="hljs-keyword">@media</span> <span class="hljs-keyword">only</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">400px</span>) {&#32;
+ <span class="hljs-selector-tag">h1</span><span class="hljs-selector-class">.alarm</span> {
+ <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
+ }
 }</code></pre><p></p><p>
 because the screen has &lt; 400 pixel
 <code>h1</code>
 and
 <code>h1.alarm</code>
 apply.
-</p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>You are given the following HTML and JavaScript code. What is the browser output if you enter 100 into the input?</summary><pre class="code"><code>&lt;label for="speed"&gt;Speed (km/h)&lt;/label&gt;
-&lt;input type="text" id="speed"&gt;
-&lt;div&gt;
-Speed &lt;span id="output"&gt;&lt;/span&gt;
-&lt;/div&gt;</code></pre><pre class="code"><code>var el = document.getElementById('speed')// Beware that event.toElement.value returns a string
-el.addEventListener('change', event =&gt;
-addSpeedClassification(document.getElementById('speed').value)); &lt;-- only 1 argumentfunction addSpeedClassification(speed, classification) { &lt;-- classification = undefined
-const output = document.getElementById('output');
-// reset markup
-output.innerHTML = '';
-output.border = 'none';
-if(isSpeedLimit(speed, [30, 50, 100, 130])) { //if speed == one of limits
-output.style.border = '4px dashed red';
+</p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>You are given the following HTML and JavaScript code. What is the browser output if you enter 100 into the input?</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;speed&quot;</span>&gt;</span>Speed (km/h)<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;speed&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+	Speed <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;output&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">var</span> el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;speed&#x27;</span>)
+
+<span class="hljs-comment">// Beware that event.toElement.value returns a string</span>
+el.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;change&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span>
+	<span class="hljs-title function_">addSpeedClassification</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;speed&#x27;</span>).<span class="hljs-property">value</span>)); &lt;-- only 1 argument
+
+
+function addSpeedClassification(speed, classification) { &lt;-- classification = undefined
+	const output = document.getElementById(&#x27;output&#x27;);
+&#9;
+	// reset markup
+	output.innerHTML = &#x27;&#x27;;
+	output.border = &#x27;none&#x27;;
+&#9;
+	if(isSpeedLimit(speed, [30, 50, 100, 130])) { //if speed == one of limits
+		output.style.border = &#x27;4px dashed red&#x27;;
+	}
+&#9;
+	if(!classification) { //!undefined is equal to true (implicit type conversion)
+		classification = {
+			text: {&#x27;slow&#x27; : 50, &#x27;normal&#x27; : 90, &#x27;fast&#x27; : 130},
+			overText: &#x27;too fast&#x27;
+		}
+	}
+&#9;
+	let classificationOutputText; //determines in which range speed is
+	for(let key in classification.text) {
+		if(speed &lt;= classification.text[key]) {
+			classificationOutputText = key;
+		}
+	}
+&#9;
+	if(!classificationOutputText) { //if speed &gt; 130
+		classificationOutputText = classification.overText;
+	}
+&#9;
+	const strongText = document.createElement(&#x27;strong&#x27;);
+	strongText.innerText = `${speed} (${classificationOutputText})`;
+	output.appendChild(strongText);
 }
-if(!classification) { //!undefined is equal to true (implicit type conversion)
-classification = {
-text: {'slow' : 50, 'normal' : 90, 'fast' : 130},
-overText: 'too fast'
-}
-}
-let classificationOutputText; //determines in which range speed is
-for(let key in classification.text) {
-if(speed &lt;= classification.text[key]) {
-classificationOutputText = key;
-}
-}
-if(!classificationOutputText) { //if speed &gt; 130
-classificationOutputText = classification.overText;
-}
-const strongText = document.createElement('strong');
-strongText.innerText = `${speed} (${classificationOutputText})`;
-output.appendChild(strongText);
-}function isSpeedLimit(speed, limits=[15, 40, 90]) {
-for(let limit of limits) {
-if(speed == limit) {
-return true;
-}
-}
-return false;
+
+
+function isSpeedLimit(speed, limits=[15, 40, 90]) {
+	for(let limit of limits) {
+		if(speed == limit) {
+			return true;
+		}
+	}
+	return false;
 }</code></pre><p><a href="https://jsfiddle.net/q5y60knb/1/">https://jsfiddle.net/q5y60knb/1/</a></p><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png" style="width: 276px"/></a></figure><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png" style="width: 291px"/></a></figure><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>What are promises in JavaScript?</summary><p class="block-color-gray">Analogy:</p><div class="indented"><p>
 Fans have subscribed the mailing subscription list of a singer so that they get instantly notified once the next album
 becomes becomes available or if something goes wrong.
@@ -815,9 +849,9 @@ of the subscribed code when it’s ready.
 The constructor syntax for a
 <mark class="highlight-teal">promise object</mark>
 is:
-</p><pre class="code"><code>let promise = new Promise(/*executor(resolve, reject)*/); </code></pre><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
-// executor (the producing code)
-}); </code></pre><p>The executor runs automatically and attempts to perform a job. When it is finished with the attempt it calls</p><div class="indented"><p><code>resolve</code>
+</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-comment">/*executor(resolve, reject)*/</span>);&#32;</code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
+  <span class="hljs-comment">// executor (the producing code)</span>
+});&#32;</code></pre><p>The executor runs automatically and attempts to perform a job. When it is finished with the attempt it calls</p><div class="indented"><p><code>resolve</code>
 if it was successful
 </p><p><code>reject</code>
 if there was an error.
@@ -847,17 +881,17 @@ is called by the executor
 when
 <code>reject(error)</code>
 is called by the executor
-</li></ul></li></ol></div><p></p><p></p><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png" style="width: 336px"/></a></figure><p></p><p>Example: Successful</p><div class="indented"><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
-setTimeout(() =&gt; resolve("done"), 1000); //"done" is the result
-}); </code></pre><p>
+</li></ul></li></ol></div><p></p><p></p><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png" style="width: 336px"/></a></figure><p></p><p>Example: Successful</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;done&quot;</span>), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;done&quot; is the result</span>
+});&#32;</code></pre><p>
 After one second of “processing” the executor calls
 <code>resolve("done")</code>
 to produce the result. This changes the state of the
 <code>promise</code>
 object:
-</p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p><p>Example: Unsuccessful</p><div class="indented"><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
-setTimeout(() =&gt; reject(new Error("Whoops!")), 1000); //"whoops" is the error statement
-}); </code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>Why are promises a solution to "callback hell" in JavaScript?</summary><p>
+</p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p><p>Example: Unsuccessful</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Whoops!&quot;</span>)), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;whoops&quot; is the error statement</span>
+});&#32;</code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>Why are promises a solution to "callback hell" in JavaScript?</summary><p>
 In a “callback-based” style of asynchronous programming. A function that does something asynchronously (at a later point in
 time) should provide a
 <em>callback argument</em>

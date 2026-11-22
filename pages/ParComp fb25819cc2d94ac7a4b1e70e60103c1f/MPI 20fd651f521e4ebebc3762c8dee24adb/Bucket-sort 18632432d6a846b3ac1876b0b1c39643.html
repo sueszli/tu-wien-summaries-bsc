@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Bucket-sort</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7a034e3d-2779-4ccf-839e-17427df39c61">Sequential algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3c9e28f6-17d8-4f91-bd20-8e9a33e8b6cd">Parallel algorithm</a></div></nav><p></p><h1 id="7a034e3d-2779-4ccf-839e-17427df39c61">Sequential algorithm</h1><p><em><mark class="highlight-gray">Explanation:</mark></em><em><mark class="highlight-gray"><a href="https://www.youtube.com/watch?v=mz2fBJyoEVc">https://www.youtube.com/watch?v=mz2fBJyoEVc</a></mark></em></p><p>
 Given:
@@ -606,16 +607,16 @@ Count number of elements of each “key” (magnitude)
 <pre class="code"><code>for (i=0; i&lt;R; i++) bucket[i] = 0; // initialize range
 for (i=0; i&lt;n; i++) bucket[A[i]]++; // count occurences of each value in range</code></pre><p></p></li></ol><ol class="numbered-list" start="2" type="1"><li>
 Compute start index of each bucket with exclusive prefix-sums
-<ul class="block-color-gray toggle"><li><details><summary>Implementation</summary><pre class="code"><code>for (i=1; i&lt;R; i++) bucket[i] += bucket[i-1]; // add previous value to this one
+<ul class="block-color-gray toggle"><li><details><summary>Implementation</summary><pre class="code"><code>for (i=1; i&lt;R; i++) bucket[i] += bucket[i-1]; // add previous value to this one&#32;
 // shift all entries to right
 for (i=R-1; i&gt;0; i--) bucket[i] = bucket[i-1];
 bucket[0] = 0;</code></pre></details></li></ul><pre class="code"><code>Exscan(bucket);</code></pre><p></p></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Put sorted
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>A</mi></mstyle></mrow><annotation encoding="application/x-tex">\small A</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.614997em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">A</span></span></span></span></span><span>﻿</span></span>
 into
-<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>B</mi></mstyle></mrow><annotation encoding="application/x-tex">\small B</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.614997em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.05017em">B</span></span></span></span></span><span>﻿</span></span><pre class="code"><code>for (i=0; i&lt;n; i++) {
-int tmp = bucket[A[i]]; // value in prefixed bucket
-B[tmp] = A[i];
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>B</mi></mstyle></mrow><annotation encoding="application/x-tex">\small B</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.614997em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.05017em">B</span></span></span></span></span><span>﻿</span></span><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+	<span class="hljs-type">int</span> tmp = bucket[A[i]]; <span class="hljs-comment">// value in prefixed bucket</span>
+	B[tmp] = A[i];
 }</code></pre><p>
 Now
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>B</mi></mstyle></mrow><annotation encoding="application/x-tex">\small B</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.614997em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.05017em">B</span></span></span></span></span><span>﻿</span></span>
@@ -640,24 +641,24 @@ per process
 Find occurences of elements and store them in
 <mark class="highlight-gray"><code>B</code></mark><mark class="highlight-gray">(previously called</mark><code><mark class="highlight-gray">bucket</mark></code><mark class="highlight-gray">)</mark><p></p></li></ol><ol class="numbered-list" start="2" type="1"><li>
 Call
-<mark class="highlight-gray"><code>Allreduce</code></mark><p><em><mark class="highlight-gray">can be optimized by using</mark></em><em><code><mark class="highlight-gray"><mark class="highlight-gray">MPI_BCast</mark></mark></code></em></p><pre class="code"><code>MPI_Allreduce(
-B, // local array with number of occurences
-AllB, // distributed array with number of occurences (of all processes)
-R, // size equal to R (range)
-MPI_INT, MPI_SUM, // addition
-comm
+<mark class="highlight-gray"><code>Allreduce</code></mark><p><em><mark class="highlight-gray">can be optimized by using</mark></em><em><code><mark class="highlight-gray"><mark class="highlight-gray">MPI_BCast</mark></mark></code></em></p><pre class="code"><code class="hljs language-c">MPI_Allreduce(
+	B, <span class="hljs-comment">// local array with number of occurences</span>
+	AllB, <span class="hljs-comment">// distributed array with number of occurences (of all processes) </span>
+	R, <span class="hljs-comment">// size equal to R (range)</span>
+	MPI_INT, MPI_SUM, <span class="hljs-comment">// addition</span>
+	comm
 );</code></pre><p>
 Now vector
 <mark class="highlight-gray"></mark><mark class="highlight-gray"><code>AllB</code></mark>
 contains the sizes of all buckets over all processes (stored in all processes).
 </p><p></p></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Call
-<mark class="highlight-gray"><code>Exscan(B)</code></mark><mark class="highlight-gray">(distributedly)</mark><pre class="code"><code>MPI_Exscan(
-B, // local array with number of occurences
-RelB, // output
-R, // size equal to R (range)
-MPI_INT, MPI_SUM, // addition
-comm
+<mark class="highlight-gray"><code>Exscan(B)</code></mark><mark class="highlight-gray">(distributedly)</mark><pre class="code"><code class="hljs language-c">MPI_Exscan(
+	B, <span class="hljs-comment">// local array with number of occurences</span>
+	RelB, <span class="hljs-comment">// output</span>
+	R, <span class="hljs-comment">// size equal to R (range) </span>
+	MPI_INT, MPI_SUM, <span class="hljs-comment">// addition</span>
+	comm
 );</code></pre><p><mark class="highlight-gray"><code>RelB</code></mark><mark class="highlight-gray"></mark>
 is the relative position of every ranks elements in their buckets.
 </p><div class="indented"><p>It is different in every process and is calculated distributedly.</p></div><p></p><p></p></li></ol><ol class="numbered-list" start="4" type="1"><li>
@@ -680,16 +681,16 @@ Compute number of elements to be sent to each process:
 with
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>i</mi><mo>∈</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">;</mo><mtext></mtext><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mstyle></mrow><annotation encoding="application/x-tex">\small i\in [0;~p-1]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.628758em; vertical-align: -0.035190000000000006em"></span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel sizing reset-size6 size5">∈</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mopen sizing reset-size6 size5">[</span><span class="mord sizing reset-size6 size5">0</span><span class="mpunct sizing reset-size6 size5">;</span><span class="mspace nobreak sizing reset-size6 size5"></span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5">p</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">−</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5">1</span><span class="mclose sizing reset-size6 size5">]</span></span></span></span></span><span>﻿</span></span><p></p></li></ol><ol class="numbered-list" start="6" type="1"><li>
 Call
-<mark class="highlight-gray"><code>Alltoall</code></mark><p>all → all (make data of all processes available to eachother)</p><p><em>This opeartion transposes the data.</em></p><pre class="code"><code>MPI_Alltoall(
-sendelts,	1, MPI_INT, // send
-recvelts,	1, MPI_INT, // receive
-comm
+<mark class="highlight-gray"><code>Alltoall</code></mark><p>all → all (make data of all processes available to eachother)</p><p><em>This opeartion transposes the data.</em></p><pre class="code"><code class="hljs language-c">MPI_Alltoall(
+	sendelts,	<span class="hljs-number">1</span>, MPI_INT, <span class="hljs-comment">// send</span>
+	recvelts,	<span class="hljs-number">1</span>, MPI_INT, <span class="hljs-comment">// receive</span>
+	comm
 );</code></pre><p></p></li></ol><ol class="numbered-list" start="7" type="1"><li>
 Call
-<mark class="highlight-gray"><code>Alltoallv</code></mark><p>Transpose again</p><pre class="code"><code>MPI_Alltoallv(
-A,sendelts,sdispls,MPI_INT, // send
-C,recvelts, // receive
-…,comm
+<mark class="highlight-gray"><code>Alltoallv</code></mark><p>Transpose again</p><pre class="code"><code class="hljs language-c">MPI_Alltoallv(
+	A,sendelts,sdispls,MPI_INT, <span class="hljs-comment">// send</span>
+	C,recvelts, <span class="hljs-comment">// receive</span>
+	…,comm
 );</code></pre><p></p></li></ol><ol class="numbered-list" start="8" type="1"><li>
 Finally: Reorder elements from
 <mark class="highlight-gray"><code>C</code></mark>

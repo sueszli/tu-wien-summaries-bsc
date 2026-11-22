@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Deadlock</h1><p class="page-description"></p></header><div class="page-body"><figure class="link-to-page"><a href="Deadlock%20896fdce813a9479e96deb9701e9a376a/Bankers%20Algorithm%20Beispiele%20458f5750e3574aba88c963c34cf211a4.html"><span class="icon">📎</span>
 Bankers Algorithm Beispiele
@@ -616,12 +617,12 @@ Circular Wait Zyklischer Ressourcenkonflikt zwischen ≥ 2 Prozessen
 <p><mark class="highlight-gray">Es gibt eine geschlossene Kette von Prozessen, sodass jeder zumindest</mark></p><p><mark class="highlight-gray">eine Ressource hält die der nächste benötigt.</mark></p></li></ol><figure class="image"><a href="Deadlock%20896fdce813a9479e96deb9701e9a376a/Untitled%202.png"><img src="Deadlock%20896fdce813a9479e96deb9701e9a376a/Untitled%202.png" style="width: 336px"/></a><figcaption>Minimalbeispiel: Circular Wait</figcaption></figure><p>1-3 sind Systembedingungen, 4 ist eine besondere Ereignisfolge.</p><div class="indented"><p>Ein Deadlock tritt genau dann auf, wenn das Circular Wait nicht aufgelöst werden kann.</p><p>Circular Wait kann nicht aufgelöst werden, wenn Bedingungen 1 bis 3 gelten.</p></div><p></p><p>Deadlock genau dann, wenn alle 4 Bedingungen erfüllt sind.</p><p></p><p><mark class="highlight-blue">Deadlock Beispiele</mark></p><ul class="toggle"><li><details><summary>Einfache Deadlock Beispiele</summary><p><mark class="highlight-blue">Beispiel: Kreisverkehr</mark></p><p>Prozesse: Autos</p><p>Ressourcen: Fahrbahnstücke (wiederherstellbare Ressourcen)</p><p>
 Deadlock: jedes Auto blockiert ein Fahrbahnstück und möchte auf das Fahrbahnstück des vorderen Autos (dieses wiederum wartet
 aber auf das Fahrbahnstück des vorderen Autos)
-</p><p></p><p><mark class="highlight-blue">Beispiel: Nachrichten</mark></p><p>Nachrichten sind konsumierbare Ressourcen (wenn sie gelesen werden verschwinden sie von der queue).</p><pre class="code"><code>...
-receive(MQ1, msg); //waits for msg
+</p><p></p><p><mark class="highlight-blue">Beispiel: Nachrichten</mark></p><p>Nachrichten sind konsumierbare Ressourcen (wenn sie gelesen werden verschwinden sie von der queue).</p><pre class="code"><code class="hljs language-c">...
+receive(MQ1, msg); <span class="hljs-comment">//waits for msg</span>
 ...
 send(MQ2, msg);
-...</code></pre><pre class="code"><code>...
-receive(MQ2, msg); //waits for msg
+...</code></pre><pre class="code"><code class="hljs language-c">...
+receive(MQ2, msg); <span class="hljs-comment">//waits for msg</span>
 ...
 send(MQ1, msg);
 ...</code></pre><p></p><p><mark class="highlight-blue">Beispiel: Mutual Exclusion</mark></p><pre class="code"><code>Get B

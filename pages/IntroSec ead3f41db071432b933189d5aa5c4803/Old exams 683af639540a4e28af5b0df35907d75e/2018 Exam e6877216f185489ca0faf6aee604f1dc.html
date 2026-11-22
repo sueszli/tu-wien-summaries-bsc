@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">2018 Exam</h1><p class="page-description"></p></header><div class="page-body"><h2>Multiple Choice Part</h2><p>Which of the following security mechanisms provide integrity?</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">MAC</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Digital signature</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Public Key Cryptography</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Symmetrical Cryptography</li></ul></div><p></p><ul class="toggle"><li><details><summary>Solution</summary><p><mark class="highlight-teal">Integrity</mark>
 means that the data is only changed when authorized / System behaves as expected.
@@ -747,7 +748,7 @@ A message is 2 bits shorter than its key and therefore gets encrypted the follow
 where
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>01</mn></mrow><annotation encoding="application/x-tex">01</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">01</span></span></span></span></span><span>﻿</span></span>
 stands for the bitwise concatenation.
-<ul class="toggle"><li><details><summary>Solution</summary><p>If we just add 2 bits to the message so that it matches the length of the key, we change nothing about the security.</p></details></li></ul></li></ol><p></p><h2>Cross Site Scripting XSS</h2><pre class="code"><code>&lt;html&gt; Output: &lt;?php echo $_GET["argument"]; ?&gt;&lt;/html&gt;</code></pre><ol class="numbered-list" start="1" type="1"><li>
+<ul class="toggle"><li><details><summary>Solution</summary><p>If we just add 2 bits to the message so that it matches the length of the key, we change nothing about the security.</p></details></li></ul></li></ol><p></p><h2>Cross Site Scripting XSS</h2><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span> Output: <span class="hljs-meta">&lt;?php echo $_GET[&quot;argument&quot;]; ?&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre><ol class="numbered-list" start="1" type="1"><li>
 Where does the vulnerability lie?
 <ul class="toggle"><li><details><summary>Solution</summary><figure class="link-to-page"><a href="2019%20Exam%2096488f8d522e46899f39c0cf591432cd/In%20depth%20explaination%20b7bac2a0933047309dc9e4cc88079a64.html"><span class="icon">📎</span>
 In depth explaination
@@ -797,25 +798,25 @@ could possibly have prevented overwriting the return pointer
 would have no effect
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-teal">ASLR</mark>
 would have made it really difficult to guess the library instruction
-</li></ul></details></li></ul></li></ol><p></p><h2>SQL-Injection</h2><p>Query that updates a users password:</p><pre class="code"><code>$var_username = $_GET['username'];
-$var_password = $_GET['password'];
-$sql = "UPDATE users SET  = '" . $var_passwort . "' WHERE username = '"+var_username+"'";
+</li></ul></details></li></ul></li></ol><p></p><h2>SQL-Injection</h2><p>Query that updates a users password:</p><pre class="code"><code class="hljs language-c">$var_username = $_GET[<span class="hljs-string">&#x27;username&#x27;</span>];
+$var_password = $_GET[<span class="hljs-string">&#x27;password&#x27;</span>];
+$sql = <span class="hljs-string">&quot;UPDATE users SET  = &#x27;&quot;</span> . $var_passwort . <span class="hljs-string">&quot;&#x27; WHERE username = &#x27;&quot;</span>+var_username+<span class="hljs-string">&quot;&#x27;&quot;</span>;
 mysql_query(sql);</code></pre><ol class="numbered-list" start="1" type="1"><li>
 Write an exploit that sets the passwords of all users to "hacked"
 <ul class="toggle"><li><details><summary>Solution</summary><pre class="code"><code>username:  ' OR LIKE '%
 password:  hacked</code></pre></details></li></ul></li></ol><ol class="numbered-list" start="2" type="1"><li>
 Which SQL query gets executed?
-<ul class="toggle"><li><details><summary>Solution</summary><pre class="code"><code>UPDATE users SET 'hacked' WHERE username = '' OR LIKE '%'</code></pre></details></li></ul></li></ol><ol class="numbered-list" start="3" type="1"><li>
+<ul class="toggle"><li><details><summary>Solution</summary><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">UPDATE</span> users <span class="hljs-keyword">SET</span> <span class="hljs-string">&#x27;hacked&#x27;</span> <span class="hljs-keyword">WHERE</span> username <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;%&#x27;</span></code></pre></details></li></ul></li></ol><ol class="numbered-list" start="3" type="1"><li>
 What are prepared statements and how do they prevent SQL injections?
 <ul class="toggle"><li><details><summary>Solution</summary><p>allow to embed untrusted parameters in a query, while ensuring that their syntactical structure is preserved</p></details></li></ul></li></ol><ol class="numbered-list" start="4" type="1"><li>
 What would this code look like with prepeared statements?
-<ul class="toggle"><li><details><summary>Solution</summary><pre class="code"><code>&lt;?php
-$db = new PDO(CONNECTION_STRING, DB_USER, DB_PASS);
-$query = "UPDATE users SET  = ? WHERE username = ?";
-$sth = $db-&gt;prepare($query);
-$sth-&gt;bindValue(1, $_GET['password']);
-$sth-&gt;bindValue(2, $_GET['username']);
-$sth-&gt;execute();
-$user = $sth-&gt;fetch();
-// ...
-?&gt;</code></pre></details></li></ul></li></ol></div></article></body></html>
+<ul class="toggle"><li><details><summary>Solution</summary><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+ <span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(CONNECTION_STRING, DB_USER, DB_PASS);
+ <span class="hljs-variable">$query</span> = <span class="hljs-string">&quot;UPDATE users SET  = ? WHERE username = ?&quot;</span>;
+ <span class="hljs-variable">$sth</span> = <span class="hljs-variable">$db</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-variable">$query</span>);
+ <span class="hljs-variable">$sth</span>-&gt;<span class="hljs-title function_ invoke__">bindValue</span>(<span class="hljs-number">1</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;password&#x27;</span>]);
+ <span class="hljs-variable">$sth</span>-&gt;<span class="hljs-title function_ invoke__">bindValue</span>(<span class="hljs-number">2</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;username&#x27;</span>]);
+ <span class="hljs-variable">$sth</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();
+ <span class="hljs-variable">$user</span> = <span class="hljs-variable">$sth</span>-&gt;<span class="hljs-title function_ invoke__">fetch</span>();
+ <span class="hljs-comment">// ...</span>
+<span class="hljs-meta">?&gt;</span></code></pre></details></li></ul></li></ol></div></article></body></html>

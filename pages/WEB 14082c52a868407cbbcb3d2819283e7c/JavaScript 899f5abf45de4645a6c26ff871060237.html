@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">JavaScript</h1><p class="page-description"></p></header><div class="page-body"><p>
 Live Demo:
@@ -610,19 +611,19 @@ https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures
 It will
 <em>defer (= delay)</em>
 loading the JS until the page load is completed.
-</p></div><p></p><pre class="code"><code>&lt;script type="text/javascript" src="foo.js" defer&gt; &lt;/script&gt;</code></pre></div><p></p><p>Internal</p><div class="indented"><p>In &lt;body&gt; or &lt;head&gt;</p><p><code>type="module"</code>
+</p></div><p></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;foo.js&quot;</span> <span class="hljs-attr">defer</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre></div><p></p><p>Internal</p><div class="indented"><p>In &lt;body&gt; or &lt;head&gt;</p><p><code>type="module"</code>
 is
 <code>defer</code>
 by default
-</p><pre class="code"><code>&lt;script type="module"&gt;
-statement;
-statement;
-...
-&lt;/script&gt;</code></pre><pre class="code"><code>&lt;script type="text/javascript"&gt;
-statement;
-statement;
-...
-&lt;/script&gt;</code></pre></div><p></p><p>As event handlers</p><div class="indented"><pre class="code"><code>&lt;a href="http://www.bar.com" onmouseover="alert('hi');"&gt;</code></pre></div><p></p><p>Pseudo-URLs in links</p><div class="indented"><pre class="code"><code>&lt;a href="javascript:alert('You clicked');"&gt;Click me&lt;/a&gt;</code></pre></div><p></p><p></p><h1 id="b2c328af-3e31-4676-ad01-ab425665c500">Syntax</h1><ul class="toggle"><li><details><summary>Key words for declaration, Scoping</summary><p><mark class="highlight-teal">Function-scope:</mark><code>var</code>
+</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span>
+		statement;&#9;
+		statement;
+		...
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
+		statement;&#9;
+		statement;
+		...
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre></div><p></p><p>As event handlers</p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://www.bar.com&quot;</span> <span class="hljs-attr">onmouseover</span>=<span class="hljs-string">&quot;alert(&#x27;hi&#x27;);&quot;</span>&gt;</span></code></pre></div><p></p><p>Pseudo-URLs in links</p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;javascript:alert(&#x27;You clicked&#x27;);&quot;</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre></div><p></p><p></p><h1 id="b2c328af-3e31-4676-ad01-ab425665c500">Syntax</h1><ul class="toggle"><li><details><summary>Key words for declaration, Scoping</summary><p><mark class="highlight-teal">Function-scope:</mark><code>var</code>
 → try to avoid
 </p><ul class="bulleted-list"><li style="list-style-type: disc">will only live in the function or the outer scope that it was called in</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Function scopes can nest with nested functions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-teal">hoisting</mark>
 : optimzing code before executing it within the virtual machine → During the hoisting process all
@@ -693,21 +694,25 @@ s1.name
 </li></ul><p>JavaScript Template Literals (Replaces concatenation operations)</p><ul class="bulleted-list"><li style="list-style-type: disc">Use backquote (`) as delimiter</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Can span multiple lines (new line included in the string)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Can have embedded expressions → ${expression} — computes expression and replaces it with string value
 <pre class="code"><code>message	=	`Dear	${student.name}, Your	GPA, ${gpa(student)},
-is lower	than	the	average: ${averageGPA}`</code></pre></li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Operators</summary><ul class="bulleted-list"><li style="list-style-type: disc">Numerical operators: +,-,*,/,++,--,%</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+	is lower	than	the	average: ${averageGPA}`</code></pre></li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Operators</summary><ul class="bulleted-list"><li style="list-style-type: disc">Numerical operators: +,-,*,/,++,--,%</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Comparison operators: &gt;,&gt;=,&lt;,&lt;=,==,!=,===,!==
-<p>Two kinds of comparison operators</p><pre class="code code-wrap"><code>console.log("1" == 1); // true - compares content
-console.log("1" === 1); // false - compares type + content</code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Functions, Callbacks</summary><p>
+<p>Two kinds of comparison operators</p><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;1&quot;</span> == <span class="hljs-number">1</span>); <span class="hljs-comment">// true - compares content</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;1&quot;</span> === <span class="hljs-number">1</span>); <span class="hljs-comment">// false - compares type + content</span></code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Functions, Callbacks</summary><p>
 Declared with keyword
 <code>function</code>
 :
 </p><ul class="bulleted-list"><li style="list-style-type: disc">
 Functions are first-class citizens, can be passed as parameters, can return other functions
-<ul class="toggle"><li><details><summary><span style="border-bottom: 0.05em solid">Callbacks (= higher order functions)</span></summary><p>Here is a quick example:</p><pre class="code code-wrap"><code>function greeting(name) {
-alert('Hello ' + name);
-}function processUserInput(callback) {
-var name = prompt('Please enter your name.');
-callback(name);
-}processUserInput(greeting);</code></pre><p>
+<ul class="toggle"><li><details><summary><span style="border-bottom: 0.05em solid">Callbacks (= higher order functions)</span></summary><p>Here is a quick example:</p><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">greeting</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;Hello &#x27;</span> + name);
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">processUserInput</span>(<span class="hljs-params">callback</span>) {
+  <span class="hljs-keyword">var</span> name = <span class="hljs-title function_">prompt</span>(<span class="hljs-string">&#x27;Please enter your name.&#x27;</span>);
+  <span class="hljs-title function_">callback</span>(name);
+}
+
+<span class="hljs-title function_">processUserInput</span>(greeting);</code></pre><p>
 The above example is a
 <a href="https://developer.mozilla.org/en-US/docs/Glossary/Synchronous">synchronous</a>
 callback, as it is executed immediately.
@@ -733,13 +738,13 @@ Take a look at the function
 , that loads a script with the given
 <code>src</code>
 :
-</p><pre class="code"><code>function loadScript(src) {
-// creates &lt;script src="…"&gt; with given src
-// this causes the script with given src to start loading and run when complete
-let script = document.createElement('script');
-script.src = src;
-document.head.append(script);
-}</code></pre><p>We can use this function like this:</p><pre class="code"><code>loadScript('/my/script.js');</code></pre><p>
+</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">loadScript</span>(<span class="hljs-params">src</span>) {
+  <span class="hljs-comment">// creates &lt;script src=&quot;…&quot;&gt; with given src</span>
+  <span class="hljs-comment">// this causes the script with given src to start loading and run when complete</span>
+  <span class="hljs-keyword">let</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);&#32;
+  script.<span class="hljs-property">src</span> = src;&#32;
+  <span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">append</span>(script);
+}</code></pre><p>We can use this function like this:</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-title function_">loadScript</span>(<span class="hljs-string">&#x27;/my/script.js&#x27;</span>);</code></pre><p>
 The script is executed “asynchronously”, as it starts loading now, but runs later, when the
 function has already finished. If there’s any code below
 <code>loadScript(src)</code>
@@ -753,10 +758,14 @@ Let’s add a
 function as a second argument to
 <code>loadScript</code>
 that should execute when the script loads:
-</p><pre class="code"><code>function loadScript(src, callback) {
-let script = document.createElement('script');
-script.src = src;script.onload = () =&gt; callback(script);document.head.append(script);
-} </code></pre><p>
+</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">loadScript</span>(<span class="hljs-params">src, callback</span>) {
+  <span class="hljs-keyword">let</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);
+  script.<span class="hljs-property">src</span> = src;
+
+  script.<span class="hljs-property">onload</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">callback</span>(script);
+
+  <span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">append</span>(script);
+}&#32;</code></pre><p>
 Now:
 <span style="border-bottom: 0.05em solid">
 How can we load two scripts sequentially: the first one, and then the second one after it
@@ -765,45 +774,53 @@ How can we load two scripts sequentially: the first one, and then the second one
 Here’s an improved version of
 <code>loadScript</code>
 that tracks loading errors:
-</p><pre class="code"><code>function loadScript(src, callback) {
-let script = document.createElement('script');
-script.src = src;script.onload = () =&gt; callback(null, script);
-script.onerror = () =&gt; callback(new Error(`Script load error for ${src}`));document.head.append(script);
-} </code></pre><p>
+</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">loadScript</span>(<span class="hljs-params">src, callback</span>) {
+  <span class="hljs-keyword">let</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);
+  script.<span class="hljs-property">src</span> = src;
+
+  script.<span class="hljs-property">onload</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">callback</span>(<span class="hljs-literal">null</span>, script);
+  script.<span class="hljs-property">onerror</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">callback</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Script load error for <span class="hljs-subst">${src}</span>`</span>));
+
+  <span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">append</span>(script);
+}&#32;</code></pre><p>
 It calls
 <code>callback(null, script)</code>
 for successful load and
 <code>callback(error)</code>
 otherwise.
-</p><p>To use the loadScript function:</p><pre class="code"><code>loadScript('/my/script.js', function(error, script) { //anonymous function that takes 2 params
-if (error) {
-// handle error
-} else {
-// script loaded successfully
-}
-}); </code></pre><p></p><hr/><p></p><p>
+</p><p>To use the loadScript function:</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-title function_">loadScript</span>(<span class="hljs-string">&#x27;/my/script.js&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">error, script</span>) { <span class="hljs-comment">//anonymous function that takes 2 params</span>
+  <span class="hljs-keyword">if</span> (error) {
+    <span class="hljs-comment">// handle error</span>
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// script loaded successfully</span>
+  }
+});</code></pre><p></p><hr/><p></p><p>
 From the first look, it’s a viable way of asynchronous coding. And indeed it is. For one or
 maybe two nested calls it looks fine.
 </p><p>
 But for multiple asynchronous actions that follow one after another we’ll have code like this:
-</p><pre class="code"><code>loadScript('1.js', function(error, script) {if (error) {
-handleError(error);
-} else {
-// ...
-loadScript('2.js', function(error, script) {
-if (error) {
-handleError(error);
-} else {
-// ...
-loadScript('3.js', function(error, script) {
-if (error) {
-handleError(error);
-} else {
-// ...continue after all scripts are loaded (*)}
-});}
-});
-}
-}); </code></pre><p>In the code above:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
+</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-title function_">loadScript</span>(<span class="hljs-string">&#x27;1.js&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">error, script</span>) {
+
+  <span class="hljs-keyword">if</span> (error) {
+    <span class="hljs-title function_">handleError</span>(error);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-title function_">loadScript</span>(<span class="hljs-string">&#x27;2.js&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">error, script</span>) {
+      <span class="hljs-keyword">if</span> (error) {
+        <span class="hljs-title function_">handleError</span>(error);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// ...</span>
+        <span class="hljs-title function_">loadScript</span>(<span class="hljs-string">&#x27;3.js&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">error, script</span>) {
+          <span class="hljs-keyword">if</span> (error) {
+            <span class="hljs-title function_">handleError</span>(error);
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-comment">// ...continue after all scripts are loaded (*)}</span>
+        });
+
+      }
+    });
+  }
+});&#32;</code></pre><p>In the code above:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
 We load
 <code>1.js</code>
 , then if there’s no error.
@@ -823,9 +840,9 @@ Luckily, there are other ways to avoid such pyramids. One of the best ways is to
 Since ES6:
 <em>Optional parameters</em>
 by specifying
-<em>default</em><pre class="code"><code>function	topGrade(student,	threshold=1.5) {
-return	gpa(student)	&lt;=	threshold;
-}</code></pre></li></ul><p></p><p><span style="border-bottom: 0.05em solid">Other function concepts:</span></p><div class="indented"><ul class="toggle"><li><details><summary>Anonymous functions (= lambda expressions)</summary><p>Named function:</p><div class="indented"><pre class="code code-wrap"><code>function greet(name){ return "Hello"; }</code></pre></div><p></p><p>Anonymous function: without a name,</p><div class="indented"><pre class="code code-wrap"><code>var greet = function(name){ return "Hello";}</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Arrow Functions</summary><p>
+<em>default</em><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span>	<span class="hljs-title function_">topGrade</span>(<span class="hljs-params">student,	threshold=<span class="hljs-number">1.5</span></span>) {
+			<span class="hljs-keyword">return</span>	<span class="hljs-title function_">gpa</span>(student)	&lt;=	threshold;
+}</code></pre></li></ul><p></p><p><span style="border-bottom: 0.05em solid">Other function concepts:</span></p><div class="indented"><ul class="toggle"><li><details><summary>Anonymous functions (= lambda expressions)</summary><p>Named function:</p><div class="indented"><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">name</span>){ <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello&quot;</span>; }</code></pre></div><p></p><p>Anonymous function: without a name,</p><div class="indented"><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">var</span> greet = <span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>){ <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello&quot;</span>;}</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Arrow Functions</summary><p>
 Their behavior are the same as of a function. They are
 <em>anonymous functions</em>
 with a special syntax. (syntactic sugar)
@@ -833,8 +850,8 @@ with a special syntax. (syntactic sugar)
 To define an arrow function, we use the
 <code>() =&gt; {}</code>
 structure as follows:
-</p><pre class="code code-wrap"><code>const greet = (name) =&gt; { return "Hello " + name + "!"; }
-console.log(greet("Eric"));      // prints out Hello Eric!</code></pre><p>
+</p><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">const</span> <span class="hljs-title function_">greet</span> = (<span class="hljs-params">name</span>) =&gt; { <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello &quot;</span> + name + <span class="hljs-string">&quot;!&quot;</span>; }
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">greet</span>(<span class="hljs-string">&quot;Eric&quot;</span>));      <span class="hljs-comment">// prints out Hello Eric!</span></code></pre><p>
 In this function, the
 <code>name</code>
 argument to the
@@ -842,35 +859,39 @@ argument to the
 function is used inside the function to construct a new string and return it using the
 <code>return</code>
 statement.
-</p><p>In case that the function only receives one argument, we can omit the parenthesis:</p><pre class="code code-wrap"><code>const greet = name =&gt; { return "Hello " + name + "!"; }
-console.log(greet("Eric"));      // prints out Hello Eric!</code></pre><p>
+</p><p>In case that the function only receives one argument, we can omit the parenthesis:</p><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">const</span> <span class="hljs-title function_">greet</span> = name =&gt; { <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello &quot;</span> + name + <span class="hljs-string">&quot;!&quot;</span>; }
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">greet</span>(<span class="hljs-string">&quot;Eric&quot;</span>));      <span class="hljs-comment">// prints out Hello Eric!</span></code></pre><p>
 And, in case that we want to do a explicit return of the function and we have only one line of code, we can
 avoid the
 <code>return</code>
 statement and omit brackets too:
-</p><pre class="code code-wrap"><code>const greet = name =&gt; "Hello " + name + "!";
-console.log(greet("Eric"));      // prints out Hello Eric!</code></pre><p>Using an arrow as a callback compared to a normal function:</p><pre class="code code-wrap"><code>let numbers = [3, 5, 8, 9, 2];// Old way
-function multiplyByTwo(number){
-return number * 2;
+</p><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">const</span> <span class="hljs-title function_">greet</span> = name =&gt; <span class="hljs-string">&quot;Hello &quot;</span> + name + <span class="hljs-string">&quot;!&quot;</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">greet</span>(<span class="hljs-string">&quot;Eric&quot;</span>));      <span class="hljs-comment">// prints out Hello Eric!</span></code></pre><p>Using an arrow as a callback compared to a normal function:</p><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> numbers = [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>];
+
+<span class="hljs-comment">// Old way</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">multiplyByTwo</span>(<span class="hljs-params">number</span>){&#32;
+	<span class="hljs-keyword">return</span> number * <span class="hljs-number">2</span>;
 }
-console.log(numbers.map(multiplyByTwo));    // prints out: 6, 10, 16, 18, 4// Using ES6 arrow functions
-const multiplyByTwo = number =&gt; number * 2;
-console.log(numbers.map(multiplyByTwo));     // prints out: 6, 10, 16, 18, 4
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(numbers.<span class="hljs-title function_">map</span>(multiplyByTwo));    <span class="hljs-comment">// prints out: 6, 10, 16, 18, 4</span>
+
+<span class="hljs-comment">// Using ES6 arrow functions</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">multiplyByTwo</span> = number =&gt; number * <span class="hljs-number">2</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(numbers.<span class="hljs-title function_">map</span>(multiplyByTwo));     <span class="hljs-comment">// prints out: 6, 10, 16, 18, 4</span>
 </code></pre><p></p></details></li></ul><p>Also:</p><ul class="bulleted-list"><li style="list-style-type: disc">
 Arrow functions don’t have their own
 <code>this</code>
 or
 <code>super</code>
 , so they transparently fit into the surrounding context. - That makes them very useful in some cases.
-</li></ul></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Objects</summary><pre class="code"><code>var	student	= new	Object();
-student.nr	= 'e11912007';
-student.name	= 'A	Student';
-student.age	= 19;
-student.hasSTEOP	= true;
-student	= {	nr	: 'e120...',
-name	: 'A	Student',
-age	: 19,
-hasSTEOP	: true	};</code></pre><p>Objects have no underlying class → (Almost) everything is an object!! Objects are associative arrays.</p><ul class="bulleted-list"><li style="list-style-type: disc">key = property, value = value</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Added when value assigned</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Support dynamically adding/deleting values</li></ul><p></p><ul class="toggle"><li><details><summary>JSON - JavaScript Object Notation</summary><p>
+</li></ul></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Objects</summary><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">var</span>	student	= <span class="hljs-keyword">new</span>	<span class="hljs-title class_">Object</span>();
+student.<span class="hljs-property">nr</span>	= <span class="hljs-string">&#x27;e11912007&#x27;</span>;
+student.<span class="hljs-property">name</span>	= <span class="hljs-string">&#x27;A	Student&#x27;</span>;
+student.<span class="hljs-property">age</span>	= <span class="hljs-number">19</span>;
+student.<span class="hljs-property">hasSTEOP</span>	= <span class="hljs-literal">true</span>;
+student	= {	nr	: <span class="hljs-string">&#x27;e120...&#x27;</span>,
+						name	: <span class="hljs-string">&#x27;A	Student&#x27;</span>,
+						age	: <span class="hljs-number">19</span>,
+						hasSTEOP	: <span class="hljs-literal">true</span>	};</code></pre><p>Objects have no underlying class → (Almost) everything is an object!! Objects are associative arrays.</p><ul class="bulleted-list"><li style="list-style-type: disc">key = property, value = value</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Added when value assigned</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Support dynamically adding/deleting values</li></ul><p></p><ul class="toggle"><li><details><summary>JSON - JavaScript Object Notation</summary><p>
 The
 <a href="http://en.wikipedia.org/wiki/JSON">JSON</a>
 (JavaScript Object Notation) is a general format to represent values and objects. It is described as in
@@ -899,10 +920,12 @@ operator.
 They should be executed only with
 <code>"new"</code>
 operator.
-<pre class="code"><code>function User(name) {
-this.name = name;
-this.isAdmin = false;
-}let user = new User("Jack");</code></pre><p></p><p>
+<pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">User</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">isAdmin</span> = <span class="hljs-literal">false</span>;
+}
+
+<span class="hljs-keyword">let</span> user = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;Jack&quot;</span>);</code></pre><p></p><p>
 When a function is executed with
 <code>new</code>
 , it does the following steps:
@@ -918,16 +941,28 @@ The function body executes. Usually it modifies
 The value of
 <code>this</code>
 is returned.
-</li></ol></div><p></p><p></p><p>In other words, new User(...) does something like:</p><pre class="code"><code>function User(name) {
-// this = {};  (implicitly)this.name = name;
-this.isAdmin = false;// return this;  (implicitly)
-}</code></pre></li></ol></div><p></p><p></p><p><strong>The more advanced OOP syntax</strong></p><div class="indented"><p>The basic class syntax looks like this:</p><pre class="code"><code>class MyClass {
-prop = value; // propertyconstructor(...) { // constructor
-// ...
-}method(...) {} // methodget something(...) {} // getter method
-set something(...) {} // setter method[Symbol.iterator]() {} // method with computed name (symbol here)
-// ...
-} </code></pre><p><code>MyClass</code>
+</li></ol></div><p></p><p></p><p>In other words, new User(...) does something like:</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">User</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-comment">// this = {};  (implicitly)</span>
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">isAdmin</span> = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-comment">// return this;  (implicitly)</span>
+}</code></pre></li></ol></div><p></p><p></p><p><strong>The more advanced OOP syntax</strong></p><div class="indented"><p>The basic class syntax looks like this:</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> {
+  prop = value; <span class="hljs-comment">// property</span>
+
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">...</span>) { <span class="hljs-comment">// constructor</span>
+    <span class="hljs-comment">// ...</span>
+  }
+
+  <span class="hljs-title function_">method</span>(<span class="hljs-params">...</span>) {} <span class="hljs-comment">// method</span>
+
+  <span class="hljs-keyword">get</span> <span class="hljs-title function_">something</span>(<span class="hljs-params">...</span>) {} <span class="hljs-comment">// getter method</span>
+  <span class="hljs-keyword">set</span> <span class="hljs-title function_">something</span>(<span class="hljs-params">...</span>) {} <span class="hljs-comment">// setter method</span>
+
+  [<span class="hljs-title class_">Symbol</span>.<span class="hljs-property">iterator</span>]() {} <span class="hljs-comment">// method with computed name (symbol here)</span>
+  <span class="hljs-comment">// ...</span>
+}&#32;</code></pre><p><code>MyClass</code>
 is
 <mark class="highlight-teal">technically a function</mark>
 (
@@ -949,47 +984,51 @@ Definition assigned as properties (use
 and
 <code>this</code>
 )
-<pre class="code"><code>function	Student(nr,	name,	age,	hasSteop) {
-this.nr	=	nr;
-this.name	=	name;
-this.age	=	age;
-this.hasSteop	=	hasSteop;
-this.finishSteop	=	function() {
-this.hasSteop	= true;
+<pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span>	<span class="hljs-title function_">Student</span>(<span class="hljs-params">nr,	name,	age,	hasSteop</span>) {
+			<span class="hljs-variable language_">this</span>.<span class="hljs-property">nr</span>	=	nr;
+			<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>	=	name;
+			<span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>	=	age;
+			<span class="hljs-variable language_">this</span>.<span class="hljs-property">hasSteop</span>	=	hasSteop;
+&#9;&#9;&#9;
+			<span class="hljs-variable language_">this</span>.<span class="hljs-property">finishSteop</span>	=	<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+					<span class="hljs-variable language_">this</span>.<span class="hljs-property">hasSteop</span>	= <span class="hljs-literal">true</span>;
+			}
 }
+<span class="hljs-keyword">var</span>	jc	= <span class="hljs-keyword">new</span>	<span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;e0828…&#x27;</span>,‘<span class="hljs-title class_">Jurgen</span>	<span class="hljs-title class_">Cito</span><span class="hljs-string">&#x27;,	29,	false);
+jc.finishSteop();</span></code></pre><p>ES6 Class is syntactic sugar for functions as objects:</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">class</span>	<span class="hljs-title class_">Student</span>	{
+			<span class="hljs-title function_">constructor</span>(<span class="hljs-params">nr,	name,	age,	hasSteop</span>)	{
+				<span class="hljs-variable language_">this</span>.<span class="hljs-property">nr</span>	=	nr;
+				<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>	=	name;
+				<span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>	=	age;
+				<span class="hljs-variable language_">this</span>.<span class="hljs-property">hasSteop</span>	=	hasSteop;
+			}&#9;
+&#9;&#9;&#9;&#9;
+			<span class="hljs-title function_">finishSteop</span>(<span class="hljs-params"></span>)	{
+					<span class="hljs-variable language_">this</span>.<span class="hljs-property">hasSteop</span>	= <span class="hljs-literal">true</span>;
+			}
 }
-var	jc	= new	Student('e0828…',‘Jurgen	Cito',	29,	false);
-jc.finishSteop();</code></pre><p>ES6 Class is syntactic sugar for functions as objects:</p><pre class="code"><code>class	Student	{
-constructor(nr,	name,	age,	hasSteop)	{
-this.nr	=	nr;
-this.name	=	name;
-this.age	=	age;
-this.hasSteop	=	hasSteop;
-}
-finishSteop()	{
-this.hasSteop	= true;
-}
-}
-var	jc	= new	Student('e0828…', ‘Jurgen	Cito',	29,	false);
+<span class="hljs-keyword">var</span>	jc	= <span class="hljs-keyword">new</span>	<span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;e0828…&#x27;</span>, ‘<span class="hljs-title class_">Jurgen</span>	<span class="hljs-title class_">Cito</span><span class="hljs-string">&#x27;,	29,	false);
 jc.finishSteop();
-//Student	{	nr:	'e0828112',	name:	'Jurgen	Cito',	age:	29,	hasSteop:	true	}
-//typeof(jc) === 'object'</code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Events</summary><ul class="toggle"><li><details><summary>Pop-up Boxes</summary><p>
+//Student	{	nr:	&#x27;</span>e0828112<span class="hljs-string">&#x27;,	name:	&#x27;</span><span class="hljs-title class_">Jurgen</span>	<span class="hljs-title class_">Cito</span><span class="hljs-string">&#x27;,	age:	29,	hasSteop:	true	}
+//typeof(jc) === &#x27;</span>object<span class="hljs-string">&#x27;</span></code></pre><p></p></li></ul></details></li></ul><ul class="toggle"><li><details><summary>Events</summary><ul class="toggle"><li><details><summary>Pop-up Boxes</summary><p>
 Confirm boxes will return "true" if ok is selected, and return "false" if cancel is selected. Alert boxes will not
 return anything. Prompt boxes will return whatever is in the text box. (Note: prompt boxes also have an optional
 second parameter, which is the text that will already be in the text box.)
 </p><pre class="code code-wrap"><code>confirm("Hi!");
 prompt("Bye!");
-alert("Hello");</code></pre></details></li></ul><p></p><p>Event callback attached to HTML elements.</p><div class="indented"><pre class="code"><code>&lt;button	onclick="alert('Test!')"&gt;
-Test	me!
-&lt;/button&gt;</code></pre><pre class="code"><code>let	button	=	document.getElementsByTagName(“button")[0] header.click();	//Execute	predefined	event
-header.onclick =	function(){alert('Clicked!');}	//Set	event	listener	-	only	one	listener	supported
-let	func =	function()	{alert('Clicked!');}
-header.addEventListener(“click",	func)
-header.removeEventListener(“click",	func)</code></pre></div><p></p><p>Event types</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png" style="width: 432px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Modules</summary><p><a href="https://www.samanthaming.com/tidbits/79-module-cheatsheet/">
+alert("Hello");</code></pre></details></li></ul><p></p><p>Event callback attached to HTML elements.</p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>	<span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;alert(&#x27;Test!&#x27;)&quot;</span>&gt;</span>
+			Test	me!
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span>	button	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(“button<span class="hljs-string">&quot;)[0] header.click();	//Execute	predefined	event
+header.onclick =	function(){alert(&#x27;Clicked!&#x27;);}	//Set	event	listener	-	only	one	listener	supported
+let	func =	function()	{alert(&#x27;Clicked!&#x27;);}
+header.addEventListener(“click&quot;</span>,	func)&#9;
+header.<span class="hljs-title function_">removeEventListener</span>(“click<span class="hljs-string">&quot;,	func)</span></code></pre></div><p></p><p>Event types</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%203.png" style="width: 432px"/></a></figure></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Modules</summary><p><a href="https://www.samanthaming.com/tidbits/79-module-cheatsheet/">
 https://www.samanthaming.com/tidbits/79-module-cheatsheet/
-</a></p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%204.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%204.png" style="width: 336px"/></a></figure></div><p></p><p>Establish namespace in separate module files: Ability to create named export or default exports</p><div class="indented"><p>Rule: One module per file, one file per module</p></div><p></p><p>Export specific elements:</p><div class="indented"><pre class="code"><code>export function gpa(student) {…}          //EITHER THIS WAY
-function gpa (student) {…}; export gpa;   //OR THIS WAY</code></pre></div><p></p><p>Import in other files:</p><div class="indented"><pre class="code"><code>import	*	as	Student	from	‘./student.js';
-s	=	{…};	s.gpa	=	Student.gpa(s);	//&lt;- now gpa is in the Student namespaceimport	{	gpa	}	from	‘./student.js’;
+</a></p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%204.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%204.png" style="width: 336px"/></a></figure></div><p></p><p>Establish namespace in separate module files: Ability to create named export or default exports</p><div class="indented"><p>Rule: One module per file, one file per module</p></div><p></p><p>Export specific elements:</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">gpa</span>(<span class="hljs-params">student</span>) {…}          <span class="hljs-comment">//EITHER THIS WAY</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">gpa</span> (<span class="hljs-params">student</span>) {…}; <span class="hljs-keyword">export</span> gpa;   <span class="hljs-comment">//OR THIS WAY</span></code></pre></div><p></p><p>Import in other files:</p><div class="indented"><pre class="code"><code>import	*	as	Student	from	‘./student.js';
+s	=	{…};	s.gpa	=	Student.gpa(s);	//&lt;- now gpa is in the Student namespace
+
+import	{	gpa	}	from	‘./student.js’;
 s	=	{…};	s.gpa	=	gpa(s); //&lt;- now gpa can be accessed directly</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">Promises</mark></summary><p class="block-color-gray">Analogy:</p><div class="indented"><p>
 Fans have subscribed the mailing subscription list of a singer so that they get instantly notified once the next album
 becomes becomes available or if something goes wrong.
@@ -1007,9 +1046,9 @@ of the subscribed code when it’s ready.
 The constructor syntax for a
 <mark class="highlight-teal">promise object</mark>
 is:
-</p><pre class="code"><code>let promise = new Promise(/*executor(resolve, reject)*/); </code></pre><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
-// executor (the producing code)
-}); </code></pre><p>The executor runs automatically and attempts to perform a job. When it is finished with the attempt it calls</p><div class="indented"><p><code>resolve</code>
+</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-comment">/*executor(resolve, reject)*/</span>);&#32;</code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
+  <span class="hljs-comment">// executor (the producing code)</span>
+});&#32;</code></pre><p>The executor runs automatically and attempts to perform a job. When it is finished with the attempt it calls</p><div class="indented"><p><code>resolve</code>
 if it was successful
 </p><p><code>reject</code>
 if there was an error.
@@ -1039,23 +1078,23 @@ is called by the executor
 when
 <code>reject(error)</code>
 is called by the executor
-</li></ul></li></ol></div><p></p><p></p><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png" style="width: 336px"/></a></figure><p></p><p>Example: Successful</p><div class="indented"><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
-setTimeout(() =&gt; resolve("done"), 1000); //"done" is the result
-}); </code></pre><p>
+</li></ul></li></ol></div><p></p><p></p><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png" style="width: 336px"/></a></figure><p></p><p>Example: Successful</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;done&quot;</span>), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;done&quot; is the result</span>
+});&#32;</code></pre><p>
 After one second of “processing” the executor calls
 <code>resolve("done")</code>
 to produce the result. This changes the state of the
 <code>promise</code>
 object:
-</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p><p>Example: Unsuccessful</p><div class="indented"><pre class="code"><code>let promise = new Promise(function(resolve, reject) {
-setTimeout(() =&gt; reject(new Error("Whoops!")), 1000); //"whoops" is the error statement
-}); </code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">Consumers: then, catch, finally</mark></summary><p>
+</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p><p>Example: Unsuccessful</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Whoops!&quot;</span>)), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;whoops&quot; is the error statement</span>
+});&#32;</code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">Consumers: then, catch, finally</mark></summary><p>
 A Promise object serves as a link between the executor (the “producing code” or “singer”) and the consuming functions (the
 “fans”), which will receive the result or error.
-</p><p>Consuming functions can be registered (subscribed) using methods .then, .catch and .finally.</p><p></p><p><code>.then</code></p><div class="indented"><pre class="code"><code>promise.then(
-function(result) { ... }, //RESOLVE FUNCTION
-function(error) { ... } //REJECT FUNCTION
-); </code></pre><p>Can also be called with only a single parameter (resolve function).</p><p></p></div><p></p><p><code>.catch</code></p><div class="indented"><p>
+</p><p>Consuming functions can be registered (subscribed) using methods .then, .catch and .finally.</p><p></p><p><code>.then</code></p><div class="indented"><pre class="code"><code class="hljs language-javascript">promise.<span class="hljs-title function_">then</span>(
+  <span class="hljs-keyword">function</span>(<span class="hljs-params">result</span>) { ... }, <span class="hljs-comment">//RESOLVE FUNCTION</span>
+  <span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) { ... } <span class="hljs-comment">//REJECT FUNCTION</span>
+);&#32;</code></pre><p>Can also be called with only a single parameter (resolve function).</p><p></p></div><p></p><p><code>.catch</code></p><div class="indented"><p>
 The call
 <code>.catch(f)</code>
 is a complete analog of
@@ -1090,21 +1129,25 @@ variable only stores the result of the promise:
 when
 <mark class="highlight-gray"><code>resolve(value)</code></mark></li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray"><code>error</code></mark><mark class="highlight-gray"></mark>
 when
-<mark class="highlight-gray"><code>reject(error)</code></mark></li></ul></div><p></p></div><p></p><pre class="code"><code>function resolveAfter2Seconds() {
-return new Promise( resolve =&gt; { //executor function
-setTimeout(() =&gt; { resolve('resolved'); }, 2000); //resolve function
-});
-}async function asyncCall() {
-console.log('calling');
-const result = await resolveAfter2Seconds();
-console.log(result);
-// expected output: "resolved"
-}asyncCall();</code></pre><p></p><p><code>Async</code>
+<mark class="highlight-gray"><code>reject(error)</code></mark></li></ul></div><p></p></div><p></p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">resolveAfter2Seconds</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>( <span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> { <span class="hljs-comment">//executor function </span>
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> { <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;resolved&#x27;</span>); }, <span class="hljs-number">2000</span>); <span class="hljs-comment">//resolve function</span>
+  });
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">asyncCall</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;calling&#x27;</span>);
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">resolveAfter2Seconds</span>();
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result);
+  <span class="hljs-comment">// expected output: &quot;resolved&quot;</span>
+}
+
+<span class="hljs-title function_">asyncCall</span>();</code></pre><p></p><p><code>Async</code>
 functions always return a promise.
-</p><p>If the return value of an async function is not explicitly a promise, it will be implicitly wrapped in a promise.</p><p>For example, the following:</p><div class="indented"><pre class="code code-wrap"><code>async function foo() {
-return 1
-}</code></pre></div><p></p><p>...is similar to:</p><div class="indented"><pre class="code code-wrap"><code>function foo() {
-return Promise.resolve(1)
+</p><p>If the return value of an async function is not explicitly a promise, it will be implicitly wrapped in a promise.</p><p>For example, the following:</p><div class="indented"><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) {
+   <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+}</code></pre></div><p></p><p>...is similar to:</p><div class="indented"><pre class="code code-wrap"><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) {
+   <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">1</span>)
 }</code></pre></div><p></p></details></li></ul><p></p><p>Inheritance</p><ul class="toggle"><li><details><summary>Object Prototypes, Prototypal inheritance</summary><p>
 In JavaScript, objects have a special hidden property
 <code>[[Prototype]]</code>
@@ -1123,19 +1166,21 @@ Now if we read a property from
 , and it’s missing, JavaScript will automatically take it from
 <code>animal</code>
 .
-</p><p>For instance:</p><pre class="code"><code>let animal = {
-eats: true
+</p><p>For instance:</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> animal = {
+  <span class="hljs-attr">eats</span>: <span class="hljs-literal">true</span>
 };
-let rabbit = {
-jumps: true
-};rabbit.__proto__ = animal; // we can find both properties in rabbit now:
-alert( rabbit.eats ); // true
-alert( rabbit.jumps );  </code></pre></div><p></p></div><p></p><p></p><p>All objects have a prototype</p><ul class="bulleted-list"><li style="list-style-type: disc">All prototype are objects, any object can be a prototype</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Objects inherit properties and methods from prototype</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+<span class="hljs-keyword">let</span> rabbit = {
+  <span class="hljs-attr">jumps</span>: <span class="hljs-literal">true</span>
+};
+
+rabbit.<span class="hljs-property">__proto__</span> = animal; <span class="hljs-comment">// we can find both properties in rabbit now:</span>
+<span class="hljs-title function_">alert</span>( rabbit.<span class="hljs-property">eats</span> ); <span class="hljs-comment">// true </span>
+<span class="hljs-title function_">alert</span>( rabbit.<span class="hljs-property">jumps</span> );&#32;&#32;</code></pre></div><p></p></div><p></p><p></p><p>All objects have a prototype</p><ul class="bulleted-list"><li style="list-style-type: disc">All prototype are objects, any object can be a prototype</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Objects inherit properties and methods from prototype</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Object.prototype is top of the prototype chain (its prototype is null) (similar to Object.class in Java)
-<pre class="code"><code>var aStudent	=	{	nr	: 'e120...',	...	};				//	aStudent		-&gt;	Object.prototype
-var students	=	[	aStudent,	...	];								//	students		-&gt;	Array.prototype			-&gt;	Object.prototpye
-var	jc	= new	Student('e08…', ...);							  //	aStudent	  -&gt;	Student.prototype		-&gt;	Object.prototype
-function	print() {	...	};												//	print				-&gt;	Function.prototype	-&gt;	Object.prototype</code></pre></li></ul><p>Existing prototypes can be extended at any time: its called "monkey-patching" and should be avoided!</p><div class="indented"><pre class="code"><code>String.prototype.distance	=	function() {	...	};			//	monkey	patching</code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Class inheritance</summary><p>
+<pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">var</span> aStudent	=	{	nr	: <span class="hljs-string">&#x27;e120...&#x27;</span>,	...	};				<span class="hljs-comment">//	aStudent		-&gt;	Object.prototype</span>
+<span class="hljs-keyword">var</span> students	=	[	aStudent,	...	];								<span class="hljs-comment">//	students		-&gt;	Array.prototype			-&gt;	Object.prototpye</span>
+<span class="hljs-keyword">var</span>	jc	= <span class="hljs-keyword">new</span>	<span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;e08…&#x27;</span>, ...);							  <span class="hljs-comment">//	aStudent	  -&gt;	Student.prototype		-&gt;	Object.prototype</span>
+<span class="hljs-keyword">function</span>	<span class="hljs-title function_">print</span>(<span class="hljs-params"></span>) {	...	};												<span class="hljs-comment">//	print				-&gt;	Function.prototype	-&gt;	Object.prototype</span></code></pre></li></ul><p>Existing prototypes can be extended at any time: its called "monkey-patching" and should be avoided!</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-title class_">String</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">distance</span>	=	<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {	...	};			<span class="hljs-comment">//	monkey	patching</span></code></pre></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Class inheritance</summary><p>
 To extend a class:
 <code>class Child</code><strong><code>extends</code></strong><code>Parent</code>
 :
@@ -1175,23 +1220,23 @@ object is the trees root.
 text nodes (spaces and
 <em>\n</em>
 are stored as seperate nodes), comment nodes ...
-</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Getting nodes</span></p><div class="indented"><p>ID, tag name, class name, Document properties</p><pre class="code"><code>let	title	=	document.getElementById("title");
-let	links	=	document.getElementsByTagName("a");
-let	greens	=	document.getElementsByClassName("green");
-let	imgs	=	document.images;
-let	firstParaBox	=	document.querySelector(“p.box”);
-let	allBoxes	=	document.querySelectorAll(“p.box,div.box”);</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Reading properties</span></p><div class="indented"><pre class="code"><code>&lt;UL id="t1"&gt;
-&lt;LI&gt;Item 1&lt;/LI&gt;
-&lt;/UL&gt;</code></pre><pre class="code"><code>document.getElementById('t1').nodeName
-// -&gt; returns 'UL'
-document.getElementById('t1').getAttribute('id')
-// -&gt; returns 't1'
-document.getElementById('t1').innerHTML
-// -&gt; returns '&lt;li&gt;Item 1&lt;/li&gt;'
-document.getElementById('t1').children[0].nodeName
-// -&gt; returns 'LI'
-document.getElementById('t1').children[0].innerText
-// -&gt; returns 'Item 1'</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Manipulating nodes</span></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Content (innerHTML)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Element attributes</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Element style</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Getting nodes</span></p><div class="indented"><p>ID, tag name, class name, Document properties</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span>	title	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;title&quot;</span>);
+<span class="hljs-keyword">let</span>	links	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&quot;a&quot;</span>);
+<span class="hljs-keyword">let</span>	greens	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByClassName</span>(<span class="hljs-string">&quot;green&quot;</span>);
+<span class="hljs-keyword">let</span>	imgs	=	<span class="hljs-variable language_">document</span>.<span class="hljs-property">images</span>;
+<span class="hljs-keyword">let</span>	firstParaBox	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(“p.<span class="hljs-property">box</span>”);
+<span class="hljs-keyword">let</span>	allBoxes	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(“p.<span class="hljs-property">box</span>,div.<span class="hljs-property">box</span>”);</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Reading properties</span></p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">UL</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;t1&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">LI</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-name">LI</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">UL</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">nodeName</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;UL&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>)
+ <span class="hljs-comment">// -&gt; returns &#x27;t1&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">innerHTML</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;&lt;li&gt;Item 1&lt;/li&gt;&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">children</span>[<span class="hljs-number">0</span>].<span class="hljs-property">nodeName</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;LI&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">children</span>[<span class="hljs-number">0</span>].<span class="hljs-property">innerText</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;Item 1&#x27;</span></code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Manipulating nodes</span></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Content (innerHTML)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Element attributes</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Element style</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Element class (
 <code>className</code>
 ,
@@ -1202,17 +1247,19 @@ links[0].href	= "http://...";
 links[0].setAttribute("href",…)
 greens[0].style.color	= “red";
 greens[0].className	=	“red"
-greens[0].classList.add(“dangerzone”)</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Adding nodes</span></p><div class="indented"><p>Create, append, remove, …</p><pre class="code"><code>let	header	=	document.createElement("h2");
-let	text	=	document.createTextNode("SubTitle");
-header.appendChild(text);
-document.removeChild(title);
-document.replaceChild(title, header);</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Adding Event Handlers</span></p><div class="indented"><pre class="code"><code>let list = document.getElementById('t1');
-list.addEventListener('click', (event) =&gt; {
-alert(`Clicked: ${event.target.innerText}`);
-});</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Traversal of nodes</span></p><div class="indented"><p>parentElement, nextElementSibling, previousElementSibling, childNodes</p></div><p></p><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2010.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2010.png" style="width: 144px"/></a></figure><p></p><h1 id="240c5ac5-5fcc-4766-accb-86c2be265ea8">Accessibility</h1><p><span style="border-bottom: 0.05em solid">DOM Updates</span></p><div class="indented"><p>Changing / updating the DOM frequently</p><div class="indented"><p>can confuse screen readers</p><p>not be visible in high magnification</p></div><p></p><p>Updates may come too fast</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Guidelines - Accessible Rich Internet Applications (ARIA)</span></p><div class="indented"><p>If the content updates more than 5 seconds, provide ability to pause, stop, or hide them</p><p>Inform users of changes: Setting focus, Highlight, Alert, Live Region (ARIA Term)</p><p>Communicate to user that page is dynamic</p><p>Provide static HTML page alternatives</p></div><p></p><p></p><h1 id="79f028ac-583e-4193-8e98-c49509e1bb70">Event-Driven Programming</h1><ul class="bulleted-list"><li style="list-style-type: disc">Flow of the program is determined by responding to user actions called events</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Writing programs driven by user events</li></ul><pre class="code"><code>&lt;img src="..." alt="..." onclick="alert('Hello');" /&gt;</code></pre><pre class="code"><code>let	button = document.getElementsByTagName("button")[0]
-header.click();	//Execute	predefined event
-header.onclick = function(){alert('Clicked!');}	//Set	event	listenerlet	func = function() {alert('Clicked!');}
-header.addEventListener("click", func);
-header.removeEventListener("click",	func);</code></pre><p></p><h2 id="33773b18-6fb0-4606-b3e3-1c5eb6a1222a">DOM Event Types</h2><p><strong>Event Description</strong></p><hr/><p>load,unload User enters/leaves page</p><p>change Form input field changes</p><p>focus/blur User focuses/unfocuses an input field</p><p>Submit Form is submitted</p><p>mouseover, mouseout Mouse enters/leaves region</p><p>mousedown/mouseup/click Mouse click events</p><p>keydown/keyup/keypress Keyboard events</p><p>drag User drags an element</p><p></p><h1 id="254e158d-86d6-4b03-96e8-4c0ae2a040a2">Asynchronous Programming</h1><p>Asynchronous Programming ≠ Multithreading</p><p>Waiting for actions to finish is implicit in the synchronous model, while it is explicit, under our control, in the asynchronous one.</p><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2011.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2011.png" style="width: 336px"/></a></figure><p><em>Sending Asynchronous Requests</em>
+greens[0].classList.add(“dangerzone”)</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Adding nodes</span></p><div class="indented"><p>Create, append, remove, …</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span>	header	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;h2&quot;</span>);
+<span class="hljs-keyword">let</span>	text	=	<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createTextNode</span>(<span class="hljs-string">&quot;SubTitle&quot;</span>);
+header.<span class="hljs-title function_">appendChild</span>(text);
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">removeChild</span>(title);
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">replaceChild</span>(title, header);</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Adding Event Handlers</span></p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> list = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>);
+list.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+ <span class="hljs-title function_">alert</span>(<span class="hljs-string">`Clicked: <span class="hljs-subst">${event.target.innerText}</span>`</span>);
+});</code></pre></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Traversal of nodes</span></p><div class="indented"><p>parentElement, nextElementSibling, previousElementSibling, childNodes</p></div><p></p><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2010.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2010.png" style="width: 144px"/></a></figure><p></p><h1 id="240c5ac5-5fcc-4766-accb-86c2be265ea8">Accessibility</h1><p><span style="border-bottom: 0.05em solid">DOM Updates</span></p><div class="indented"><p>Changing / updating the DOM frequently</p><div class="indented"><p>can confuse screen readers</p><p>not be visible in high magnification</p></div><p></p><p>Updates may come too fast</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Guidelines - Accessible Rich Internet Applications (ARIA)</span></p><div class="indented"><p>If the content updates more than 5 seconds, provide ability to pause, stop, or hide them</p><p>Inform users of changes: Setting focus, Highlight, Alert, Live Region (ARIA Term)</p><p>Communicate to user that page is dynamic</p><p>Provide static HTML page alternatives</p></div><p></p><p></p><h1 id="79f028ac-583e-4193-8e98-c49509e1bb70">Event-Driven Programming</h1><ul class="bulleted-list"><li style="list-style-type: disc">Flow of the program is determined by responding to user actions called events</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Writing programs driven by user events</li></ul><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;...&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;...&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;alert(&#x27;Hello&#x27;);&quot;</span> /&gt;</span></code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span>	button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&quot;button&quot;</span>)[<span class="hljs-number">0</span>]
+header.<span class="hljs-title function_">click</span>();	<span class="hljs-comment">//Execute	predefined event</span>
+header.<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>){<span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;Clicked!&#x27;</span>);}	<span class="hljs-comment">//Set	event	listener</span>
+
+<span class="hljs-keyword">let</span>	func = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {<span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;Clicked!&#x27;</span>);}
+header.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>, func);
+header.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>,	func);</code></pre><p></p><h2 id="33773b18-6fb0-4606-b3e3-1c5eb6a1222a">DOM Event Types</h2><p><strong>Event Description</strong></p><hr/><p>load,unload User enters/leaves page</p><p>change Form input field changes</p><p>focus/blur User focuses/unfocuses an input field</p><p>Submit Form is submitted</p><p>mouseover, mouseout Mouse enters/leaves region</p><p>mousedown/mouseup/click Mouse click events</p><p>keydown/keyup/keypress Keyboard events</p><p>drag User drags an element</p><p></p><h1 id="254e158d-86d6-4b03-96e8-4c0ae2a040a2">Asynchronous Programming</h1><p>Asynchronous Programming ≠ Multithreading</p><p>Waiting for actions to finish is implicit in the synchronous model, while it is explicit, under our control, in the asynchronous one.</p><figure class="image"><a href="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2011.png"><img src="JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%2011.png" style="width: 336px"/></a></figure><p><em>Sending Asynchronous Requests</em>
 with Callbacks and Promises (like HTTP Fetch)
 </p><p></p></div></article></body></html>

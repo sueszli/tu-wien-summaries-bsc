@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Server-Side Security</h1><p class="page-description"></p></header><div class="page-body"><figure class="link-to-page"><a href="Server-Side%20Security%20fe67f5bd48484def8bf6e1cd865cb9a9/Web%20Basics%20bc5e2c7eab4e4c408552c8c1111a4f75.html"><span class="icon">📎</span>
 Web Basics
@@ -608,24 +609,25 @@ related-domain-attacker related domain of the target website, ie.
 Webserver with standard webroot:
 <mark class="highlight-gray"><code>/var/www/html</code></mark><mark class="highlight-gray">(topmost directory, stores directory pages, some text files, PHP script itself)</mark>
 .
-</p><pre class="code"><code>&lt;?php
-echo file_get_contents("pages/" . $_GET["page"]);
-?&gt;</code></pre><p></p><p><mark class="highlight-teal">Attack</mark></p><p>Allows an attacker to read arbitrary files.</p><p>
+</p><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+ <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;pages/&quot;</span> . <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;page&quot;</span>]);
+<span class="hljs-meta">?&gt;</span></code></pre><p></p><p><mark class="highlight-teal">Attack</mark></p><p>Allows an attacker to read arbitrary files.</p><p>
 We can climb up with
 <mark class="highlight-gray"><code>../</code></mark>
 , get access to any file on the web server.
 </p><pre class="code"><code>GET /show.php?page=../../../etc/passwd HTTP/2
 Host: example.com</code></pre><p></p><p><mark class="highlight-teal">Prevention: Defense in Depth</mark><mark class="highlight-gray">(choose multiple defense mechanisms)</mark></p><ol class="numbered-list" start="1" type="1"><li>Not using user controlled input for filenames</li></ol><ol class="numbered-list" start="2" type="1"><li>
 Validating, filtering user input
-<p>only allow file names from static list</p><p>compare them with canonical path</p><ul class="block-color-gray toggle"><li><details><summary>example</summary><pre class="code"><code>&lt;?php
-$pdir = "/var/www/html/pages/";
-$file = realpath($pdir . $_GET["file"]); &lt;- concatenates user input to path
-if ($file !== false &amp;&amp; strncmp($file, $pdir, strlen($pdir)) === 0) { &lt;- canonical path
-echo file_get_contents($file);
-} else {
-echo "Error: invalid input";
-}
-?&gt;</code></pre></details></li></ul></li></ol><ol class="numbered-list" start="3" type="1"><li>
+<p>only allow file names from static list</p><p>compare them with canonical path</p><ul class="block-color-gray toggle"><li><details><summary>example</summary><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+	<span class="hljs-variable">$pdir</span> = <span class="hljs-string">&quot;/var/www/html/pages/&quot;</span>;
+	<span class="hljs-variable">$file</span> = <span class="hljs-title function_ invoke__">realpath</span>(<span class="hljs-variable">$pdir</span> . <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;file&quot;</span>]); &lt;- concatenates user input to path
+&#9;&#32;
+	<span class="hljs-keyword">if</span> (<span class="hljs-variable">$file</span> !== <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-title function_ invoke__">strncmp</span>(<span class="hljs-variable">$file</span>, <span class="hljs-variable">$pdir</span>, <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$pdir</span>)) === <span class="hljs-number">0</span>) { &lt;- canonical path
+		<span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file</span>);
+	} <span class="hljs-keyword">else</span> {
+		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Error: invalid input&quot;</span>;
+	}
+<span class="hljs-meta">?&gt;</span></code></pre></details></li></ul></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Reduced web server privileges
 <ul class="bulleted-list"><li style="list-style-type: disc">Restrict access of web server to its own directory</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Sandbox environments to enforce boundary between web server and the OS</li></ul></li></ol><p></p><h1 id="bd744923-278a-4a1b-84c6-426cc7cad7a1">Remote Code Execution RCE</h1><p>Code &amp; Command injection</p><p><mark class="highlight-teal">Vulnerable code</mark></p><p>Most languages have functions to execute system commands</p><p><mark class="highlight-gray"><code>system()</code></mark><mark class="highlight-gray"></mark>
 in PHP: processes function arguments as shell commands
@@ -633,13 +635,13 @@ in PHP: processes function arguments as shell commands
 uses
 <mark class="highlight-gray"><code>system</code></mark>
 to ping an IP address provided by the user via the ip query variable
-</p><pre class="code"><code>&lt;?php
-system("ping -c 4 " . $_GET["ip"] . " -i 1");
-?&gt;</code></pre><p><mark class="highlight-gray"><code>eval</code></mark><mark class="highlight-gray"></mark>
+</p><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+	<span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;ping -c 4 &quot;</span> . <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;ip&quot;</span>] . <span class="hljs-string">&quot; -i 1&quot;</span>);
+<span class="hljs-meta">?&gt;</span></code></pre><p><mark class="highlight-gray"><code>eval</code></mark><mark class="highlight-gray"></mark>
 automatically evaluates strings as PHP code
-</p><pre class="code"><code>&lt;?php
-eval("echo " . $_GET["expr"] . ";");
-?&gt;</code></pre><p></p><p><mark class="highlight-teal">Attack</mark></p><p>Allows remote code execution, reading sensitive files.</p><p><mark class="highlight-gray"><code>;</code></mark><mark class="highlight-gray">to combine multiple commands in a single line</mark></p><p><mark class="highlight-gray"><code>#</code></mark><mark class="highlight-gray">to commend out the rest</mark></p><pre class="code"><code>GET /ping.php?ip=8.8.8.8; cat /etc/passwd # HTTP/2
+</p><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+	<span class="hljs-keyword">eval</span>(<span class="hljs-string">&quot;echo &quot;</span> . <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;expr&quot;</span>] . <span class="hljs-string">&quot;;&quot;</span>);
+<span class="hljs-meta">?&gt;</span></code></pre><p></p><p><mark class="highlight-teal">Attack</mark></p><p>Allows remote code execution, reading sensitive files.</p><p><mark class="highlight-gray"><code>;</code></mark><mark class="highlight-gray">to combine multiple commands in a single line</mark></p><p><mark class="highlight-gray"><code>#</code></mark><mark class="highlight-gray">to commend out the rest</mark></p><pre class="code"><code>GET /ping.php?ip=8.8.8.8; cat /etc/passwd # HTTP/2
 Host: example.com</code></pre><pre class="code"><code>GET /calc.php?expr=file_get_contents example.com ('/etc/passwd') HTTP/2
 Host: example.com</code></pre><p></p><p><mark class="highlight-teal">Prevention</mark></p><ul class="bulleted-list"><li style="list-style-type: disc">
 not using functions that dynamically evaluate strings as code, execute commands - rewrite the code entirely
@@ -661,11 +663,11 @@ names of various tables
 names, types, ... of various table columns
 </p><p></p><p><mark class="highlight-teal">Second-Order Injections (Stored SQL injections)</mark></p><p>Some applications validate user input but not data coming from the database.</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>store payload in the database</li></ol><ol class="numbered-list" start="2" type="1"><li>then use it to perform the attack</li></ol></div><p></p><figure class="block-color-gray link-to-page"><a href="Server-Side%20Security%20fe67f5bd48484def8bf6e1cd865cb9a9/Example%202%20(continued)%2051df004048014e4ea3aa74591fe26927.html"><span class="icon">📎</span>
 Example 2 (continued)
-</a></figure><p></p><p><mark class="highlight-teal">Prevention</mark></p><p>prepared statements</p><div class="indented"><pre class="code"><code>&lt;?php
-$db = new PDO(CONNECTION_STRING, DB_USER, DB_PASS);
-$query = "SELECT * FROM users WHERE user = ? AND password = ?"; // "?" as parameter
-$sth = $db-&gt;prepare($query);
-...
-?&gt;</code></pre></div><p></p><p>whitelisting approaches</p><div class="indented"><p>
+</a></figure><p></p><p><mark class="highlight-teal">Prevention</mark></p><p>prepared statements</p><div class="indented"><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+	<span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(CONNECTION_STRING, DB_USER, DB_PASS);
+	<span class="hljs-variable">$query</span> = <span class="hljs-string">&quot;SELECT * FROM users WHERE user = ? AND password = ?&quot;</span>; <span class="hljs-comment">// &quot;?&quot; as parameter</span>
+	<span class="hljs-variable">$sth</span> = <span class="hljs-variable">$db</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-variable">$query</span>);
+	...
+<span class="hljs-meta">?&gt;</span></code></pre></div><p></p><p>whitelisting approaches</p><div class="indented"><p>
 Only when prepared statements cannot be used
 <mark class="highlight-gray">(ie., when the input is the name of the table to be used in</mark><code><mark class="highlight-gray">FROM</mark></code><mark class="highlight-gray">or</mark><code><mark class="highlight-gray">ORDER BY</mark></code><mark class="highlight-gray">)</mark></p><p>Only allowing safe characters like letters, digits and underscore.</p></div><p></p><p>Defense-in-depth protection</p><div class="indented"><p>Restricting access to sensitive tables (only when not required for functionality).</p></div><p></p><p></p></div></article></body></html>

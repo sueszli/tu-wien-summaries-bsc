@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Fragen 4 - Testen II: Test-Arten, Coding Conventions</h1><p class="page-description"></p></header><div class="page-body"><p></p><p><mark class="highlight-blue">ISTQB Testprinzipien</mark></p><ul class="toggle"><li><details><summary>ISTQB Testprinzipien</summary><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-teal">Testen zeigt Fehler auf</mark><p>beweist aber nicht Fehlerfreiheit</p><p>“Testen zeigt die Anwesenheit von Fehlern, nicht die Abwesenheit”</p></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-teal">Vollständiges Testen ist nicht möglich</mark><p>Nicht alle Kombinationen an Eingaben, Vorbedingungen, Zuständen testbar (praktikabel zu testen)</p><p>Stattdessen priorisiert nach Risiko testen</p></li></ol><ol class="numbered-list" start="3" type="1"><li><mark class="highlight-teal">Frühzeitig Testen</mark><p>Je früher Fehler gefunden werden desto einfacher und günstiger zu beheben</p></li></ol><ol class="numbered-list" start="4" type="1"><li><mark class="highlight-teal">Fehlerhäufungen beachten</mark><p>Fehler sind nicht gleichmäßig verteilt - tendenziell dort wo Fehler gefunden auch mehr zu erwarten</p></li></ol><ol class="numbered-list" start="5" type="1"><li><mark class="highlight-teal">Veränderung statt Wiederholung</mark><p>Wiederholtes ausführen von den selben Testcases wird keine neuen Fehler finden</p></li></ol><ol class="numbered-list" start="6" type="1"><li><mark class="highlight-teal">Testen ist kontextabhängig</mark></li></ol><ol class="numbered-list" start="7" type="1"><li><mark class="highlight-teal">Trugschluss: Fehlerlose Systeme sind brauchbar</mark><p>Fehler finden, beheben garantiert nicht, dass Produkt den Anforderungen und Bedürfnissen vom Benutzer entspricht</p></li></ol></details></li></ul><p></p><p><mark class="highlight-blue">Fehlerquellen</mark></p><ul class="toggle"><li><details><summary>Fehlerquellen</summary><p><em>Fehler in Anforderungen / Spezifikationen</em></p><p><em>Fehler im Design</em></p><div class="indented"><p>durch ungenauen, falsch interpretierten Anforderungen</p><p>durch Mangel an Erfahrung mit Technologie</p></div><p></p><p><em>Fehler in Testdaten</em></p></details></li></ul><p></p><p><mark class="highlight-blue">Teststufen</mark></p><ul class="toggle"><li><details><summary>Teststufen: Übersicht</summary><p>Teststufen sind Tests auf unterschiedlichen Ebenen des Entwicklugnsprozesses.</p><p><mark class="highlight-gray">Eine Teststufe besteht aus einem oder mehreren Test-Typen (bestimmte Art von Tests).</mark></p><div class="indented"><p><mark class="highlight-gray">Testtypen: Review, Funktionaler-Test, Massentest, Stresstest, Performancetest.</mark></p></div><p></p><p></p><ol class="numbered-list" start="1" type="1"><li>Akzeptanztests / Abnahmetests / Akzeptanztests</li></ol><ol class="numbered-list" start="2" type="1"><li>Systemtests</li></ol><ol class="numbered-list" start="3" type="1"><li>Integrationtests</li></ol><ol class="numbered-list" start="4" type="1"><li>Komponententests / Modultests / Unittests</li></ol><ol class="block-color-gray numbered-list" start="5" type="1"><li><mark class="highlight-gray">Privater Test</mark><p><mark class="highlight-gray">Vom Entwickler vor der Freigabe, undokumentiert</mark></p></li></ol><ol class="block-color-gray numbered-list" start="6" type="1"><li><mark class="highlight-gray">Regressionstests</mark><p><mark class="highlight-gray">Vor Durchführung von Veränderungen - Wiederholung von Tests</mark></p></li></ol><p></p></details></li></ul><ul class="toggle"><li><details><summary>Teststufen: Akzeptanztests</summary><p>Testen ob System im produktiven Einsatz den Abnahmekriterien vom Kunden entspricht (Validierung).</p><p>
 Dient
@@ -619,24 +620,33 @@ margin-right: 0.05555555555555556em;
 )
 </p></div><p></p></div></div></details></li></ul><ul class="toggle"><li><details><summary>Testentwurfsverfahren: Explorative / Erfahrungsbasierte Tests</summary><p>zusätzlich zu anderen Testentwurfsverfahren</p><p>basiert auf Intuition, Erfahrung des Testers</p><div class="indented"><p>zB Erfahrung aus anderen Projekten, Stellen die unter Zeitdruck entstanden sind etc.</p></div><p></p><p>muss dokumentiert werden</p><p></p></details></li></ul><p></p><p><mark class="highlight-blue">Unit Tests</mark></p><ul class="toggle"><li><details><summary>Unit Test Grobstruktur</summary><ol class="numbered-list" start="1" type="1"><li>Set-Up (Vorbereitung)</li></ol><ol class="numbered-list" start="2" type="1"><li>Exercise (Ausführung)</li></ol><ol class="numbered-list" start="3" type="1"><li>Verify (Auswertung)</li></ol><ol class="numbered-list" start="4" type="1"><li>Tear-Down (Nachbearbeitung / zerstören)</li></ol><p></p></details></li></ul><ul class="toggle"><li><details><summary>Test Frameworks</summary><p>
 Automatische Ausführung von Komponententests:
-<em>xUnit</em></p><p><mark class="highlight-gray">JUnit, CPPUnit, NUnit, ...</mark></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><del>Benennung der Methoden</del></summary><p>Testmethoden einheitlich benannt</p><p><mark class="highlight-gray"><code>(Test)&lt;UseCase/Method&gt;_should&lt;ExcpectedOutcome&gt;</code></mark></p><ul class="toggle"><li><details><summary>Beispiele</summary><pre class="code"><code>@Test
-public void testAdd_shouldContainAddedWord() {...}@Test
-public void testAdd_moreThanMax_shouldReplaceFirstWord() {...}@Test
-public void testRemove_Null_shouldThrowNullPointerException() {...}</code></pre></details></li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Unit Testing - Best practices</summary><ul class="bulleted-list"><li style="list-style-type: disc">
+<em>xUnit</em></p><p><mark class="highlight-gray">JUnit, CPPUnit, NUnit, ...</mark></p><p></p></details></li></ul><ul class="toggle"><li><details><summary><del>Benennung der Methoden</del></summary><p>Testmethoden einheitlich benannt</p><p><mark class="highlight-gray"><code>(Test)&lt;UseCase/Method&gt;_should&lt;ExcpectedOutcome&gt;</code></mark></p><ul class="toggle"><li><details><summary>Beispiele</summary><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldContainAddedWord</span><span class="hljs-params">()</span> {...}
+
+<span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_moreThanMax_shouldReplaceFirstWord</span><span class="hljs-params">()</span> {...}
+
+<span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testRemove_Null_shouldThrowNullPointerException</span><span class="hljs-params">()</span> {...}</code></pre></details></li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Unit Testing - Best practices</summary><ul class="bulleted-list"><li style="list-style-type: disc">
 Testfälle sind isoliert
 <p>keine Abhängigkeiten zueinander: Jeder Testfall bereitet eigene Daten vor, räumt sie auf</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Keine Logik in Tests (Abfragen, Schleifen, try/catch)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Jeder Testfall testet nur einen Aspekt bzw Zustand
-<p>Nur ein Testfall per Methode</p><p>Keine Zufallsdaten sondern Äquivalenzklassen</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Namenskonventionen einhalten</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verständliche Fehlermeldungen bei Assertions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Klassen und Testklassen liegen im selben Package</li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Ist es möglich den White Box Test mit JUnit Framework durchzuführen. Wie?</summary><p>Ja - Dazu schreibt man Tests, die beispielsweise alle Bedingungen oder Kanten in einer Komponente explizit durchlaufen.</p></details></li></ul><p></p><p><mark class="highlight-blue">JUnit</mark></p><ul class="toggle"><li><details><summary>Livecycle Methoden</summary><pre class="code"><code>class StandardTest {
-@BeforeAll
-static void initAll() {...}
-@AfterAll
-static void tearDownAll() {...}
-@BeforeEach
-void init() {...}
-@AfterEach
-void tearDown() {...}
-@Test
-void testAdd_shouldDoSomething() {...}
+<p>Nur ein Testfall per Methode</p><p>Keine Zufallsdaten sondern Äquivalenzklassen</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Namenskonventionen einhalten</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verständliche Fehlermeldungen bei Assertions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Klassen und Testklassen liegen im selben Package</li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Ist es möglich den White Box Test mit JUnit Framework durchzuführen. Wie?</summary><p>Ja - Dazu schreibt man Tests, die beispielsweise alle Bedingungen oder Kanten in einer Komponente explizit durchlaufen.</p></details></li></ul><p></p><p><mark class="highlight-blue">JUnit</mark></p><ul class="toggle"><li><details><summary>Livecycle Methoden</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">StandardTest</span> {
+&#9;
+	<span class="hljs-meta">@BeforeAll</span>
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initAll</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@AfterAll</span>
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDownAll</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@BeforeEach</span>
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@AfterEach</span>
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDown</span><span class="hljs-params">()</span> {...}
+&#9;
+	<span class="hljs-meta">@Test</span>
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldDoSomething</span><span class="hljs-params">()</span> {...}
 }</code></pre><p><mark class="highlight-gray"><code>@BeforeClass</code></mark>
 wird einmal bei der Initialisierung der Klasse ausgeführt.
 </p><p><mark class="highlight-gray"><code>@AfterClass</code></mark>

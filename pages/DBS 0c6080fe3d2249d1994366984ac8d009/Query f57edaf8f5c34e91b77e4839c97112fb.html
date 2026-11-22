@@ -592,13 +592,14 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Query</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-gray">Üben auf</mark><mark class="highlight-gray"><a href="https://sqlbolt.com/">https://sqlbolt.com/</a></mark></p><figure class="link-to-page"><a href="Query%20f57edaf8f5c34e91b77e4839c97112fb/Allquantor%20erstellen%20796d8b8c5e1b4851bad9a8972395ccaa.html"><span class="icon">📎</span>
 Allquantor erstellen
-</a></figure><p></p><p>Arbeitet auf Tabellen, nicht Tupel-Mengen, deshalb Duplikate möglich und es hat eine Implizite Ordnung.</p><p></p><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a073986a-4b5e-479e-96d3-4997ff593e76">Basics</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#685a7209-df5e-45ad-b1ee-70d2e976855f">Group by</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#96ee9b95-06b4-4582-bd5e-87345b304798">Nested Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8e2ee424-896e-4efa-8ceb-3aac58f67838">Umgang mit null</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4f5f39fb-a0aa-4480-96c5-7d52ba1c5b02">Syntactic Sugar</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#026fd6a2-b5a5-4d9a-b34f-cefc9c3ab269">Joins</a></div></nav><p></p><p></p><h1 id="a073986a-4b5e-479e-96d3-4997ff593e76">Basics</h1><pre class="code"><code>SELECT &lt;attr&gt; as a1,  &lt;attr&gt; as a2, ...
-FROM &lt;tables...&gt;
-WHERE &lt;conditions&gt;
-ORDER BY &lt;attr1&gt; desc, &lt;attr2&gt; asc;</code></pre><p>Bei mehreren Tables wird Kreuzprodukt gebildet.</p><div class="indented"><p>Bei jeder Anfrage kann andere Ordnung auftauchen.</p><p>
+</a></figure><p></p><p>Arbeitet auf Tabellen, nicht Tupel-Mengen, deshalb Duplikate möglich und es hat eine Implizite Ordnung.</p><p></p><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a073986a-4b5e-479e-96d3-4997ff593e76">Basics</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#685a7209-df5e-45ad-b1ee-70d2e976855f">Group by</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#96ee9b95-06b4-4582-bd5e-87345b304798">Nested Queries</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8e2ee424-896e-4efa-8ceb-3aac58f67838">Umgang mit null</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4f5f39fb-a0aa-4480-96c5-7d52ba1c5b02">Syntactic Sugar</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#026fd6a2-b5a5-4d9a-b34f-cefc9c3ab269">Joins</a></div></nav><p></p><p></p><h1 id="a073986a-4b5e-479e-96d3-4997ff593e76">Basics</h1><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">&lt;</span>attr<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">as</span> a1,  <span class="hljs-operator">&lt;</span>attr<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">as</span> a2, ...&#32;
+<span class="hljs-keyword">FROM</span> <span class="hljs-operator">&lt;</span>tables...<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">WHERE</span> <span class="hljs-operator">&lt;</span>conditions<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-operator">&lt;</span>attr1<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">desc</span>, <span class="hljs-operator">&lt;</span>attr2<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">asc</span>;</code></pre><p>Bei mehreren Tables wird Kreuzprodukt gebildet.</p><div class="indented"><p>Bei jeder Anfrage kann andere Ordnung auftauchen.</p><p>
 Sortieren nach
 <mark class="highlight-gray"><code>attr1</code></mark><mark class="highlight-gray"></mark>
 und wenn gleich dann nach
@@ -628,11 +629,11 @@ Mit Duplikate
 Pro Gruppe
 <em>ein einziges</em>
 Tupel erstellt.
-</p><p>Duplikate werden entfernt.</p><pre class="code"><code>SELECT &lt;attr1&gt;, &lt;attr2&gt;, sum(attr3) ... &lt;attrn&gt;
-FROM &lt;tables...&gt;
-WHERE &lt;conditions&gt;
-GROUP BY &lt;attr1&gt;, &lt;attr2&gt;, &lt;attr3&gt; ... &lt;attrn&gt;
-HAVING &lt;conditions&gt;</code></pre><p></p><ol class="numbered-list" start="1" type="1"><li>
+</p><p>Duplikate werden entfernt.</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">&lt;</span>attr1<span class="hljs-operator">&gt;</span>, <span class="hljs-operator">&lt;</span>attr2<span class="hljs-operator">&gt;</span>, <span class="hljs-built_in">sum</span>(attr3) ... <span class="hljs-operator">&lt;</span>attrn<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">FROM</span> <span class="hljs-operator">&lt;</span>tables...<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">WHERE</span> <span class="hljs-operator">&lt;</span>conditions<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-operator">&lt;</span>attr1<span class="hljs-operator">&gt;</span>, <span class="hljs-operator">&lt;</span>attr2<span class="hljs-operator">&gt;</span>, <span class="hljs-operator">&lt;</span>attr3<span class="hljs-operator">&gt;</span> ... <span class="hljs-operator">&lt;</span>attrn<span class="hljs-operator">&gt;</span>
+<span class="hljs-keyword">HAVING</span> <span class="hljs-operator">&lt;</span>conditions<span class="hljs-operator">&gt;</span></code></pre><p></p><ol class="numbered-list" start="1" type="1"><li>
 Alle Attribute aus
 <code>SELECT</code>
 müssen auch in
@@ -645,9 +646,9 @@ A    B    C
 Cat   10   False
 Dog   25   True
 Dog   20   False
-Cat   5    False</code></pre><pre class="code"><code>SELECT A, B
-FROM Pets
-GROUP BY A</code></pre><p>
+Cat   5    False</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> A, B
+<span class="hljs-keyword">FROM</span> Pets
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> A</code></pre><p>
 Was sollte jetzt bei B ausgegeben werden in
 <code>SELECT</code>
 ?
@@ -661,12 +662,12 @@ benutzen.
 Dann müssen sie auch in
 <code>GROUP BY</code>
 benutzt werden.
-</p><ul class="block-color-gray toggle"><li><details><summary><mark class="highlight-gray">Beispiel</mark></summary><p><mark class="highlight-gray"><code>Student ( MatrNr , Name , Semester )</code></mark></p><p>Angenommen wir suchen alle Namen von Studierenden die am längsten studieren</p><pre class="code"><code>select Name, max(Semester)
-from Student;</code></pre><pre class="code"><code>select Name, max(Semester)
-from Student
-group by Name;</code></pre><pre class="code"><code>select Name
-from Student
-where Semester = (select max(Semester) from Student);</code></pre><p></p></details></li></ul></li></ol><p></p><p></p><p></p><p></p><p></p><h1 id="96ee9b95-06b4-4582-bd5e-87345b304798">Nested Queries</h1><p>
+</p><ul class="block-color-gray toggle"><li><details><summary><mark class="highlight-gray">Beispiel</mark></summary><p><mark class="highlight-gray"><code>Student ( MatrNr , Name , Semester )</code></mark></p><p>Angenommen wir suchen alle Namen von Studierenden die am längsten studieren</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> Name, <span class="hljs-built_in">max</span>(Semester)
+<span class="hljs-keyword">from</span> Student;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> Name, <span class="hljs-built_in">max</span>(Semester)
+<span class="hljs-keyword">from</span> Student
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> Name;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> Name
+<span class="hljs-keyword">from</span> Student
+		<span class="hljs-keyword">where</span> Semester <span class="hljs-operator">=</span> (<span class="hljs-keyword">select</span> <span class="hljs-built_in">max</span>(Semester) <span class="hljs-keyword">from</span> Student);</code></pre><p></p></details></li></ul></li></ol><p></p><p></p><p></p><p></p><p></p><h1 id="96ee9b95-06b4-4582-bd5e-87345b304798">Nested Queries</h1><p>
 Skalare retournieren in
 <mark class="highlight-gray"><code>SELECT</code></mark>
 ,
@@ -686,25 +687,25 @@ Zählt alle Tupel
 Zählt alle ≠ null
 </p><p><code>count(distinct att)</code>
 Zählt alle ≠ null
-</p></div><p></p><p></p><p><mark class="highlight-blue">Arithmetische Ausdrücke</mark></p><div class="indented"><p>Wenn irgendein Operant null ist → immer null</p></div><p></p><p></p><p><mark class="highlight-blue">Vergleichsoperatoren</mark></p><div class="indented"><p>Dreiwertige Logik in SQL: true, false, unknown</p><p>Wenn irgendein Operant null ist → immer unknown</p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="4f5f39fb-a0aa-4480-96c5-7d52ba1c5b02">Syntactic Sugar</h1><p><mark class="highlight-blue">Between, in</mark></p><div class="indented"><pre class="code"><code>select * from StudentIn
-where Semester &gt;= 1 and Semester &lt;= 4;</code></pre><pre class="code"><code>select * from StudentIn
-where Semester between 1 and 4;</code></pre><pre class="code"><code>select * from StudentIn
-where Semester in (1 ,2 ,3 ,4); --konstante Liste</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Zeichenketten Wildcards</mark></p><div class="indented"><p><code>like</code></p><div class="indented"><p><code>_</code>
+</p></div><p></p><p></p><p><mark class="highlight-blue">Arithmetische Ausdrücke</mark></p><div class="indented"><p>Wenn irgendein Operant null ist → immer null</p></div><p></p><p></p><p><mark class="highlight-blue">Vergleichsoperatoren</mark></p><div class="indented"><p>Dreiwertige Logik in SQL: true, false, unknown</p><p>Wenn irgendein Operant null ist → immer unknown</p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="4f5f39fb-a0aa-4480-96c5-7d52ba1c5b02">Syntactic Sugar</h1><p><mark class="highlight-blue">Between, in</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> StudentIn
+<span class="hljs-keyword">where</span> Semester <span class="hljs-operator">&gt;=</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> Semester <span class="hljs-operator">&lt;=</span> <span class="hljs-number">4</span>;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> StudentIn
+<span class="hljs-keyword">where</span> Semester <span class="hljs-keyword">between</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> <span class="hljs-number">4</span>;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> StudentIn
+<span class="hljs-keyword">where</span> Semester <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span> ,<span class="hljs-number">2</span> ,<span class="hljs-number">3</span> ,<span class="hljs-number">4</span>); <span class="hljs-comment">--konstante Liste</span></code></pre></div><p></p><p></p><p><mark class="highlight-blue">Zeichenketten Wildcards</mark></p><div class="indented"><p><code>like</code></p><div class="indented"><p><code>_</code>
 genau 1 Zeichen
 </p><p><code>%</code>
 beliebig viele (oder gar kein) Zeichen
-</p></div><p></p><pre class="code"><code>select distinct MatrNr
-from Vorlesung v, hören h
-where h.VorlNr = v.VorlNr and v.Titel like '%thik%';</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Case</mark></p><div class="indented"><pre class="code"><code>select MatrNr , ( case when Note &lt; 1.5 then 'S1'
-when Note &lt; 2.5 then 'U2'
-when Note &lt; 3.5 then 'B3'
-when Note &lt; 4.5 then 'G4'
-else 'N5' end )
-from prüfen ;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">coalesce</mark></p><div class="indented"><p><code>coalesce(val , -1)</code>
+</p></div><p></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> MatrNr
+<span class="hljs-keyword">from</span> Vorlesung v, hören h
+<span class="hljs-keyword">where</span> h.VorlNr <span class="hljs-operator">=</span> v.VorlNr <span class="hljs-keyword">and</span> v.Titel <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%thik%&#x27;</span>;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Case</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> MatrNr , ( <span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> Note <span class="hljs-operator">&lt;</span> <span class="hljs-number">1.5</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;S1&#x27;</span>
+											 <span class="hljs-keyword">when</span> Note <span class="hljs-operator">&lt;</span> <span class="hljs-number">2.5</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;U2&#x27;</span>
+											 <span class="hljs-keyword">when</span> Note <span class="hljs-operator">&lt;</span> <span class="hljs-number">3.5</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;B3&#x27;</span>
+								 &#9;		 <span class="hljs-keyword">when</span> Note <span class="hljs-operator">&lt;</span> <span class="hljs-number">4.5</span> <span class="hljs-keyword">then</span> <span class="hljs-string">&#x27;G4&#x27;</span>
+								 &#9;		 <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;N5&#x27;</span> <span class="hljs-keyword">end</span> )
+<span class="hljs-keyword">from</span> prüfen ;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">coalesce</mark></p><div class="indented"><p><code>coalesce(val , -1)</code>
 → Wenn val null ist, dann gebe -1 aus.
-</p><p>kann auch mit cases gelöst werden</p></div><p></p><p></p><p><mark class="highlight-blue">concat</mark></p><div class="indented"><pre class="code"><code>select Vorname + Nachname from Person;
-select Vorname || Nachname from Person;
-select concat(Vorname, Nachname) from Person; </code></pre></div><p></p><p></p><p></p><h2 id="026fd6a2-b5a5-4d9a-b34f-cefc9c3ab269">Joins</h2><p>Zwischen Table namen:</p><div class="indented"><p><code>cross join</code>
+</p><p>kann auch mit cases gelöst werden</p></div><p></p><p></p><p><mark class="highlight-blue">concat</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> Vorname <span class="hljs-operator">+</span> Nachname <span class="hljs-keyword">from</span> Person;
+<span class="hljs-keyword">select</span> Vorname <span class="hljs-operator">||</span> Nachname <span class="hljs-keyword">from</span> Person;
+<span class="hljs-keyword">select</span> concat(Vorname, Nachname) <span class="hljs-keyword">from</span> Person;&#32;</code></pre></div><p></p><p></p><p></p><h2 id="026fd6a2-b5a5-4d9a-b34f-cefc9c3ab269">Joins</h2><p>Zwischen Table namen:</p><div class="indented"><p><code>cross join</code>
 Kreuzprodukt (kann Beistrich ersetzen)
 </p><p><code>natural join</code>
 natürlicher Join
@@ -712,13 +713,13 @@ natürlicher Join
 Theta-Join (oder inner join) → natürlicher Join mit Selektion
 </p><p><code>(left|right|full) outer join</code>
 äußerer Join
-</p></div><p></p><p></p><p><mark class="highlight-blue">Cross Join</mark></p><div class="indented"><pre class="code"><code>select * from ProfessorIn, Vorlesung;</code></pre><pre class="code"><code>select * from ProfessorIn cross join Vorlesung;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Natural join</mark></p><div class="indented"><p>Nur Tupel aufgehoben die an den gleichen Spalten den gleichen Wert haben</p><pre class="code"><code>select StudentIn.MatrNr, Name, Titel
-from StudentIn, hören, Vorlesung
-where StudentIn.MatrNr = hören.MatrNr and hören.VorlNr = Vorlesung.VorlNr;</code></pre><pre class="code"><code>select MatrNr, Name, Titel
-from StudentIn natural join hören natural join Vorlesung;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Inner Join</mark></p><div class="indented"><p>"Inner" ist optional</p><p>Natural join mit zusätzlicher condition.</p><pre class="code"><code>select Name, Titel
-from ProfessorIn, Vorlesung
-where PersNr = gelesenVon and Titel = 'Mäeutik';</code></pre><pre class="code"><code>select Name, Titel
-from ProfessorIn join Vorlesung on PersNr = gelesenVon
-where Titel = 'Mäeutik';</code></pre><p></p></div><p></p><p><mark class="highlight-blue">(Left, right, full) Join</mark></p><div class="indented"><p>Kann zusätzliche condition haben</p><p>Kann null Werte erzeugen</p><pre class="code"><code>select s.MatrNr, s.Name, p.VorlNr, p.Note
-from StudentIn s left outer join prüfen p
-on s.MatrNr = p.MatrNr;</code></pre></div><p></p></div></article></body></html>
+</p></div><p></p><p></p><p><mark class="highlight-blue">Cross Join</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> ProfessorIn, Vorlesung;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> ProfessorIn <span class="hljs-keyword">cross</span> <span class="hljs-keyword">join</span> Vorlesung;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Natural join</mark></p><div class="indented"><p>Nur Tupel aufgehoben die an den gleichen Spalten den gleichen Wert haben</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> StudentIn.MatrNr, Name, Titel
+<span class="hljs-keyword">from</span> StudentIn, hören, Vorlesung
+<span class="hljs-keyword">where</span> StudentIn.MatrNr <span class="hljs-operator">=</span> hören.MatrNr <span class="hljs-keyword">and</span> hören.VorlNr <span class="hljs-operator">=</span> Vorlesung.VorlNr;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> MatrNr, Name, Titel
+<span class="hljs-keyword">from</span> StudentIn <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span> hören <span class="hljs-keyword">natural</span> <span class="hljs-keyword">join</span> Vorlesung;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Inner Join</mark></p><div class="indented"><p>"Inner" ist optional</p><p>Natural join mit zusätzlicher condition.</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> Name, Titel
+<span class="hljs-keyword">from</span> ProfessorIn, Vorlesung
+<span class="hljs-keyword">where</span> PersNr <span class="hljs-operator">=</span> gelesenVon <span class="hljs-keyword">and</span> Titel <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Mäeutik&#x27;</span>;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> Name, Titel
+<span class="hljs-keyword">from</span> ProfessorIn <span class="hljs-keyword">join</span> Vorlesung <span class="hljs-keyword">on</span> PersNr <span class="hljs-operator">=</span> gelesenVon
+<span class="hljs-keyword">where</span> Titel <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Mäeutik&#x27;</span>;</code></pre><p></p></div><p></p><p><mark class="highlight-blue">(Left, right, full) Join</mark></p><div class="indented"><p>Kann zusätzliche condition haben</p><p>Kann null Werte erzeugen</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> s.MatrNr, s.Name, p.VorlNr, p.Note
+<span class="hljs-keyword">from</span> StudentIn s <span class="hljs-keyword">left</span> <span class="hljs-keyword">outer</span> <span class="hljs-keyword">join</span> prüfen p
+<span class="hljs-keyword">on</span> s.MatrNr <span class="hljs-operator">=</span> p.MatrNr;</code></pre></div><p></p></div></article></body></html>

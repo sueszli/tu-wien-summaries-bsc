@@ -650,10 +650,10 @@ Actions are selected by evaluating the decision network for each possible settin
 chosen.
 </p><p>Decision network algorithm</p><pre class="code"><code>set evidence variables for current state
 for each possible value of the decision node
-1. set the decision node to that value
-2. calculate the posterior probabilities for the parent nodes of the utility node,
-using a standard probabilistic inference algorithm (with bayesian network)
-2. calculate the resulting utility for the action
+		1. set the decision node to that value
+		2. calculate the posterior probabilities for the parent nodes of the utility node,
+			 using a standard probabilistic inference algorithm (with bayesian network)
+		2. calculate the resulting utility for the action
 return the action with the highest utility</code></pre><ul class="toggle"><li><details><summary>Example: Airport siting problem</summary><p>
 Notice that, because the Noise, Deaths, and Cost chance nodes in refer to future states, they can never have their values set as
 evidence variables.

@@ -916,17 +916,25 @@ Construct a decision tree from the given data, using the algorithm from the lect
 - examples: (x, y) pairs
 - attributes: attributes of values x_1, x_2, ... x_n in x in example
 - classification: y_j = true / false
-*/function DTL(examples, attributes, parent_examples) returns a decision tree
-if examples is empty then return MAJORITY(parent_examples.classifications)
-else if all examples have the same classification then return the classification
-else if attributes is empty then return MAJORITY(examples.classification)
-else
-A = empty
-for each Attribute A' do
-A ← maxImportance(A, A', examples)tree ← a new decision tree with root test Afor each (value v of A) do //all possible values from domain of A
-exs ← {e : e ∈ examples | e.A = v} //all examples where this value occured
-subtree ← DTL(exs, attributes\{A}, examples) //recursive call
-add a new branch to tree with label "A = v" and subtree subtreereturn tree</code></pre><p class="block-color-gray">The algorithm is recursive, every sub tree is an independent problem with fewer examples and one less attribute.</p><p class="block-color-gray">
+*/
+
+function DTL(examples, attributes, parent_examples) returns a decision tree
+	if examples is empty then return MAJORITY(parent_examples.classifications)
+	else if all examples have the same classification then return the classification
+	else if attributes is empty then return MAJORITY(examples.classification)
+	else
+		A = empty
+		for each Attribute A' do
+			A ← maxImportance(A, A', examples)
+
+		tree ← a new decision tree with root test A
+
+		for each (value v of A) do //all possible values from domain of A&#32;&#9;&#9;
+			exs ← {e : e ∈ examples | e.A = v} //all examples where this value occured
+			subtree ← DTL(exs, attributes\{A}, examples) //recursive call
+			add a new branch to tree with label "A = v" and subtree subtree
+
+		return tree</code></pre><p class="block-color-gray">The algorithm is recursive, every sub tree is an independent problem with fewer examples and one less attribute.</p><p class="block-color-gray">
 The returned tree is not identical to the correct function / tree
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi></mrow><annotation encoding="application/x-tex">f</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mord mathnormal" style="margin-right: 0.10764em">f</span></span></span></span></span><span>﻿</span></span>
 . It is a hypothesis
@@ -960,15 +968,15 @@ escaping shoulders
 </p><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo></mrow><annotation encoding="application/x-tex">-</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em"></span><span class="mord">−</span></span></span></span></span><span>﻿</span></span>
 getting stuck in loop at local maximum
 </p></div><p></p><p>Solution: Random-restart hill climbing: restart after step limit overcomes local maxima</p><figure class="image"><a href="../Informed%20Search%20851ceb8b20d94b988b6522cbbec60d64/Untitled%206.png"><img src="../Informed%20Search%20851ceb8b20d94b988b6522cbbec60d64/Untitled%206.png" style="width: 288px"/></a></figure><ul class="toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function HILL-CLIMBING(problem) returns a state that is a local maximum
-inputs: problem // a problem
-local variables:
-current, // a node
-neighbor // a node
-current ← MAKE-NODE(INITIAL-STATE[problem])
-loop do
-neighbor ← a highest-valued successor of current
-if VALUE[neighbor] ≤ VALUE[current] then return STATE[current]
-current ← neighbor</code></pre></details></li></ul><h2 id="f93d3585-0508-43c5-bd13-c5ea5c04a1eb">h) DFS vs. IDS - are they optimal with infinite branching factors?</h2><p>They still must terminate at some point even with infinite branches, since they use a stack as their frontier-set data-structure.</p><p>They explore the tree in its full depth first before continuing with its breadth.</p><p></p><p><mark class="highlight-blue">3) Depth-first search DFS</mark></p><p>Fronier as stack.</p><p>Much faster than BFS if solutions are dense.</p><p class="block-color-gray">
+	inputs: problem // a problem
+	local variables:
+		current, // a node
+		neighbor // a node
+	current ← MAKE-NODE(INITIAL-STATE[problem])
+	loop do
+		neighbor ← a highest-valued successor of current
+		if VALUE[neighbor] ≤ VALUE[current] then return STATE[current]
+		current ← neighbor</code></pre></details></li></ul><h2 id="f93d3585-0508-43c5-bd13-c5ea5c04a1eb">h) DFS vs. IDS - are they optimal with infinite branching factors?</h2><p>They still must terminate at some point even with infinite branches, since they use a stack as their frontier-set data-structure.</p><p>They explore the tree in its full depth first before continuing with its breadth.</p><p></p><p><mark class="highlight-blue">3) Depth-first search DFS</mark></p><p>Fronier as stack.</p><p>Much faster than BFS if solutions are dense.</p><p class="block-color-gray">
 Backtracking variant: store one successor node at a time - generate child node with
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi></mrow><annotation encoding="application/x-tex">\Delta</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em"></span><span class="mord">Δ</span></span></span></span></span><span>﻿</span></span>
 change.
@@ -987,17 +995,19 @@ DFS limited with
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>cutoff</mtext></mrow><annotation encoding="application/x-tex">\text{cutoff}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord text"><span class="mord">cutoff</span></span></span></span></span></span><span>﻿</span></span>
 subtree/subgraph.
 </p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function DEPTH-LIMITED-SEARCH(problem, limit) returns a solution, or failure/cutoff
-return RECURSIVE-DLS(MAKE-NODE(problem.INITIAL-STATE), problem, limit)function RECURSIVE-DLS(node, problem, limit) returns a solution, or failure/cutoff
-if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
-else if limit = 0 then return cutoff
-else
-cutoff occurred? ← false
-for each action in problem.ACTIONS(node.STATE) do
-child ← CHILD-NODE(problem, node, action)
-result ← RECURSIVE-DLS(child, problem, limit − 1)
-if result = cutoff then cutoff occurred? ← true
-else if result != failure then return result
-if cutoff occurred? then return cutoff else return failure</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	return RECURSIVE-DLS(MAKE-NODE(problem.INITIAL-STATE), problem, limit)
+
+function RECURSIVE-DLS(node, problem, limit) returns a solution, or failure/cutoff
+	if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
+	else if limit = 0 then return cutoff
+	else
+	cutoff occurred? ← false
+		for each action in problem.ACTIONS(node.STATE) do
+			child ← CHILD-NODE(problem, node, action)
+			result ← RECURSIVE-DLS(child, problem, limit − 1)
+			if result = cutoff then cutoff occurred? ← true
+			else if result != failure then return result
+		if cutoff occurred? then return cutoff else return failure</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 No - May not terminate (even for finite search space)
 </p><p><mark class="highlight-teal">time complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>b</mi><mi mathvariant="normal">ℓ</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b^\ell)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.099108em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.849108em"><span style="top: -3.063em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">ℓ</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-teal">space complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>b</mi><mi mathvariant="normal">ℓ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b\ell )</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mord">ℓ</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-teal">solution optimality</mark>
 No
@@ -1006,9 +1016,9 @@ Iteratively increasing
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">ℓ</mi></mrow><annotation encoding="application/x-tex">\ell</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord">ℓ</span></span></span></span></span><span>﻿</span></span>
 in DLS to gain completeness.
 </p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function ITERATIVE-DEEPENING-SEARCH(problem) returns a solution, or failure
-for depth = 0 to ∞ do
-result ← DEPTH-LIMITED-SEARCH(problem, depth)
-if result 6= cutoff then return result</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	for depth = 0 to ∞ do
+	result ← DEPTH-LIMITED-SEARCH(problem, depth)
+	if result 6= cutoff then return result</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 Yes
 </p><p><mark class="highlight-teal">time complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>b</mi><mi>d</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b^d)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.099108em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.849108em"><span style="top: -3.063em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><div class="indented"><ul class="block-color-gray toggle"><li><details><summary>in depth</summary><p>
 Only

@@ -591,41 +591,64 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">development tools</h1><p class="page-description"></p></header><div class="page-body"><h2>GCC</h2><p>source code needs to be translated to machine code:</p><div class="indented"><p>code → pre-processor → compiler → linker</p><figure><div class="source"><a href="development%20tools%20542bdb26a2f2402581cc6237cb0cad25/x86_Assembly-1-10.pdf">x86_Assembly-1-10.pdf</a></div></figure></div><p></p><pre class="code"><code>For a single module:
-$ gcc -o main main.c
-$ ./mainFor multiple modules:
-$ gcc -c dependency.c # -&gt; dependency.o
-$ gcc -c main.c # -&gt; main.o
-$ gcc -o main main.o dependency.o # -&gt; link together
-$ ./main</code></pre><p></p><p></p><h2>Makefile</h2><p><mark class="highlight-gray"><em>see:</em></mark><mark class="highlight-gray"><em><a href="https://github.com/osue-tuwien/osue-tuwien.github.com/wiki/OSUE-Einf%C3%BChrungstutorial#make">
+	$ gcc -o main main.c
+	$ ./main
+
+For multiple modules:
+	$ gcc -c dependency.c # -&gt; dependency.o
+	$ gcc -c main.c # -&gt; main.o
+	$ gcc -o main main.o dependency.o # -&gt; link together
+	$ ./main</code></pre><p></p><p></p><h2>Makefile</h2><p><mark class="highlight-gray"><em>see:</em></mark><mark class="highlight-gray"><em><a href="https://github.com/osue-tuwien/osue-tuwien.github.com/wiki/OSUE-Einf%C3%BChrungstutorial#make">
 https://github.com/osue-tuwien/osue-tuwien.github.com/wiki/OSUE-Einführungstutorial#make
 </a></em></mark></p><p><mark class="highlight-gray"><em>see:</em></mark><mark class="highlight-gray"><em><a href="https://github.com/osue-tuwien/osue-tuwien.github.com/wiki/Makefile-Tutorial">
 https://github.com/osue-tuwien/osue-tuwien.github.com/wiki/Makefile-Tutorial
 </a></em></mark></p><p></p><p><mark class="highlight-gray"><code>Makefile</code></mark>
 s only compile files that have changed based on the given rules:
 </p><pre class="code"><code>result: ingredients
-recipe</code></pre><p></p><p>Example:</p><div class="column-list"><div class="column" style="width: 50%"><pre class="code"><code>void say_hello(const char *name);</code></pre><pre class="code"><code>#include "dependency.h"
-#include &lt;stdio.h&gt;void say_hello(const char *name) {
-printf("%s!\n", name);
-}</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code>#include "dependency.h"int main(int argc, char *argv[]) {
-say_hello("Hello World");
-return 0;
+	recipe</code></pre><p></p><p>Example:</p><div class="column-list"><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">say_hello</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span>;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;dependency.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-type">void</span> <span class="hljs-title function_">say_hello</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span> {
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s!\n&quot;</span>, name);
+}</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;dependency.h&quot;</span></span>
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> {
+	say_hello(<span class="hljs-string">&quot;Hello World&quot;</span>);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre><p></p></div></div><pre class="code"><code># ELF executable
 main: main.o dependency.o
-gcc -o dependency main.o dependency.o # -&gt; Third: link together# object files
+	gcc -o dependency main.o dependency.o # -&gt; Third: link together
+
+# object files
 main.o: main.c dependency.h
-gcc -c -o main.o main.c # -&gt; Second: compile to main.ohello.o: dependency.c dependency.h
-gcc -c -o dependency.o dependency.c # -&gt; First: compile to hello.o</code></pre><pre class="code"><code>CC = gcc
+	gcc -c -o main.o main.c # -&gt; Second: compile to main.o
+
+hello.o: dependency.c dependency.h
+	gcc -c -o dependency.o dependency.c # -&gt; First: compile to hello.o</code></pre><pre class="code"><code class="hljs language-makefile">CC = gcc
 DEFS = -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L
-CFLAGS = -Wall -g -std=c99 -pedantic $(DEFS)
-LFLAGS =.PHONY: all cleanall: main# ELF executable
-main: main.o dependency.o
-$(CC) -o $@ $^# object files
-%.o: %.c
-$(CC) $(CFLAGS) -c -o $@ $&lt;main.o: main.c dependency.h
-dependency.o: dependency.c dependency.hclean:
-rm -rf *.o main</code></pre><p>
+CFLAGS = -Wall -g -std=c99 -pedantic <span class="hljs-variable">$(DEFS)</span>
+LFLAGS =
+
+<span class="hljs-meta"><span class="hljs-keyword">.PHONY</span>: all clean</span>
+
+<span class="hljs-section">all: main</span>
+
+<span class="hljs-comment"># ELF executable</span>
+<span class="hljs-section">main: main.o dependency.o</span>
+	<span class="hljs-variable">$(CC)</span> -o <span class="hljs-variable">$@</span> <span class="hljs-variable">$^</span>
+
+<span class="hljs-comment"># object files</span>
+<span class="hljs-section">%.o: %.c</span>
+	<span class="hljs-variable">$(CC)</span> <span class="hljs-variable">$(CFLAGS)</span> -c -o <span class="hljs-variable">$@</span> <span class="hljs-variable">$&lt;</span>
+
+<span class="hljs-section">main.o: main.c dependency.h</span>
+<span class="hljs-section">dependency.o: dependency.c dependency.h</span>
+
+<span class="hljs-section">clean:</span>
+	rm -rf *.o main</code></pre><p>
 This makefile can be executed with:
 <mark class="highlight-gray"><code>make hello</code></mark>
 ,
@@ -639,18 +662,18 @@ which can’t be dereferenced:
 ,
 <code><mark class="highlight-gray">EXIT_FAILURE</mark></code>
 status codes
-</p><p><mark class="highlight-gray">there are more status codes without these macros</mark><mark class="highlight-gray"><a href="https://tldp.org/LDP/abs/html/exitcodes.html">https://tldp.org/LDP/abs/html/exitcodes.html</a></mark></p></div><p></p><p></p><p><code>-DDEBUG</code></p><div class="indented"><p>Used for log messages</p><pre class="code"><code>gcc ... -DDEBUG # enable debug messages with flag</code></pre><pre class="code"><code>#ifdef DEBUG
-#include &lt;stdio.h&gt;
-#define debug(fmt, ...) \
-(void) fprintf(stderr, "[%s:%d] " fmt "\n", __FILE__, __LINE__, ##__VA_ARGS__)
-#else
-#define debug(ignored) /* NOP */
-#endif
+</p><p><mark class="highlight-gray">there are more status codes without these macros</mark><mark class="highlight-gray"><a href="https://tldp.org/LDP/abs/html/exitcodes.html">https://tldp.org/LDP/abs/html/exitcodes.html</a></mark></p></div><p></p><p></p><p><code>-DDEBUG</code></p><div class="indented"><p>Used for log messages</p><pre class="code"><code>gcc ... -DDEBUG # enable debug messages with flag</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> DEBUG</span>
+	<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+	<span class="hljs-meta">#<span class="hljs-keyword">define</span> debug(fmt, ...) \
+		(void) fprintf(stderr, <span class="hljs-string">&quot;[%s:%d] &quot;</span> fmt <span class="hljs-string">&quot;\n&quot;</span>, __FILE__, __LINE__, ##__VA_ARGS__)</span>
+<span class="hljs-meta">#<span class="hljs-keyword">else</span></span>
+	<span class="hljs-meta">#<span class="hljs-keyword">define</span> debug(ignored) <span class="hljs-comment">/* NOP */</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">endif</span></span>
 ...
-debug("reached"); // [main.c:18] reached</code></pre></div><p></p><p></p><p><code>perror()</code></p><div class="indented"><p>to wrap error messages</p><p>
+debug(<span class="hljs-string">&quot;reached&quot;</span>); <span class="hljs-comment">// [main.c:18] reached</span></code></pre></div><p></p><p></p><p><code>perror()</code></p><div class="indented"><p>to wrap error messages</p><p>
 equivalent to:
-<mark class="highlight-gray"><code>fprintf(stderr, "%s: %s\n", msg, strerror(errno));</code></mark></p><p>good practice: using while-do loops for macros.</p><pre class="code"><code>#define errorMsg(msg) \
-do { perror(msg); exit(EXIT_FAILURE); } while (0)</code></pre></div><p></p><p></p><p></p><h2>Man pages</h2><p><em><code><mark class="highlight-gray">man man</mark></code></em></p><p><mark class="highlight-gray"><code>man 2 &lt;c-system function&gt;</code></mark><mark class="highlight-gray">ie. posix library</mark></p><p><mark class="highlight-gray"><code>man 3 &lt;c-library function&gt;</code></mark></p><p>search for page:</p><div class="indented"><p><mark class="highlight-gray"><code>man -k &lt;search term&gt;</code></mark><mark class="highlight-gray"></mark>
+<mark class="highlight-gray"><code>fprintf(stderr, "%s: %s\n", msg, strerror(errno));</code></mark></p><p>good practice: using while-do loops for macros.</p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> errorMsg(msg) \
+   do { perror(msg); exit(EXIT_FAILURE); } while (0)</span></code></pre></div><p></p><p></p><p></p><h2>Man pages</h2><p><em><code><mark class="highlight-gray">man man</mark></code></em></p><p><mark class="highlight-gray"><code>man 2 &lt;c-system function&gt;</code></mark><mark class="highlight-gray">ie. posix library</mark></p><p><mark class="highlight-gray"><code>man 3 &lt;c-library function&gt;</code></mark></p><p>search for page:</p><div class="indented"><p><mark class="highlight-gray"><code>man -k &lt;search term&gt;</code></mark><mark class="highlight-gray"></mark>
 or
 <mark class="highlight-gray"><code>apropos &lt;search term&gt;</code></mark></p></div><p></p><p>search for page content:</p><div class="indented"><p><mark class="highlight-gray"><code>/&lt;search term&gt;</code></mark><mark class="highlight-gray"></mark>
 to search inside “less”

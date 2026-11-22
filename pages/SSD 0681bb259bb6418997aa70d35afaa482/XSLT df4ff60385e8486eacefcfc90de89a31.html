@@ -592,64 +592,72 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">XSLT</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e9ccba75-0560-405e-aea2-cc0950b1f5a2">Definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1d8a4d9b-fc43-4396-b579-8edf0edaf649">XSLT Templates</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6988e8b6-e8c4-4119-b820-12991ce03336">Creating output</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e88a1a93-53f9-4d91-9068-1dac631d61f6">Other Features</a></div></nav><p></p><h1 id="e9ccba75-0560-405e-aea2-cc0950b1f5a2">Definition</h1><p><mark class="highlight-blue">XSLT</mark></p><div class="indented"><p>
 XSL = eXtensible Stylesheet Language for XML
-<mark class="highlight-gray">(like CSS for HTML)</mark></p><p>XSLT = XSL Transformations / templates</p><p>XML documents that match the input document and define the output:</p><div class="indented"><p><em>XML document</em><em><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↦</mo></mrow><annotation encoding="application/x-tex">\mapsto</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.522em; vertical-align: -0.011em"></span><span class="mrel">↦</span></span></span></span></span><span>﻿</span></span></em><em>XML/HTML/txt document</em></p></div><p></p></div><p></p><figure class="image"><a href="XSLT%20df4ff60385e8486eacefcfc90de89a31/Untitled.png"><img src="XSLT%20df4ff60385e8486eacefcfc90de89a31/Untitled.png" style="width: 192px"/></a></figure><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>&lt;courses&gt;
-&lt;course semester="Summer"&gt;
-&lt;title&gt; SSD &lt;/title&gt;
-&lt;day&gt; Thursday &lt;/day&gt;
-&lt;time&gt; 09:15 &lt;/time&gt;
-&lt;location&gt; HS8 &lt;/location&gt;
-&lt;/course&gt;
-&lt;course semester="Winter"&gt;
-&lt;title&gt; Databases &lt;/title&gt;
-&lt;day&gt; Tuesday &lt;/day&gt;
-&lt;time&gt; 09:15 &lt;/time&gt;
-&lt;location&gt; HS8 &lt;/location&gt;
-&lt;/course&gt;
-&lt;/courses&gt;</code></pre><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code>&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Lectures Overview&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;h1&gt;DBAI Lectures&lt;/h1&gt;
-&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Semester&lt;/th&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;Date / Time&lt;/th&gt;&lt;th&gt;Location&lt;/th&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Summer&lt;/td&gt;&lt;td&gt;SSD&lt;/td&gt;&lt;td&gt;Thursday, 09:15&lt;/td&gt;&lt;td&gt;HS8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;Winter&lt;/td&gt;&lt;td&gt;Databases&lt;/td&gt;&lt;td&gt;Thursday, 09:15&lt;/td&gt;&lt;td&gt;HS8&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>Through the XSLT document that matches nodes:</p><pre class="code"><code>&lt;?xml version="1.0"?&gt;
-&lt;xsl:stylesheet version="1.0" xmlns:xsl=“http://www.w3.org/1999/XSL/Transform”&gt;
-&lt;xsl:output version="html"/&gt;&lt;xsl:template match="courses"&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Lectures Overview&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;h1&gt;DBAI Lectures&lt;/h1&gt;
-&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Semester&lt;/th&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;Date / Time&lt;/th&gt;&lt;th&gt;Location&lt;/th&gt;&lt;/tr&gt;
-&lt;xsl:apply-templates select="course"/&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-&lt;/xsl:template&gt;
-&lt;xsl:template match="course"&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;xsl:value-of select="@semester"/&gt;&lt;/td&gt;
-&lt;td&gt;&lt;xsl:value-of select="title"/&gt;&lt;/td&gt;
-&lt;td&gt;&lt;xsl:value-of select="day"/&gt;, &lt;xsl:value-of select="time"/&gt;&lt;/td&gt;
-&lt;td&gt;&lt;xsl:value-of select="location"/&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/xsl:template&gt;&lt;/xsl:stylesheet&gt;
-</code></pre></details></li></ul><p></p><p></p><h1 id="1d8a4d9b-fc43-4396-b579-8edf0edaf649">XSLT Templates</h1><p><mark class="highlight-blue">Template</mark></p><div class="indented"><p><mark class="highlight-gray"><code>&lt;xsl:</code></mark><code>template</code><mark class="highlight-gray"><code>match="</code></mark><mark class="highlight-gray"><em><code><code>pattern</code></code></em></mark><mark class="highlight-gray"><code>"&gt;</code></mark></p><p>match element nodes, replace with content</p><p>does not apply pattern to children of the node - must be done explicitly:</p><div class="indented"><p><mark class="highlight-gray"><code>&lt;xsl:</code></mark><code>apply-templates</code><mark class="highlight-gray"><code>select="</code></mark><mark class="highlight-gray"><em><code>xPath expression</code></em></mark><mark class="highlight-gray"><code>"&gt;</code></mark></p></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Default template</mark></p><div class="indented"><p>When template matches element without any instructions, then the default template (which is always present) gets applied:</p><div class="indented"><p>elements apply childrens template to parents</p><p>text copy content to the output</p><p>attributes copy value to the output</p></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Priorisation of templates</mark></p><div class="indented"><p>Only 1 template is applied based on its priority value (defined by the specificity of XPath expression)</p><p>If ambiguious (two templates get matched for the same element) then this causes an error.</p><p></p></div><p></p><p><mark class="highlight-blue">Named templates</mark></p><div class="indented"><p><mark class="highlight-gray"><code>&lt;xsl:</code></mark><code>call-template</code><mark class="highlight-gray"><code>name="..."&gt;</code></mark></p><p>used to avoid writing the same template for multiple elements</p><pre class="code"><code>&lt;xsl:template match="name | email"&gt;
-&lt;xsl:call-template name="output"/&gt;
-&lt;/xsl:template&gt;&lt;xsl:template name="output"&gt;
-Below you'll see either a name or mail:
-&lt;xsl:value-of select="."/&gt;
-&lt;/xsl:template&gt;</code></pre></div><p></p><p></p><p></p><h1 id="6988e8b6-e8c4-4119-b820-12991ce03336">Creating output</h1><p><mark class="highlight-gray"><code>&lt;xsl:element name="..."&gt;</code></mark>
+<mark class="highlight-gray">(like CSS for HTML)</mark></p><p>XSLT = XSL Transformations / templates</p><p>XML documents that match the input document and define the output:</p><div class="indented"><p><em>XML document</em><em><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↦</mo></mrow><annotation encoding="application/x-tex">\mapsto</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.522em; vertical-align: -0.011em"></span><span class="mrel">↦</span></span></span></span></span><span>﻿</span></span></em><em>XML/HTML/txt document</em></p></div><p></p></div><p></p><figure class="image"><a href="XSLT%20df4ff60385e8486eacefcfc90de89a31/Untitled.png"><img src="XSLT%20df4ff60385e8486eacefcfc90de89a31/Untitled.png" style="width: 192px"/></a></figure><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">courses</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">course</span> <span class="hljs-attr">semester</span>=<span class="hljs-string">&quot;Summer&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span> SSD <span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">day</span>&gt;</span> Thursday <span class="hljs-tag">&lt;/<span class="hljs-name">day</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">time</span>&gt;</span> 09:15 <span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">location</span>&gt;</span> HS8 <span class="hljs-tag">&lt;/<span class="hljs-name">location</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">course</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">course</span> <span class="hljs-attr">semester</span>=<span class="hljs-string">&quot;Winter&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span> Databases <span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">day</span>&gt;</span> Tuesday <span class="hljs-tag">&lt;/<span class="hljs-name">day</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">time</span>&gt;</span> 09:15 <span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">location</span>&gt;</span> HS8 <span class="hljs-tag">&lt;/<span class="hljs-name">location</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">course</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">courses</span>&gt;</span></code></pre><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Lectures Overview<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>DBAI Lectures<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Semester<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Date / Time<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Location<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Summer<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>SSD<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Thursday, 09:15<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>HS8<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Winter<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Databases<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Thursday, 09:15<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>HS8<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre><p>Through the XSLT document that matches nodes:</p><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">xsl:stylesheet</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span> <span class="hljs-attr">xmlns:xsl</span>=<span class="hljs-string">“http://www.w3.org/1999/XSL/Transform”</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">xsl:output</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;html&quot;</span>/&gt;</span>
+
+	<span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> <span class="hljs-attr">match</span>=<span class="hljs-string">&quot;courses&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Lectures Overview<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>DBAI Lectures<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Semester<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Date / Time<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Location<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">xsl:apply-templates</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;course&quot;</span>/&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span>
+&#9;
+	<span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> <span class="hljs-attr">match</span>=<span class="hljs-string">&quot;course&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;@semester&quot;</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;title&quot;</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;day&quot;</span>/&gt;</span>, <span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;time&quot;</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;location&quot;</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:stylesheet</span>&gt;</span>
+</code></pre></details></li></ul><p></p><p></p><h1 id="1d8a4d9b-fc43-4396-b579-8edf0edaf649">XSLT Templates</h1><p><mark class="highlight-blue">Template</mark></p><div class="indented"><p><mark class="highlight-gray"><code>&lt;xsl:</code></mark><code>template</code><mark class="highlight-gray"><code>match="</code></mark><mark class="highlight-gray"><em><code><code>pattern</code></code></em></mark><mark class="highlight-gray"><code>"&gt;</code></mark></p><p>match element nodes, replace with content</p><p>does not apply pattern to children of the node - must be done explicitly:</p><div class="indented"><p><mark class="highlight-gray"><code>&lt;xsl:</code></mark><code>apply-templates</code><mark class="highlight-gray"><code>select="</code></mark><mark class="highlight-gray"><em><code>xPath expression</code></em></mark><mark class="highlight-gray"><code>"&gt;</code></mark></p></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Default template</mark></p><div class="indented"><p>When template matches element without any instructions, then the default template (which is always present) gets applied:</p><div class="indented"><p>elements apply childrens template to parents</p><p>text copy content to the output</p><p>attributes copy value to the output</p></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Priorisation of templates</mark></p><div class="indented"><p>Only 1 template is applied based on its priority value (defined by the specificity of XPath expression)</p><p>If ambiguious (two templates get matched for the same element) then this causes an error.</p><p></p></div><p></p><p><mark class="highlight-blue">Named templates</mark></p><div class="indented"><p><mark class="highlight-gray"><code>&lt;xsl:</code></mark><code>call-template</code><mark class="highlight-gray"><code>name="..."&gt;</code></mark></p><p>used to avoid writing the same template for multiple elements</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> <span class="hljs-attr">match</span>=<span class="hljs-string">&quot;name | email&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">xsl:call-template</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;output&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;output&quot;</span>&gt;</span>
+	Below you&#x27;ll see either a name or mail:
+	<span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;.&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span></code></pre></div><p></p><p></p><p></p><h1 id="6988e8b6-e8c4-4119-b820-12991ce03336">Creating output</h1><p><mark class="highlight-gray"><code>&lt;xsl:element name="..."&gt;</code></mark>
 create an element
 </p><p><mark class="highlight-gray"><code>&lt;xsl:attribute name="..."&gt;</code></mark>
 create an attribute
@@ -657,36 +665,47 @@ create an attribute
 create a text
 </p><p><mark class="highlight-gray"><code>&lt;xsl:comment name="..."&gt;</code></mark>
 add a comment
-</p><p></p><ul class="toggle"><li><details><summary>Example using all</summary><pre class="code"><code>&lt;courses&gt;
-&lt;course&gt;
-&lt;title&gt; SSD &lt;/title&gt;
-&lt;day&gt; Thursday &lt;/day&gt;
-&lt;time&gt; 09:15 &lt;/time&gt;
-&lt;/course&gt;
-&lt;course&gt;
-&lt;title&gt; Databases &lt;/title&gt;
-&lt;day&gt; Tuesday &lt;/day&gt;
-&lt;time&gt; 09:15 &lt;/time&gt;
-&lt;/course&gt;
-&lt;/courses&gt;</code></pre><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code>&lt;courses&gt;
-&lt;!-- Course Description --&gt;
-&lt;SSD day="Thu"&gt;
-Starts at 09:15
-&lt;/SSD&gt;
-&lt;Databases day="Tue"&gt;
-Starts at 09:15
-&lt;/Databases&gt;
-&lt;/courses&gt;</code></pre><p>Template:</p><pre class="code"><code>&lt;xsl:template match="courses"&gt;
-&lt;courses&gt;
-&lt;xsl:comment&gt; Course Description &lt;/xsl:comment&gt;
-&lt;xsl:apply-templates select="course"/&gt;
-&lt;/courses&gt;
-&lt;/xsl:template&gt;&lt;xsl:template match="course"&gt;&lt;xsl:element name="{title/text()}"&gt;
-&lt;xsl:attribute name="day"&gt;
-&lt;xsl:value-of select="day"/&gt;
-&lt;/xsl:attribute&gt;&lt;xsl:text&gt;
-Starts at &lt;xsl:value-of select="time"/&gt;
-&lt;/xsl:text&gt;&lt;/xsl:element&gt;&lt;/xsl:template&gt;</code></pre></details></li></ul><p></p><p></p><h1 id="e88a1a93-53f9-4d91-9068-1dac631d61f6">Other Features</h1><p><mark class="highlight-gray"><code>&lt;xsl:for-each select="..."&gt;</code></mark>
+</p><p></p><ul class="toggle"><li><details><summary>Example using all</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">courses</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">course</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span> SSD <span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">day</span>&gt;</span> Thursday <span class="hljs-tag">&lt;/<span class="hljs-name">day</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">time</span>&gt;</span> 09:15 <span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">course</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">course</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span> Databases <span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">day</span>&gt;</span> Tuesday <span class="hljs-tag">&lt;/<span class="hljs-name">day</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">time</span>&gt;</span> 09:15 <span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">course</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">courses</span>&gt;</span></code></pre><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">courses</span>&gt;</span>
+	<span class="hljs-comment">&lt;!-- Course Description --&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">SSD</span> <span class="hljs-attr">day</span>=<span class="hljs-string">&quot;Thu&quot;</span>&gt;</span>
+		Starts at 09:15
+	<span class="hljs-tag">&lt;/<span class="hljs-name">SSD</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">Databases</span> <span class="hljs-attr">day</span>=<span class="hljs-string">&quot;Tue&quot;</span>&gt;</span>
+		Starts at 09:15
+	<span class="hljs-tag">&lt;/<span class="hljs-name">Databases</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">courses</span>&gt;</span></code></pre><p>Template:</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> <span class="hljs-attr">match</span>=<span class="hljs-string">&quot;courses&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">courses</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xsl:comment</span>&gt;</span> Course Description <span class="hljs-tag">&lt;/<span class="hljs-name">xsl:comment</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xsl:apply-templates</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;course&quot;</span>/&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">courses</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">xsl:template</span> <span class="hljs-attr">match</span>=<span class="hljs-string">&quot;course&quot;</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;<span class="hljs-name">xsl:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;{title/text()}&quot;</span>&gt;</span>
+&#9;&#9;&#9;
+			<span class="hljs-tag">&lt;<span class="hljs-name">xsl:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;day&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;day&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:attribute</span>&gt;</span>
+
+			<span class="hljs-tag">&lt;<span class="hljs-name">xsl:text</span>&gt;</span>
+				Starts at <span class="hljs-tag">&lt;<span class="hljs-name">xsl:value-of</span> <span class="hljs-attr">select</span>=<span class="hljs-string">&quot;time&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:text</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:element</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">xsl:template</span>&gt;</span></code></pre></details></li></ul><p></p><p></p><h1 id="e88a1a93-53f9-4d91-9068-1dac631d61f6">Other Features</h1><p><mark class="highlight-gray"><code>&lt;xsl:for-each select="..."&gt;</code></mark>
 select and iterate
 </p><p><mark class="highlight-gray"><code>&lt;xsl:copy-of select="..."&gt;</code></mark>
 creates a deep-copy of the selected node

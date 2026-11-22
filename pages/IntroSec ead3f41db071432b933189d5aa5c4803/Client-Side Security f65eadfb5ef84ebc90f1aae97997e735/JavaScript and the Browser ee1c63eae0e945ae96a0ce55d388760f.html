@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">JavaScript and the Browser</h1><p class="page-description"></p></header><div class="page-body"><h2>Execution Model</h2><p>For each window / tab / frame:</p><ol class="numbered-list" start="1" type="1"><li>Load content</li></ol><ol class="numbered-list" start="2" type="1"><li>
 Render pages
@@ -602,7 +603,7 @@ User actions
 Rendering
 <mark class="highlight-gray">:</mark><mark class="highlight-gray"><code>OnLoad</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>OnUnload</code></mark><mark class="highlight-gray">, …</mark></p><p class="block-color-gray">
 Timing:
-<mark class="highlight-gray"><code>setTimeout</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>clearTimeout</code></mark><mark class="highlight-gray">, …</mark></p></li></ol><p></p><h2>Embedding Javascript</h2><p>Inlined in the page</p><div class="indented"><pre class="code"><code>&lt;script&gt;alert("Hello World!");&lt;/script&gt;</code></pre></div><p></p><p>Stored in external files</p><div class="indented"><pre class="code"><code>&lt;script type="text/javascript" src="foo.js"&gt;&lt;/script&gt;</code></pre></div><p></p><p>Specified as event handlers</p><div class="indented"><pre class="code"><code>&lt;a href="http://www.bar.com" onmouseover="alert('hi');"&gt;</code></pre></div><p></p><p>Pseudo-URLs in links</p><div class="indented"><pre class="code"><code>&lt;a href="javascript:alert('You clicked');"&gt;Click me&lt;/a&gt;</code></pre></div><p></p><p></p><h2>DOM and BOM</h2><p>APIs accessible through Javascript.</p><figure class="image"><a href="JavaScript%20and%20the%20Browser%20ee1c63eae0e945ae96a0ce55d388760f/Untitled.png"><img src="JavaScript%20and%20the%20Browser%20ee1c63eae0e945ae96a0ce55d388760f/Untitled.png" style="width: 192px"/></a></figure><p>Browser Object Model BOM → interact with browser</p><div class="indented"><p class="block-color-gray"><mark class="highlight-gray"><code>Window</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>Frames</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>History</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>Location</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>Navigator</code></mark><mark class="highlight-gray"></mark>
+<mark class="highlight-gray"><code>setTimeout</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>clearTimeout</code></mark><mark class="highlight-gray">, …</mark></p></li></ol><p></p><h2>Embedding Javascript</h2><p>Inlined in the page</p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"><span class="hljs-title function_">alert</span>(<span class="hljs-string">&quot;Hello World!&quot;</span>);</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre></div><p></p><p>Stored in external files</p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;foo.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre></div><p></p><p>Specified as event handlers</p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://www.bar.com&quot;</span> <span class="hljs-attr">onmouseover</span>=<span class="hljs-string">&quot;alert(&#x27;hi&#x27;);&quot;</span>&gt;</span></code></pre></div><p></p><p>Pseudo-URLs in links</p><div class="indented"><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;javascript:alert(&#x27;You clicked&#x27;);&quot;</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre></div><p></p><p></p><h2>DOM and BOM</h2><p>APIs accessible through Javascript.</p><figure class="image"><a href="JavaScript%20and%20the%20Browser%20ee1c63eae0e945ae96a0ce55d388760f/Untitled.png"><img src="JavaScript%20and%20the%20Browser%20ee1c63eae0e945ae96a0ce55d388760f/Untitled.png" style="width: 192px"/></a></figure><p>Browser Object Model BOM → interact with browser</p><div class="indented"><p class="block-color-gray"><mark class="highlight-gray"><code>Window</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>Frames</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>History</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>Location</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>Navigator</code></mark><mark class="highlight-gray"></mark>
 (browser type &amp; version), ...
 </p></div><p></p><p>Document Object Model DOM → interact with HTML page</p><div class="indented"><p class="block-color-gray">
 Properties:
@@ -612,21 +613,21 @@ Properties:
 Methods:
 <mark class="highlight-gray"><code>document.createElement</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>document.getElementsByTagName</code></mark>
 , …
-</p></div><p></p><ul class="toggle"><li><details><summary>Example: Reading properties</summary><pre class="code"><code>&lt;UL id="t1"&gt;
-&lt;LI&gt;Item 1&lt;/LI&gt;
-&lt;/UL&gt;</code></pre><pre class="code"><code>document.getElementById('t1').nodeName
-// -&gt; returns 'UL'
-document.getElementById('t1').getAttribute('id')
-// -&gt; returns 't1'
-document.getElementById('t1').innerHTML
-// -&gt; returns '&lt;li&gt;Item 1&lt;/li&gt;'
-document.getElementById('t1').children[0].nodeName
-// -&gt; returns 'LI'
-document.getElementById('t1').children[0].innerText
-// -&gt; returns 'Item 1'</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Manipulating properties</summary><pre class="code"><code>let list = document.getElementById('t1');
-let item = document.createElement('LI');
-item.innerText = 'Item 2';
-list.appendChild(item);</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Adding Event Handlers</summary><pre class="code"><code>let list = document.getElementById('t1');
-list.addEventListener('click', (event) =&gt; {
-alert(`Clicked: ${event.target.innerText}`);
+</p></div><p></p><ul class="toggle"><li><details><summary>Example: Reading properties</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">UL</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;t1&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">LI</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-name">LI</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">UL</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">nodeName</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;UL&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&#x27;id&#x27;</span>)
+ <span class="hljs-comment">// -&gt; returns &#x27;t1&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">innerHTML</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;&lt;li&gt;Item 1&lt;/li&gt;&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">children</span>[<span class="hljs-number">0</span>].<span class="hljs-property">nodeName</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;LI&#x27;</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>).<span class="hljs-property">children</span>[<span class="hljs-number">0</span>].<span class="hljs-property">innerText</span>
+ <span class="hljs-comment">// -&gt; returns &#x27;Item 1&#x27;</span></code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Manipulating properties</summary><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> list = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>);
+<span class="hljs-keyword">let</span> item = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;LI&#x27;</span>);
+item.<span class="hljs-property">innerText</span> = <span class="hljs-string">&#x27;Item 2&#x27;</span>;
+list.<span class="hljs-title function_">appendChild</span>(item);</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Adding Event Handlers</summary><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> list = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;t1&#x27;</span>);
+list.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+ <span class="hljs-title function_">alert</span>(<span class="hljs-string">`Clicked: <span class="hljs-subst">${event.target.innerText}</span>`</span>);
 });</code></pre></details></li></ul></div></article></body></html>

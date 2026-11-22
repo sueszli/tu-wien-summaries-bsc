@@ -591,36 +591,57 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🤖</span></div><h1 class="page-title">OS UE - Betriebssysteme (Übung)</h1><p class="page-description"></p></header><div class="page-body">
 <p><a href="https://github.com/sueszli/tu-wien-summaries-bsc/tree/main/pages/OS%20UE%208b566f490523488ca2ae2f2d50e3704b/osue">Browse OS UE coursework on GitHub</a></p>
 <p></p><figure class="link-to-page"><a href="OS%20UE%208b566f490523488ca2ae2f2d50e3704b/development%20tools%20542bdb26a2f2402581cc6237cb0cad25.html">development tools</a></figure><figure class="link-to-page"><a href="OS%20UE%208b566f490523488ca2ae2f2d50e3704b/sigaction,%20getopt%20483ee7dcc6754bc7b7ba4f0dafe6a979.html">sigaction, getopt</a></figure><figure class="link-to-page"><a href="OS%20UE%208b566f490523488ca2ae2f2d50e3704b/semaphores,%20shared%20memory%20d7de63ad10024a00b9fde6e2f15a4fda.html">
 semaphores, shared memory
-</a></figure><figure class="link-to-page"><a href="OS%20UE%208b566f490523488ca2ae2f2d50e3704b/fork,%20pipe%203f3b410ba9fd4c43b6dfcaf14eaa9059.html">fork, pipe</a></figure><figure class="link-to-page"><a href="OS%20UE%208b566f490523488ca2ae2f2d50e3704b/socket%209e0d7ac7b2c64950a16f6fb58445c6f6.html">socket</a></figure><p></p><p></p><h2>Man pages</h2><p><em><em><em><em><em><em>getopt</em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 3 getopt</code></mark></p><p><mark class="highlight-gray"><code>man 3 string</code></mark></p><ul class="block-color-gray toggle"><li><details><summary>string functions overview</summary><pre class="code"><code>copy from src to dst:
-char *strdup(const char *s);
-char *stpcpy(char *dest, const char *src);
-char *strcpy(char *dest, const char *src);
-char *strncpy(char *dest, const char *src, size_t n);
-size_t strxfrm(char *dest, const char *src, size_t n);
-int asprintf(char **strp, const char *fmt, ...);append with string:
-char *strncat(char *dest, const char *src, size_t n);shuffle:
-char *strfry(char *string);get length:
-size_t strlen(const char *s);compare 2 strings:
-int strncmp(const char *s1, const char *s2, size_t n);
-int strcasecmp(const char *s1, const char *s2);
-int strncasecmp(const char *s1, const char *s2, size_t n);
-char *strcat(char *dest, const char *src);
-int strcmp(const char *s1, const char *s2);
-int strcoll(const char *s1, const char *s2);---first / last index of char:
-char *index(const char *s, int c);
-char *strchr(const char *s, int c);
-char *rindex(const char *s, int c);
-char *strrchr(const char *s, int c);first index of substring:
-char *strstr(const char *haystack, const char *needle);first index of one of chars:
-char *strpbrk(const char *s, const char *chars);count until first illegal char:
-size_t strspn(const char *s, const char *chars);
-size_t strcspn(const char *s, const char *chars);split string:
-char *strsep(char **stringp, const char *delim);
-char *strtok(char *s, const char *delim);</code></pre></details></li></ul></div><p></p><p><em><em><em><em><em><em><em><em><em><em><em><em><em>shared memory</em></em></em></em></em></em></em></em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 3 shm_open</code></mark></p><p><mark class="highlight-gray"><code>man 7 sem_overview</code></mark></p><p><mark class="highlight-gray"><code>man 7 shm_overview</code></mark></p><p><mark class="highlight-gray"><code>man 7 shm_overview</code></mark></p></div><p></p><p><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>fork, pipe, execle</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 2 pipe</code></mark><mark class="highlight-gray">- fork, pipe, write</mark></p><p><mark class="highlight-gray"><code>man 2 dup2</code></mark></p><p><mark class="highlight-gray"><code>man 2 wait</code></mark></p><p><mark class="highlight-gray"><code>man 3 system</code></mark></p></div><p></p><p><em><em><em><em><em><em>socket</em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 2 select_tut</code></mark><mark class="highlight-gray">- also has sigaction</mark></p><p><mark class="highlight-gray"><code>man 7 unix</code></mark><mark class="highlight-gray">- has overview</mark></p><p><mark class="highlight-gray"><code>man 3 getaddrinfo</code></mark><mark class="highlight-gray">- fallback, if no ipv4 given</mark></p></div><p></p><p></p><p></p><h2>Man pages for last exam</h2><p><mark class="highlight-gray"><code>man 2 select_tut</code></mark><mark class="highlight-gray">- if ipv4 is given</mark></p><p><mark class="highlight-gray"><code>man 7 unix</code></mark><mark class="highlight-gray">- has overview</mark></p><p><mark class="highlight-gray"><code>man 2 pipe</code></mark><mark class="highlight-gray">- fork, pipe, read/write</mark></p><p><mark class="highlight-gray"><code>man 3 system</code></mark></p><p></p><p>
+</a></figure><figure class="link-to-page"><a href="OS%20UE%208b566f490523488ca2ae2f2d50e3704b/fork,%20pipe%203f3b410ba9fd4c43b6dfcaf14eaa9059.html">fork, pipe</a></figure><figure class="link-to-page"><a href="OS%20UE%208b566f490523488ca2ae2f2d50e3704b/socket%209e0d7ac7b2c64950a16f6fb58445c6f6.html">socket</a></figure><p></p><p></p><h2>Man pages</h2><p><em><em><em><em><em><em>getopt</em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 3 getopt</code></mark></p><p><mark class="highlight-gray"><code>man 3 string</code></mark></p><ul class="block-color-gray toggle"><li><details><summary>string functions overview</summary><pre class="code"><code class="hljs language-c">copy from src to dst:
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strdup</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s)</span>;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">stpcpy</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src)</span>;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strcpy</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src)</span>;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strncpy</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src, <span class="hljs-type">size_t</span> n)</span>;
+      <span class="hljs-type">size_t</span> <span class="hljs-title function_">strxfrm</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src, <span class="hljs-type">size_t</span> n)</span>;
+      <span class="hljs-type">int</span> <span class="hljs-title function_">asprintf</span><span class="hljs-params">(<span class="hljs-type">char</span> **strp, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *fmt, ...)</span>;
+
+append with <span class="hljs-built_in">string</span>:
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strncat</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src, <span class="hljs-type">size_t</span> n)</span>;
+
+shuffle:
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strfry</span><span class="hljs-params">(<span class="hljs-type">char</span> *<span class="hljs-built_in">string</span>)</span>;
+
+get length:
+      <span class="hljs-type">size_t</span> <span class="hljs-title function_">strlen</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s)</span>;
+
+compare <span class="hljs-number">2</span> strings:
+      <span class="hljs-type">int</span> <span class="hljs-title function_">strncmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s1, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *s2, <span class="hljs-type">size_t</span> n)</span>;
+      <span class="hljs-type">int</span> <span class="hljs-title function_">strcasecmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s1, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *s2)</span>;
+      <span class="hljs-type">int</span> <span class="hljs-title function_">strncasecmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s1, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *s2, <span class="hljs-type">size_t</span> n)</span>;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strcat</span><span class="hljs-params">(<span class="hljs-type">char</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *src)</span>;
+      <span class="hljs-type">int</span> <span class="hljs-title function_">strcmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s1, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *s2)</span>;
+      <span class="hljs-type">int</span> <span class="hljs-title function_">strcoll</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s1, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *s2)</span>;
+
+---
+
+first / last index of <span class="hljs-type">char</span>:
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">index</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">int</span> c)</span>;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strchr</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">int</span> c)</span>;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">rindex</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">int</span> c)</span>;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strrchr</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">int</span> c)</span>;
+
+first index of substring:
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strstr</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *haystack, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *needle)</span>;
+
+first index of one of chars:
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strpbrk</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *chars)</span>;
+
+count until first illegal <span class="hljs-type">char</span>:
+      <span class="hljs-type">size_t</span> <span class="hljs-title function_">strspn</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *chars)</span>;
+      <span class="hljs-type">size_t</span> <span class="hljs-title function_">strcspn</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *chars)</span>;
+
+split <span class="hljs-built_in">string</span>:
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strsep</span><span class="hljs-params">(<span class="hljs-type">char</span> **stringp, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *delim)</span>;&#32;
+      <span class="hljs-type">char</span> *<span class="hljs-title function_">strtok</span><span class="hljs-params">(<span class="hljs-type">char</span> *s, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *delim)</span>;</code></pre></details></li></ul></div><p></p><p><em><em><em><em><em><em><em><em><em><em><em><em><em>shared memory</em></em></em></em></em></em></em></em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 3 shm_open</code></mark></p><p><mark class="highlight-gray"><code>man 7 sem_overview</code></mark></p><p><mark class="highlight-gray"><code>man 7 shm_overview</code></mark></p><p><mark class="highlight-gray"><code>man 7 shm_overview</code></mark></p></div><p></p><p><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>fork, pipe, execle</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 2 pipe</code></mark><mark class="highlight-gray">- fork, pipe, write</mark></p><p><mark class="highlight-gray"><code>man 2 dup2</code></mark></p><p><mark class="highlight-gray"><code>man 2 wait</code></mark></p><p><mark class="highlight-gray"><code>man 3 system</code></mark></p></div><p></p><p><em><em><em><em><em><em>socket</em></em></em></em></em></em></p><div class="indented"><p><mark class="highlight-gray"><code>man 2 select_tut</code></mark><mark class="highlight-gray">- also has sigaction</mark></p><p><mark class="highlight-gray"><code>man 7 unix</code></mark><mark class="highlight-gray">- has overview</mark></p><p><mark class="highlight-gray"><code>man 3 getaddrinfo</code></mark><mark class="highlight-gray">- fallback, if no ipv4 given</mark></p></div><p></p><p></p><p></p><h2>Man pages for last exam</h2><p><mark class="highlight-gray"><code>man 2 select_tut</code></mark><mark class="highlight-gray">- if ipv4 is given</mark></p><p><mark class="highlight-gray"><code>man 7 unix</code></mark><mark class="highlight-gray">- has overview</mark></p><p><mark class="highlight-gray"><code>man 2 pipe</code></mark><mark class="highlight-gray">- fork, pipe, read/write</mark></p><p><mark class="highlight-gray"><code>man 3 system</code></mark></p><p></p><p>
 //
 <mark class="highlight-gray"><code>man 3 getaddrinfo</code></mark><mark class="highlight-gray">- fallback, if no ipv4 given</mark></p></div></article></body></html>

@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">
 toString,
@@ -599,42 +600,50 @@ toString,
 hashCode
 </h1><p class="page-description"></p></header><div class="page-body"><p>
 Konzepte aus
-<mark class="highlight-gray"><code>java.lang.Object</code></mark></p><p></p><pre class="code"><code>public class BoxedText {private int textWidth = 0;
-private int textHeight = 0;
-private char [][] text = new char [0][];
-...
-public boolean equals(Object o) {
-if (this == o) { return true; }
-if (o == null || o.getClass() != BoxedText.class) { return false; }
-BoxedText b = (BoxedText)o;
-//compare content
-if ( textHeight != b.textHeight || textWidth != b. textWidth ) { return false ; }
-for (int i = 0; i &lt; textWidth ; i++) {
-for (int j = 0; j &lt; textHeight; j++) {
-if (text[i][j] != b.text[i][j]) { return false ; }
-}
-}
-return true;
-}public int hashCode() {
-int h = 7654321 + 7 * textWidth + textHeight;
-for (int i = 0; i &lt; textWidth ; i++) {
-for (int j = 0; j &lt; textHeight; j++) {
-h = 1234567 * h + text[i][j];
-}
-}
-return h;
-}}</code></pre><h2><code>.toString()</code></h2><p>
+<mark class="highlight-gray"><code>java.lang.Object</code></mark></p><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BoxedText</span> {
+
+	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">textWidth</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">textHeight</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">private</span> <span class="hljs-type">char</span> [][] text = <span class="hljs-keyword">new</span> <span class="hljs-title class_">char</span> [<span class="hljs-number">0</span>][];
+&#9;
+	...
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span><span class="hljs-params">(Object o)</span> {
+		<span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span> == o) { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }
+		<span class="hljs-keyword">if</span> (o == <span class="hljs-literal">null</span> || o.getClass() != BoxedText.class) { <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; }
+		<span class="hljs-type">BoxedText</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> (BoxedText)o;
+		<span class="hljs-comment">//compare content</span>
+		<span class="hljs-keyword">if</span> ( textHeight != b.textHeight || textWidth != b. textWidth ) { <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> ; }
+		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; textWidth ; i++) {
+			<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; textHeight; j++) {
+				<span class="hljs-keyword">if</span> (text[i][j] != b.text[i][j]) { <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> ; }
+			}
+		}
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	}
+
+	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span><span class="hljs-params">()</span> {
+		<span class="hljs-type">int</span> <span class="hljs-variable">h</span> <span class="hljs-operator">=</span> <span class="hljs-number">7654321</span> + <span class="hljs-number">7</span> * textWidth + textHeight;
+		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; textWidth ; i++) {
+			<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; textHeight; j++) {
+				h = <span class="hljs-number">1234567</span> * h + text[i][j];
+			}
+		}
+		<span class="hljs-keyword">return</span> h;
+	}
+
+}</code></pre><h2><code>.toString()</code></h2><p>
 Vordefiniert: Klassenname (
 <code>object.getClass.getName()</code>
 ) und Hash-Hexadezimal-Adresse
-</p><p>Override: Inhalt des Objekts</p><p></p><h2><code>.equals()</code></h2><pre class="code"><code>@Override
-public boolean equals(Object obj) {
-if (this == obj) return true;// Optimierung, garantiert x.equals(x)
-if (obj == null || getClass() != obj.getClass()) {
-return false; // dyn. Typen verschieden, garantiert !x.equals(null)
-}
-NameOfThisClass that = (NameOfThisClass) obj; // casting
-...// type-specific / content-specific comparison of this and that
+</p><p>Override: Inhalt des Objekts</p><p></p><h2><code>.equals()</code></h2><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Override</span>
+<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span><span class="hljs-params">(Object obj)</span> {
+	<span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span> == obj) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<span class="hljs-comment">// Optimierung, garantiert x.equals(x)</span>
+	<span class="hljs-keyword">if</span> (obj == <span class="hljs-literal">null</span> || getClass() != obj.getClass()) {
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">// dyn. Typen verschieden, garantiert !x.equals(null)</span>
+	}
+	<span class="hljs-type">NameOfThisClass</span> <span class="hljs-variable">that</span> <span class="hljs-operator">=</span> (NameOfThisClass) obj; <span class="hljs-comment">// casting</span>
+	...<span class="hljs-comment">// type-specific / content-specific comparison of this and that</span>
 }</code></pre><p>
 Vordefiniert: Vergleicht Objektreferenzen mit
 <code>return this == y</code></p><p>Eigenschaften: (wenn x, y ≠ null)</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li><code>x.equals(null)</code>

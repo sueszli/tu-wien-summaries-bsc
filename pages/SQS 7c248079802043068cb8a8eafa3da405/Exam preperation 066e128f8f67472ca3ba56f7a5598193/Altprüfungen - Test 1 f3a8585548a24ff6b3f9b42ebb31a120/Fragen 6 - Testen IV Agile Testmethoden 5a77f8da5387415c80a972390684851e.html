@@ -720,10 +720,14 @@ beinhalten – Muss mind. einen Buchstaben beinhalten
 Examples
 <p>Erstellung von Testdaten: “abc123”, “abcdefghi”, “1aaaaaaaaa”, “ajx972dab”</p></li></ol><ol class="numbered-list" start="4" type="1"><li>
 Executable Examples
-<p>Durch BDD:</p><pre class="code"><code>Given the "Unregistered User" user has navigated to the "register" pageWhen entering "newuser" in the "Username" field
+<p>Durch BDD:</p><pre class="code"><code>Given the "Unregistered User" user has navigated to the "register" page
+
+When entering "newuser" in the "Username" field
 And entering "abc123" in the "Password" field
 And entering "abc1 23" in the "Confirm Password" field
-And pressing the "Register" buttonThen the text "Thank you for Registering" should appear on page
+And pressing the "Register" button
+
+Then the text "Thank you for Registering" should appear on page
 And the URL should end with "use/accountPage"</code></pre><p></p></li></ol></div><p></p><p></p></details></li></ul><p></p><p><mark class="highlight-blue">Werkzeuge</mark></p><ul class="toggle"><li><details><summary><del>Werkzeuge in agiler Softwareentwicklung</del></summary><p><mark class="highlight-blue">Werzeuge</mark></p><div class="indented"><p>Organisation vom Team</p><div class="indented"><p>Aufgabenmanagement- und Nachverfolgungswerkzeuge</p><p>Speichern von US (Entwicklungs- und Testaufgaben), Aufwandsschätzungen, Aufgabenstatus</p></div><p></p><p>Kommunikation</p><div class="indented"><p>Kommunikations- und Informationsweitergabe-Werkzeuge (synchron und asynchron)</p></div><p></p><p>Build und Distribution</p><p>Konfigurationsmanagement und Version Control System VCS</p><div class="indented"><p>Speichern von Quellcode, automatisierten Testskripten, manuellen Tests, Arbeitsergebnisse mit Versionsverwaltung</p></div><p></p><p>Testentwurf, Implementierung und Durchführung</p><div class="indented"><p>
 – Testentwurf mit zB. Mind Maps – Testfallmanagement-Werkzeuge – Testdatenvorbereitung, Daten-Generation um Datenbank zu
 füllen – Testdatenladewerkzeuge: damit man nicht manuell Daten eingeben muss – Automatisierte Testdurchführung

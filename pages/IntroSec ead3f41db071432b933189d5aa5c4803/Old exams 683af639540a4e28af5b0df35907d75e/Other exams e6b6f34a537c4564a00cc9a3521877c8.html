@@ -591,14 +591,17 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
-</head><body><article class="page sans"><header><h1 class="page-title">Other exams</h1><p class="page-description"></p></header><div class="page-body"><h2>Buffer Overflow</h2><ul class="toggle"><li><details><summary>original image</summary><figure class="image"><a href="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png"><img src="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png" style="width: 935px"/></a></figure></details></li></ul><pre class="code"><code>void next_tag(char* buf) {
-strncpy(buf, "FOOBAR", 6);
-}void main (int argc, char* argv[]) {
-char a[8];
-char b[8];
-next_tag(a) ; /*copies "FOOBAR" into a */
-gets(b);	/*copies from the standard input into b */
+</head><body><article class="page sans"><header><h1 class="page-title">Other exams</h1><p class="page-description"></p></header><div class="page-body"><h2>Buffer Overflow</h2><ul class="toggle"><li><details><summary>original image</summary><figure class="image"><a href="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png"><img src="Other%20exams%20e6b6f34a537c4564a00cc9a3521877c8/Untitled.png" style="width: 935px"/></a></figure></details></li></ul><pre class="code"><code class="hljs language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">next_tag</span><span class="hljs-params">(<span class="hljs-type">char</span>* buf)</span> {
+	<span class="hljs-built_in">strncpy</span>(buf, <span class="hljs-string">&quot;FOOBAR&quot;</span>, <span class="hljs-number">6</span>);
+}
+
+<span class="hljs-type">void</span> <span class="hljs-title function_">main</span> <span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span> {
+	<span class="hljs-type">char</span> a[<span class="hljs-number">8</span>];
+	<span class="hljs-type">char</span> b[<span class="hljs-number">8</span>];
+	next_tag(a) ; <span class="hljs-comment">/*copies &quot;FOOBAR&quot; into a */</span>
+	gets(b);	<span class="hljs-comment">/*copies from the standard input into b */</span>
 }</code></pre><ul class="bulleted-list"><li style="list-style-type: disc"><code>a</code>
 can not contain the NULL terminated string "START" after a buffer overflow
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><code>b</code>

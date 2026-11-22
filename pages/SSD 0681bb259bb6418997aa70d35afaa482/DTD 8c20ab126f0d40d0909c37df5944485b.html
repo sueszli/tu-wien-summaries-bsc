@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">DTD</h1><p class="page-description"></p></header><div class="page-body"><figure class="link-to-page"><a href="DTD%208c20ab126f0d40d0909c37df5944485b/Examples%20fa68f206eefb4f198aca6546b6156f85.html"><span class="icon">📎</span>
 Examples
@@ -620,18 +621,20 @@ zero or one
 zero or more
 </p><p><mark class="highlight-gray"><code>child+</code></mark>
 one or more
-</p></div><p></p><p>Can be used for more complex expressions</p></div><p></p><figure class="image"><a href="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png"><img src="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png" style="width: 240px"/></a></figure><p></p><p><mark class="highlight-blue">Namespaces</mark></p><div class="indented"><p>The validator does not care about name spaces - they make no difference</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>&lt;!ELEMENT course (title, assessment, univ:assessment)&gt;
-&lt;!ATTLIST course xmlns CDATA #FIXED "www.oeh.ac.at"&gt;
-&lt;!ATTLIST course xmlns:univ CDATA #REQUIRED&gt;
-&lt;!ELEMENT title (#PCDATA)&gt;
-&lt;!ELEMENT assessment (#PCDATA)&gt;
-&lt;!ELEMENT univ:assessment (#PCDATA)&gt;</code></pre><pre class="code"><code>&lt;!-- Students' and University's Evaluation --&gt;
-&lt;course
-xmlns="www.oeh.ac.at"
-xmlns:univ="www.tuwien.ac.at"&gt;&lt;title&gt; SSD &lt;/title&gt;
-&lt;assessment&gt; Fair &lt;/assessment &gt;
-&lt;univ:assessment&gt; Elective &lt;/univ:assessment &gt;
-&lt;/course&gt;</code></pre><p></p></details></li></ul></div><p></p><p></p><p></p><h1 id="670942a5-9acb-40cd-8e88-248a77f1d422">2) Attribute declaration</h1><h3 id="67ba9b80-752e-4b53-933a-741be0e50825"><mark class="highlight-gray"><code>&lt;!ATTLIST elementName attributeName</code></mark><code>attributeType attributeDefault</code><mark class="highlight-gray"><code>&gt;</code></mark></h3><p></p><p><mark class="highlight-blue">Attribute types</mark></p><div class="indented"><p><code>(...|...)</code><mark class="highlight-gray"></mark>
+</p></div><p></p><p>Can be used for more complex expressions</p></div><p></p><figure class="image"><a href="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png"><img src="DTD%208c20ab126f0d40d0909c37df5944485b/Untitled.png" style="width: 240px"/></a></figure><p></p><p><mark class="highlight-blue">Namespaces</mark></p><div class="indented"><p>The validator does not care about name spaces - they make no difference</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">course</span> (<span class="hljs-keyword">title</span>, <span class="hljs-keyword">assessment</span>, <span class="hljs-keyword">univ</span>:<span class="hljs-keyword">assessment</span>)&gt;</span>
+<span class="hljs-meta">&lt;!ATTLIST <span class="hljs-keyword">course</span> <span class="hljs-keyword">xmlns</span> <span class="hljs-keyword">CDATA</span> <span class="hljs-keyword">#FIXED</span> <span class="hljs-string">&quot;www.oeh.ac.at&quot;</span>&gt;</span>
+<span class="hljs-meta">&lt;!ATTLIST <span class="hljs-keyword">course</span> <span class="hljs-keyword">xmlns</span>:univ <span class="hljs-keyword">CDATA</span> <span class="hljs-keyword">#REQUIRED</span>&gt;</span>
+<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">title</span> (<span class="hljs-keyword">#PCDATA</span>)&gt;</span>
+<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">assessment</span> (<span class="hljs-keyword">#PCDATA</span>)&gt;</span>
+<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">univ</span>:assessment (<span class="hljs-keyword">#PCDATA</span>)&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-comment">&lt;!-- Students&#x27; and University&#x27;s Evaluation --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">course</span>
+	<span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;www.oeh.ac.at&quot;</span>
+	<span class="hljs-attr">xmlns:univ</span>=<span class="hljs-string">&quot;www.tuwien.ac.at&quot;</span>&gt;</span>
+
+	<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span> SSD <span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">assessment</span>&gt;</span> Fair &lt;/assessment &gt;
+	<span class="hljs-tag">&lt;<span class="hljs-name">univ:assessment</span>&gt;</span> Elective &lt;/univ:assessment &gt;
+<span class="hljs-tag">&lt;/<span class="hljs-name">course</span>&gt;</span></code></pre><p></p></details></li></ul></div><p></p><p></p><p></p><h1 id="670942a5-9acb-40cd-8e88-248a77f1d422">2) Attribute declaration</h1><h3 id="67ba9b80-752e-4b53-933a-741be0e50825"><mark class="highlight-gray"><code>&lt;!ATTLIST elementName attributeName</code></mark><code>attributeType attributeDefault</code><mark class="highlight-gray"><code>&gt;</code></mark></h3><p></p><p><mark class="highlight-blue">Attribute types</mark></p><div class="indented"><p><code>(...|...)</code><mark class="highlight-gray"></mark>
 only one of the two given values allowed
 </p><p><code>CDATA</code><mark class="highlight-gray"></mark>
 any string
@@ -663,23 +666,23 @@ We can add more to the 5 predefined XML entities:
 ,
 <mark class="highlight-gray"><code>quot</code></mark>
 ,
-<mark class="highlight-gray"><code>apos</code></mark></p><p><mark class="highlight-gray">ie.</mark><mark class="highlight-gray"><code>&lt;!ENTITY ssd "Semi-structured Data"&gt;</code></mark><mark class="highlight-gray">then we use</mark><mark class="highlight-gray"><code>&amp;ssd;</code></mark><mark class="highlight-gray">instead of typing it out</mark></p></div><p></p><p></p><p></p><h1 id="d606ec60-44ca-4001-bcd3-fb5f53f79d3b">Declaring the DTD</h1><p><mark class="highlight-blue">Document type declaration (≠ DTD)</mark></p><p><mark class="highlight-gray">Referencing the DTD after the XML declaration</mark></p><div class="indented"><ol class="numbered-list" start="1" type="1"><li><em>Using URL or local path</em><pre class="code"><code>&lt;!DOCTYPE person SYSTEM "http://www.mysite.com/dtds/person.dtd"&gt;
-&lt;!DOCTYPE person SYSTEM "/dtds/person.dtd"&gt;
-&lt;!DOCTYPE person SYSTEM "person.dtd"&gt; &lt;!--If in the same directory--&gt;</code></pre><p>
+<mark class="highlight-gray"><code>apos</code></mark></p><p><mark class="highlight-gray">ie.</mark><mark class="highlight-gray"><code>&lt;!ENTITY ssd "Semi-structured Data"&gt;</code></mark><mark class="highlight-gray">then we use</mark><mark class="highlight-gray"><code>&amp;ssd;</code></mark><mark class="highlight-gray">instead of typing it out</mark></p></div><p></p><p></p><p></p><h1 id="d606ec60-44ca-4001-bcd3-fb5f53f79d3b">Declaring the DTD</h1><p><mark class="highlight-blue">Document type declaration (≠ DTD)</mark></p><p><mark class="highlight-gray">Referencing the DTD after the XML declaration</mark></p><div class="indented"><ol class="numbered-list" start="1" type="1"><li><em>Using URL or local path</em><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">person</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;http://www.mysite.com/dtds/person.dtd&quot;</span>&gt;</span>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">person</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;/dtds/person.dtd&quot;</span>&gt;</span>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">person</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;person.dtd&quot;</span>&gt;</span> <span class="hljs-comment">&lt;!--If in the same directory--&gt;</span></code></pre><p>
 Keyword
 <mark class="highlight-gray"><code>SYSTEM</code></mark><mark class="highlight-gray"></mark>
 if it is user-defined,
 <mark class="highlight-gray"><code>PUBLIC</code></mark><mark class="highlight-gray"></mark>
 if its publically available
-</p><pre class="code"><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "xhtml11.dtd"&gt;</code></pre><p></p></li></ol><ol class="numbered-list" start="2" type="1"><li><em>Fully defining DTD in the same document</em><pre class="code"><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
-&lt;!DOCTYPE person [
-&lt;!ELEMENT person (name, tel, fax, email+)&gt;
-&lt;!ELEMENT name (first, last)&gt;
-&lt;!ELEMENT email (#PCDATA)&gt;
-]&gt;
-...</code></pre><p></p></li></ol><ol class="numbered-list" start="3" type="1"><li><em>Partially defining DTD in the same document</em><p>DTD = internal DTD subset + external DTD subset</p><pre class="code"><code>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;!DOCTYPE person SYSTEM "person_text.dtd" [
-&lt;!ELEMENT person (name, tel, fax, email+)&gt;
-&lt;!ELEMENT name (first, last)&gt;
-]&gt;
-...</code></pre><pre class="code"><code>&lt;!ELEMENT email (#PCDATA)&gt;</code></pre><p></p></li></ol></div><p></p></div></article></body></html>
+</p><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span> <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//W3C//DTD XHTML 1.1//EN&quot;</span> <span class="hljs-string">&quot;xhtml11.dtd&quot;</span>&gt;</span></code></pre><p></p></li></ol><ol class="numbered-list" start="2" type="1"><li><em>Fully defining DTD in the same document</em><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> standalone=<span class="hljs-string">&quot;yes&quot;</span>?&gt;</span>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">person</span> [
+	<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">person</span> (<span class="hljs-keyword">name</span>, <span class="hljs-keyword">tel</span>, <span class="hljs-keyword">fax</span>, <span class="hljs-keyword">email</span>+)&gt;</span>
+	<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">name</span> (<span class="hljs-keyword">first</span>, <span class="hljs-keyword">last</span>)&gt;</span>
+	<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">email</span> (<span class="hljs-keyword">#PCDATA</span>)&gt;</span>
+]&gt;</span>
+...</code></pre><p></p></li></ol><ol class="numbered-list" start="3" type="1"><li><em>Partially defining DTD in the same document</em><p>DTD = internal DTD subset + external DTD subset</p><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> standalone=<span class="hljs-string">&quot;no&quot;</span>?&gt;</span>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">person</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;person_text.dtd&quot;</span> [
+	<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">person</span> (<span class="hljs-keyword">name</span>, <span class="hljs-keyword">tel</span>, <span class="hljs-keyword">fax</span>, <span class="hljs-keyword">email</span>+)&gt;</span>
+	<span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">name</span> (<span class="hljs-keyword">first</span>, <span class="hljs-keyword">last</span>)&gt;</span>
+]&gt;</span>
+...</code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;!ELEMENT <span class="hljs-keyword">email</span> (<span class="hljs-keyword">#PCDATA</span>)&gt;</span></code></pre><p></p></li></ol></div><p></p></div></article></body></html>

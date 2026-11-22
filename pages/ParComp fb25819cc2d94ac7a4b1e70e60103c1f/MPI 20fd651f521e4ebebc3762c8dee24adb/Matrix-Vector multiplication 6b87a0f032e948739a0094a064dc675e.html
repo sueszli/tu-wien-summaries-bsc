@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Matrix-Vector multiplication</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b82624b4-8005-43be-bf2c-462dac8da53d">Theory</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#87979775-950e-4725-ac88-fe15cd468c08">
 Solution 1:
@@ -1019,5 +1020,5 @@ margin-right: 0.08333333333333334em;
 -1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
 -7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
 H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span></span><span class="mord sizing reset-size6 size5">’</span><span class="mopen sizing reset-size6 size5">[</span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mclose sizing reset-size6 size5">]</span></span></span></span></span><span>﻿</span></span></p><p></p></li></ol></div><p></p><pre class="code"><code>MPI_Reduce_scatter_block(partial,result,n/p,MPI_FLOAT,MPI_SUM,comm);</code></pre><pre class="code"><code>for (i=0; i&lt;p; i++) counts[i] = n/p;
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span></span><span class="mord sizing reset-size6 size5">’</span><span class="mopen sizing reset-size6 size5">[</span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mclose sizing reset-size6 size5">]</span></span></span></span></span><span>﻿</span></span></p><p></p></li></ol></div><p></p><pre class="code"><code>MPI_Reduce_scatter_block(partial,result,n/p,MPI_FLOAT,MPI_SUM,comm);</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;p; i++) counts[i] = n/p;
 MPI_Reduce_scatter(partial,result,counts,MPI_FLOAT,MPI_SUM,comm);</code></pre><p></p><figure class="image"><a href="Matrix-Vector%20multiplication%206b87a0f032e948739a0094a064dc675e/Untitled.png"><img src="Matrix-Vector%20multiplication%206b87a0f032e948739a0094a064dc675e/Untitled.png" style="width: 192px"/></a></figure><p></p></div></article></body></html>

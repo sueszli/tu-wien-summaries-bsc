@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Vue.js</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://v2.vuejs.org/v2/guide/">https://v2.vuejs.org/v2/guide/</a></p><hr/><p><a href="https://www.youtube.com/watch?v=gbw8dyJT9AI">https://www.youtube.com/watch?v=gbw8dyJT9AI</a></p><div class="indented"><p><a href="https://github.com/web-engineering-tuwien/recipe-search-live-demo/tree/vue">
 https://github.com/web-engineering-tuwien/recipe-search-live-demo/tree/vue
@@ -619,38 +620,46 @@ Model changes (triggered by user or backend)
 Value changes
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
 DOM update
-</p></div><p></p></div><p></p><p><mark class="highlight-teal">single page application</mark></p><div class="indented"><p>A single fetch from backend</p><p></p></div><p></p><h1 id="9c42a196-aec2-4d42-9e38-e5db205ed748">Vue.js</h1><p>Vue.js is a JavaScript Framework.</p><ul class="toggle"><li><details><summary>CLI commands</summary><p><a href="https://cli.vuejs.org/guide/">https://cli.vuejs.org/guide/</a></p><p></p><p>Create project</p><div class="indented"><p><mark class="highlight-gray"><code>vue create &lt;projectName&gt;</code></mark></p><p><mark class="highlight-gray"><code>vue ui</code></mark><mark class="highlight-gray">→ graphical ui</mark></p></div><p></p><p></p><p>Project setup</p><div class="indented"><p><mark class="highlight-gray"><code>npm install</code></mark></p></div><p></p><p>Compiles and hot-reloads for development</p><div class="indented"><p><mark class="highlight-gray"><code>npm run serve</code></mark></p></div><p></p><p>Compiles and minifies for production</p><div class="indented"><p><mark class="highlight-gray"><code>npm run build</code></mark></p></div><p></p><p>Lints and fixes files</p><div class="indented"><p><mark class="highlight-gray"><code>npm run lint</code></mark></p></div><p></p></details></li></ul><p></p><p>Ways to import</p><ul class="toggle"><li><details><summary><mark class="highlight-teal">As library - directly in html</mark></summary><pre class="code"><code>&lt;script	src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"&gt;&lt;/script&gt;&lt;div id="app"&gt;
-Hello, {{ course }}	    &lt;- View
-&lt;/div&gt;&lt;script&gt;
-var	app	=	new Vue({	    &lt;- ViewModel
-el:	'#app',
-data:	{	            &lt;- Model
-course:	'Web Engineering'
-}
-})
-&lt;/script&gt;</code></pre></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">As javascript framework</mark></summary><p>
+</p></div><p></p></div><p></p><p><mark class="highlight-teal">single page application</mark></p><div class="indented"><p>A single fetch from backend</p><p></p></div><p></p><h1 id="9c42a196-aec2-4d42-9e38-e5db205ed748">Vue.js</h1><p>Vue.js is a JavaScript Framework.</p><ul class="toggle"><li><details><summary>CLI commands</summary><p><a href="https://cli.vuejs.org/guide/">https://cli.vuejs.org/guide/</a></p><p></p><p>Create project</p><div class="indented"><p><mark class="highlight-gray"><code>vue create &lt;projectName&gt;</code></mark></p><p><mark class="highlight-gray"><code>vue ui</code></mark><mark class="highlight-gray">→ graphical ui</mark></p></div><p></p><p></p><p>Project setup</p><div class="indented"><p><mark class="highlight-gray"><code>npm install</code></mark></p></div><p></p><p>Compiles and hot-reloads for development</p><div class="indented"><p><mark class="highlight-gray"><code>npm run serve</code></mark></p></div><p></p><p>Compiles and minifies for production</p><div class="indented"><p><mark class="highlight-gray"><code>npm run build</code></mark></p></div><p></p><p>Lints and fixes files</p><div class="indented"><p><mark class="highlight-gray"><code>npm run lint</code></mark></p></div><p></p></details></li></ul><p></p><p>Ways to import</p><ul class="toggle"><li><details><summary><mark class="highlight-teal">As library - directly in html</mark></summary><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>	<span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>&#9;
+		Hello, {{ course }}	    &lt;- View
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>&#9;
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">&#9;
+		<span class="hljs-keyword">var</span>	app	=	<span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>({	    &lt;- ViewModel&#32;
+				el:	&#x27;#app&#x27;,&#9;
+				data:	{	            &lt;- Model
+					course:	&#x27;Web Engineering&#x27;
+				}&#9;
+		})&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal">As javascript framework</mark></summary><p>
 Components are organized in
 <code>.vue</code>
 Files (transpiled to JavaScript in build process).
-</p><pre class="code"><code>&lt;template&gt;
-&lt;div id="app"&gt;
-Hello, {{ course }}
-&lt;/div&gt;
-&lt;/template&gt;&lt;script&gt;
-export default	{
-name: 'App',
-data: function() { &lt;- Model is a function because this is a component
-return {
-course: 'Web Engineering'
-}
-},
-}
-&lt;/script&gt;&lt;style&gt;
-#app	{
-font-family:	Arial;
-color:	#2c3e50;
-}
-&lt;/style&gt;</code></pre></details></li></ul><p></p><h2 id="ee6069fd-853f-4cfd-bc77-f705e5b31771">Components</h2><p>Consist of</p><div class="indented"><p><mark class="highlight-gray"><code>&lt;template&gt;</code></mark>
+</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>&#9;
+		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span>&#9;
+				Hello, {{ course }}&#9;
+		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>&#9;
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">&#9;
+		<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span>	{&#9;
+				<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;App&#x27;</span>,&#9;
+				<span class="hljs-attr">data</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { <span class="language-xml">&lt;- Model is a function because this is a component&#9;
+						return {&#9;
+						  course: &#x27;Web Engineering&#x27;
+						}&#9;
+				},&#9;
+		}&#9;
+</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>&#9;
+
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css">&#9;
+		<span class="hljs-selector-id">#app</span>	{&#9;
+				<span class="hljs-attribute">font-family</span>:	Arial;&#9;
+				<span class="hljs-attribute">color</span>:	<span class="hljs-number">#2c3e50</span>;&#9;
+		}&#9;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre></details></li></ul><p></p><h2 id="ee6069fd-853f-4cfd-bc77-f705e5b31771">Components</h2><p>Consist of</p><div class="indented"><p><mark class="highlight-gray"><code>&lt;template&gt;</code></mark>
 HTML code, declares binding
 </p><p><mark class="highlight-gray"><code>&lt;script&gt;</code></mark>
 Behaviour of ViewModel
@@ -672,115 +681,117 @@ One-Way Binding
 Interpolation Syntax
 <mark class="highlight-gray"><code>{{ data }}</code></mark></p><p>
 As attribute
-<mark class="highlight-gray"><code>&lt;img v-bind:src="standardImage"&gt;</code></mark></p><p><mark class="highlight-gray"><code>&lt;img :src="standardImage"&gt;</code></mark><mark class="highlight-gray">(syntactic sugar)</mark></p><pre class="code"><code>&lt;template&gt;
-&lt;article&gt;
-&lt;h2&gt;{{recipe.title}}&lt;/h2&gt;
-...
-&lt;img :src="standardImage"&gt;
-&lt;/article&gt;
-&lt;/template&gt;
-&lt;script&gt;
-export	default	{
-name: "RecipeItem",
-props: {
-recipe: {
-title: String,
-thumbnail: String,
-url: String,
-ingredients: Array
-}
-},
-data: function() {
-return	{
-standardImage	:
-"standard.jpg"
-}
-}
-}
-&lt;/script&gt;</code></pre><h2 id="a53d8072-f270-4a04-9f28-931d6362969c">
+<mark class="highlight-gray"><code>&lt;img v-bind:src="standardImage"&gt;</code></mark></p><p><mark class="highlight-gray"><code>&lt;img :src="standardImage"&gt;</code></mark><mark class="highlight-gray">(syntactic sugar)</mark></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>{{recipe.title}}<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+				...
+				<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">&quot;standardImage&quot;</span>&gt;</span>&#9;&#9;
+		<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>&#9;&#9;
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">&#9;
+		<span class="hljs-keyword">export</span>	<span class="hljs-keyword">default</span>	{&#9;
+				<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;RecipeItem&quot;</span>,&#9;
+				<span class="hljs-attr">props</span>: {
+						<span class="hljs-attr">recipe</span>: {&#9;
+								<span class="hljs-attr">title</span>: <span class="hljs-title class_">String</span>,&#9;
+								<span class="hljs-attr">thumbnail</span>: <span class="hljs-title class_">String</span>,&#9;
+								<span class="hljs-attr">url</span>: <span class="hljs-title class_">String</span>,&#9;
+								<span class="hljs-attr">ingredients</span>: <span class="hljs-title class_">Array</span>&#9;
+						}&#9;
+				},
+				<span class="hljs-attr">data</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+						<span class="hljs-keyword">return</span>	{&#9;
+								standardImage	:&#9;
+										<span class="hljs-string">&quot;standard.jpg&quot;</span>
+						}&#9;
+				}&#9;
+		}&#9;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><h2 id="a53d8072-f270-4a04-9f28-931d6362969c">
 Two-Way Binding
 <code>v-model</code></h2><p><mark class="highlight-gray">Not possible for properties, direct binding to parent causes maintainability issues</mark></p><p>The same as one way binding + emitting events.</p><p>
 As attribute
-<mark class="highlight-gray"><code>&lt;input v-model="ingredientInput"&gt;</code></mark></p><pre class="code"><code>&lt;template&gt;
-&lt;section id="search"&gt;
-&lt;form	…&gt;
-&lt;label for="ingredients"&gt;
-Ingredients
-&lt;/label&gt;
-&lt;input v-model="ingredientInput"
-type="text" name="ingredients" /&gt;
-&lt;button type="submit"&gt;Search&lt;/button&gt;
-&lt;/form&gt;
-&lt;/section&gt;
-...
-&lt;/template&gt;</code></pre><h2 id="40facfe9-a4bf-4e04-abb6-05e34681d2fa">Computed Properties</h2><p>Derived properties from model (data).</p><p>Should only</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">contain simple operations</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">be synchronous (will be cache, lazy reevaluated)</li></ul></div><p></p><pre class="code"><code>&lt;template&gt;
-&lt;article&gt;
-&lt;h2&gt;{{recipe.title}}&lt;/h2&gt;
-...
-How	many?	{{ ingredientCount }}!
-&lt;/article&gt;
-&lt;/template&gt;&lt;script&gt;
-export default	{
-name: "RecipeItem",
-props: {
-recipe:	{
-title: String,
-thumbnail: String,
-url: String,
-ingredients: Array
-}
-},
-computed : {
-ingredientCount : () =&gt; {
-return this.ingredients.length;
-}
-}
-}
-&lt;/script&gt;</code></pre><p></p><p>Requires getters and setters for two way binding:</p><pre class="code"><code>computed	:	{
-ingredients	:	{
-get: function() {
-return this.ingredientInput.split(',');
-},
-set: function(ingredients) {
-this.ingredientInput = ingredients.join(',');
-}
-}
+<mark class="highlight-gray"><code>&lt;input v-model="ingredientInput"&gt;</code></mark></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>&#9;
+		<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;search&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">form</span>	…&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;ingredients&quot;</span>&gt;</span>
+									Ingredients
+					<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;ingredientInput&quot;</span>
+							<span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ingredients&quot;</span> /&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Search<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+		...
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre><h2 id="40facfe9-a4bf-4e04-abb6-05e34681d2fa">Computed Properties</h2><p>Derived properties from model (data).</p><p>Should only</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">contain simple operations</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">be synchronous (will be cache, lazy reevaluated)</li></ul></div><p></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>{{recipe.title}}<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+				...
+				How	many?	{{ ingredientCount }}!&#9;&#9;
+		<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>&#9;&#9;
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">&#9;
+		<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span>	{&#9;
+				<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;RecipeItem&quot;</span>,&#9;
+				<span class="hljs-attr">props</span>: {&#9;
+						<span class="hljs-attr">recipe</span>:	{&#9;
+								<span class="hljs-attr">title</span>: <span class="hljs-title class_">String</span>,&#9;
+								<span class="hljs-attr">thumbnail</span>: <span class="hljs-title class_">String</span>,&#9;
+								<span class="hljs-attr">url</span>: <span class="hljs-title class_">String</span>,&#9;
+								<span class="hljs-attr">ingredients</span>: <span class="hljs-title class_">Array</span>&#9;
+						}&#9;
+				},
+				computed : {
+						ingredientCount : <span class="hljs-function">() =&gt;</span> {&#9;
+								<span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">ingredients</span>.<span class="hljs-property">length</span>;
+						}
+				}&#9;
+		}&#9;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p></p><p>Requires getters and setters for two way binding:</p><pre class="code"><code class="hljs language-javascript">computed	:	{&#9;
+		ingredients	:	{&#9;
+				<span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {&#9;
+						<span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">ingredientInput</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);&#9;
+				},&#9;
+				<span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">ingredients</span>) {&#9;
+						<span class="hljs-variable language_">this</span>.<span class="hljs-property">ingredientInput</span> = ingredients.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;,&#x27;</span>);&#9;
+				}&#9;
+		}&#9;
 }</code></pre><h2 id="467564b7-c598-4e5c-bdf8-765584a3bca9">
 Conditional rendering in Templates
 <code>v-if</code>
 ,
 <code>v-else</code>
 ,
-<code>v-else-if</code></h2><pre class="code"><code>&lt;template&gt;
-&lt;article&gt;
-&lt;h2&gt;{{recipe.title}}&lt;/h2&gt;
-&lt;div&gt;
-&lt;div&gt;
-&lt;img v-if="recipe.thumbnail"
-:src="recipe.thumbnail"&gt;
-&lt;img v-else :src="standardImage"&gt;
-&lt;template v-if="recipe.url"&gt;
-&amp;rarr;
-&lt;a :href="recipe.url"&gt;
-Full Recipe
-&lt;/a&gt;
-&lt;/template&gt;
-&lt;/div&gt;
-&lt;/article&gt;
-&lt;/template&gt;</code></pre><h2 id="370e42a8-2c9d-47a3-96f8-9c5c1fbf203d">
+<code>v-else-if</code></h2><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>{{recipe.title}}<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;recipe.thumbnail&quot;</span>
+								<span class="hljs-attr">:src</span>=<span class="hljs-string">&quot;recipe.thumbnail&quot;</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">v-else</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">&quot;standardImage&quot;</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;recipe.url&quot;</span>&gt;</span>
+								<span class="hljs-symbol">&amp;rarr;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">&quot;recipe.url&quot;</span>&gt;</span>
+										Full Recipe
+								<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+						<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre><h2 id="370e42a8-2c9d-47a3-96f8-9c5c1fbf203d">
 Bounded loops
 <code>v-for</code>
 ,
-<code>v-bind:key</code></h2><p><mark class="highlight-gray">Index is provided by iterator if needed</mark><mark class="highlight-gray"><code>&lt;li v-for="(item, idx) in items" :key="idx"&gt;</code></mark></p><pre class="code"><code>&lt;template&gt;
-...
-&lt;h3&gt;Ingredients&lt;/h3&gt;
-&lt;ul class="ingredients"&gt;
-&lt;li v-for="ingredient	in	recipe.ingredients" :key="ingredient.name&gt; &lt;- key must be unique!
-{{ ingredient }}
-&lt;/li&gt;
-&lt;/ul&gt;
-...
-&lt;/template&gt;</code></pre><h2 id="3ef05e68-1a52-4939-8780-3c9dff078759">
+<code>v-bind:key</code></h2><p><mark class="highlight-gray">Index is provided by iterator if needed</mark><mark class="highlight-gray"><code>&lt;li v-for="(item, idx) in items" :key="idx"&gt;</code></mark></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+		...
+		<span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Ingredients<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ingredients&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;ingredient	in	recipe.ingredients&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;ingredient.name&gt; &lt;- key must be unique!
+						{{ ingredient }}&#9;
+				&lt;/li&gt;
+		&lt;/ul&gt;
+		...
+&lt;/template&gt;</span></span></code></pre><h2 id="3ef05e68-1a52-4939-8780-3c9dff078759">
 Events and Methods
 <code>v-on, @event_name</code></h2><p>
 Reacting to DOM events and adding
@@ -790,53 +801,61 @@ Reacting to DOM events and adding
 ie:
 <mark class="highlight-gray"><code>v-on:submit.prevent</code></mark></p></div><p></p><p>
 Most used events:
-<mark class="highlight-gray"><code>onChange</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>onInput</code></mark></p><pre class="code"><code>&lt;template&gt;
-&lt;div id="recipeSearch"&gt;&lt;section id="search"&gt;
-&lt;form role="search" v-on:submit.prevent="recipeSearch()"&gt; &lt;- prevent default behaviour
-&lt;label for="ingredients"&gt;Ingredients&lt;/label&gt;
-&lt;input v-model="ingredientInput" type="text" name="ingredients"/&gt;
-&lt;button type="submit"&gt;Search&lt;/button&gt;
-&lt;/form&gt;
-&lt;/section&gt;&lt;section id="results"&gt;
-&lt;recipe-item v-for="(recipe, index) in recipes" :key="index" :recipe="recipe"/&gt;
-&lt;/section&gt;&lt;/div&gt;
-&lt;/template&gt;&lt;script&gt;
-export default {
-...
-methods	:	{
-recipeSearch : async function() {
-this.recipes = ...
-}
-}
-...
-}
-&lt;/script&gt;</code></pre><p></p><h2 id="a312bbe4-e1a3-4def-8633-7a3ae878a5a6">
+<mark class="highlight-gray"><code>onChange</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>onInput</code></mark></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;recipeSearch&quot;</span>&gt;</span>
+
+				<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;search&quot;</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;search&quot;</span> <span class="hljs-attr">v-on:submit.prevent</span>=<span class="hljs-string">&quot;recipeSearch()&quot;</span>&gt;</span> &lt;- prevent default behaviour
+								<span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;ingredients&quot;</span>&gt;</span>Ingredients<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;ingredientInput&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ingredients&quot;</span>/&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Search<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+						<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+				<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;results&quot;</span>&gt;</span>&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;
+						<span class="hljs-tag">&lt;<span class="hljs-name">recipe-item</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(recipe, index) in recipes&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;index&quot;</span> <span class="hljs-attr">:recipe</span>=<span class="hljs-string">&quot;recipe&quot;</span>/&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">&#9;
+		<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {&#9;
+				...&#9;&#9;&#9;&#9;&#9;
+				methods	:	{&#9;
+						recipeSearch : <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {&#9;
+								<span class="hljs-variable language_">this</span>.<span class="hljs-property">recipes</span> = ...
+						}&#9;&#9;&#9;
+				}
+				...
+		}&#9;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p></p><h2 id="a312bbe4-e1a3-4def-8633-7a3ae878a5a6">
 Custom Events
 <code>this.$emit(event_name, 'data')</code></h2><p>
 get emitted with
-<mark class="highlight-gray"><code>this.$emit('ingredientAdd')</code></mark></p><p>Can be used to send data to parents.</p><pre class="code"><code>&lt;recipe-item v-on:ingredientAdd="addIngredientToSearch"/&gt;</code></pre><pre class="code"><code>&lt;recipe-item @ingredientAdd="addIngredientToSearch"
-v-for="(recipe,	index) in recipes" :key="index"
-:recipe="recipe" /&gt;</code></pre><pre class="code"><code>&lt;template&gt;
+<mark class="highlight-gray"><code>this.$emit('ingredientAdd')</code></mark></p><p>Can be used to send data to parents.</p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">recipe-item</span> <span class="hljs-attr">v-on:ingredientAdd</span>=<span class="hljs-string">&quot;addIngredientToSearch&quot;</span>/&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">recipe-item</span> @<span class="hljs-attr">ingredientAdd</span>=<span class="hljs-string">&quot;addIngredientToSearch&quot;</span>
+					<span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(recipe,	index) in recipes&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;index&quot;</span>
+					<span class="hljs-attr">:recipe</span>=<span class="hljs-string">&quot;recipe&quot;</span> /&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
 ...
-&lt;h3&gt;Ingredients&lt;/h3&gt;
-&lt;ul class="ingredients"&gt;
-&lt;li @click="addIngredient(ingredient)"
-v-for="ingredient	in	recipe.ingredients"
-:key="ingredient.name"&gt;
-{{ ingredient }}
-&lt;/li&gt;
-&lt;/ul&gt;
+		<span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Ingredients<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ingredients&quot;</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;addIngredient(ingredient)&quot;</span>&#9;
+							 <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;ingredient	in	recipe.ingredients&quot;</span>
+								<span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;ingredient.name&quot;</span>&gt;</span>
+						{{ ingredient }}&#9;
+				<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 ...
-&lt;/template&gt;
-&lt;script&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">&#9;
 ...
-methods	:	{
-addIngredient	:	function(ingredient)	{
-this.$emit("ingredientAdd",	ingredient);
-}
-}
+		methods	:	{&#9;
+				addIngredient	:	<span class="hljs-keyword">function</span>(<span class="hljs-params">ingredient</span>)	{&#9;
+							<span class="hljs-variable language_">this</span>.$emit(<span class="hljs-string">&quot;ingredientAdd&quot;</span>,	ingredient);&#9;
+				}&#9;
+		}
 ...
-&lt;/script&gt;</code></pre><p></p><h2 id="e64140ed-ae4b-4857-9608-ebe4f990ae8b">Lifecycle Hooks</h2><p>Only two hooks important for this Lecture:</p><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-gray"><code>mounted()</code></mark><ul class="bulleted-list"><li style="list-style-type: disc">after DOM has been fully rendered for component (but maybe not all child components!)</li></ul></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-gray"><code>created()</code></mark><ul class="bulleted-list"><li style="list-style-type: disc">before DOM has been loaded</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">access to data, computed properties, methods, etc</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Used to trigger actions like fetching data from backends</li></ul></li></ol><p></p><h2 id="9013d7ee-93a6-4405-8517-582279f98e81">State Management (Vuex)</h2><p><mark class="highlight-gray">Uses</mark><mark class="highlight-gray"><code>Vuex</code></mark><mark class="highlight-gray">library.</mark><mark class="highlight-gray"><a href="https://vuex.vuejs.org/">https://vuex.vuejs.org/</a></mark></p><p>Managing a shared global state between all components.</p><p>No direct access to global state:</p><ol class="numbered-list" start="1" type="1"><li>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p></p><h2 id="e64140ed-ae4b-4857-9608-ebe4f990ae8b">Lifecycle Hooks</h2><p>Only two hooks important for this Lecture:</p><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-gray"><code>mounted()</code></mark><ul class="bulleted-list"><li style="list-style-type: disc">after DOM has been fully rendered for component (but maybe not all child components!)</li></ul></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-gray"><code>created()</code></mark><ul class="bulleted-list"><li style="list-style-type: disc">before DOM has been loaded</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">access to data, computed properties, methods, etc</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Used to trigger actions like fetching data from backends</li></ul></li></ol><p></p><h2 id="9013d7ee-93a6-4405-8517-582279f98e81">State Management (Vuex)</h2><p><mark class="highlight-gray">Uses</mark><mark class="highlight-gray"><code>Vuex</code></mark><mark class="highlight-gray">library.</mark><mark class="highlight-gray"><a href="https://vuex.vuejs.org/">https://vuex.vuejs.org/</a></mark></p><p>Managing a shared global state between all components.</p><p>No direct access to global state:</p><ol class="numbered-list" start="1" type="1"><li>
 Committing Mutations:
 <mark class="highlight-gray">(Synchronous functions)</mark><p>
 ie. calling
@@ -848,11 +867,11 @@ Actions:
 Can be read in components
 <code>this.$store.dispatch('incrementCart')</code></p></li></ol><p></p><h2 id="56f80e92-b413-44cd-b3da-5a4c835236e6">Routing / Navigation</h2><p>For single page applications.</p><p>
 URL fragments allow linking while on the same browser page:
-<mark class="highlight-gray"><code>www.example.com/#/coolStuff</code></mark></p><pre class="code"><code>const routes = [
-{ path: '/', redirect: '/search'},
-{ path: '/search', component: Search},
-{ path: '/cart', component: Cart},
-{ path: '/checkout', component: Checkout},
-{ path: '/config/:artworkId', component: Config, props: true },
-{ path: '*', component: PageNotFound},
+<mark class="highlight-gray"><code>www.example.com/#/coolStuff</code></mark></p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span> routes = [
+ { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/search&#x27;</span>},
+ { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/search&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Search</span>},
+ { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/cart&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Cart</span>},
+ { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/checkout&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Checkout</span>},
+ { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/config/:artworkId&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Config</span>, <span class="hljs-attr">props</span>: <span class="hljs-literal">true</span> },
+ { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;*&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">PageNotFound</span>},
 ]</code></pre><p></p></div></article></body></html>

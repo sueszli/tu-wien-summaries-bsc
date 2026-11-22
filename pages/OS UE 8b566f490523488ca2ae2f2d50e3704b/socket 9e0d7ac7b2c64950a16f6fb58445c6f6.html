@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">socket</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-gray"><em>see:</em></mark><mark class="highlight-gray"><em><a href="https://beej.us/guide/bgnet/html/split/">https://beej.us/guide/bgnet/html/split/</a></em></mark></p><p><mark class="highlight-gray"><em>see:</em></mark><mark class="highlight-gray"><em><a href="https://sourceware.org/glibc/manual/latest/html_node/Sockets.html">
 https://sourceware.org/glibc/manual/latest/html_node/Sockets.html
@@ -615,10 +616,10 @@ UDP →
 useful to avoid the “address already in use error”
 <mark class="highlight-gray"><code>EADDRINUSE</code></mark>
 - which forces you to wait one minute after terminating the server for the socket to terminate aswell
-</p><pre class="code"><code>int optval = 1;
-setsockopt(serverfd, SOL_SOCKET, SO_REUSEADDR, &amp;optval, sizeof optval);</code></pre></div><p></p><p></p><p><code>bind()</code></p><div class="indented"><p>assigns address to socket as server</p><pre class="code"><code>struct sockaddr_in *sa;
-bind(sockfd, sa, sizeof(struct sockaddr_in);</code></pre></div><p></p><p></p><p><code>listen()</code></p><div class="indented"><p>marks socket as passive for servers (for TCP only)</p><pre class="code"><code>listen(sockfd, queueLen);</code></pre></div><p></p><p></p><p><code>accept()</code></p><div class="indented"><p>blocks until there is a connection as server</p><pre class="code"><code>int connfd = accept(sockfd, NULL, NULL);</code></pre><p>other arguments: pointer to client address and its size</p></div><p></p><p></p><p><code>connect()</code></p><div class="indented"><p>connects choosing a random open port as client</p><pre class="code"><code>struct sockaddr_in server_addr;
-connect(sockfd, &amp;server_addr, sizeof(server_addr);</code></pre></div><p></p><p></p><p><code>getaddrinfo()</code></p><div class="indented"><p>
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> optval = <span class="hljs-number">1</span>;
+setsockopt(serverfd, SOL_SOCKET, SO_REUSEADDR, &amp;optval, <span class="hljs-keyword">sizeof</span> optval);</code></pre></div><p></p><p></p><p><code>bind()</code></p><div class="indented"><p>assigns address to socket as server</p><pre class="code"><code class="hljs language-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> *<span class="hljs-title">sa</span>;</span>
+bind(sockfd, sa, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> sockaddr_in);</code></pre></div><p></p><p></p><p><code>listen()</code></p><div class="indented"><p>marks socket as passive for servers (for TCP only)</p><pre class="code"><code>listen(sockfd, queueLen);</code></pre></div><p></p><p></p><p><code>accept()</code></p><div class="indented"><p>blocks until there is a connection as server</p><pre class="code"><code>int connfd = accept(sockfd, NULL, NULL);</code></pre><p>other arguments: pointer to client address and its size</p></div><p></p><p></p><p><code>connect()</code></p><div class="indented"><p>connects choosing a random open port as client</p><pre class="code"><code class="hljs language-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">server_addr</span>;</span>
+connect(sockfd, &amp;server_addr, <span class="hljs-keyword">sizeof</span>(server_addr);</code></pre></div><p></p><p></p><p><code>getaddrinfo()</code></p><div class="indented"><p>
 creates an address (replaces the deprecated
 <mark class="highlight-gray"><code>gethostbyname</code></mark><mark class="highlight-gray"></mark>
 which doesn’t support IPV6).
@@ -630,19 +631,23 @@ errors can be translated to human readable message with
 internal linked list in struct can be freed with
 <code><mark class="highlight-gray">freeaddrinfo</mark></code>
 .
-</p><pre class="code"><code>struct addrinfo hints, *ai;
-memset(&amp;hints, 0, sizeof hints);
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">addrinfo</span> <span class="hljs-title">hints</span>, *<span class="hljs-title">ai</span>;</span>
+<span class="hljs-built_in">memset</span>(&amp;hints, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span> hints);
 hints.ai_family = AF_INET;
 hints.ai_socktype = SOCK_STREAM;
-hints.ai_flags = AI_PASSIVE;int res = getaddrinfo("localhost"/NULL, "1280", &amp;hints, &amp;ai);
-if (res != 0) {
-// error
-}int sockfd = socket(ai-&gt;ai_family, ai-&gt;ai_socktype, ai-&gt;ai_protocol);
-if (sockfd == -1) {
-// error
+hints.ai_flags = AI_PASSIVE;
+
+<span class="hljs-type">int</span> res = getaddrinfo(<span class="hljs-string">&quot;localhost&quot;</span>/<span class="hljs-literal">NULL</span>, <span class="hljs-string">&quot;1280&quot;</span>, &amp;hints, &amp;ai);
+<span class="hljs-keyword">if</span> (res != <span class="hljs-number">0</span>) {
+	<span class="hljs-comment">// error</span>
 }
-if (connect/bind(sockfd, ai-&gt;ai_addr, ai-&gt;ai_addrlen) == -1) {
-// error
+
+<span class="hljs-type">int</span> sockfd = socket(ai-&gt;ai_family, ai-&gt;ai_socktype, ai-&gt;ai_protocol);
+<span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
+	<span class="hljs-comment">// error</span>
+}
+<span class="hljs-keyword">if</span> (connect/bind(sockfd, ai-&gt;ai_addr, ai-&gt;ai_addrlen) == <span class="hljs-number">-1</span>) {
+	<span class="hljs-comment">// error</span>
 }
 freeaddrinfo(ai);</code></pre><p></p></div><p></p><p><code>read()</code>
 /
@@ -656,5 +661,7 @@ specialized functions for sockets:
 network byte order → host byte order (x86 is little endian but not all architectures)
 </p><p><mark class="highlight-gray">htonl():</mark>
 host byte order → network byte order (big endian)
-</p><pre class="code"><code>int i = 0x12345678;// Little endian:      0x78 0x56 0x34 0x12 &lt;- each block is one byte
+</p><pre class="code"><code>int i = 0x12345678;
+
+// Little endian:      0x78 0x56 0x34 0x12 &lt;- each block is one byte
 // Big endian:         0x12 0x34 0x56 0x78</code></pre></div><p></p><p></p></div></article></body></html>

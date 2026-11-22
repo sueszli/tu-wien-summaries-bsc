@@ -591,17 +591,19 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title"><mark class="highlight-blue">2013-05-29</mark></h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-blue">Äquivalenzklassenzerlegung</mark></p><div class="indented"><p>
 Gegeben war eine Funktion
 <mark class="highlight-gray"><code>berechneRabatt(String land, int totalPriceInCent)</code></mark>
 .
 </p><p>Normalerweise wird ab einem Bestellwert von 20€ ein Rabatt von 5% gewährt.</p><p>Erfolgt die Bestellung aus Österreich, wird IMMER ein Rabatt von 5% gewährt (auch bei &lt; 20€).</p><p>Stellen Sie die Äquivalenzklassen für diese Funktion auf und definieren Sie zwei wichtige Testfälle (NICHT JUnit).</p><pre class="code"><code>Bestellwert &gt;= 20 EUR
-Aus Österreich -&gt; 5%
-Nicht aus Österreich -&gt; 5%
+	Aus Österreich -&gt; 5%
+	Nicht aus Österreich -&gt; 5%
+&#9;
 Bestellwert &lt; 20 EUR
-Aus Österreich -&gt; 5%
-Nicht aus Österreich -&gt; 0%</code></pre><p><mark class="highlight-gray">Grenzfälle: Bestellwert</mark><mark class="highlight-gray"><code>19, 20, 21 EUR</code></mark></p></div><p></p><p></p><p><mark class="highlight-blue">Zuweisung von Anforderungen auf Testarten</mark></p><div class="indented"><p>
+	Aus Österreich -&gt; 5%
+	Nicht aus Österreich -&gt; 0%</code></pre><p><mark class="highlight-gray">Grenzfälle: Bestellwert</mark><mark class="highlight-gray"><code>19, 20, 21 EUR</code></mark></p></div><p></p><p></p><p><mark class="highlight-blue">Zuweisung von Anforderungen auf Testarten</mark></p><div class="indented"><p>
 Gegeben waren diverse Anforderungen (~7 kurze Anforderungen, jeweils 1 Satz), die mit einer Verbindungslinie auf die entsprechenden
 Testarten gemappt werden sollten (Testarten: Unittest, Systemtest, Regressionstest, Usabilitytest, Performancetest, Lastentest, ...).
 </p></div><p></p><p></p><p><mark class="highlight-blue">Mocking-Beispiel</mark></p><div class="indented"><p>
@@ -615,27 +617,27 @@ beim 1. Test genügt.
 Gewollt war jedoch, dass man den gesamten Inhalt der Liste überprüft. (in
 <mark class="highlight-gray"><code>setUp()</code></mark>
 wurden 2 Elemente der Liste geaddet -&gt; zuerst "foo" dann "bar") sowas wie
-</p><pre class="code"><code>assertEquals("foo", it.next());
-assertEquals("bar", it.next());</code></pre><p>wäre also gewünscht gewesen.</p><p>
+</p><pre class="code"><code class="hljs language-java">assertEquals(<span class="hljs-string">&quot;foo&quot;</span>, it.next());
+assertEquals(<span class="hljs-string">&quot;bar&quot;</span>, it.next());</code></pre><p>wäre also gewünscht gewesen.</p><p>
 Beim 2. Test muss man besonders aufpassen. Man musste so lange next() aufrufen, bis eine Exception geworfen wird. Ich dacht mir dabei,
 oh, easy.
-</p><pre class="code"><code>@Test (expected = Exception.class)
-public void test_shouldThrowExceptionWhenNextElementIsNotAvailable() {
-it.next();
-it.next();
-it.next();
+</p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span> (expected = Exception.class)
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_shouldThrowExceptionWhenNextElementIsNotAvailable</span><span class="hljs-params">()</span> {
+	it.next();
+	it.next();
+	it.next();
 }</code></pre><p>
 FALSCH! Dadurch weiß man nämlich nicht wo die Exception geworfen wurde. Es kann genauso gut sein, dass das erste it.next() bereits die
 Exception geworfen hat, was den Testfall unsinnig macht.
-</p><p>Gewünscht wäre gewesen:</p><pre class="code"><code>@Test (expected = Exception.class)
-public void test_shouldThrowExceptionWhenNextElementIsNotAvailable() throws Exception {
-try {
-it.next();
-it.next();
-} catch(Exception e) {
-fail("next()-Aufruf fehlgeschlagen.");
-}
-it.next(); // Dieser next()-Aufruf sollte die Exception auslösen
+</p><p>Gewünscht wäre gewesen:</p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span> (expected = Exception.class)
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_shouldThrowExceptionWhenNextElementIsNotAvailable</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception {
+	<span class="hljs-keyword">try</span> {
+		it.next();
+		it.next();
+	} <span class="hljs-keyword">catch</span>(Exception e) {
+		fail(<span class="hljs-string">&quot;next()-Aufruf fehlgeschlagen.&quot;</span>);
+	}
+	it.next(); <span class="hljs-comment">// Dieser next()-Aufruf sollte die Exception auslösen</span>
 }</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Test-Refactoring</mark></p><div class="indented"><p>Hier waren JUnit-Tests gegeben, die ein Queue-Objekt testeten.</p><p>Worauf bei solchen Beispielen besonders zu achten ist:</p><ul class="bulleted-list"><li style="list-style-type: disc">korrekte Benennung der Testfälle</li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray"><code>assertEquals</code></mark>
 ist
 <mark class="highlight-gray"><code>assertTrue</code></mark>

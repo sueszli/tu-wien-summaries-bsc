@@ -744,7 +744,9 @@ Alles außer Systemtests: In
 vom Kunden (zb OS vom Kunden)
 </p><p class="block-color-gray">(keine Abnahmetests bei Produkte für den breiten Markt)</p></div><p></p><p>Installationstest</p><div class="indented"><p class="block-color-gray">Identifizieren von Fehlern während der Installation.</p></div><p></p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Regressionstests
-<p>Bei Änderungen oder Erweiterungen nach einem Test</p></li></ul></div><p></p></div><p></p><figure class="image"><a href="../Qualit%C3%A4tssicherung%20QS%209cca5e2a3b214a33bf09aa2a3f5484a6/Untitled%207.png"><img src="../Qualit%C3%A4tssicherung%20QS%209cca5e2a3b214a33bf09aa2a3f5484a6/Untitled%207.png" style="width: 192px"/></a></figure><p></p><p><span style="border-bottom: 0.05em solid">Äquivalenzklassen-Zerlegung</span></p><div class="indented"><p>Mit minimalem Aufwand möglichst hohe case-coverage.</p><p>Man wählt Repräsentanten.</p><div class="indented"><pre class="code"><code>18 &lt; Alter &lt;= 651.Partition: Alter &lt;= 18 (ungültig)
+<p>Bei Änderungen oder Erweiterungen nach einem Test</p></li></ul></div><p></p></div><p></p><figure class="image"><a href="../Qualit%C3%A4tssicherung%20QS%209cca5e2a3b214a33bf09aa2a3f5484a6/Untitled%207.png"><img src="../Qualit%C3%A4tssicherung%20QS%209cca5e2a3b214a33bf09aa2a3f5484a6/Untitled%207.png" style="width: 192px"/></a></figure><p></p><p><span style="border-bottom: 0.05em solid">Äquivalenzklassen-Zerlegung</span></p><div class="indented"><p>Mit minimalem Aufwand möglichst hohe case-coverage.</p><p>Man wählt Repräsentanten.</p><div class="indented"><pre class="code"><code>18 &lt; Alter &lt;= 65
+
+1.Partition: Alter &lt;= 18 (ungültig)
 2.Partition: 18 &lt; Alter &lt;= 65 (gültig)
 3.Partition: Alter &gt; 65 (ungültig)</code></pre></div><p></p><p></p></div><p></p><p><span style="border-bottom: 0.05em solid">Grenzwertanalyse</span></p><div class="indented"><p>Werte aus Grenzbereich wählen</p></div><p></p><p></p><h2>Testarten / Test Methoden (statisch vs dynamisch)</h2><ul class="bulleted-list"><li style="list-style-type: disc">
 statische Verfahren → kein Code ausgeführt

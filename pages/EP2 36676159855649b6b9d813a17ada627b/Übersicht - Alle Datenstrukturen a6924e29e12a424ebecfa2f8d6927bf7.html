@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Übersicht - Alle Datenstrukturen</h1><p class="page-description"></p></header><div class="page-body"><p>
 Datenstrukturen werden implementiert damit man über sie abstrahieren kann. Der Begriff „Datenstruktur“ bezieht sich aber auf die Innensicht.
@@ -648,11 +649,11 @@ Sortierung von Listen mit Bubblesort
 MergeSort auf Listen
 </td></tr><tr><td class="cell-:]NS">115</td><td class="cell-title">
 AVL-Tree
-</td></tr></tbody></table></div><br/><br/></div><h1>Übersicht</h1><pre class="code"><code>public interface Collection extends Iterable {
-void add(String element);
-int contains(String element);
-int removeAll(String element);
-void clear();
-int size();
-String[] toArray();
+</td></tr></tbody></table></div><br/><br/></div><h1>Übersicht</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Collection</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Iterable</span> {
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String element)</span>;
+	<span class="hljs-type">int</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(String element)</span>;
+	<span class="hljs-type">int</span> <span class="hljs-title function_">removeAll</span><span class="hljs-params">(String element)</span>;
+	<span class="hljs-keyword">void</span> <span class="hljs-title function_">clear</span><span class="hljs-params">()</span>;
+	<span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
+	String[] toArray();
 }</code></pre><p></p><p><strong>Allgemein</strong></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">lineare Liste</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">doppeltverkettete Liste</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Ringliste</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Binärer Baum</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">AVL Baum</li></ul><p></p></div><p></p><p><strong>Stack</strong></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">mit Liste</li></ul></div><p></p><p></p><p><strong>Queue</strong></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">mit Liste</li></ul><p></p></div><p></p><p><strong>DEQueue</strong></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">mit Array</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">mit Ringliste</li></ul></div><p></p><p></p><p><strong>Map</strong></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">mit Array und linearer Suche</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">mit binärem Baum</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">mit Hashtabelle</li></ul></div><p></p><p></p><p><strong>Iterator</strong></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Array</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Liste</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">OrderedTree</li></ul></div><p></p><p></p><p><strong>Sortierung</strong></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">von Bäumen – orderedTree</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">BubbleSort auf Liste</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">MergeSort auf Array</li></ul><p></p></div><p></p></div></article></body></html>

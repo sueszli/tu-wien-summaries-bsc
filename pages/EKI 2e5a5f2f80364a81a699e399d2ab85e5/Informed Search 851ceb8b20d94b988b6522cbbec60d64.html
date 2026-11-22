@@ -795,15 +795,15 @@ escaping shoulders
 </p><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo></mrow><annotation encoding="application/x-tex">-</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em"></span><span class="mord">−</span></span></span></span></span><span>﻿</span></span>
 getting stuck in loop at local maximum
 </p></div><p></p><p>Solution: Random-restart hill climbing: restart after step limit overcomes local maxima</p><figure class="image"><a href="Informed%20Search%20851ceb8b20d94b988b6522cbbec60d64/Untitled%206.png"><img src="Informed%20Search%20851ceb8b20d94b988b6522cbbec60d64/Untitled%206.png" style="width: 288px"/></a></figure><ul class="toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function HILL-CLIMBING(problem) returns a state that is a local maximum
-inputs: problem // a problem
-local variables:
-current, // a node
-neighbor // a node
-current ← MAKE-NODE(INITIAL-STATE[problem])
-loop do
-neighbor ← a highest-valued successor of current
-if VALUE[neighbor] ≤ VALUE[current] then return STATE[current]
-current ← neighbor</code></pre></details></li></ul><p></p><h2 id="7d5952d2-3b34-4578-a564-374f0e369e72">Simulated annelaing</h2><p>Devised in the 1950s for physical process modeling.</p><p>Corresponds to "cooling off" process of materials</p><ul class="block-color-gray toggle"><li><details><summary>In depth</summary><ul class="bulleted-list"><li style="list-style-type: disc">
+	inputs: problem // a problem
+	local variables:
+		current, // a node
+		neighbor // a node
+	current ← MAKE-NODE(INITIAL-STATE[problem])
+	loop do
+		neighbor ← a highest-valued successor of current
+		if VALUE[neighbor] ≤ VALUE[current] then return STATE[current]
+		current ← neighbor</code></pre></details></li></ul><p></p><h2 id="7d5952d2-3b34-4578-a564-374f0e369e72">Simulated annelaing</h2><p>Devised in the 1950s for physical process modeling.</p><p>Corresponds to "cooling off" process of materials</p><ul class="block-color-gray toggle"><li><details><summary>In depth</summary><ul class="bulleted-list"><li style="list-style-type: disc">
 value = energy
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em"></span><span class="mord mathnormal" style="margin-right: 0.05764em">E</span></span></span></span></span><span>﻿</span></span></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Based on Boltzmann distribution: If
@@ -814,20 +814,20 @@ with probability approaching
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span>
 , for small
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em"></span><span class="mord mathnormal" style="margin-right: 0.13889em">T</span></span></span></span></span><span>﻿</span></span></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">The slower this process is, the better the results</li></ul></details></li></ul><p>Idea: Escaping local maxima by gradually allowing less "bad" moves in size and frequency.</p><p>Problem: "Slowly enough" can be worse than exhaustive search.</p><ul class="toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function SIMULATED-ANNEALING(problem, schedule) returns a solution state
-inputs:
-problem, //a problem
-schedule, //a mapping from time to “temperature”
-local variables: current, //a node
-next, //a node
-T, //a “temperature” controlling prob. of downward steps
-current ← MAKE-NODE(INITIAL-STATE[problem])
-for t ← 1 to ∞ do
-T ← schedule[t]
-if T = 0 then return current
-next ← a randomly selected successor of current
-∆E ← VALUE[next] – VALUE[current]
-if ∆E &gt; 0 then current ← next
-else current ← next only with probability e∆E/T</code></pre></details></li></ul><p></p><h2 id="b5e9a9cd-3c60-4e9a-876a-e18f09b9d426">Local beam search</h2><p><mark class="highlight-teal">Idea</mark></p><ul class="bulleted-list"><li style="list-style-type: disc">
+	inputs:
+		problem, //a problem
+		schedule, //a mapping from time to “temperature”
+		local variables: current, //a node
+		next, //a node
+		T, //a “temperature” controlling prob. of downward steps
+	current ← MAKE-NODE(INITIAL-STATE[problem])
+	for t ← 1 to ∞ do
+	T ← schedule[t]
+		if T = 0 then return current
+		next ← a randomly selected successor of current
+		∆E ← VALUE[next] – VALUE[current]
+		if ∆E &gt; 0 then current ← next
+		else current ← next only with probability e∆E/T</code></pre></details></li></ul><p></p><h2 id="b5e9a9cd-3c60-4e9a-876a-e18f09b9d426">Local beam search</h2><p><mark class="highlight-teal">Idea</mark></p><ul class="bulleted-list"><li style="list-style-type: disc">
 keep
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord mathnormal" style="margin-right: 0.03148em">k</span></span></span></span></span><span>﻿</span></span>
 states instead of just

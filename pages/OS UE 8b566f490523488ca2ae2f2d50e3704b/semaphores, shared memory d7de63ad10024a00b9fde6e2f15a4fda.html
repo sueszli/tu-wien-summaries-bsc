@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">semaphores, shared memory</h1><p class="page-description"></p></header><div class="page-body"><h2>Files</h2><p><code>open()</code>
 /
@@ -637,7 +638,9 @@ can be interrupted with
 <mark class="highlight-gray"><code>EINTR</code></mark>
 .
 </p></div><p></p><p></p><p></p><h2>Semaphores</h2><p><code>sem_open()</code></p><div class="indented"><pre class="code"><code>server: create
-sem_t *sem = sem_open("/name", O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, &lt;initial value&gt;);client: open
+sem_t *sem = sem_open("/name", O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, &lt;initial value&gt;);
+
+client: open
 sem_t *sem = sem_open("/name", 0);</code></pre></div><p></p><p></p><p><code>sem_wait()</code>
 /
 <code>sem_post()</code></p><div class="indented"><p>blocks process if value is not positive.</p><p>processes are not queued up and the order of unblocking is not defined.</p><p>
@@ -658,14 +661,24 @@ maps the data structures to the process address space
 uses file descriptor to close
 </p><p><code>shm_unlink()</code>
 frees memory
-</p><p></p><figure class="image"><a href="semaphores,%20shared%20memory%20d7de63ad10024a00b9fde6e2f15a4fda/Untitled.png"><img src="semaphores,%20shared%20memory%20d7de63ad10024a00b9fde6e2f15a4fda/Untitled.png" style="width: 432px"/></a></figure><p></p><p></p><h2>Circular buffer</h2><p>concurrent data structure using an array where the modulo operator is used.</p><pre class="code"><code>int wr_pos = 0;void write(int val) {
-sem_wait(free_sem);
-buf[wr_pos] = val;
-sem_post(used_sem);wr_pos += 1;
-wr_pos %= sizeof(buf);
-}int rd_pos = 0;void read() {
-sem_wait(used_sem);
-int val = buf[rd_pos];
-sem_post(free_sem);rd_pos += 1;
-rd_pos %= sizeof(buf);
+</p><p></p><figure class="image"><a href="semaphores,%20shared%20memory%20d7de63ad10024a00b9fde6e2f15a4fda/Untitled.png"><img src="semaphores,%20shared%20memory%20d7de63ad10024a00b9fde6e2f15a4fda/Untitled.png" style="width: 432px"/></a></figure><p></p><p></p><h2>Circular buffer</h2><p>concurrent data structure using an array where the modulo operator is used.</p><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> wr_pos = <span class="hljs-number">0</span>;
+
+<span class="hljs-type">void</span> <span class="hljs-title function_">write</span><span class="hljs-params">(<span class="hljs-type">int</span> val)</span> {
+	sem_wait(free_sem);
+	buf[wr_pos] = val;
+	sem_post(used_sem);
+
+	wr_pos += <span class="hljs-number">1</span>;
+	wr_pos %= <span class="hljs-keyword">sizeof</span>(buf);
+}
+
+<span class="hljs-type">int</span> rd_pos = <span class="hljs-number">0</span>;
+
+<span class="hljs-type">void</span> <span class="hljs-title function_">read</span><span class="hljs-params">()</span> {
+	sem_wait(used_sem);
+	<span class="hljs-type">int</span> val = buf[rd_pos];
+	sem_post(free_sem);
+
+	rd_pos += <span class="hljs-number">1</span>;
+	rd_pos %= <span class="hljs-keyword">sizeof</span>(buf);
 }</code></pre><p></p></div></article></body></html>

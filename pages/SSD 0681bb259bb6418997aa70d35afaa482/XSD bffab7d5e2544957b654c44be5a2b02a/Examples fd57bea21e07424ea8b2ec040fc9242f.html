@@ -591,175 +591,180 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
-</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Examples</h1><p class="page-description"></p></header><div class="page-body"><h1>Book</h1><pre class="code"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
-&lt;xs:element name="buchbestand"&gt;
-&lt;xs:complexType&gt;
-&lt;xs:sequence&gt;
-&lt;xs:element name="buch" minOccurs="0" maxOccurs="unbounded"&gt;
-&lt;xs:complexType&gt;
-&lt;xs:sequence&gt;
-&lt;xs:element name="titel" type="xs:string"/&gt;
-&lt;xs:element name="autor" type="xs:string"/&gt;
-&lt;xs:element name="seiten" type="xs:positiveInteger"/&gt;
-&lt;xs:element name="preis" type="xs:decimal"/&gt;
-&lt;/xs:sequence&gt;
-&lt;xs:attribute name="lagernd" type="xs:boolean" use="required"/&gt;
-&lt;xs:attribute name="einband" type="xs:string" use="required"/&gt;
-&lt;/xs:complexType&gt;
-&lt;/xs:element&gt;
-&lt;/xs:sequence&gt;
-&lt;/xs:complexType&gt;
-&lt;/xs:element&gt;
-&lt;/xs:schema&gt;</code></pre><pre class="code"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;buchbestand xsi:noNamespaceSchemaLocation="buchbestand.xsd"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-&lt;buch einband="Taschenbuch" lagernd="true"&gt;
-&lt;titel&gt;The Adventures of Huckleberry Finn&lt;/titel&gt;
-&lt;autor&gt;Mark Twain&lt;/autor&gt;
-&lt;seiten&gt;336&lt;/seiten&gt;
-&lt;preis&gt;12.75&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="true"&gt;
-&lt;titel&gt;In der Strafkolonie&lt;/titel&gt;
-&lt;autor&gt;Franz Kafka&lt;/autor&gt;
-&lt;seiten&gt;125&lt;/seiten&gt;
-&lt;preis&gt;9.90&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="false"&gt;
-&lt;titel&gt;Leaves of Grass&lt;/titel&gt;
-&lt;autor&gt;Walt Whitman&lt;/autor&gt;
-&lt;seiten&gt;462&lt;/seiten&gt;
-&lt;preis&gt;25.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="false"&gt;
-&lt;titel&gt;The Legend of Sleepy Hollow&lt;/titel&gt;
-&lt;autor&gt;Washington Irving&lt;/autor&gt;
-&lt;seiten&gt;98&lt;/seiten&gt;
-&lt;preis&gt;2.50&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="true"&gt;
-&lt;titel&gt;Der Graf von Monte Christo&lt;/titel&gt;
-&lt;autor&gt;Alexandre Dumas&lt;/autor&gt;
-&lt;seiten&gt;760&lt;/seiten&gt;
-&lt;preis&gt;19.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="true"&gt;
-&lt;titel&gt;Moby-Dick&lt;/titel&gt;
-&lt;autor&gt;Herman Melville&lt;/autor&gt;
-&lt;seiten&gt;724&lt;/seiten&gt;
-&lt;preis&gt;22.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="false"&gt;
-&lt;titel&gt;The Scarlet Letter&lt;/titel&gt;
-&lt;autor&gt;Nathaniel Hawthorne&lt;/autor&gt;
-&lt;seiten&gt;253&lt;/seiten&gt;
-&lt;preis&gt;7.80&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="true"&gt;
-&lt;titel&gt;Harry Potter und der Stein der Weisen&lt;/titel&gt;
-&lt;autor&gt;J.K. Rowling&lt;/autor&gt;
-&lt;seiten&gt;335&lt;/seiten&gt;
-&lt;preis&gt;12.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="true"&gt;
-&lt;titel&gt;Der Prozess&lt;/titel&gt;
-&lt;autor&gt;Franz Kafka&lt;/autor&gt;
-&lt;seiten&gt;217&lt;/seiten&gt;
-&lt;preis&gt;13.80&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;/buchbestand&gt;</code></pre><h1>ID</h1><pre class="code"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
-&lt;xs:element name="buchbestand"&gt;
-&lt;xs:complexType&gt;
-&lt;xs:sequence&gt;
-&lt;xs:element name="buch" type="buchType" minOccurs="0" maxOccurs="unbounded"/&gt;
-&lt;xs:element name="bestand" type="bestandType" minOccurs="0" maxOccurs="unbounded"/&gt;
-&lt;/xs:sequence&gt;
-&lt;/xs:complexType&gt;
-&lt;xs:key name="buchid"&gt;
-&lt;xs:selector xpath="buch"/&gt;
-&lt;xs:field xpath="@id"/&gt;
-&lt;/xs:key&gt;
-&lt;xs:keyref name="buchref" refer="buchid"&gt;
-&lt;xs:selector xpath="bestand"/&gt;
-&lt;xs:field xpath="@buch"/&gt;
-&lt;/xs:keyref&gt;
-&lt;/xs:element&gt;
-&lt;xs:complexType name="buchType"&gt;
-&lt;xs:sequence&gt;
-&lt;xs:element name="titel" type="xs:string"/&gt;
-&lt;xs:element name="autor" type="xs:string"/&gt;
-&lt;xs:element name="seiten" type="xs:positiveInteger"/&gt;
-&lt;xs:element name="preis" type="xs:decimal"/&gt;
-&lt;/xs:sequence&gt;
-&lt;xs:attribute name="id" type="xs:ID" use="required"/&gt;
-&lt;xs:attribute name="lagernd" type="xs:boolean" use="optional"/&gt;
-&lt;xs:attribute name="einband" type="xs:string" use="required"/&gt;
-&lt;/xs:complexType&gt;
-&lt;xs:complexType name="bestandType"&gt;
-&lt;xs:attribute name="buch" type="xs:IDREF" use="required"/&gt;
-&lt;xs:attribute name="lagernd" type="xs:boolean" use="required"/&gt;
-&lt;/xs:complexType&gt;
-&lt;/xs:schema&gt;</code></pre><pre class="code"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;buchbestand xsi:noNamespaceSchemaLocation="buchbestand-id.xsd"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-&lt;buch einband="Taschenbuch" id="b1"&gt;
-&lt;titel&gt;The Adventures of Huckleberry Finn&lt;/titel&gt;
-&lt;autor&gt;Mark Twain&lt;/autor&gt;
-&lt;seiten&gt;336&lt;/seiten&gt;
-&lt;preis&gt;12.75&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="true" id="b2"&gt;
-&lt;titel&gt;In der Strafkolonie&lt;/titel&gt;
-&lt;autor&gt;Franz Kafka&lt;/autor&gt;
-&lt;seiten&gt;125&lt;/seiten&gt;
-&lt;preis&gt;9.90&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="false"  id="b3"&gt;
-&lt;titel&gt;Leaves of Grass&lt;/titel&gt;
-&lt;autor&gt;Walt Whitman&lt;/autor&gt;
-&lt;seiten&gt;462&lt;/seiten&gt;
-&lt;preis&gt;25.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="false"  id="b4"&gt;
-&lt;titel&gt;The Legend of Sleepy Hollow&lt;/titel&gt;
-&lt;autor&gt;Washington Irving&lt;/autor&gt;
-&lt;seiten&gt;98&lt;/seiten&gt;
-&lt;preis&gt;2.50&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="true"  id="b5"&gt;
-&lt;titel&gt;Der Graf von Monte Christo&lt;/titel&gt;
-&lt;autor&gt;Alexandre Dumas&lt;/autor&gt;
-&lt;seiten&gt;760&lt;/seiten&gt;
-&lt;preis&gt;19.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="true"  id="b6"&gt;
-&lt;titel&gt;Moby-Dick&lt;/titel&gt;
-&lt;autor&gt;Herman Melville&lt;/autor&gt;
-&lt;seiten&gt;724&lt;/seiten&gt;
-&lt;preis&gt;22.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="false"  id="b7"&gt;
-&lt;titel&gt;The Scarlet Letter&lt;/titel&gt;
-&lt;autor&gt;Nathaniel Hawthorne&lt;/autor&gt;
-&lt;seiten&gt;253&lt;/seiten&gt;
-&lt;preis&gt;7.80&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Gebundene Ausgabe" lagernd="true"  id="b8"&gt;
-&lt;titel&gt;Harry Potter und der Stein der Weisen&lt;/titel&gt;
-&lt;autor&gt;J.K. Rowling&lt;/autor&gt;
-&lt;seiten&gt;335&lt;/seiten&gt;
-&lt;preis&gt;12.00&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;buch einband="Taschenbuch" lagernd="true"  id="b9"&gt;
-&lt;titel&gt;Der Prozess&lt;/titel&gt;
-&lt;autor&gt;Franz Kafka&lt;/autor&gt;
-&lt;seiten&gt;217&lt;/seiten&gt;
-&lt;preis&gt;13.80&lt;/preis&gt;
-&lt;/buch&gt;
-&lt;bestand buch="b1" lagernd="true"/&gt;
-&lt;bestand buch="b9" lagernd="false"/&gt;
-&lt;bestand buch="b1" lagernd="false"/&gt;
-&lt;/buchbestand&gt;</code></pre></div></article></body></html>
+</head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Examples</h1><p class="page-description"></p></header><div class="page-body"><h1>Book</h1><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">xs:schema</span> <span class="hljs-attr">xmlns:xs</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buchbestand&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buch&quot;</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">maxOccurs</span>=<span class="hljs-string">&quot;unbounded&quot;</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;titel&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;autor&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;seiten&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:positiveInteger&quot;</span>/&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;preis&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:decimal&quot;</span>/&gt;</span>
+						<span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;lagernd&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:boolean&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;required&quot;</span>/&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;einband&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;required&quot;</span>/&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-name">xs:element</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">xs:element</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xs:schema</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">buchbestand</span> <span class="hljs-attr">xsi:noNamespaceSchemaLocation</span>=<span class="hljs-string">&quot;buchbestand.xsd&quot;</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>The Adventures of Huckleberry Finn<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Mark Twain<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>336<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>12.75<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>In der Strafkolonie<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Franz Kafka<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>125<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>9.90<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Leaves of Grass<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Walt Whitman<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>462<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>25.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>The Legend of Sleepy Hollow<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Washington Irving<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>98<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>2.50<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Der Graf von Monte Christo<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Alexandre Dumas<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>760<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>19.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Moby-Dick<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Herman Melville<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>724<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>22.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>The Scarlet Letter<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Nathaniel Hawthorne<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>253<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>7.80<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Harry Potter und der Stein der Weisen<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>J.K. Rowling<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>335<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>12.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Der Prozess<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Franz Kafka<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>217<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>13.80<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">buchbestand</span>&gt;</span></code></pre><h1>ID</h1><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">xs:schema</span> <span class="hljs-attr">xmlns:xs</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buchbestand&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buch&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;buchType&quot;</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">maxOccurs</span>=<span class="hljs-string">&quot;unbounded&quot;</span>/&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;bestand&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;bestandType&quot;</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">maxOccurs</span>=<span class="hljs-string">&quot;unbounded&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span>
+&#9;
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:key</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buchid&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:selector</span> <span class="hljs-attr">xpath</span>=<span class="hljs-string">&quot;buch&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:field</span> <span class="hljs-attr">xpath</span>=<span class="hljs-string">&quot;@id&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">xs:key</span>&gt;</span>
+&#9;&#9;
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:keyref</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buchref&quot;</span> <span class="hljs-attr">refer</span>=<span class="hljs-string">&quot;buchid&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:selector</span> <span class="hljs-attr">xpath</span>=<span class="hljs-string">&quot;bestand&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:field</span> <span class="hljs-attr">xpath</span>=<span class="hljs-string">&quot;@buch&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">xs:keyref</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">xs:element</span>&gt;</span>
+&#9;
+	<span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buchType&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;titel&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;autor&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;seiten&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:positiveInteger&quot;</span>/&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;preis&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:decimal&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;id&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:ID&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;required&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;lagernd&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:boolean&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;optional&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;einband&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;required&quot;</span>/&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span>
+&#9;
+	<span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;bestandType&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;buch&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:IDREF&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;required&quot;</span>/&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">xs:attribute</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;lagernd&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:boolean&quot;</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;required&quot;</span>/&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xs:schema</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">buchbestand</span> <span class="hljs-attr">xsi:noNamespaceSchemaLocation</span>=<span class="hljs-string">&quot;buchbestand-id.xsd&quot;</span>
+    <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b1&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>The Adventures of Huckleberry Finn<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Mark Twain<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>336<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>12.75<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b2&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>In der Strafkolonie<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Franz Kafka<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>125<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>9.90<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b3&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Leaves of Grass<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Walt Whitman<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>462<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>25.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b4&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>The Legend of Sleepy Hollow<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Washington Irving<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>98<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>2.50<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b5&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Der Graf von Monte Christo<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Alexandre Dumas<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>760<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>19.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b6&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Moby-Dick<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Herman Melville<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>724<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>22.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b7&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>The Scarlet Letter<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Nathaniel Hawthorne<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>253<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>7.80<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Gebundene Ausgabe&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b8&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Harry Potter und der Stein der Weisen<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>J.K. Rowling<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>335<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>12.00<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">buch</span> <span class="hljs-attr">einband</span>=<span class="hljs-string">&quot;Taschenbuch&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b9&quot;</span>&gt;</span>&#32;
+		<span class="hljs-tag">&lt;<span class="hljs-name">titel</span>&gt;</span>Der Prozess<span class="hljs-tag">&lt;/<span class="hljs-name">titel</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">autor</span>&gt;</span>Franz Kafka<span class="hljs-tag">&lt;/<span class="hljs-name">autor</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">seiten</span>&gt;</span>217<span class="hljs-tag">&lt;/<span class="hljs-name">seiten</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">preis</span>&gt;</span>13.80<span class="hljs-tag">&lt;/<span class="hljs-name">preis</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">buch</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">bestand</span> <span class="hljs-attr">buch</span>=<span class="hljs-string">&quot;b1&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">bestand</span> <span class="hljs-attr">buch</span>=<span class="hljs-string">&quot;b9&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>/&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">bestand</span> <span class="hljs-attr">buch</span>=<span class="hljs-string">&quot;b1&quot;</span> <span class="hljs-attr">lagernd</span>=<span class="hljs-string">&quot;false&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">buchbestand</span>&gt;</span></code></pre></div></article></body></html>

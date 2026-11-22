@@ -591,24 +591,31 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
-</head><body><article class="page sans"><header><h1 class="page-title">DOM</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c726339a-7aa0-4d75-84d7-21dc2bf9741c">Definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f7c258c1-e634-4199-8367-c7ca54a64bfb">Node Interface</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dd4b033a-1ce0-454c-b2e1-a674a4caccdb">Example</a></div></nav><p></p><h1 id="c726339a-7aa0-4d75-84d7-21dc2bf9741c">Definition</h1><p><mark class="highlight-blue">DOM</mark></p><div class="indented"><p>= Document Object Model</p><p>Tree-based parser</p><p>converts document into XML DOM-object that can be accessed via the API.</p><p>W3C standard for reading, changing, adding, deleting XML elements.</p></div><p></p><p></p><p><mark class="highlight-blue">Tree based Parser</mark></p><div class="indented"><p>Map XML document to internal tree structure in main memory.</p><p>App can read structure from main memory.</p><p>Used for small documents with ready-made data structure</p><ul class="bulleted-list"><li style="list-style-type: disc">Random access</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Slow</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Occupied memory constant to document size</li></ul></div><p></p><figure class="image"><a href="DOM%204ed0c0d958464ea7a49e2cf4262e84d7/Untitled.png"><img src="DOM%204ed0c0d958464ea7a49e2cf4262e84d7/Untitled.png" style="width: 192px"/></a></figure><p></p><h1 id="f7c258c1-e634-4199-8367-c7ca54a64bfb">Node Interface</h1><p><mark class="highlight-blue">Loading an XML</mark><mark class="highlight-blue"><code>Document</code></mark></p><pre class="code"><code>import javax.xml.parsers.*;
-import org.w3c.dom. *;
-public class Course {public static void main(String[] args) throws Exception {
-//factory instantiation: API that enables applications to obtain a parser that
-//produces DOM object trees from XML documents
-DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//validation and namespaces
-factory.setValidating(true);
-factory.setNamespaceAware(true);
-//parser instantiation
-//API to obtain DOM document instances from XML documents
-DocumentBuilder builder = factory.newDocumentBuilder();
-//install ErrorHandler
-builder.setErrorHandler(new MyErrorHandler());
-//parsing instantiation (code below is written from this line onwards)
-Document coursedoc = builder.parse(args[0]);
-}
+</head><body><article class="page sans"><header><h1 class="page-title">DOM</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c726339a-7aa0-4d75-84d7-21dc2bf9741c">Definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f7c258c1-e634-4199-8367-c7ca54a64bfb">Node Interface</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dd4b033a-1ce0-454c-b2e1-a674a4caccdb">Example</a></div></nav><p></p><h1 id="c726339a-7aa0-4d75-84d7-21dc2bf9741c">Definition</h1><p><mark class="highlight-blue">DOM</mark></p><div class="indented"><p>= Document Object Model</p><p>Tree-based parser</p><p>converts document into XML DOM-object that can be accessed via the API.</p><p>W3C standard for reading, changing, adding, deleting XML elements.</p></div><p></p><p></p><p><mark class="highlight-blue">Tree based Parser</mark></p><div class="indented"><p>Map XML document to internal tree structure in main memory.</p><p>App can read structure from main memory.</p><p>Used for small documents with ready-made data structure</p><ul class="bulleted-list"><li style="list-style-type: disc">Random access</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Slow</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Occupied memory constant to document size</li></ul></div><p></p><figure class="image"><a href="DOM%204ed0c0d958464ea7a49e2cf4262e84d7/Untitled.png"><img src="DOM%204ed0c0d958464ea7a49e2cf4262e84d7/Untitled.png" style="width: 192px"/></a></figure><p></p><h1 id="f7c258c1-e634-4199-8367-c7ca54a64bfb">Node Interface</h1><p><mark class="highlight-blue">Loading an XML</mark><mark class="highlight-blue"><code>Document</code></mark></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> javax.xml.parsers.*;
+<span class="hljs-keyword">import</span> org.w3c.dom. *;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Course</span> {
+
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+		<span class="hljs-comment">//factory instantiation: API that enables applications to obtain a parser that</span>
+		<span class="hljs-comment">//produces DOM object trees from XML documents</span>
+		<span class="hljs-type">DocumentBuilderFactory</span> <span class="hljs-variable">factory</span> <span class="hljs-operator">=</span> DocumentBuilderFactory.newInstance();
+&#9;
+		<span class="hljs-comment">//validation and namespaces</span>
+		factory.setValidating(<span class="hljs-literal">true</span>);
+		factory.setNamespaceAware(<span class="hljs-literal">true</span>);
+&#9;
+		<span class="hljs-comment">//parser instantiation</span>
+		<span class="hljs-comment">//API to obtain DOM document instances from XML documents</span>
+		<span class="hljs-type">DocumentBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> factory.newDocumentBuilder();
+&#9;
+		<span class="hljs-comment">//install ErrorHandler</span>
+		builder.setErrorHandler(<span class="hljs-keyword">new</span> <span class="hljs-title class_">MyErrorHandler</span>());
+&#9;
+		<span class="hljs-comment">//parsing instantiation (code below is written from this line onwards)</span>
+		<span class="hljs-type">Document</span> <span class="hljs-variable">coursedoc</span> <span class="hljs-operator">=</span> builder.parse(args[<span class="hljs-number">0</span>]);
+	}
 }</code></pre><p></p><p>
 The
 <mark class="highlight-gray"><code>Node</code></mark><mark class="highlight-gray"></mark>
@@ -623,12 +630,14 @@ More specific subinterfaces inherit from it:
 ,
 <code><mark class="highlight-gray">Text</mark></code>
 , ...
-</p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Visit all child nodes of “courses.xml”</summary><pre class="code"><code>visitNode(coursedoc.getDocumentElement());private void visitNode(Node node) {
-//iterate over all children
-for (int i = 0; i &lt; node.getChildNodes().getLength(); i++) {
-//recursively visit all nodes
-visitNode(node.getChildNodes().item(i));
-}
+</p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Visit all child nodes of “courses.xml”</summary><pre class="code"><code class="hljs language-java">visitNode(coursedoc.getDocumentElement());
+
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">visitNode</span><span class="hljs-params">(Node node)</span> {
+	<span class="hljs-comment">//iterate over all children</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; node.getChildNodes().getLength(); i++) {
+		<span class="hljs-comment">//recursively visit all nodes</span>
+		visitNode(node.getChildNodes().item(i));
+	}
 }</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Node Interface</mark></p><div class="indented"><p><a href="https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Node.html">
 https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Node.html
 </a></p></div><p></p><p><mark class="highlight-blue">Document Methods (child interface of Node)</mark></p><div class="indented"><p><a href="https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Document.html">
@@ -637,93 +646,121 @@ https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Document.html
 https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Element.html
 </a></p></div><p></p><p><mark class="highlight-blue">Attr Methods (child interface of Node)</mark></p><div class="indented"><p><a href="https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Attr.html">
 https://docs.oracle.com/javase/8/docs/api/org/w3c/dom/Attr.html
-</a></p></div><p></p><p></p><p></p><h1 id="dd4b033a-1ce0-454c-b2e1-a674a4caccdb">Example</h1><pre class="code"><code>&lt;?xml version="1.0"?&gt;
-&lt;courses&gt;
-&lt;course semester="Summer"&gt;
-&lt;title&gt; Semi-structured Data (SSD) &lt;/title&gt;
-&lt;day&gt; Thursday &lt;/day&gt;
-&lt;time&gt; 09:15 &lt;/time&gt;
-&lt;location&gt; HS8 &lt;/location&gt;
-&lt;/course&gt;
-&lt;/courses&gt;</code></pre><pre class="code"><code>courses:
+</a></p></div><p></p><p></p><p></p><h1 id="dd4b033a-1ce0-454c-b2e1-a674a4caccdb">Example</h1><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">courses</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">course</span> <span class="hljs-attr">semester</span>=<span class="hljs-string">&quot;Summer&quot;</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span> Semi-structured Data (SSD) <span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">day</span>&gt;</span> Thursday <span class="hljs-tag">&lt;/<span class="hljs-name">day</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">time</span>&gt;</span> 09:15 <span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">location</span>&gt;</span> HS8 <span class="hljs-tag">&lt;/<span class="hljs-name">location</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-name">course</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">courses</span>&gt;</span></code></pre><pre class="code"><code>courses:
 course: semester="Summer"
 title: "Semi-structured Data (SSD)"
 day: "Thursday"
 time: "09:15"
-location: "HS8"</code></pre><ul class="toggle"><li><details><summary>Reading document</summary><pre class="code"><code>import jave.io.*;
-import javax.xml.parsers.*;
-import org.w3c.dom. *;public class Course {public static void main(String[] args) throws Exception {
-// ... see above ...Document coursedoc = builder.parse(args[0]);//call visit node starting from the root node
-visitNode(coursedoc.getDocumentElement());
-}//the recursive method visitNode
-private static void visitNode(Node node) {
-//element nodes
-if (node.getNodeType() == Node.ELEMENT_NODE) {
-System.out.print("\n" + node.getNodeName() + ": ");
-NamedNodeMap attributes = node.getAttributes();
-if (attributes != null) {
-for (int i = 0; i &lt; attributes.getLength(); i++) {
-System.out.print(attributes.item(i) + " ");
-}
-}
-}
-//text nodes
-if (node.getNodeType() == Node.TEXT_NODE &amp;&amp; !node.getTextContent().trim().isEmpty()) {
-System.out.print("\"" + node.getTextContent().trim() + "\"");
-}
-// visit child nodes
-NodeList nodelist = node.getChildNodes();
-for (int i = 0; i &lt; nodelist.getLength(); i++) {
-visitNode(nodelist.item(i));
-}
-}
-}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Create and validate document</summary><pre class="code"><code>import java.io.File;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.*;
-public class Course {public static void main(String[] args) throws Exception {
-// ... see above .../*
-* CREATE DOCUMENT
-*/
-Document coursedoc = builder.newDocument();//create all the necessary elements
-Element courses = coursedoc.createElement("courses");
-Element course = coursedoc.createElement("course");
-course.setAttribute("semester", "Summer");
-Element title = coursedoc.createElement("title");
-title.setTextContent("Semi-structured Data (SSD)");//append the children in a bottom-up-order
-course.appendChild(title); course.appendChild(day);
-course.appendChild(time); course.appendChild(location);
-courses.appendChild(course);
-coursedoc.appendChild(courses);/*
-* VALIDATE
-*/
-//validate the new document against a schema
-//load XML Schema
-File schemaFile = new File("schema.xsd");
-SchemaFactory factory= SchemaFactory(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-Schema schema = schemaFactory.newSchema(schemaFile);
-// Create Validator and validate
-Validator validator = schema.newValidator();
-try{
-validator.validate(new DOMSource(coursedoc));
-} catch (SAXException ex) {
-exit("Created document not valid:" + ex.getMessage());
-}/*
-* WRITE INTO A FILE
-*/
-//write the document into a file
-//factory instantiation
-TransformerFactory tfactory = TransformerFactory.newInstance();
-//transformer instantiation
-Transformer transformer = tfactory.newTransformer();
-//create a new input XML source
-DOMSource source = new DOMSource(coursedoc);
-//construct a stream result
-StreamResult result = new StreamResult(new File("courses.xml"));
-//actual transformation
-transformer.transform(source, result);
-System.out.println("File saved!");
-}
+location: "HS8"</code></pre><ul class="toggle"><li><details><summary>Reading document</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> jave.io.*;
+<span class="hljs-keyword">import</span> javax.xml.parsers.*;
+<span class="hljs-keyword">import</span> org.w3c.dom. *;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Course</span> {
+
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+		<span class="hljs-comment">// ... see above ...</span>
+
+		<span class="hljs-type">Document</span> <span class="hljs-variable">coursedoc</span> <span class="hljs-operator">=</span> builder.parse(args[<span class="hljs-number">0</span>]);
+
+		<span class="hljs-comment">//call visit node starting from the root node</span>
+		visitNode(coursedoc.getDocumentElement());
+	}
+
+	<span class="hljs-comment">//the recursive method visitNode</span>
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">visitNode</span><span class="hljs-params">(Node node)</span> {
+		<span class="hljs-comment">//element nodes</span>
+		<span class="hljs-keyword">if</span> (node.getNodeType() == Node.ELEMENT_NODE) {
+			System.out.print(<span class="hljs-string">&quot;\n&quot;</span> + node.getNodeName() + <span class="hljs-string">&quot;: &quot;</span>);
+			<span class="hljs-type">NamedNodeMap</span> <span class="hljs-variable">attributes</span> <span class="hljs-operator">=</span> node.getAttributes();
+&#9;&#9;&#9;
+			<span class="hljs-keyword">if</span> (attributes != <span class="hljs-literal">null</span>) {
+				<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; attributes.getLength(); i++) {
+					System.out.print(attributes.item(i) + <span class="hljs-string">&quot; &quot;</span>);
+				}
+			}
+		}
+&#9;
+		<span class="hljs-comment">//text nodes</span>
+		<span class="hljs-keyword">if</span> (node.getNodeType() == Node.TEXT_NODE &amp;&amp; !node.getTextContent().trim().isEmpty()) {
+			System.out.print(<span class="hljs-string">&quot;\&quot;&quot;</span> + node.getTextContent().trim() + <span class="hljs-string">&quot;\&quot;&quot;</span>);
+		}
+&#9;
+		<span class="hljs-comment">// visit child nodes</span>
+		<span class="hljs-type">NodeList</span> <span class="hljs-variable">nodelist</span> <span class="hljs-operator">=</span> node.getChildNodes();
+		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nodelist.getLength(); i++) {
+			visitNode(nodelist.item(i));
+		}
+	}
+}</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Create and validate document</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.File;
+<span class="hljs-keyword">import</span> javax.xml.parsers.*;
+<span class="hljs-keyword">import</span> javax.xml.transform.*;
+<span class="hljs-keyword">import</span> javax.xml.transform.dom.DOMSource;
+<span class="hljs-keyword">import</span> javax.xml.transform.stream.StreamResult;
+<span class="hljs-keyword">import</span> org.w3c.dom.*;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Course</span> {
+
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+		<span class="hljs-comment">// ... see above ...</span>
+
+
+		<span class="hljs-comment">/*
+		* CREATE DOCUMENT
+		*/</span>
+		<span class="hljs-type">Document</span> <span class="hljs-variable">coursedoc</span> <span class="hljs-operator">=</span> builder.newDocument();
+
+		<span class="hljs-comment">//create all the necessary elements</span>
+		<span class="hljs-type">Element</span> <span class="hljs-variable">courses</span> <span class="hljs-operator">=</span> coursedoc.createElement(<span class="hljs-string">&quot;courses&quot;</span>);
+		<span class="hljs-type">Element</span> <span class="hljs-variable">course</span> <span class="hljs-operator">=</span> coursedoc.createElement(<span class="hljs-string">&quot;course&quot;</span>);
+		course.setAttribute(<span class="hljs-string">&quot;semester&quot;</span>, <span class="hljs-string">&quot;Summer&quot;</span>);
+		<span class="hljs-type">Element</span> <span class="hljs-variable">title</span> <span class="hljs-operator">=</span> coursedoc.createElement(<span class="hljs-string">&quot;title&quot;</span>);
+		title.setTextContent(<span class="hljs-string">&quot;Semi-structured Data (SSD)&quot;</span>);
+
+		<span class="hljs-comment">//append the children in a bottom-up-order</span>
+		course.appendChild(title); course.appendChild(day);
+		course.appendChild(time); course.appendChild(location);
+		courses.appendChild(course);
+		coursedoc.appendChild(courses);
+
+
+		<span class="hljs-comment">/*
+		* VALIDATE
+		*/</span>
+		<span class="hljs-comment">//validate the new document against a schema</span>
+		<span class="hljs-comment">//load XML Schema</span>
+		<span class="hljs-type">File</span> <span class="hljs-variable">schemaFile</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;schema.xsd&quot;</span>);
+		SchemaFactory factory= SchemaFactory(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		<span class="hljs-type">Schema</span> <span class="hljs-variable">schema</span> <span class="hljs-operator">=</span> schemaFactory.newSchema(schemaFile);
+		<span class="hljs-comment">// Create Validator and validate</span>
+		<span class="hljs-type">Validator</span> <span class="hljs-variable">validator</span> <span class="hljs-operator">=</span> schema.newValidator();
+		<span class="hljs-keyword">try</span>{
+			validator.validate(<span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMSource</span>(coursedoc));
+		} <span class="hljs-keyword">catch</span> (SAXException ex) {
+			exit(<span class="hljs-string">&quot;Created document not valid:&quot;</span> + ex.getMessage());
+		}
+
+
+		<span class="hljs-comment">/*
+		* WRITE INTO A FILE
+		*/</span>
+		<span class="hljs-comment">//write the document into a file</span>
+		<span class="hljs-comment">//factory instantiation</span>
+		<span class="hljs-type">TransformerFactory</span> <span class="hljs-variable">tfactory</span> <span class="hljs-operator">=</span> TransformerFactory.newInstance();
+		<span class="hljs-comment">//transformer instantiation</span>
+		<span class="hljs-type">Transformer</span> <span class="hljs-variable">transformer</span> <span class="hljs-operator">=</span> tfactory.newTransformer();
+		<span class="hljs-comment">//create a new input XML source</span>
+		<span class="hljs-type">DOMSource</span> <span class="hljs-variable">source</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMSource</span>(coursedoc);
+		<span class="hljs-comment">//construct a stream result</span>
+		<span class="hljs-type">StreamResult</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StreamResult</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;courses.xml&quot;</span>));
+		<span class="hljs-comment">//actual transformation</span>
+		transformer.transform(source, result);
+		System.out.println(<span class="hljs-string">&quot;File saved!&quot;</span>);
+	}
 }</code></pre><p></p></details></li></ul><p></p></div></article></body></html>

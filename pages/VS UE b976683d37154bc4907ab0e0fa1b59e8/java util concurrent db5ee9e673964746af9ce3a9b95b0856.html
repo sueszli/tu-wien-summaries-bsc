@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">java.util.concurrent</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html">
 https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html
@@ -618,11 +619,17 @@ s constructor.
 Interface that classes that run within the
 <em>Thread</em>
 Object must implement.
-</p></div><p></p><pre class="code code-wrap"><code>public class HelloRunnable implements Runnable {public void run() {
-System.out.println("Hello from a thread!");
-}public static void main(String args[]) {
-(new Thread(new HelloRunnable())).start();
-}}</code></pre><p></p><p></p><h2 id="21093a83-e2a9-45b0-8031-d083230fe6ae">Thread API</h2><p><code>.sleep()</code></p><div class="indented"><p>suspend execution inside a Thread (not precise).</p><p>Make CPU time available for other threads or processes.</p><p>
+</p></div><p></p><pre class="code code-wrap"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloRunnable</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Hello from a thread!&quot;</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span> {
+        (<span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HelloRunnable</span>())).start();
+    }
+
+}</code></pre><p></p><p></p><h2 id="21093a83-e2a9-45b0-8031-d083230fe6ae">Thread API</h2><p><code>.sleep()</code></p><div class="indented"><p>suspend execution inside a Thread (not precise).</p><p>Make CPU time available for other threads or processes.</p><p>
 Can be interrupted with
 <mark class="highlight-gray"><code>InterruptedException</code></mark>
 .
@@ -674,53 +681,67 @@ and waits for it to finish.
 If it takes to long, the
 <em>main-thread</em>
 will interrupt it.
-</p></div><p></p></div><p></p><pre class="code"><code>public class SimpleThreads {// Display message + name of the current thread
-public static void threadMessage(String message) {
-String threadName = Thread.currentThread().getName();
-System.out.format("%s: %s%n", threadName, message);
-}public static void main(String args[]) throws InterruptedException {
-long patience = 1000 * 60 * 60; // one hour//start Timer
-threadMessage("Starting MessageLoop thread");
-long startTime = System.currentTimeMillis();
-//start MessageLoop
-Thread t = new Thread(new MessageLoop());
-t.start();threadMessage("Waiting for MessageLoop thread to finish");
-while (t.isAlive()) {
-threadMessage("Still waiting...");
-// Wait max 1 second
-t.join(1000);
-if (((System.currentTimeMillis() - startTime) &gt; patience) &amp;&amp; t.isAlive()) {
-threadMessage("Tired of waiting!");
-t.interrupt();
-t.join(); // wait indefinitely
-}
-}
-threadMessage("Finally!");
-}
-}</code></pre><pre class="code"><code>private static class MessageLoop implements Runnable {
-public void run() {
-String importantInfo[] = { "Mares eat oats", ...};
-try {
-for (int i = 0; i &lt; importantInfo.length; i++) {
-Thread.sleep(4000);
-SimpleThreads.threadMessage(importantInfo[i]);
-}
-} catch (InterruptedException e) {
-SimpleThreads.threadMessage("I wasn't done!");
-}
-}
+</p></div><p></p></div><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleThreads</span> {
+
+    <span class="hljs-comment">// Display message + name of the current thread</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">threadMessage</span><span class="hljs-params">(String message)</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">threadName</span> <span class="hljs-operator">=</span> Thread.currentThread().getName();
+        System.out.format(<span class="hljs-string">&quot;%s: %s%n&quot;</span>, threadName, message);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span> <span class="hljs-keyword">throws</span> InterruptedException {
+        <span class="hljs-type">long</span> <span class="hljs-variable">patience</span> <span class="hljs-operator">=</span> <span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>; <span class="hljs-comment">// one hour</span>
+
+				<span class="hljs-comment">//start Timer</span>
+        threadMessage(<span class="hljs-string">&quot;Starting MessageLoop thread&quot;</span>);
+        <span class="hljs-type">long</span> <span class="hljs-variable">startTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();
+				<span class="hljs-comment">//start MessageLoop</span>
+				<span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageLoop</span>());
+        t.start();
+
+        threadMessage(<span class="hljs-string">&quot;Waiting for MessageLoop thread to finish&quot;</span>);
+        <span class="hljs-keyword">while</span> (t.isAlive()) {
+            threadMessage(<span class="hljs-string">&quot;Still waiting...&quot;</span>);
+            <span class="hljs-comment">// Wait max 1 second</span>
+            t.join(<span class="hljs-number">1000</span>);
+            <span class="hljs-keyword">if</span> (((System.currentTimeMillis() - startTime) &gt; patience) &amp;&amp; t.isAlive()) {
+                threadMessage(<span class="hljs-string">&quot;Tired of waiting!&quot;</span>);
+                t.interrupt();
+                t.join(); <span class="hljs-comment">// wait indefinitely</span>
+            }
+        }
+        threadMessage(<span class="hljs-string">&quot;Finally!&quot;</span>);
+    }
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MessageLoop</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+        String importantInfo[] = { <span class="hljs-string">&quot;Mares eat oats&quot;</span>, ...};
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; importantInfo.length; i++) {
+                Thread.sleep(<span class="hljs-number">4000</span>);
+                SimpleThreads.threadMessage(importantInfo[i]);
+            }
+        } <span class="hljs-keyword">catch</span> (InterruptedException e) {
+            SimpleThreads.threadMessage(<span class="hljs-string">&quot;I wasn&#x27;t done!&quot;</span>);
+        }
+    }
 }</code></pre><p></p><p></p><h1 id="f325b5f2-3018-422d-8137-fd5a001b8d2d">Synchronization</h1><p>Threads communicate by sharing memory. This might cause:</p><div class="indented"><p><mark class="highlight-blue">Thread Interference</mark></p><div class="indented"><p>Multiple Threads access shared memory</p><div class="indented"><p>
 This happens when two operations running on different threads acting on the same data,
 <em>interleave</em>
 .
-</p></div><p></p></div><p></p><p><mark class="highlight-blue">Memory consistency error</mark></p><div class="indented"><p>Inconsistent views of shared memory.</p><div class="indented"><p>There is no fixed execution-order.</p></div><p></p></div><p></p></div><p></p><p>Solution: Synchronization.</p><p></p><p></p><p><mark class="highlight-blue">Synchronized Methods: Atomic actions</mark></p><div class="indented"><p>No interleaving allowed: "Kritischer Abschnitt"</p><pre class="code"><code>public class SynchronizedCounter {
-private int c = 0;public synchronized void increment() {
-c++;
-}public synchronized void decrement() {
-c--;
-}public synchronized int value() {
-return c;
-}
+</p></div><p></p></div><p></p><p><mark class="highlight-blue">Memory consistency error</mark></p><div class="indented"><p>Inconsistent views of shared memory.</p><div class="indented"><p>There is no fixed execution-order.</p></div><p></p></div><p></p></div><p></p><p>Solution: Synchronization.</p><p></p><p></p><p><mark class="highlight-blue">Synchronized Methods: Atomic actions</mark></p><div class="indented"><p>No interleaving allowed: "Kritischer Abschnitt"</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SynchronizedCounter</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">increment</span><span class="hljs-params">()</span> {
+        c++;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">decrement</span><span class="hljs-params">()</span> {
+        c--;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-type">int</span> <span class="hljs-title function_">value</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> c;
+    }
 }</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Synchronized Statements: making only a part of the method atomic</mark></p><div class="indented"><p>
 Built on the
 <em>intrinsic lock</em>
@@ -737,31 +758,35 @@ the intrinsic lock when it's done.
 A thread is said to
 <em>own</em>
 the intrinsic lock between the time it has acquired the lock and released the lock.
-</p><p>Synchronized statements must specify the object that provides the intrinsic lock:</p><pre class="code"><code>public void addName(String name) {
-synchronized(this) {
-lastName = name;
-nameCount++;
-}
-nameList.add(name);
+</p><p>Synchronized statements must specify the object that provides the intrinsic lock:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addName</span><span class="hljs-params">(String name)</span> {
+    <span class="hljs-keyword">synchronized</span>(<span class="hljs-built_in">this</span>) {
+        lastName = name;
+        nameCount++;
+    }
+    nameList.add(name);
 }</code></pre></div><p></p><p></p><p>To avoid unneccasry blocking, where interleaving does not affect the memory:</p><div class="indented"><p>
 Incrementing
 <mark class="highlight-gray"><code>c1</code></mark><mark class="highlight-gray"></mark>
 and
 <mark class="highlight-gray"><code>c2</code></mark><mark class="highlight-gray"></mark>
 can interleave since they are never read together, but the operations must be synchronized.
-<mark class="highlight-gray"></mark></p><pre class="code"><code>public class Example {
-private long c1 = 0;
-private long c2 = 0;
-private Object lock1 = new Object();
-private Object lock2 = new Object();public void inc1() {
-synchronized(lock1) {
-c1++;
-}
-}public void inc2() {
-synchronized(lock2) {
-c2++;
-}
-}
+<mark class="highlight-gray"></mark></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Example</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span> <span class="hljs-variable">c1</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span> <span class="hljs-variable">c2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">Object</span> <span class="hljs-variable">lock1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();
+    <span class="hljs-keyword">private</span> <span class="hljs-type">Object</span> <span class="hljs-variable">lock2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">inc1</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">synchronized</span>(lock1) {
+            c1++;
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">inc2</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">synchronized</span>(lock2) {
+            c2++;
+        }
+    }
 }</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Atomic Access</mark></p><div class="indented"><p>No interruptions: Action happens completely or not at all.</p><p>No side effects are visible until the action is complete.</p><p>
 Reads and writes are atomic for all primitive variables - but
 <mark class="highlight-gray"><code>long</code></mark><mark class="highlight-gray"></mark>
@@ -773,172 +798,212 @@ If both bow at the same time, they remain locked forever. Neither block will eve
 exit
 <mark class="highlight-gray"><code>bow</code></mark>
 .
-</p></div><p></p><pre class="code"><code>public class Deadlock {
-static class Friend {
-private final String name;public Friend(String name) { ... }
-public String getName() { ... }public synchronized void bow(Friend bower) {
-System.out.format("%s: %s" + "  has bowed to me!%n", this.name, bower.getName());
-bower.bowBack(this);
-}public synchronized void bowBack(Friend bower) {
-System.out.format("%s: %s" + " has bowed back to me!%n", this.name, bower.getName());
-}
-}public static void main(String[] args) {
-final Friend alphonse = new Friend("Alphonse");
-final Friend gaston = new Friend("Gaston");
-new Thread(new Runnable() {
-public void run() {
-alphonse.bow(gaston);
-}
-}).start();
-new Thread(new Runnable() {
-public void run() {
-gaston.bow(alphonse);
-}
-}).start();
-}
-}</code></pre><p></p><p><mark class="highlight-blue">Starvation</mark></p><div class="indented"><p>situation where a thread is unable to gain regular access to shared resources and is unable to make progress.</p><p>This happens when shared resources are made unavailable for long periods by "greedy" threads.</p></div><p></p><p></p><p><mark class="highlight-blue">Livelock</mark></p><div class="indented"><p>The threads are not blocked but still make no process- they are simply too busy responding to each other to resume work.</p></div><p></p><p></p><h2 id="bbdce8ab-a095-4e6a-acb5-a839ef65fb3c">Guarded Blocks</h2><p>Only proceed if a specified condition is met.</p><p>Using loops is wasteful:</p><div class="indented"><pre class="code"><code>public void guardedJoy() {
-while(!joy) {}
-System.out.println("Joy has been achieved!");
-}</code></pre></div><p></p><p></p><p><code>Object.wait()</code></p><div class="indented"><p>Suspends current Thread until (any) event - then it checks if the condition was met, again.</p><pre class="code"><code>public synchronized void guardedJoy() {
-// This guard only loops once for each special event, which may not
-// be the event we're waiting for.
-while(!joy) {
-try {
-wait();
-} catch (InterruptedException e) {}
-}
-System.out.println("Joy and efficiency have been achieved!");
+</p></div><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Deadlock</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Friend</span> {
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String name;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-title function_">Friend</span><span class="hljs-params">(String name)</span> { ... }
+        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> { ... }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bow</span><span class="hljs-params">(Friend bower)</span> {
+            System.out.format(<span class="hljs-string">&quot;%s: %s&quot;</span> + <span class="hljs-string">&quot;  has bowed to me!%n&quot;</span>, <span class="hljs-built_in">this</span>.name, bower.getName());
+            bower.bowBack(<span class="hljs-built_in">this</span>);
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bowBack</span><span class="hljs-params">(Friend bower)</span> {
+            System.out.format(<span class="hljs-string">&quot;%s: %s&quot;</span> + <span class="hljs-string">&quot; has bowed back to me!%n&quot;</span>, <span class="hljs-built_in">this</span>.name, bower.getName());
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-keyword">final</span> <span class="hljs-type">Friend</span> <span class="hljs-variable">alphonse</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Friend</span>(<span class="hljs-string">&quot;Alphonse&quot;</span>);
+        <span class="hljs-keyword">final</span> <span class="hljs-type">Friend</span> <span class="hljs-variable">gaston</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Friend</span>(<span class="hljs-string">&quot;Gaston&quot;</span>);
+        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Runnable</span>() {
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+                alphonse.bow(gaston);
+            }
+        }).start();
+        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Runnable</span>() {
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+                gaston.bow(alphonse);
+            }
+        }).start();
+    }
+}</code></pre><p></p><p><mark class="highlight-blue">Starvation</mark></p><div class="indented"><p>situation where a thread is unable to gain regular access to shared resources and is unable to make progress.</p><p>This happens when shared resources are made unavailable for long periods by "greedy" threads.</p></div><p></p><p></p><p><mark class="highlight-blue">Livelock</mark></p><div class="indented"><p>The threads are not blocked but still make no process- they are simply too busy responding to each other to resume work.</p></div><p></p><p></p><h2 id="bbdce8ab-a095-4e6a-acb5-a839ef65fb3c">Guarded Blocks</h2><p>Only proceed if a specified condition is met.</p><p>Using loops is wasteful:</p><div class="indented"><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">guardedJoy</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">while</span>(!joy) {}
+    System.out.println(<span class="hljs-string">&quot;Joy has been achieved!&quot;</span>);
+}</code></pre></div><p></p><p></p><p><code>Object.wait()</code></p><div class="indented"><p>Suspends current Thread until (any) event - then it checks if the condition was met, again.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">guardedJoy</span><span class="hljs-params">()</span> {
+    <span class="hljs-comment">// This guard only loops once for each special event, which may not</span>
+    <span class="hljs-comment">// be the event we&#x27;re waiting for.</span>
+    <span class="hljs-keyword">while</span>(!joy) {
+        <span class="hljs-keyword">try</span> {
+            wait();
+        } <span class="hljs-keyword">catch</span> (InterruptedException e) {}
+    }
+    System.out.println(<span class="hljs-string">&quot;Joy and efficiency have been achieved!&quot;</span>);
 }</code></pre></div><p></p><p></p><p><code>Object.notifyAll()</code></p><div class="indented"><p>Event</p><pre class="code"><code>public synchronized notifyJoy() {
-joy = true;
-notifyAll();
-}</code></pre></div><p></p><p></p><p>Producer-Consumer-Example</p><div class="indented"><p>Only used to demonstrate guarded blocks. This could be done a lot easier using java.collections.</p></div><p></p><pre class="code"><code>public class Drop {
-// Message producer -&gt; consumer
-private String message;
-// True: consumer should wait (for producer to put())
-// False: producer should wait (for consumer to take())
-private boolean empty = true;public synchronized String take() {
-while (empty) {
-try {
-wait();
-} catch (InterruptedException e) {}
-}
-empty = true;
-notifyAll(); // Notify producer that status has changed.
-return message;
-}public synchronized void put(String message) {
-while (!empty) {
-try {
-wait();
-} catch (InterruptedException e) {}
-}
-empty = false;
-this.message = message;
-notifyAll(); // Notify consumer that status has changed.
-}
-}</code></pre><p></p><pre class="code"><code>public class Producer implements Runnable {
-private Drop drop;public Producer(Drop drop) {
-this.drop = drop;
-}public void run() {
-String importantInfo[] = { "Mares eat oats", ... };for (int i = 0; i &lt; importantInfo.length; i++) {
-drop.put(importantInfo[i]);
-try {
-Thread.sleep(...random time);
-} catch (InterruptedException e) {}
-}
-drop.put("DONE");
-}
-}</code></pre><pre class="code"><code>public class Consumer implements Runnable {
-private Drop drop;public Consumer(Drop drop) {
-this.drop = drop;
-}public void run() {
-for (String message = drop.take();
-! message.equals("DONE");
-message = drop.take()) {System.out.format("MESSAGE RECEIVED: %s%n", message);
-try {
-Thread.sleep(...random time);
-} catch (InterruptedException e) {}
-}
-}
-}</code></pre><p></p><pre class="code"><code>public class ProducerConsumerExample {
-public static void main(String[] args) {
-Drop drop = new Drop();
-(new Thread(new Producer(drop))).start();
-(new Thread(new Consumer(drop))).start();
-}
+    joy = true;
+    notifyAll();
+}</code></pre></div><p></p><p></p><p>Producer-Consumer-Example</p><div class="indented"><p>Only used to demonstrate guarded blocks. This could be done a lot easier using java.collections.</p></div><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Drop</span> {
+    <span class="hljs-comment">// Message producer -&gt; consumer</span>
+    <span class="hljs-keyword">private</span> String message;
+    <span class="hljs-comment">// True: consumer should wait (for producer to put())</span>
+		<span class="hljs-comment">// False: producer should wait (for consumer to take())</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">empty</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> String <span class="hljs-title function_">take</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">while</span> (empty) {
+            <span class="hljs-keyword">try</span> {
+                wait();
+            } <span class="hljs-keyword">catch</span> (InterruptedException e) {}
+        }
+        empty = <span class="hljs-literal">true</span>;
+        notifyAll(); <span class="hljs-comment">// Notify producer that status has changed.</span>
+        <span class="hljs-keyword">return</span> message;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">put</span><span class="hljs-params">(String message)</span> {
+        <span class="hljs-keyword">while</span> (!empty) {
+            <span class="hljs-keyword">try</span> {&#32;
+                wait();
+            } <span class="hljs-keyword">catch</span> (InterruptedException e) {}
+        }
+        empty = <span class="hljs-literal">false</span>;
+        <span class="hljs-built_in">this</span>.message = message;
+        notifyAll(); <span class="hljs-comment">// Notify consumer that status has changed.</span>
+    }
+}</code></pre><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Producer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> {
+    <span class="hljs-keyword">private</span> Drop drop;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Producer</span><span class="hljs-params">(Drop drop)</span> {
+        <span class="hljs-built_in">this</span>.drop = drop;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+        String importantInfo[] = { <span class="hljs-string">&quot;Mares eat oats&quot;</span>, ... };
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; importantInfo.length; i++) {
+            drop.put(importantInfo[i]);
+            <span class="hljs-keyword">try</span> {
+                Thread.sleep(...random time);
+            } <span class="hljs-keyword">catch</span> (InterruptedException e) {}
+        }
+        drop.put(<span class="hljs-string">&quot;DONE&quot;</span>);
+    }
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Consumer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> {
+    <span class="hljs-keyword">private</span> Drop drop;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Consumer</span><span class="hljs-params">(Drop drop)</span> {
+        <span class="hljs-built_in">this</span>.drop = drop;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> drop.take();
+             ! message.equals(<span class="hljs-string">&quot;DONE&quot;</span>);
+             message = drop.take()) {
+
+            System.out.format(<span class="hljs-string">&quot;MESSAGE RECEIVED: %s%n&quot;</span>, message);
+            <span class="hljs-keyword">try</span> {
+                Thread.sleep(...random time);
+            } <span class="hljs-keyword">catch</span> (InterruptedException e) {}
+        }
+    }
+}</code></pre><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProducerConsumerExample</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">Drop</span> <span class="hljs-variable">drop</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Drop</span>();
+        (<span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Producer</span>(drop))).start();
+        (<span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Consumer</span>(drop))).start();
+    }
 }</code></pre><p></p><p></p><h1 id="781f7f64-a37f-478c-bf6d-80793a96d3c9">High level Concurrency Objects</h1><p>
 Synchronized code is build on top of a simple
 <em>reentrant lock</em>
 .
 </p><div class="indented"><p>Easy to use but many limitations.</p><p>One thread can lock an object at a time (kritischen Abschnitt betreten).</p><p>We now encapsulate task creation and management (previously done by threads) and the tasks themselves (runnables).</p></div><p></p><p></p><h2 id="fc918062-86c0-4c03-8455-534b4b48feab">Lock</h2><p><code>Lock</code>
 Interface in
-<code>java.util.concurrent.locks</code></p><p>Example: Solve Deadlock</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code>  public static void main(String[] args) {
-final Friend alphonse = new Friend("Alphonse");
-final Friend gaston = new Friend("Gaston");
-new Thread(new BowLoop(alphonse, gaston)).start();
-new Thread(new BowLoop(gaston, alphonse)).start();
-}</code></pre><pre class="code"><code>static class BowLoop implements Runnable {
-private Friend bower;
-private Friend bowee;public BowLoop(Friend bower, Friend bowee) { ... }public void run() {
-while(true) {
-try {
-Thread.sleep(...random time);
-} catch (InterruptedException e) {}
-bowee.bow(bower);
-}
-}
-}</code></pre><pre class="code"><code>import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;static class Friend {private final String name;
-private final Lock lock = new ReentrantLock();public Friend(String name) { ... }
-public String getName() { ... }//if it returns false: both bowing at the same time
-public boolean impendingBow(Friend bower) {
-Boolean myLock = false;
-Boolean yourLock = false;
-try {
-// returns true if the lock was free and was acquired by the current thread
-myLock = lock.tryLock();
-yourLock = bower.lock.tryLock();
-} finally {
-if (!myLock || !yourLock)) { //if one of us wasnt free
-if (myLock) { lock.unlock(); }
-if (yourLock) { bower.lock.unlock(); }
-}
-}
-return myLock &amp;&amp; yourLock;
-}public void bow(Friend bower) {
-if (impendingBow(bower)) {
-try {
-System.out.format(
-"%s: %s has" + " bowed to me!%n",
-this.name,
-bower.getName()
-);
-bower.bowBack(this);
-} finally {
-lock.unlock();
-bower.lock.unlock();
-}
-} else {
-System.out.format(
-"%s: %s started" + "to bow to me, but saw that I was already bowing to him.%n",
-this.name,
-bower.getName()
-);
-}
-}public void bowBack(Friend bower) {
-System.out.format(
-"%s: %s has" + " bowed back to me!%n",
-this.name,
-bower.getName()
-);
-}
+<code>java.util.concurrent.locks</code></p><p>Example: Solve Deadlock</p><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-java">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+    <span class="hljs-keyword">final</span> <span class="hljs-type">Friend</span> <span class="hljs-variable">alphonse</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Friend</span>(<span class="hljs-string">&quot;Alphonse&quot;</span>);
+    <span class="hljs-keyword">final</span> <span class="hljs-type">Friend</span> <span class="hljs-variable">gaston</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Friend</span>(<span class="hljs-string">&quot;Gaston&quot;</span>);
+    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BowLoop</span>(alphonse, gaston)).start();
+    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BowLoop</span>(gaston, alphonse)).start();
+  }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BowLoop</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> {
+  <span class="hljs-keyword">private</span> Friend bower;
+  <span class="hljs-keyword">private</span> Friend bowee;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">BowLoop</span><span class="hljs-params">(Friend bower, Friend bowee)</span> { ... }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) {
+      <span class="hljs-keyword">try</span> {
+        Thread.sleep(...random time);
+      } <span class="hljs-keyword">catch</span> (InterruptedException e) {}
+      bowee.bow(bower);
+    }
+  }
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.util.concurrent.locks.Lock;
+<span class="hljs-keyword">import</span> java.util.concurrent.locks.ReentrantLock;
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Friend</span> {
+
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String name;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Lock</span> <span class="hljs-variable">lock</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReentrantLock</span>();
+
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">Friend</span><span class="hljs-params">(String name)</span> { ... }
+  <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> { ... }
+
+	<span class="hljs-comment">//if it returns false: both bowing at the same time</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">impendingBow</span><span class="hljs-params">(Friend bower)</span> {
+    <span class="hljs-type">Boolean</span> <span class="hljs-variable">myLock</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-type">Boolean</span> <span class="hljs-variable">yourLock</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">try</span> {
+			<span class="hljs-comment">// returns true if the lock was free and was acquired by the current thread</span>
+      myLock = lock.tryLock();
+      yourLock = bower.lock.tryLock();
+    } <span class="hljs-keyword">finally</span> {
+      <span class="hljs-keyword">if</span> (!myLock || !yourLock)) { <span class="hljs-comment">//if one of us wasnt free</span>
+        <span class="hljs-keyword">if</span> (myLock) { lock.unlock(); }
+        <span class="hljs-keyword">if</span> (yourLock) { bower.lock.unlock(); }
+      }
+    }
+    <span class="hljs-keyword">return</span> myLock &amp;&amp; yourLock;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bow</span><span class="hljs-params">(Friend bower)</span> {
+    <span class="hljs-keyword">if</span> (impendingBow(bower)) {
+      <span class="hljs-keyword">try</span> {
+        System.out.format(
+          <span class="hljs-string">&quot;%s: %s has&quot;</span> + <span class="hljs-string">&quot; bowed to me!%n&quot;</span>,
+          <span class="hljs-built_in">this</span>.name,
+          bower.getName()
+        );
+        bower.bowBack(<span class="hljs-built_in">this</span>);
+      } <span class="hljs-keyword">finally</span> {
+        lock.unlock();
+        bower.lock.unlock();
+      }
+    } <span class="hljs-keyword">else</span> {
+      System.out.format(
+        <span class="hljs-string">&quot;%s: %s started&quot;</span> + <span class="hljs-string">&quot;to bow to me, but saw that I was already bowing to him.%n&quot;</span>,
+        <span class="hljs-built_in">this</span>.name,
+        bower.getName()
+      );
+    }
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bowBack</span><span class="hljs-params">(Friend bower)</span> {
+    System.out.format(
+      <span class="hljs-string">&quot;%s: %s has&quot;</span> + <span class="hljs-string">&quot; bowed back to me!%n&quot;</span>,
+      <span class="hljs-built_in">this</span>.name,
+      bower.getName()
+    );
+  }
 }</code></pre></details></li></ul><p></p><h2 id="ae77970d-79f4-4fa1-86c9-c93da153ef43">Executor</h2><p>Previously, we seperated the task being done by the thread (Runnable), and the thread itself, responsible for creating tasks.</p><p>We dont want to sperate thread management and creation from the rest of the application in large applications.</p><p></p><p><code>Executor</code></p><div class="indented"><p>Interface for launching new tasks.</p><p>
 The Executor runs an existing worker thread to run the runnable
 <mark class="highlight-gray"><code>r</code></mark>
 or place it in a queue until the worker thread is available
 <mark class="highlight-gray">(→ see thread pools)</mark>
 .
-</p><pre class="code"><code>Runnable r = ...
-(new Thread(r)).start();</code></pre><pre class="code"><code>Runnable r = ...
+</p><pre class="code"><code class="hljs language-java"><span class="hljs-type">Runnable</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> ...
+(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(r)).start();</code></pre><pre class="code"><code>Runnable r = ...
 Executor e = ...
 e.execute(r);</code></pre></div><p></p><p></p><p><code>ExecutorService</code></p><div class="indented"><p>Subinterface of Executor.</p><p>Additional features for life cycle.</p><div class="indented"><p><code>.submit()</code></p><div class="indented"><p>
 Accepts
@@ -977,10 +1042,10 @@ Processes.
 </p><p>
 Usage: Writing small portions of code in a
 <code><mark class="highlight-gray">ForkJoinTask</mark></code></p><div class="indented"><pre class="code"><code>if (my portion of the work is small enough)
-do the work directly
+  do the work directly
 else
-split my work into two pieces
-invoke the two pieces and wait for the results</code></pre></div><p></p><p></p></div><p></p><h1 id="2d38581e-d3ba-4ace-8d78-6ec15261d57d">Concurrent Collections</h1><p>Help avoid Memory Consistency Errors.</p><div class="indented"><p>Set an Execution Order.</p></div><p></p><p></p><p><code>BlockingQueue</code></p><div class="indented"><p>Fifo Queue</p><p>Blocks when you try to add to a full queue or retrieve from an empty queue.</p><p></p></div><p></p><p><code>ConcurrentMap</code>
+  split my work into two pieces
+  invoke the two pieces and wait for the results</code></pre></div><p></p><p></p></div><p></p><h1 id="2d38581e-d3ba-4ace-8d78-6ec15261d57d">Concurrent Collections</h1><p>Help avoid Memory Consistency Errors.</p><div class="indented"><p>Set an Execution Order.</p></div><p></p><p></p><p><code>BlockingQueue</code></p><div class="indented"><p>Fifo Queue</p><p>Blocks when you try to add to a full queue or retrieve from an empty queue.</p><p></p></div><p></p><p><code>ConcurrentMap</code>
 /
 <code>ConcurrentHashMap</code></p><div class="indented"><p>
 Subinterface of
@@ -994,11 +1059,21 @@ and
 methods that work like reads and writes on
 <mark class="highlight-gray"><code>volatile</code></mark>
 variables.
-</p><pre class="code"><code>import java.util.concurrent.atomic.AtomicInteger;class AtomicCounter {
-private AtomicInteger c = new AtomicInteger(0);public void increment() {
-c.incrementAndGet();
-}public void decrement() {
-c.decrementAndGet();
-}public int value() {
-return c.get();
-}}</code></pre><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p></div></article></body></html>
+</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.util.concurrent.atomic.AtomicInteger;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">AtomicCounter</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-type">AtomicInteger</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AtomicInteger</span>(<span class="hljs-number">0</span>);
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">increment</span><span class="hljs-params">()</span> {
+        c.incrementAndGet();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">decrement</span><span class="hljs-params">()</span> {
+        c.decrementAndGet();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">value</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> c.get();
+    }
+
+}</code></pre><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p></div></article></body></html>

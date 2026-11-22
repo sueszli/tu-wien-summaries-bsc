@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Create, insert, delete, update (und Datenintegrität)</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f0843766-e3ae-43c2-85a4-972785d440ed">Datentypen</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c5e7a923-abb8-4ab2-890f-90e749c753ea">Manipulate Tables</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f401a9d7-c913-4154-beb1-4d69d8ffb56a">Manipulate Tuples</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#28803a56-8013-4e3e-b4d7-db9eaa7c8750">Integritätsbedingungen</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d611f510-d7f4-4062-9ae4-c6e3437da023">In SQL</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#99866c83-ebc7-4cea-ba59-27572e3001d3">Einfügen mit zyklischen Abhängigkeiten</a></div></nav><p></p><p></p><h1 id="f0843766-e3ae-43c2-85a4-972785d440ed">Datentypen</h1><p><mark class="highlight-blue">Datentypen / Attribut-Domäne</mark></p><div class="indented"><p>
 Zahlen
@@ -614,24 +615,24 @@ Große datenmengen
 ,
 <mark class="highlight-gray"><code>raw</code></mark>
 ,
-<mark class="highlight-gray"><code>clob</code></mark></p><p>xml (xml Dokumente)</p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="c5e7a923-abb8-4ab2-890f-90e749c753ea">Manipulate Tables</h1><p><mark class="highlight-blue">Create</mark></p><div class="indented"><pre class="code"><code>create table ProfessorIn (
-PersNr integer primary key ,
-Name varchar (10) not null ,
-Rang character (2)
-);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Update</mark></p><div class="indented"><pre class="code"><code>alter table ProfessorIn rename to Vortragende;
-alter table ProfessorIn add Raum integer;
-alter table ProfessorIn drop Raum;
-alter table ProfessorIn alter Name type varchar (30);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Delete</mark></p><div class="indented"><pre class="code"><code>drop table ProfessorIn;</code></pre></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="f401a9d7-c913-4154-beb1-4d69d8ffb56a">Manipulate Tuples</h1><p><mark class="highlight-blue">Create</mark></p><div class="indented"><pre class="code"><code>insert into ProfessorIn values (2136 , 'Curie', 'C4', 36);
-insert into ProfessorIn value
-(2125 , 'Sokrates', 'C4', 226),
-(2126 , 'Russel', 'C4', 232);</code></pre><pre class="code"><code>insert into hören
-select MatrNr, VorlNr
-from StudentIn, Vorlesung
-where Titel = 'Logik';</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Update</mark></p><div class="indented"><pre class="code"><code>update StudentIn
-set Semester = Semester + 1;</code></pre><pre class="code"><code>update ProfessorIn
-set Rang = 'C2'
-where Rang = 'C3' and PersNr &gt; 2500;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Delete</mark></p><div class="indented"><pre class="code"><code>delete from ProfessorIn
-values (2137 , 'Kant', 'C4', 7);</code></pre><pre class="code"><code>delete from ProfessorIn where PersNr = 2137;</code></pre></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="28803a56-8013-4e3e-b4d7-db9eaa7c8750">Integritätsbedingungen</h1><p><mark class="highlight-blue">Dynamisch</mark>
+<mark class="highlight-gray"><code>clob</code></mark></p><p>xml (xml Dokumente)</p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="c5e7a923-abb8-4ab2-890f-90e749c753ea">Manipulate Tables</h1><p><mark class="highlight-blue">Create</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> ProfessorIn (
+	PersNr <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span> ,
+	Name <span class="hljs-type">varchar</span> (<span class="hljs-number">10</span>) <span class="hljs-keyword">not null</span> ,
+	Rang <span class="hljs-type">character</span> (<span class="hljs-number">2</span>)
+);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Update</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">alter table</span> ProfessorIn rename <span class="hljs-keyword">to</span> Vortragende;
+<span class="hljs-keyword">alter table</span> ProfessorIn <span class="hljs-keyword">add</span> Raum <span class="hljs-type">integer</span>;
+<span class="hljs-keyword">alter table</span> ProfessorIn <span class="hljs-keyword">drop</span> Raum;
+<span class="hljs-keyword">alter table</span> ProfessorIn <span class="hljs-keyword">alter</span> Name type <span class="hljs-type">varchar</span> (<span class="hljs-number">30</span>);</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Delete</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> ProfessorIn;</code></pre></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="f401a9d7-c913-4154-beb1-4d69d8ffb56a">Manipulate Tuples</h1><p><mark class="highlight-blue">Create</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">insert into</span> ProfessorIn <span class="hljs-keyword">values</span> (<span class="hljs-number">2136</span> , <span class="hljs-string">&#x27;Curie&#x27;</span>, <span class="hljs-string">&#x27;C4&#x27;</span>, <span class="hljs-number">36</span>);
+<span class="hljs-keyword">insert into</span> ProfessorIn <span class="hljs-keyword">value</span>
+			(<span class="hljs-number">2125</span> , <span class="hljs-string">&#x27;Sokrates&#x27;</span>, <span class="hljs-string">&#x27;C4&#x27;</span>, <span class="hljs-number">226</span>),
+			(<span class="hljs-number">2126</span> , <span class="hljs-string">&#x27;Russel&#x27;</span>, <span class="hljs-string">&#x27;C4&#x27;</span>, <span class="hljs-number">232</span>);</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">insert into</span> hören
+<span class="hljs-keyword">select</span> MatrNr, VorlNr
+<span class="hljs-keyword">from</span> StudentIn, Vorlesung
+<span class="hljs-keyword">where</span> Titel <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Logik&#x27;</span>;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Update</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">update</span> StudentIn
+<span class="hljs-keyword">set</span> Semester <span class="hljs-operator">=</span> Semester <span class="hljs-operator">+</span> <span class="hljs-number">1</span>;</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">update</span> ProfessorIn
+<span class="hljs-keyword">set</span> Rang <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;C2&#x27;</span>
+<span class="hljs-keyword">where</span> Rang <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;C3&#x27;</span> <span class="hljs-keyword">and</span> PersNr <span class="hljs-operator">&gt;</span> <span class="hljs-number">2500</span>;</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Delete</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> ProfessorIn
+<span class="hljs-keyword">values</span> (<span class="hljs-number">2137</span> , <span class="hljs-string">&#x27;Kant&#x27;</span>, <span class="hljs-string">&#x27;C4&#x27;</span>, <span class="hljs-number">7</span>);</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> ProfessorIn <span class="hljs-keyword">where</span> PersNr <span class="hljs-operator">=</span> <span class="hljs-number">2137</span>;</code></pre></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="28803a56-8013-4e3e-b4d7-db9eaa7c8750">Integritätsbedingungen</h1><p><mark class="highlight-blue">Dynamisch</mark>
 Constraints an DB Zustandsänderungen
 </p><p><mark class="highlight-blue">Statisch</mark>
 Constraints an DB Zuständen selbst
@@ -657,54 +658,66 @@ Primärschlüssel
 Fremdschlüssel
 </p><p><mark class="highlight-gray"><code>references( table name )</code></mark><mark class="highlight-gray"></mark>
 Tabelle auf die verwiesen wird
-</p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><div class="indented"><pre class="code"><code>create table Student(
-MatrNr integer primary key,
-Name varchar(30) not null,
-Semester integer default 1
-check (Semester between 1 and 13) -- muss immer true sein
-);</code></pre><pre class="code"><code>create table prüfen (
-MatrNr integer,
-VorlNr integer,
-PersNr integer
-Note numeric(2,1)
-check(Note between 0.7 and 5.0),primary key(MatrNr, VorlNr),
-constraint vorherhören -- damit Fehlermeldungen deutlicher sind
-check(exists (select * from hören h where
-where h.VorlNr = prüfen.VorlNr and h.MatrNr = prüfen.MatrNr
-))
+</p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> Student(
+		MatrNr <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span>,
+		Name <span class="hljs-type">varchar</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">not null</span>,
+		Semester <span class="hljs-type">integer</span> <span class="hljs-keyword">default</span> <span class="hljs-number">1</span>
+			<span class="hljs-keyword">check</span> (Semester <span class="hljs-keyword">between</span> <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> <span class="hljs-number">13</span>) <span class="hljs-comment">-- muss immer true sein</span>
+);</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> prüfen (
+		MatrNr <span class="hljs-type">integer</span>,
+		VorlNr <span class="hljs-type">integer</span>,
+		PersNr <span class="hljs-type">integer</span>
+		Note <span class="hljs-type">numeric</span>(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)
+				<span class="hljs-keyword">check</span>(Note <span class="hljs-keyword">between</span> <span class="hljs-number">0.7</span> <span class="hljs-keyword">and</span> <span class="hljs-number">5.0</span>),
+
+		<span class="hljs-keyword">primary key</span>(MatrNr, VorlNr),
+		<span class="hljs-keyword">constraint</span> vorherhören <span class="hljs-comment">-- damit Fehlermeldungen deutlicher sind</span>
+			<span class="hljs-keyword">check</span>(<span class="hljs-keyword">exists</span> (<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> hören h <span class="hljs-keyword">where</span>
+												<span class="hljs-keyword">where</span> h.VorlNr <span class="hljs-operator">=</span> prüfen.VorlNr <span class="hljs-keyword">and</span> h.MatrNr <span class="hljs-operator">=</span> prüfen.MatrNr
+			))
 );</code></pre></div><p></p><p>Bei referentieller Integrität:</p><div class="indented"><pre class="code"><code>on update / on delete { no action | cascade | set null | set default }</code></pre><p>
 Kaskadierendes Löschen durch
-<mark class="highlight-gray"><code>on delete cascade</code></mark></p><pre class="code"><code>create table Professoren (...);
-create table Vorlesungen (
-...
-gelesenVon integer[foreign key] references Professoren
-on update cascade -- änderungen werden mitübertragen
-on delete set null -- beim Löschen auf null setzen
+<mark class="highlight-gray"><code>on delete cascade</code></mark></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> Professoren (...);
+<span class="hljs-keyword">create table</span> Vorlesungen (
+		...
+		gelesenVon <span class="hljs-type">integer</span>[<span class="hljs-keyword">foreign key</span>] <span class="hljs-keyword">references</span> Professoren
+																		<span class="hljs-keyword">on</span> <span class="hljs-keyword">update</span> cascade <span class="hljs-comment">-- änderungen werden mitübertragen</span>
+																		<span class="hljs-keyword">on</span> <span class="hljs-keyword">delete</span> <span class="hljs-keyword">set</span> <span class="hljs-keyword">null</span> <span class="hljs-comment">-- beim Löschen auf null setzen</span>
 );</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Referentielle Integrität</mark></p><div class="indented"><p>Fremdschlüssel entweder auf existierende Tupel</p><div class="indented"><p>
 in anderer Tabelle
 <mark class="highlight-gray">(≠ dangling reference)</mark></p><p>
 oder
 <mark class="highlight-gray"><code>null</code></mark>
 .
-</p></div><p></p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="99866c83-ebc7-4cea-ba59-27572e3001d3">Einfügen mit zyklischen Abhängigkeiten</h1><p>Problem: "What came first? The chicken or the egg?"</p><div class="indented"><p>Fehlermeldungen:</p><pre class="code"><code>create table chicken (
-cID integer primary key,
-eID integer references egg;
-);-&gt; ERROR: relation ''egg'' does not exist</code></pre><pre class="code"><code>create table egg (
-eID integer primary key,
-cID integer references chicken;
-);-&gt; ERROR: relation ''chicken'' does not exist</code></pre><pre class="code"><code>insert into chicken values (1,11);-&gt; ERROR: insert or update on table ''chicken'' violates foreign key constraint ''chickenrefegg''
--&gt; DETAIL: Key (eid)=(11) is not present in the table ''egg'';</code></pre></div><p></p><p></p><p>Lösungen:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
+</p></div><p></p></div><p></p><p></p><p></p><p></p><p></p><p></p><h1 id="99866c83-ebc7-4cea-ba59-27572e3001d3">Einfügen mit zyklischen Abhängigkeiten</h1><p>Problem: "What came first? The chicken or the egg?"</p><div class="indented"><p>Fehlermeldungen:</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> chicken (
+		cID <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span>,
+		eID <span class="hljs-type">integer</span> <span class="hljs-keyword">references</span> egg;
+);
+
+<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> ERROR: relation <span class="hljs-string">&#x27;&#x27;</span>egg<span class="hljs-string">&#x27;&#x27;</span> does <span class="hljs-keyword">not</span> exist</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> egg (
+		eID <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span>,
+		cID <span class="hljs-type">integer</span> <span class="hljs-keyword">references</span> chicken;
+);
+
+<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> ERROR: relation <span class="hljs-string">&#x27;&#x27;</span>chicken<span class="hljs-string">&#x27;&#x27;</span> does <span class="hljs-keyword">not</span> exist</code></pre><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">insert into</span> chicken <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-number">11</span>);
+
+<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> ERROR: <span class="hljs-keyword">insert</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">update</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">table</span> <span class="hljs-string">&#x27;&#x27;</span>chicken<span class="hljs-string">&#x27;&#x27;</span> violates <span class="hljs-keyword">foreign key</span> <span class="hljs-keyword">constraint</span> <span class="hljs-string">&#x27;&#x27;</span>chickenrefegg<span class="hljs-string">&#x27;&#x27;</span>
+<span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> DETAIL: Key (eid)<span class="hljs-operator">=</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> present <span class="hljs-keyword">in</span> the <span class="hljs-keyword">table</span> <span class="hljs-string">&#x27;&#x27;</span>egg<span class="hljs-string">&#x27;&#x27;</span>;</code></pre></div><p></p><p></p><p>Lösungen:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
 Definition vom foreign key in der ersten Tabelle, dass man anlegt:
 <p>
 Nachträglich anlegen mit
-<mark class="highlight-gray"><code>ALTER TABLE</code></mark></p><p><mark class="highlight-gray">Beispiel</mark></p><div class="indented"><pre class="code"><code>create table chicken (
-cID integer primary key,
-eID integer references egg;
-);create table egg (
-eID integer primary key,
-cID integer references chicken;
-);alter table chicken
-add constraint chickenrefegg foreign key (eID) references egg;
+<mark class="highlight-gray"><code>ALTER TABLE</code></mark></p><p><mark class="highlight-gray">Beispiel</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> chicken (
+		cID <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span>,
+		eID <span class="hljs-type">integer</span> <span class="hljs-keyword">references</span> egg;
+);
+
+<span class="hljs-keyword">create table</span> egg (
+		eID <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span>,
+		cID <span class="hljs-type">integer</span> <span class="hljs-keyword">references</span> chicken;
+);
+
+<span class="hljs-keyword">alter table</span> chicken
+		<span class="hljs-keyword">add constraint</span> chickenrefegg <span class="hljs-keyword">foreign key</span> (eID) <span class="hljs-keyword">references</span> egg;
 </code></pre></div><p></p><p></p></li></ol><ol class="numbered-list" start="2" type="1"><li>
 Neue Tupel einfügen:
 <p>
@@ -712,22 +725,28 @@ Mit
 <mark class="highlight-gray"><code>DEFERRED</code></mark><mark class="highlight-gray"></mark>
 Transaktion
 </p><div class="indented"><p>Man kann bestimmen ab welchem Zeitpunkt der Transaktion die constraints geprüft werden.</p><pre class="code"><code>[DEFERRABLE | NOT DEFERRABLE] -- am Transaktionsende vs. sofort überprüfen
-[INITIALLY DEFERRED | INITIALLY IMMEDIATE]</code></pre></div><p></p><p><mark class="highlight-gray">Beispiel</mark></p><div class="indented"><pre class="code"><code>create table chicken (
-cID integer primary key,
-eID integer references egg;
-);create table egg (
-eID integer primary key,
-cID integer references chicken;
-);alter table chicken
-add constraint chickenrefegg foreign key (eID) references egg
-initially deferred deferrable;begin;
-insert into chicken values(1, 11);
-insert into egg values(11, 1);
-commit;</code></pre></div><p></p><p></p></li></ol><ol class="numbered-list" start="3" type="1"><li>
+			[INITIALLY DEFERRED | INITIALLY IMMEDIATE]</code></pre></div><p></p><p><mark class="highlight-gray">Beispiel</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">create table</span> chicken (
+		cID <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span>,
+		eID <span class="hljs-type">integer</span> <span class="hljs-keyword">references</span> egg;
+);
+
+<span class="hljs-keyword">create table</span> egg (
+		eID <span class="hljs-type">integer</span> <span class="hljs-keyword">primary key</span>,
+		cID <span class="hljs-type">integer</span> <span class="hljs-keyword">references</span> chicken;
+);
+
+<span class="hljs-keyword">alter table</span> chicken
+		<span class="hljs-keyword">add constraint</span> chickenrefegg <span class="hljs-keyword">foreign key</span> (eID) <span class="hljs-keyword">references</span> egg
+																		initially deferred deferrable;
+
+<span class="hljs-keyword">begin</span>;
+		<span class="hljs-keyword">insert into</span> chicken <span class="hljs-keyword">values</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>);
+		<span class="hljs-keyword">insert into</span> egg <span class="hljs-keyword">values</span>(<span class="hljs-number">11</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">commit</span>;</code></pre></div><p></p><p></p></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Tabelle löschen:
 <p>
 Manuell entfernen mit
-<mark class="highlight-gray"><code>DROP CONSTRAINT</code></mark><mark class="highlight-gray"></mark></p><div class="indented"><pre class="code"><code>ALTER TABLE tablename DROP CONSTRAINT constraintname;</code></pre></div><p></p><p>
+<mark class="highlight-gray"><code>DROP CONSTRAINT</code></mark><mark class="highlight-gray"></mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">ALTER TABLE</span> tablename <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">CONSTRAINT</span> constraintname;</code></pre></div><p></p><p>
 Automatisch entfernen mit
-<mark class="highlight-gray"><code>CASCADE</code></mark></p><div class="indented"><pre class="code"><code>DROP TABLE tablename CASCADE;</code></pre></div><p></p><p><mark class="highlight-gray">Beispiel</mark></p><div class="indented"><pre class="code"><code>ALTER TABLE chicken DROP CONSTRAINT chickenrefegg;
-DROP TABLE egg CASCADE;</code></pre></div><p></p></li></ol></div><p></p></div></article></body></html>
+<mark class="highlight-gray"><code>CASCADE</code></mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> tablename CASCADE;</code></pre></div><p></p><p><mark class="highlight-gray">Beispiel</mark></p><div class="indented"><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">ALTER TABLE</span> chicken <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">CONSTRAINT</span> chickenrefegg;
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> egg CASCADE;</code></pre></div><p></p></li></ol></div><p></p></div></article></body></html>

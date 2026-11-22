@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Werkzeuge</h1><p class="page-description"></p></header><div class="page-body"><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#78a5eb85-a898-4e8f-b555-747be47c8ba8">Kommunikation im Team</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#499c63a1-46c4-4bcc-8291-9d7ceed1d91c">Developement Pipeline: Commit → Deployment</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2efdb439-a446-493e-9799-e81943e0735f">Source Code Management Systeme SCM</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#15f88874-0f22-44bd-854d-1ddd4a61e3c5">Umgang mit Konflikten (SCM)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#31776017-9f46-4399-8feb-8d002c00d4f9">Code Reviews / Pull Requests (SCM)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e9c0817a-a75d-45e7-991e-2cb72240addd">Build Management System</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#186a278c-184a-4cb5-915f-b2052869b742">Continuous Integration CI</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1e8a4b47-1c7c-47f3-a280-380045d5f61a">Continuous Delivery + Continuous Deployment</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0197625f-8373-40d2-b3d8-7b66a29fb07b">Komponentenorientierte Software-Entwicklung</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#49e364bd-010c-4486-8258-5ccb1096daea">Aufrufarten</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#424027dd-c525-4ed5-9c3f-7d65d2c51d13">Inversion of Control IoC (Design Pattern)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4b5f7a54-d943-4d12-8469-8b047a1bf6d3">Dependency injection DI</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cb22873a-bd17-41f1-8ab6-cdb0b970cbd5">Artefakte die in der Pipeline erstehen</a></div></nav><p></p><h1 id="78a5eb85-a898-4e8f-b555-747be47c8ba8">Kommunikation im Team</h1><p><span style="border-bottom: 0.05em solid">Synchron</span></p><div class="indented"><p>In Person, Telefongespräch, Messenger</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Asynchron</span></p><div class="indented"><p>Email, Wiki, CMS, Mailingliste / Forum</p><p>Issue-Tracker (Bug tracker, Project tracker)</p><div class="indented"><p>Erfassung von Bugs, Änderungswünsche</p><p>Ist in Github integriert, ansonsten auch Externe Programme die es tun</p></div><p></p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Kulturen</span></p><div class="indented"><p>Linux: „Benevolent dictator governance model“</p><p>Apache: „Meritocratic governance model“</p><p>OPS4J (Open Participation for Java): „Open Contribution“</p></div><p></p><p></p><h1 id="499c63a1-46c4-4bcc-8291-9d7ceed1d91c">Developement Pipeline: Commit → Deployment</h1><p>Früher hat man shell scripts geschrieben, heute leichter.</p><figure class="image"><a href="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled.png"><img src="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled.png" style="width: 576px"/></a></figure><p>Ziel: Automatisierung von</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Code quality checks (macht die IDE automatisch indem sie dinge markiert)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Überprüfung von sourcecode</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Code generation (kann die IDE auch machen)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Kompilierung (macht Maven und installiert dazu alle dependencies)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Testausführung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Daten Sammeln für Reports, Artefakten</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Packaging</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Deployment</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Dependency Management</li></ul></div><p></p><p></p><h2 id="2efdb439-a446-493e-9799-e81943e0735f">Source Code Management Systeme SCM</h2><p>Feature:</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Versionierung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Parallele Entwicklung mit Branches</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Kollaboration (locking oder merging)</li></ul></div><p></p><figure class="image"><a href="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled%201.png"><img src="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled%201.png" style="width: 432px"/></a></figure><p></p><p><span style="border-bottom: 0.05em solid">Versionierungssysteme</span></p><div class="indented"><p>Für parallele Projektentwicklung (auf mehreren Zweigen), Zugriff auf ältere Versionen</p><p>Eignen sich auch zur Verwaltung von Dokumenten, nicht nur sourcecode.</p><div class="indented"><p>
 Verwaltung von
@@ -629,27 +630,31 @@ Continuous Integration
 Continuous Delivery
 <ul class="bulleted-list"><li style="list-style-type: disc">Automatisierter Release in ein Repository</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Deployment nach manueller Freigabe</li></ul></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Continuous Deployment
-<ul class="bulleted-list"><li style="list-style-type: disc">Automatisches Deployment in einer Produktivumgebung</li></ul></li></ol></div><p></p><p></p><h1 id="0197625f-8373-40d2-b3d8-7b66a29fb07b">Komponentenorientierte Software-Entwicklung</h1><p><span style="border-bottom: 0.05em solid">Komponente</span></p><div class="indented"><p>Eine Gruppe an Objekten die einer bestimmten Funktion gewidmet sind.</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Grad der Entkopplung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Komplexität</li></ul></div><p></p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Service</span></p><div class="indented"><p>Komponente die über ein Netzwerk angeboten wird</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Framework</span></p><div class="indented"><p>Rahmenbedingungen für Komponenten (Persistenz-Framework)</p></div><p></p><p></p><h2 id="49e364bd-010c-4486-8258-5ccb1096daea">Aufrufarten</h2><p>indirekter =</p><div class="indented"><p>komplexer, mehr "overhead"</p><p>weniger die Kopplung, bessere Widerverwendbarkeit</p></div><p></p><figure class="image"><a href="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled%2010.png"><img src="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled%2010.png" style="width: 432px"/></a></figure><p></p><ol class="numbered-list" start="1" type="1"><li><span style="border-bottom: 0.05em solid">Direkter Aufruf</span><p>leichte Implementierung aber starke Kopplung</p><p>binding bei compiling</p><pre class="code"><code>public class Main {
-public static void main (String[] args) {
-Handler handler = new Handler();
-handler.notify():
+<ul class="bulleted-list"><li style="list-style-type: disc">Automatisches Deployment in einer Produktivumgebung</li></ul></li></ol></div><p></p><p></p><h1 id="0197625f-8373-40d2-b3d8-7b66a29fb07b">Komponentenorientierte Software-Entwicklung</h1><p><span style="border-bottom: 0.05em solid">Komponente</span></p><div class="indented"><p>Eine Gruppe an Objekten die einer bestimmten Funktion gewidmet sind.</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Grad der Entkopplung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Komplexität</li></ul></div><p></p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Service</span></p><div class="indented"><p>Komponente die über ein Netzwerk angeboten wird</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Framework</span></p><div class="indented"><p>Rahmenbedingungen für Komponenten (Persistenz-Framework)</p></div><p></p><p></p><h2 id="49e364bd-010c-4486-8258-5ccb1096daea">Aufrufarten</h2><p>indirekter =</p><div class="indented"><p>komplexer, mehr "overhead"</p><p>weniger die Kopplung, bessere Widerverwendbarkeit</p></div><p></p><figure class="image"><a href="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled%2010.png"><img src="Werkzeuge%20818c2a051c28402ba44124adb506a765/Untitled%2010.png" style="width: 432px"/></a></figure><p></p><ol class="numbered-list" start="1" type="1"><li><span style="border-bottom: 0.05em solid">Direkter Aufruf</span><p>leichte Implementierung aber starke Kopplung</p><p>binding bei compiling</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span> <span class="hljs-params">(String[] args)</span> {
+		<span class="hljs-type">Handler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Handler</span>();
+		handler.notify():
+	}
+}</code></pre></li></ol><ol class="numbered-list" start="2" type="1"><li><span style="border-bottom: 0.05em solid">Interface (Indirektion)</span><p>Vorteil: leichtere Austauschbarkeit, contract (schnittstelle lässt sich beschreiben)</p><p>binding bei compiling</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">TextImport</span> {
+	<span class="hljs-keyword">public</span> Document <span class="hljs-title function_">read</span><span class="hljs-params">(String filename)</span>;
 }
-}</code></pre></li></ol><ol class="numbered-list" start="2" type="1"><li><span style="border-bottom: 0.05em solid">Interface (Indirektion)</span><p>Vorteil: leichtere Austauschbarkeit, contract (schnittstelle lässt sich beschreiben)</p><p>binding bei compiling</p><pre class="code"><code>public interface TextImport {
-public Document read(String filename);
-}class A {
-TextImport ti = new HtmlImport();
-public processDocument(String filename){
-Document doc = ti.read(filename);
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> {
+	<span class="hljs-type">TextImport</span> <span class="hljs-variable">ti</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HtmlImport</span>();
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-title function_">processDocument</span><span class="hljs-params">(String filename)</span>{
+		<span class="hljs-type">Document</span> <span class="hljs-variable">doc</span> <span class="hljs-operator">=</span> ti.read(filename);
+	}
+}</code></pre></li></ol><ol class="numbered-list" start="3" type="1"><li><span style="border-bottom: 0.05em solid">Komponenten-Frameworks</span><p>Kommunikation ist plattform-spezifisch ("remoting") → Austauschen der Implementierung ohne Änderung im Sourcecode</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">KlasseA</span> {
+	TextImport ti;
 }
-}</code></pre></li></ol><ol class="numbered-list" start="3" type="1"><li><span style="border-bottom: 0.05em solid">Komponenten-Frameworks</span><p>Kommunikation ist plattform-spezifisch ("remoting") → Austauschen der Implementierung ohne Änderung im Sourcecode</p><pre class="code"><code>class KlasseA {
-TextImport ti;
-}
-public KlasseA () {
-// pseudocode:
-ti = componentFramework.Component("htmlimport");
-public processDocument (String filename){
-Document doc = ti.read(filename)
-}
+<span class="hljs-keyword">public</span> <span class="hljs-title function_">KlasseA</span> <span class="hljs-params">()</span> {
+	<span class="hljs-comment">// pseudocode:</span>
+	ti = componentFramework.Component(<span class="hljs-string">&quot;htmlimport&quot;</span>);
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-title function_">processDocument</span> <span class="hljs-params">(String filename)</span>{
+		<span class="hljs-type">Document</span> <span class="hljs-variable">doc</span> <span class="hljs-operator">=</span> ti.read(filename)
+	}
 }</code></pre></li></ol><ol class="numbered-list" start="4" type="1"><li><span style="border-bottom: 0.05em solid">Service-Frameworks</span><p>Benutzt Webservices um auf Komponenten zuzugreifen</p><p>Remoting mit WSDL/SOAP, XML/REST</p></li></ol><p></p><h1 id="424027dd-c525-4ed5-9c3f-7d65d2c51d13">Inversion of Control IoC (Design Pattern)</h1><p>
 Umkehrung des Kontrollflusses mit einem
 <em>Hook</em>
@@ -658,68 +663,84 @@ Umkehrung des Kontrollflusses mit einem
 Verwaltung zb im
 <em>IoC Container</em>
 möglich.
-</p><p></p><p class="block-color-gray"><span style="border-bottom: 0.05em solid">IoC Container Implementierungen</span></p><div class="indented"><p>Java</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Spring-Framework</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Google Guice</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Pico-Container</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Apache Aries Blueprint</li></ul></div><p></p><p>.NET</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Unity Framework</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Spring.NET</li></ul></div><p></p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Direkter Aufruf der Komponenten ohne DI</span></p><div class="indented"><pre class="code"><code>public class MyPersistence {
-private MyBusinessLogic businessLogic = new MyBusinessLogic();
+</p><p></p><p class="block-color-gray"><span style="border-bottom: 0.05em solid">IoC Container Implementierungen</span></p><div class="indented"><p>Java</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Spring-Framework</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Google Guice</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Pico-Container</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Apache Aries Blueprint</li></ul></div><p></p><p>.NET</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Unity Framework</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Spring.NET</li></ul></div><p></p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Direkter Aufruf der Komponenten ohne DI</span></p><div class="indented"><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyPersistence</span> {
+	<span class="hljs-keyword">private</span> <span class="hljs-type">MyBusinessLogic</span> <span class="hljs-variable">businessLogic</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyBusinessLogic</span>();
 }
-public class MyPresentation {
-private MyBusinessLogic businessLogic = new MyBusinessLogic ();
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyPresentation</span> {
+	<span class="hljs-keyword">private</span> <span class="hljs-type">MyBusinessLogic</span> <span class="hljs-variable">businessLogic</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyBusinessLogic</span> ();
 }
-public class MyBusinessLogic {
-private MyPersistence persiistence = new MyPersistence ("path/to/db");
-private MyPresentation presentation = new MyPresentation (300, 200);
-}</code></pre><pre class="code"><code>public static void main (String[] args){
-IPersistence persistence = new MyPersistence ( "path/to/db");
-IPresentation presentation = new MyP resentation (300, 200);
-IBusinessLogic businessLogic = new MyBusinessLogic (persistence, presentation);
-persistence.setBusinessLogic(businessLogic);
-presentation.setBusinessLogic(businessLogic);</code></pre></div><p></p><p></p><h3 id="4b5f7a54-d943-4d12-8469-8b047a1bf6d3">Dependency injection DI</h3><p>Abhängigkeiten werden von einem Container verwaltet, die Komponenten wissen nichts darüber → Die Abhängigkeiten werden injiziert.</p><p>Eine der vielen Arten von IoC.</p><p></p><p><span style="border-bottom: 0.05em solid">Konzept</span></p><div class="indented"><p>Die Verantwortung für das Erzeugen und Initialisieren von Objekten wird an eine zentrale Stelle (z.B. eine Klasse) delegiert.</p><p>Von der zentralen Stelle kann man die Abhängigkeiten zwischen den Objekten leichter überblicken und steuern.</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Implementierung</span></p><div class="indented"><p>Eine Komponente wird über einem Pointer / einer Referenz aufgerufen die urprünglich nicht initialisiert ist.</p><p>Kann mit Konstruktor, Setter, Annotation initialisiert werden.</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Vorteile</span></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Hohe Wiederverwendbarkeit</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Einfaches Austauschen einer Implementierung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verwalten von verschiedenen Konfigurationen (dev vs. prod)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Automatisiertes „verdrahten“, weniger Boilerplate-Code benötigt.</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verteilung von Aufgaben</li></ul></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Setter Injection</span></p><div class="indented"><p>Abhängigkeiten durch "setter"-Methode gesetzt oder Annotationen</p><pre class="code"><code>public static void main(String[] args) {
-Factory factory = Factory.create();IPersistence myPersistence = (IPersistence) factory.getComp("persistence");
-IPresentation myPresentation = (IPresentation) factory.getComp("presentation");
-MyBusinessLogic myBusinessLogic = new MyBusinessLogic(myPersistence, myPresentation);
-myPersistence.setBusinessLogic(myBusinessLogic);
-myPresentation.set BusinessLogic(myBusinessLogic);
-}</code></pre><p>Bzw.</p><pre class="code"><code>public static void main(String [] args) {
-Resource res = new FileSystemResource("beans.xml");
-XmlBeanFactory factory = new XmlBeanFactory(res);
-IPresentation ui = factory.getBean("presentation", IPresentation.class);
-ui.show();
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyBusinessLogic</span> {
+	<span class="hljs-keyword">private</span> <span class="hljs-type">MyPersistence</span> <span class="hljs-variable">persiistence</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyPersistence</span> (<span class="hljs-string">&quot;path/to/db&quot;</span>);
+	<span class="hljs-keyword">private</span> <span class="hljs-type">MyPresentation</span> <span class="hljs-variable">presentation</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyPresentation</span> (<span class="hljs-number">300</span>, <span class="hljs-number">200</span>);
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span> <span class="hljs-params">(String[] args)</span>{
+	<span class="hljs-type">IPersistence</span> <span class="hljs-variable">persistence</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyPersistence</span> ( <span class="hljs-string">&quot;path/to/db&quot;</span>);
+	<span class="hljs-type">IPresentation</span> <span class="hljs-variable">presentation</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyP</span> resentation (<span class="hljs-number">300</span>, <span class="hljs-number">200</span>);
+	<span class="hljs-type">IBusinessLogic</span> <span class="hljs-variable">businessLogic</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyBusinessLogic</span> (persistence, presentation);
+	persistence.setBusinessLogic(businessLogic);
+	presentation.setBusinessLogic(businessLogic);</code></pre></div><p></p><p></p><h3 id="4b5f7a54-d943-4d12-8469-8b047a1bf6d3">Dependency injection DI</h3><p>Abhängigkeiten werden von einem Container verwaltet, die Komponenten wissen nichts darüber → Die Abhängigkeiten werden injiziert.</p><p>Eine der vielen Arten von IoC.</p><p></p><p><span style="border-bottom: 0.05em solid">Konzept</span></p><div class="indented"><p>Die Verantwortung für das Erzeugen und Initialisieren von Objekten wird an eine zentrale Stelle (z.B. eine Klasse) delegiert.</p><p>Von der zentralen Stelle kann man die Abhängigkeiten zwischen den Objekten leichter überblicken und steuern.</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Implementierung</span></p><div class="indented"><p>Eine Komponente wird über einem Pointer / einer Referenz aufgerufen die urprünglich nicht initialisiert ist.</p><p>Kann mit Konstruktor, Setter, Annotation initialisiert werden.</p></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Vorteile</span></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Hohe Wiederverwendbarkeit</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Einfaches Austauschen einer Implementierung</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verwalten von verschiedenen Konfigurationen (dev vs. prod)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Automatisiertes „verdrahten“, weniger Boilerplate-Code benötigt.</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verteilung von Aufgaben</li></ul></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Setter Injection</span></p><div class="indented"><p>Abhängigkeiten durch "setter"-Methode gesetzt oder Annotationen</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+	<span class="hljs-type">Factory</span> <span class="hljs-variable">factory</span> <span class="hljs-operator">=</span> Factory.create();
+
+	<span class="hljs-type">IPersistence</span> <span class="hljs-variable">myPersistence</span> <span class="hljs-operator">=</span> (IPersistence) factory.getComp(<span class="hljs-string">&quot;persistence&quot;</span>);
+	<span class="hljs-type">IPresentation</span> <span class="hljs-variable">myPresentation</span> <span class="hljs-operator">=</span> (IPresentation) factory.getComp(<span class="hljs-string">&quot;presentation&quot;</span>);
+	<span class="hljs-type">MyBusinessLogic</span> <span class="hljs-variable">myBusinessLogic</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyBusinessLogic</span>(myPersistence, myPresentation);
+	myPersistence.setBusinessLogic(myBusinessLogic);
+	myPresentation.set <span class="hljs-title function_">BusinessLogic</span><span class="hljs-params">(myBusinessLogic)</span>;
+}</code></pre><p>Bzw.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String [] args)</span> {
+	<span class="hljs-type">Resource</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemResource</span>(<span class="hljs-string">&quot;beans.xml&quot;</span>);
+	<span class="hljs-type">XmlBeanFactory</span> <span class="hljs-variable">factory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">XmlBeanFactory</span>(res);
+	<span class="hljs-type">IPresentation</span> <span class="hljs-variable">ui</span> <span class="hljs-operator">=</span> factory.getBean(<span class="hljs-string">&quot;presentation&quot;</span>, IPresentation.class);
+	ui.show();
 }</code></pre><ul class="toggle"><li><details><summary>Konfigurationsdatei (In Spring boot: beans = komponenten)</summary><pre class="code"><code>&lt;? xml version="1.0" encoding="UTF-8"?&gt;
-&lt;beans&gt;&lt;bean class="MyPersistence" id="persistence"&gt;
-&lt;property name="path"&gt;path/to/db&lt;/property&gt;
-&lt;property name="businessLogic" ref="businessLogic" /&gt;
-&lt;/bean&gt;&lt;bean class="MyPresentation " id="presentation "&gt;
-&lt;property name="width "&gt;300&lt;/property&gt;
-&lt;property name="height"&gt;200&lt;/property&gt;
-&lt;property name="businessLogic" ref="businessLogic" /&gt;
-&lt;/bean&gt;&lt;bean class="MyBusinessLogic" id="businessLogic"&gt;
-&lt;property name="persistence" ref="persistence" /&gt;
-&lt;property name="presentation" ref="presentation" /&gt;
-&lt;/bean&gt;&lt;/beans&gt;</code></pre><p>Bzw. mit Java Code</p><pre class="code"><code>@Configuration
-public class AppConfig {
-@Bean
-public IPersistence persistence () {
-MyPersistence myPersistence = new MyPersistence("path/to/db") ;
-myPersistence. setBusinessLogic(businessLogic());
-return myPersistence;
-}@Bean
-public IPresentation presentation () {
-MyPresentation myPresentation = new MyPresentation (300, 200);
-myPresentation.setBusinessLogic(businessLogic());
-return myPresentation;
-}@Bean
-public IBusinessLogic businessLogic() {
-return new MyBusinessLogic (persistence(), presentation());
-}
-}</code></pre></details></li></ul></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Constructor Injection</span></p><div class="indented"><p>Abhängigkeiten über Konstruktor definieren → Problematisch, gleiche Signatur</p><div class="indented"><p>Beispiele: Pico, Guice, (Spring, Aries)</p></div><p></p><pre class="code"><code>public class TestBean{
-String id;
-String internalLocation ;
-String externalLocation;
-public TestBean (String id, String internalLocation) {
-this.id = id;
-this.internalLocation = String internalLocation;
-}
-public TestBean (String id, String externalLocation) { -&gt; gleiche Methoden-Signatur
-this.id = id;
-this.externalLocation = externalLocation;
-}
+&lt;beans&gt;
+
+	&lt;bean class="MyPersistence" id="persistence"&gt;
+		&lt;property name="path"&gt;path/to/db&lt;/property&gt;
+		&lt;property name="businessLogic" ref="businessLogic" /&gt;
+	&lt;/bean&gt;
+
+	&lt;bean class="MyPresentation " id="presentation "&gt;
+		&lt;property name="width "&gt;300&lt;/property&gt;
+		&lt;property name="height"&gt;200&lt;/property&gt;
+		&lt;property name="businessLogic" ref="businessLogic" /&gt;
+	&lt;/bean&gt;
+
+	&lt;bean class="MyBusinessLogic" id="businessLogic"&gt;
+		&lt;property name="persistence" ref="persistence" /&gt;
+		&lt;property name="presentation" ref="presentation" /&gt;
+	&lt;/bean&gt;
+
+&lt;/beans&gt;</code></pre><p>Bzw. mit Java Code</p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AppConfig</span> {
+	<span class="hljs-meta">@Bean</span>
+	<span class="hljs-keyword">public</span> IPersistence <span class="hljs-title function_">persistence</span> <span class="hljs-params">()</span> {
+		<span class="hljs-type">MyPersistence</span> <span class="hljs-variable">myPersistence</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyPersistence</span>(<span class="hljs-string">&quot;path/to/db&quot;</span>) ;
+		myPersistence. setBusinessLogic(businessLogic());
+		<span class="hljs-keyword">return</span> myPersistence;
+	}&#9;
+
+	<span class="hljs-meta">@Bean</span>
+	<span class="hljs-keyword">public</span> IPresentation <span class="hljs-title function_">presentation</span> <span class="hljs-params">()</span> {
+		<span class="hljs-type">MyPresentation</span> <span class="hljs-variable">myPresentation</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyPresentation</span> (<span class="hljs-number">300</span>, <span class="hljs-number">200</span>);
+		myPresentation.setBusinessLogic(businessLogic());
+		<span class="hljs-keyword">return</span> myPresentation;
+	}&#9;
+
+	<span class="hljs-meta">@Bean</span>
+	<span class="hljs-keyword">public</span> IBusinessLogic <span class="hljs-title function_">businessLogic</span><span class="hljs-params">()</span> {
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyBusinessLogic</span> (persistence(), presentation());
+	}
+}</code></pre></details></li></ul></div><p></p><p></p><p><span style="border-bottom: 0.05em solid">Constructor Injection</span></p><div class="indented"><p>Abhängigkeiten über Konstruktor definieren → Problematisch, gleiche Signatur</p><div class="indented"><p>Beispiele: Pico, Guice, (Spring, Aries)</p></div><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestBean</span>{
+	String id;
+	String internalLocation ;
+	String externalLocation;
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-title function_">TestBean</span> <span class="hljs-params">(String id, String internalLocation)</span> {&#32;
+		<span class="hljs-built_in">this</span>.id = id;
+		<span class="hljs-built_in">this</span>.internalLocation = String internalLocation;
+	}
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-title function_">TestBean</span> <span class="hljs-params">(String id, String externalLocation)</span> { -&gt; gleiche Methoden-Signatur
+		<span class="hljs-built_in">this</span>.id = id;
+		<span class="hljs-built_in">this</span>.externalLocation = externalLocation;
+	}
 }</code></pre></div><p></p><p></p><h1 id="cb22873a-bd17-41f1-8ab6-cdb0b970cbd5">Artefakte die in der Pipeline erstehen</h1><p><span style="border-bottom: 0.05em solid">Dokumente die im Deploy</span></p><div class="indented"><p>Generelle Projektinformationen</p><div class="indented"><p>– Version, Name, Beschreibung – Beitragende – Lizenz – Entwicklungswerkzeuge</p></div><p></p><p>Source Code (javadoc)</p><p>Code Quality Reports</p><div class="indented"><p>– Test Reports – Checkstyle – Component Dependency Reports</p></div><p></p><p>Dokumente</p><div class="indented"><p>– Architekturbeschreibung – Anwenderhandbuch – Website</p></div><p></p></div><p></p></div></article></body></html>

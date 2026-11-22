@@ -592,19 +592,20 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Node.js</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://joecreager.com/learnyounode-unofficial-companion/">https://joecreager.com/learnyounode-unofficial-companion/</a></p><p><a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs">
 https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 </a></p><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6e6cba7d-cb3f-4d62-ba2c-16059198ee28">Backend</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#51ad6eaa-59e8-47b6-84a8-8f3227370f36">Node.js</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c9ceb8e5-9f5e-434c-8d77-20730617392a">Express</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#49996dcf-67e1-4673-bbcb-12e2dfdb4100">Routes / URL Mapping</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4970dc75-3f8c-4bdc-a7cd-7bab2d6031e8">Request and Response Objects</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#60763f2b-2a72-4bdb-969e-6dc6d0341d8d">Middleware</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#43cafbbe-9a39-4ce2-889f-cb883a7084e3">Cookies and Sessions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3a5c38da-1bee-4cde-a648-b4e828f8342a">Environment Variables / Configuration (secrets)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f86b6e6e-e52e-4e67-a18c-11ae94b5dae7">Templating (Templates / Views)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c369e149-b058-4ea2-91d4-b19431da1bd6">Networking</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dc6f22cf-8a8b-4524-9dc8-7038a8931f64">Persistent Storage (Files)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4eb394f9-c206-4db4-ad49-674c0ba1e53f">Modules</a></div></nav><h1 id="6e6cba7d-cb3f-4d62-ba2c-16059198ee28">Backend</h1><p>Technologies used for Backend in this course:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Node.js</li></ol><ol class="numbered-list" start="2" type="1"><li>Express.js Framework</li></ol><ol class="numbered-list" start="3" type="1"><li>Node Package Manager NPM (Dependency Management)</li></ol></div><p></p><h1 id="51ad6eaa-59e8-47b6-84a8-8f3227370f36">Node.js</h1><p>JavaScript runtime environment = executes JavaScript code outside a web browser but in Chrome's V8 Engine.</p><p>Used to make Web Servers and networking tools.</p><p>"JavaScript everywhere" paradigm:</p><div class="indented"><p>
 web-application development around a single programming language, rather than different languages for server-side and client-side
 scripts.
-</p></div><p></p><p></p><p>Example: Simple Node.js Webserver Example (without Express)</p><div class="indented"><pre class="code"><code>const	http = require('http'); //importing package
-const	requestListener	=	function (req,	res)	{
-res.writeHead(200);	//200 in header -&gt; OK
-res.end('Hello,	World!');
-}
-const	server =	http.createServer(requestListener);
-server.listen(8080); //listening on Port 8080</code></pre><p>Here:</p><div class="indented"><p><mark class="highlight-gray"><code>req</code></mark><mark class="highlight-gray"></mark>
+</p></div><p></p><p></p><p>Example: Simple Node.js Webserver Example (without Express)</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>); <span class="hljs-comment">//importing package</span>
+<span class="hljs-keyword">const</span>	requestListener	=	<span class="hljs-keyword">function</span> (<span class="hljs-params">req,	res</span>)	{&#32;
+		res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">200</span>);	<span class="hljs-comment">//200 in header -&gt; OK</span>
+		res.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;Hello,	World!&#x27;</span>);&#9;
+}&#9;
+<span class="hljs-keyword">const</span>	server =	http.<span class="hljs-title function_">createServer</span>(requestListener);&#9;
+server.<span class="hljs-title function_">listen</span>(<span class="hljs-number">8080</span>); <span class="hljs-comment">//listening on Port 8080</span></code></pre><p>Here:</p><div class="indented"><p><mark class="highlight-gray"><code>req</code></mark><mark class="highlight-gray"></mark>
 stands for HTTP request
 </p><p><mark class="highlight-gray"><code>res</code></mark><mark class="highlight-gray"></mark>
 stands for HTTP response
@@ -614,12 +615,16 @@ Executing a Node.js program
 Opening cmd in the right path where
 <mark class="highlight-gray"><code>program.js</code></mark>
 is located
-</li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-gray"><code>node program.js</code></mark></li></ol></div><p></p><p></p><h1 id="c9ceb8e5-9f5e-434c-8d77-20730617392a">Express</h1><h2 id="49996dcf-67e1-4673-bbcb-12e2dfdb4100">Routes / URL Mapping</h2><pre class="code"><code>const	express	=	require('express');
-const	app	=	express();app.get('/hello',	function(req,	res)	{
-res.send('Hello	World!');
-});const	port	=	3000;
-app.listen(port,	function()	{
-console.log(`Waiting	for	requests	on	Port ${port}!`);
+</li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-gray"><code>node program.js</code></mark></li></ol></div><p></p><p></p><h1 id="c9ceb8e5-9f5e-434c-8d77-20730617392a">Express</h1><h2 id="49996dcf-67e1-4673-bbcb-12e2dfdb4100">Routes / URL Mapping</h2><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	express	=	<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);&#9;
+<span class="hljs-keyword">const</span>	app	=	<span class="hljs-title function_">express</span>();
+
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/hello&#x27;</span>,	<span class="hljs-keyword">function</span>(<span class="hljs-params">req,	res</span>)	{&#9;
+	 res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Hello	World!&#x27;</span>);&#9;
+});&#9;
+
+<span class="hljs-keyword">const</span>	port	=	<span class="hljs-number">3000</span>;&#9;
+app.<span class="hljs-title function_">listen</span>(port,	<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)	{&#9;
+	 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Waiting	for	requests	on	Port <span class="hljs-subst">${port}</span>!`</span>);&#9;
 });</code></pre><p></p><p>
 Here in
 <mark class="highlight-gray"><code>app.get()</code></mark>
@@ -628,78 +633,83 @@ Here in
 path =
 <mark class="highlight-gray"><code>'/hello'</code></mark></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 response =
-<mark class="highlight-gray"><code>res.send()</code></mark></li></ul></div><p></p><p></p><h2 id="4970dc75-3f8c-4bdc-a7cd-7bab2d6031e8">Request and Response Objects</h2><p>Here we search for a recipe via its ID to update it:</p><pre class="code"><code>app.put('/recipes/:id', (req, res) =&gt; { //:id as a variable
-const recipeId = req.params.id;
-const hasImage = req.query.hasImage == 'true'; //?hasImageconst recipe = Recipes.find(recipeId, hasImage);
-if(!recipe) {
-return res.sendStatus(404); //not found
-}
-const payload = req.body; //payload is received body
-recipe.update(payload);
-res.send({updateSuccess : recipeId}); //JSON
-});</code></pre><p></p><h2 id="60763f2b-2a72-4bdb-969e-6dc6d0341d8d">Middleware</h2><p>Processing data from client with "Middleware functions":</p><pre class="code"><code>// for parsing application/json
-app.use(express.json());
-// for parsing HTML form data
-// application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+<mark class="highlight-gray"><code>res.send()</code></mark></li></ul></div><p></p><p></p><h2 id="4970dc75-3f8c-4bdc-a7cd-7bab2d6031e8">Request and Response Objects</h2><p>Here we search for a recipe via its ID to update it:</p><pre class="code"><code class="hljs language-javascript">app.<span class="hljs-title function_">put</span>(<span class="hljs-string">&#x27;/recipes/:id&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> { <span class="hljs-comment">//:id as a variable</span>
+	<span class="hljs-keyword">const</span> recipeId = req.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>;
+	<span class="hljs-keyword">const</span> hasImage = req.<span class="hljs-property">query</span>.<span class="hljs-property">hasImage</span> == <span class="hljs-string">&#x27;true&#x27;</span>; <span class="hljs-comment">//?hasImage</span>
+
+	<span class="hljs-keyword">const</span> recipe = <span class="hljs-title class_">Recipes</span>.<span class="hljs-title function_">find</span>(recipeId, hasImage);
+	<span class="hljs-keyword">if</span>(!recipe) {&#32;
+		<span class="hljs-keyword">return</span> res.<span class="hljs-title function_">sendStatus</span>(<span class="hljs-number">404</span>); <span class="hljs-comment">//not found</span>
+	}
+	<span class="hljs-keyword">const</span> payload = req.<span class="hljs-property">body</span>; <span class="hljs-comment">//payload is received body</span>
+	recipe.<span class="hljs-title function_">update</span>(payload);
+	res.<span class="hljs-title function_">send</span>({updateSuccess : recipeId}); <span class="hljs-comment">//JSON</span>
+});</code></pre><p></p><h2 id="60763f2b-2a72-4bdb-969e-6dc6d0341d8d">Middleware</h2><p>Processing data from client with "Middleware functions":</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-comment">// for parsing application/json</span>
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());
+<span class="hljs-comment">// for parsing HTML form data</span>
+<span class="hljs-comment">// application/x-www-form-urlencoded</span>
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">urlencoded</span>({ <span class="hljs-attr">extended</span>: <span class="hljs-literal">true</span> }));
 ...
-const payload = req.body;
+<span class="hljs-keyword">const</span> payload = req.<span class="hljs-property">body</span>;
 ...</code></pre><p>
 Also have access to
-<mark class="highlight-gray"><code>.next()</code></mark></p><p></p><h2 id="43cafbbe-9a39-4ce2-889f-cb883a7084e3">Cookies and Sessions</h2><p>Cookies can be set by both client and server as part of HTTP headers and are transmitted with every request/response cycle.</p><p>Sessions use cookies to store a unique identifier.</p><p>The associated session data is stored on the server.</p><pre class="code"><code>routes.get('/', async (req, res) =&gt; {
-let sessionId = req.cookies.sessionId; //parsed by middleware
+<mark class="highlight-gray"><code>.next()</code></mark></p><p></p><h2 id="43cafbbe-9a39-4ce2-889f-cb883a7084e3">Cookies and Sessions</h2><p>Cookies can be set by both client and server as part of HTTP headers and are transmitted with every request/response cycle.</p><p>Sessions use cookies to store a unique identifier.</p><p>The associated session data is stored on the server.</p><pre class="code"><code class="hljs language-javascript">routes.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-title function_">async</span> (req, res) =&gt; {
+ <span class="hljs-keyword">let</span> sessionId = req.<span class="hljs-property">cookies</span>.<span class="hljs-property">sessionId</span>; <span class="hljs-comment">//parsed by middleware</span>
+	...
+ <span class="hljs-keyword">if</span>(!sessionId) {
+		...
+		res.<span class="hljs-title function_">cookie</span>(<span class="hljs-string">&#x27;sessionId&#x27;</span>, sessionId); <span class="hljs-comment">//Cookie written into response header</span>
+	}
+	...
+}</code></pre><p></p><h2 id="3a5c38da-1bee-4cde-a648-b4e828f8342a">Environment Variables / Configuration (secrets)</h2><p>Configuration can be kept a secret.</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	db	=	<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;db&#x27;</span>)&#9;
+db.<span class="hljs-title function_">connect</span>({&#9;
+		<span class="hljs-attr">host</span>:	process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_HOST</span>,&#9;
+		<span class="hljs-attr">username</span>:	process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_USER</span>,&#9;
+		<span class="hljs-attr">password</span>:	process.<span class="hljs-property">env</span>.<span class="hljs-property">DB_PASS</span>&#9;
+})</code></pre><p>Other ways to pass configuration to the program (pass parameters, read from configuration file, etc.)</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	port	=	process.<span class="hljs-property">argv</span>.<span class="hljs-property">length</span>	&gt;=	<span class="hljs-number">3</span>	?	+process.<span class="hljs-property">argv</span>[<span class="hljs-number">2</span>] : <span class="hljs-number">3000</span>;</code></pre><p></p><h2 id="f86b6e6e-e52e-4e67-a18c-11ae94b5dae7">Templating (Templates / Views)</h2><p>Separation between program logic and output.</p><pre class="code"><code class="hljs language-javascript">app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;view	engine&#x27;</span>, <span class="hljs-string">&#x27;pug&#x27;</span>); <span class="hljs-comment">//enabled by middleware</span>
 ...
-if(!sessionId) {
-...
-res.cookie('sessionId', sessionId); //Cookie written into response header
-}
-...
-}</code></pre><p></p><h2 id="3a5c38da-1bee-4cde-a648-b4e828f8342a">Environment Variables / Configuration (secrets)</h2><p>Configuration can be kept a secret.</p><pre class="code"><code>const	db	=	require('db')
-db.connect({
-host:	process.env.DB_HOST,
-username:	process.env.DB_USER,
-password:	process.env.DB_PASS
-})</code></pre><p>Other ways to pass configuration to the program (pass parameters, read from configuration file, etc.)</p><pre class="code"><code>const	port	=	process.argv.length	&gt;=	3	?	+process.argv[2] : 3000;</code></pre><p></p><h2 id="f86b6e6e-e52e-4e67-a18c-11ae94b5dae7">Templating (Templates / Views)</h2><p>Separation between program logic and output.</p><pre class="code"><code>app.set('view	engine', 'pug'); //enabled by middleware
-...
-routes.get('/',	async	(req,	res)	=&gt;	{
-res.render('users',	{
-title: 'Users',
-heading: 'List of users',
-users: getUsers()
-});
-}</code></pre><p><mark class="highlight-gray"><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></mark></p><pre class="code"><code>html
-head
-title = title
-body
-h1 = heading
-div#container
--	for	user in users
-div.user = user.email</code></pre><p><mark class="highlight-gray"><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></mark></p><pre class="code"><code>&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Users&lt;/title&gt;
-&lt;/head&gt;
-&lt;h1&gt;List of users&lt;/h1&gt;&lt;div id="container"&gt;
-&lt;div class="user"&gt;
-jane.doe@tuwien.ac.at
-&lt;/div&gt;
-&lt;div class="user"&gt;
-jack.bauer@tuwien.ac.at
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/html&gt;</code></pre><p></p><h2 id="c369e149-b058-4ea2-91d4-b19431da1bd6">Networking</h2><p>
+routes.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>,	<span class="hljs-title function_">async</span>	(req,	res)	=&gt;	{
+		res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;users&#x27;</span>,	{
+			<span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Users&#x27;</span>,
+			<span class="hljs-attr">heading</span>: <span class="hljs-string">&#x27;List of users&#x27;</span>,
+			<span class="hljs-attr">users</span>: <span class="hljs-title function_">getUsers</span>()
+	});
+}</code></pre><p><mark class="highlight-gray"><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></mark></p><pre class="code"><code>html&#9;
+		head&#9;
+				title = title
+		body&#9;
+				h1 = heading
+				div#container&#9;
+						-	for	user in users
+								div.user = user.email</code></pre><p><mark class="highlight-gray"><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↓</mo></mrow><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mrel">↓</span></span></span></span></span><span>﻿</span></span></mark></p><pre class="code"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Users<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>List of users<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span>
+			 &#9;<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span>
+						jane.doe@tuwien.ac.at
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+&#9;&#9;
+			 &#9;<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span>
+						jack.bauer@tuwien.ac.at
+				<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre><p></p><h2 id="c369e149-b058-4ea2-91d4-b19431da1bd6">Networking</h2><p>
 Many Libraries, ie.
 <mark class="highlight-gray"><code>node-fetch</code></mark>
 to fetch resources from other APIs
-</p><pre class="code"><code>const	fetch	=	require('node-fetch'); //import
+</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	fetch	=	<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>); <span class="hljs-comment">//import	</span>
 ...
-const	response = await fetch(objectRequestUrl(objectID));
-if(response.status !== 200) { //not successful
-console.log('Could not find object with id'	+	objectID);
-return	false;
-}
-const	object = await response.json();</code></pre><p></p><h2 id="dc6f22cf-8a8b-4524-9dc8-7038a8931f64">Persistent Storage (Files)</h2><p>Filesystem utilities have synchronous and asynchronous API in Node</p><pre class="code"><code>const	fs = require('fs');
-const	path = require('path');
-const	destinations = JSON.parse(fs.readFileSync(path.join(__dirname,	'../res/data.json'))); </code></pre><p></p><h2 id="4eb394f9-c206-4db4-ad49-674c0ba1e53f">Modules</h2><p>≠ ES6 Modules like in JavaScript but similar</p><pre class="code"><code>const search = async (term, max=100) =&gt; { ... }
+<span class="hljs-keyword">const</span>	response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-title function_">objectRequestUrl</span>(objectID));&#9;
+<span class="hljs-keyword">if</span>(response.<span class="hljs-property">status</span> !== <span class="hljs-number">200</span>) { <span class="hljs-comment">//not successful</span>
+	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Could not find object with id&#x27;</span>	+	objectID);&#9;
+	<span class="hljs-keyword">return</span>	<span class="hljs-literal">false</span>;&#9;
+}&#9;
+<span class="hljs-keyword">const</span>	object = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();</code></pre><p></p><h2 id="dc6f22cf-8a8b-4524-9dc8-7038a8931f64">Persistent Storage (Files)</h2><p>Filesystem utilities have synchronous and asynchronous API in Node</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span>	fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);&#9;
+<span class="hljs-keyword">const</span>	path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);&#9;
+<span class="hljs-keyword">const</span>	destinations = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(fs.<span class="hljs-title function_">readFileSync</span>(path.<span class="hljs-title function_">join</span>(__dirname,	<span class="hljs-string">&#x27;../res/data.json&#x27;</span>)));&#32;</code></pre><p></p><h2 id="4eb394f9-c206-4db4-ad49-674c0ba1e53f">Modules</h2><p>≠ ES6 Modules like in JavaScript but similar</p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span> <span class="hljs-title function_">search</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params">term, max=<span class="hljs-number">100</span></span>) =&gt; { ... }
 ...
-module.exports.search = search;</code></pre><pre class="code"><code>const met = require('../utils/met.js');
-const artworks = met.search('van gogh');</code></pre></div></article></body></html>
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">search</span> = search;</code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span> met = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../utils/met.js&#x27;</span>);
+<span class="hljs-keyword">const</span> artworks = met.<span class="hljs-title function_">search</span>(<span class="hljs-string">&#x27;van gogh&#x27;</span>);</code></pre></div></article></body></html>

@@ -601,12 +601,16 @@ https://vowi.fsinf.at/wiki?title=TU_Wien:Software-Qualitätssicherung_VU_(Biffl)
 registriert sind und für alle Buisness-Bestandskunden beträgt der Rabatt 20%. Für die restlichen privaten Bestandskunden ist der Rabatt
 15%.
 <p>Erstelle außerdem zwei wichtige Testfälle anhand Grenzwertanalyse</p><pre class="code"><code>Neukunden
-Länger als 1 Jahr registriert -&gt; 10%
-Kürzer als 1 Jahr registriert -&gt; 10%Private Bestandskunden
-Länger als 1 Jahr registriert -&gt; 20%
-Kürzer als 1 Jahr registriert -&gt; 15%Business Bestandskunden
-Länger als 1 Jahr registriert -&gt; 20%
-Kürzer als 1 Jahr registriert -&gt; 20%</code></pre><p><mark class="highlight-gray">Grenzfall:</mark></p><div class="indented"><p><mark class="highlight-gray">(Privater Bestandskuned, 355 Tage und 23 Stunden) - noch nicht 1 Jahr</mark></p><p><mark class="highlight-gray">(Privater Bestandskuned, 356 Tage und 1 Stunde) - genau 1 Jahr</mark></p></div><p></p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Bsp analog zum Test vom SS17 : "Ist die Klasse isoliert testbar?" nur mit anderen Bezeichnungen</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
+	Länger als 1 Jahr registriert -&gt; 10%
+	Kürzer als 1 Jahr registriert -&gt; 10%
+
+Private Bestandskunden
+	Länger als 1 Jahr registriert -&gt; 20%
+	Kürzer als 1 Jahr registriert -&gt; 15%
+
+Business Bestandskunden
+	Länger als 1 Jahr registriert -&gt; 20%
+	Kürzer als 1 Jahr registriert -&gt; 20%</code></pre><p><mark class="highlight-gray">Grenzfall:</mark></p><div class="indented"><p><mark class="highlight-gray">(Privater Bestandskuned, 355 Tage und 23 Stunden) - noch nicht 1 Jahr</mark></p><p><mark class="highlight-gray">(Privater Bestandskuned, 356 Tage und 1 Stunde) - genau 1 Jahr</mark></p></div><p></p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Bsp analog zum Test vom SS17 : "Ist die Klasse isoliert testbar?" nur mit anderen Bezeichnungen</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Fehler finden in einer Testklasse, analog zu Test vom SS17 (Logik in Tests, falsche Exceptions erwartet, Methodennamen falsch,..)
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Für ein Serivce ein Mock implementieren (auf javadoc der zu überschreibenden Methode achten für Parameter checks im mock) und damit für

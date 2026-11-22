@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
 </head><body><article class="page sans"><header><h1 class="page-title">java.net</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://docs.oracle.com/javase/tutorial/networking/overview/networking.html">
@@ -675,313 +676,429 @@ returns
 you can then call
 <mark class="highlight-gray"><code>.connect()</code></mark><mark class="highlight-gray"></mark>
 on that connection
-</p></div><p></p><p></p></div><p></p><p>Reading:</p><pre class="code"><code>import java.net.*;
-import java.io.*;public class URLConnectionReader {
-public static void main(String[] args) throws Exception {
-URL oracle = new URL("http://www.example.com/");
-URLConnection yc = oracle.openConnection();
-BufferedReader in = new BufferedReader(new InputStreamReader(
-yc.getInputStream()));
-String inputLine;
-while ((inputLine = in.readLine()) != null)
-System.out.println(inputLine);
-in.close();
-}
-}</code></pre><p></p><p>Writing:</p><pre class="code"><code>import java.io.*;
-import java.net.*;public class Reverse {
-public static void main(String[] args) throws Exception {//read args
-URL url = new URL(args[0]);
-String stringToReverse = URLEncoder.encode(args[1], "UTF-8");URLConnection connection = url.openConnection();
-connection.setDoOutput(true);//send string to server
-OutputStreamWriter out = new OutputStreamWriter(
-connection.getOutputStream());
-out.write("string=" + stringToReverse);
-out.close();BufferedReader in = new BufferedReader(
-new InputStreamReader(
-connection.getInputStream()));
-String decodedString;//read server response
-while ((decodedString = in.readLine()) != null) {
-System.out.println("server response: " + decodedString);
-}
-in.close();
-}
+</p></div><p></p><p></p></div><p></p><p>Reading:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.net.*;
+<span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">URLConnectionReader</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+        <span class="hljs-type">URL</span> <span class="hljs-variable">oracle</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(<span class="hljs-string">&quot;http://www.example.com/&quot;</span>);
+        <span class="hljs-type">URLConnection</span> <span class="hljs-variable">yc</span> <span class="hljs-operator">=</span> oracle.openConnection();
+        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(
+                                    yc.getInputStream()));
+        String inputLine;
+        <span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-literal">null</span>)&#32;
+            System.out.println(inputLine);
+        in.close();
+    }
+}</code></pre><p></p><p>Writing:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">import</span> java.net.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Reverse</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+
+				<span class="hljs-comment">//read args</span>
+        <span class="hljs-type">URL</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(args[<span class="hljs-number">0</span>]);
+        <span class="hljs-type">String</span> <span class="hljs-variable">stringToReverse</span> <span class="hljs-operator">=</span> URLEncoder.encode(args[<span class="hljs-number">1</span>], <span class="hljs-string">&quot;UTF-8&quot;</span>);
+
+        <span class="hljs-type">URLConnection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> url.openConnection();
+        connection.setDoOutput(<span class="hljs-literal">true</span>);
+
+				<span class="hljs-comment">//send string to server</span>
+        <span class="hljs-type">OutputStreamWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OutputStreamWriter</span>(
+                                         connection.getOutputStream());
+        out.write(<span class="hljs-string">&quot;string=&quot;</span> + stringToReverse);
+        out.close();
+
+        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
+                                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(
+                                    connection.getInputStream()));
+        String decodedString;
+
+				<span class="hljs-comment">//read server response</span>
+        <span class="hljs-keyword">while</span> ((decodedString = in.readLine()) != <span class="hljs-literal">null</span>) {
+            System.out.println(<span class="hljs-string">&quot;server response: &quot;</span> + decodedString);
+        }
+        in.close();
+    }
 }</code></pre><p></p><h1 id="7f0dad9b-cfae-4032-8eae-3dd6197ea095">Sockets</h1><p>For TCP, a connection must first be established between client and server.</p><div class="indented"><p>Server is listening for requests on specified port.</p><p>Client requests connection (to hostname and port).</p><p>Server accepts connection, opens a new socket for that port (for other clients).</p><p>Server sets its own remote endpoint to port of client (client doesnt decline).</p><p>Connection established.</p></div><p></p><p></p><figure class="image"><a href="java%20net%201d988bca7faa421eb5a1cfc04723e7f8/Untitled.png"><img src="java%20net%201d988bca7faa421eb5a1cfc04723e7f8/Untitled.png" style="width: 301px"/></a></figure><figure class="image"><a href="java%20net%201d988bca7faa421eb5a1cfc04723e7f8/Untitled%201.png"><img src="java%20net%201d988bca7faa421eb5a1cfc04723e7f8/Untitled%201.png" style="width: 301px"/></a></figure><p></p><p><mark class="highlight-blue">Endpoint</mark></p><div class="indented"><p>IP address + port number</p></div><p></p><p></p><p><mark class="highlight-blue">Socket</mark></p><div class="indented"><p>
 A
 <em>socket</em>
 is one endpoint of a two-way communication link between two programs running on the network.
-</p><p>A socket is bound to a port number so that the TCP layer can identify the application that data is destined to be sent to.</p></div><p></p><p></p><p><code>java.net.Socket</code></p><div class="indented"><p>Socket for Cient program.</p></div><p></p><p></p><p>Example: Echo Server</p><div class="indented"><p>Connects to an echo server.</p><p>Server receives data and echoes it back.</p></div><p></p><pre class="code"><code>import java.io.*;
-import java.net.*;public class EchoClient {
-public static void main(String[] args) throws IOException {
-if (args.length != 2) {
-System.err.println(
-"Usage: java EchoClient &lt;host name&gt; &lt;port number&gt;");
-System.exit(1);
-}//read input
-String hostName = args[0];
-int portNumber = Integer.parseInt(args[1]);try ( //try-with-resources -&gt; automatically closes streams
-Socket echoSocket = new Socket(hostName, portNumber);
-//Server
-PrintWriter out =
-new PrintWriter(echoSocket.getOutputStream(), true); //autoflush
-BufferedReader in =
-new BufferedReader(
-new InputStreamReader(echoSocket.getInputStream()));//System
-BufferedReader stdIn =
-new BufferedReader(
-new InputStreamReader(System.in))
-) {
-String userInput;
-while ((userInput = stdIn.readLine()) != null) { //read from terminal
-out.println(userInput); //send to server
-System.out.println("echo: " + in.readLine()); //show response
-}} catch (UnknownHostException e) {
-System.err.println("Don't know about host " + hostName);
-System.exit(1);
-} catch (IOException e) {
-System.err.println("Couldn't get I/O for the connection to " +
-hostName);
-System.exit(1);
-}
-}
-}</code></pre><p></p><p><code>java.net.ServerSocket</code></p><div class="indented"><p>Socket for Server program</p><p>Server runs has a socket with a port number and listens for requests.</p></div><p></p><p></p><p>Example: KnockKnock Client + Server</p><pre class="code"><code>import java.io.*;
-import java.net.*;public class KnockKnockClient {
-public static void main(String[] args) throws IOException {
-if (args.length != 2) {
-System.err.println(
-"Usage: java EchoClient &lt;host name&gt; &lt;port number&gt;");
-System.exit(1);
-}String hostName = args[0];
-int portNumber = Integer.parseInt(args[1]);try (
-Socket kkSocket = new Socket(hostName, portNumber);
-PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
-BufferedReader in = new BufferedReader(
-new InputStreamReader(kkSocket.getInputStream()));
-) {
-BufferedReader stdIn =
-new BufferedReader(new InputStreamReader(System.in));
-String fromServer;
-String fromUser;//wait for server response
-while ((fromServer = in.readLine()) != null) {
-System.out.println("Server: " + fromServer);
-if (fromServer.equals("Bye."))
-break;
-//wait for user input
-fromUser = stdIn.readLine();
-if (fromUser != null) {
-System.out.println("Client: " + fromUser);
-out.println(fromUser); //send input to server
-}
-}
-} catch (UnknownHostException e) {
-System.err.println("Don't know about host " + hostName);
-System.exit(1);
-} catch (IOException e) {
-System.err.println("Couldn't get I/O for the connection to " +
-hostName);
-System.exit(1);
-}
-}
-}</code></pre><pre class="code"><code>import java.net.*;
-import java.io.*;public class KnockKnockServer {
-public static void main(String[] args) throws IOException {
-if (args.length != 1) {
-System.err.println("Usage: java KnockKnockServer &lt;port number&gt;");
-System.exit(1);
-}int portNumber = Integer.parseInt(args[0]);try (
-ServerSocket serverSocket = new ServerSocket(portNumber);
-Socket clientSocket = serverSocket.accept();
-PrintWriter out =
-new PrintWriter(clientSocket.getOutputStream(), true);
-BufferedReader in = new BufferedReader(
-new InputStreamReader(clientSocket.getInputStream()));
-) {
-String inputLine, outputLine;
-// Initiate conversation with client
-KnockKnockProtocol kkp = new KnockKnockProtocol();
-outputLine = kkp.processInput(null);
-out.println(outputLine);//repeat until output is Bye
-while ((inputLine = in.readLine()) != null) {
-outputLine = kkp.processInput(inputLine);
-out.println(outputLine);
-if (outputLine.equals("Bye."))
-break;
-}
-} catch (IOException e) {
-System.out.println("Exception caught when trying to listen on port "
-+ portNumber + " or listening for a connection");
-System.out.println(e.getMessage());
-}
-}
-}</code></pre><pre class="code"><code>import java.net.*;
-import java.io.*;public class KnockKnockProtocol {
-private static final int WAITING = 0;
-private static final int SENTKNOCKKNOCK = 1;
-private static final int SENTCLUE = 2;
-private static final int ANOTHER = 3;private static final int NUMJOKES = 5;private int state = WAITING;
-private int currentJoke = 0;private String[] clues = { "Turnip", "Little Old Lady", "Atch", "Who", "Who" };
-private String[] answers = { "Turnip the heat, it's cold in here!",
-"I didn't know you could yodel!",
-"Bless you!",
-"Is there an owl in here?",
-"Is there an echo in here?" };//returns output for given input
-public String processInput(String theInput) {
-String theOutput = null;if (state == WAITING) {
-theOutput = "Knock! Knock!";
-state = SENTKNOCKKNOCK;
-} else if (state == SENTKNOCKKNOCK) {
-if (theInput.equalsIgnoreCase("Who's there?")) {
-theOutput = clues[currentJoke];
-state = SENTCLUE;
-} else {
-theOutput = "You're supposed to say \"Who's there?\"! " +
-"Try again. Knock! Knock!";
-}
-} else if (state == SENTCLUE) {
-if (theInput.equalsIgnoreCase(clues[currentJoke] + " who?")) {
-theOutput = answers[currentJoke] + " Want another? (y/n)";
-state = ANOTHER;
-} else {
-theOutput = "You're supposed to say \"" +
-clues[currentJoke] +
-" who?\"" +
-"! Try again. Knock! Knock!";
-state = SENTKNOCKKNOCK;
-}
-} else if (state == ANOTHER) {
-if (theInput.equalsIgnoreCase("y")) {
-theOutput = "Knock! Knock!";
-if (currentJoke == (NUMJOKES - 1))
-currentJoke = 0;
-else
-currentJoke++;
-state = SENTKNOCKKNOCK;
-} else {
-theOutput = "Bye.";
-state = WAITING;
-}
-}
-return theOutput;
-}
+</p><p>A socket is bound to a port number so that the TCP layer can identify the application that data is destined to be sent to.</p></div><p></p><p></p><p><code>java.net.Socket</code></p><div class="indented"><p>Socket for Cient program.</p></div><p></p><p></p><p>Example: Echo Server</p><div class="indented"><p>Connects to an echo server.</p><p>Server receives data and echoes it back.</p></div><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">import</span> java.net.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EchoClient</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+        <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">2</span>) {
+            System.err.println(
+                <span class="hljs-string">&quot;Usage: java EchoClient &lt;host name&gt; &lt;port number&gt;&quot;</span>);
+            System.exit(<span class="hljs-number">1</span>);
+        }
+
+				<span class="hljs-comment">//read input</span>
+        <span class="hljs-type">String</span> <span class="hljs-variable">hostName</span> <span class="hljs-operator">=</span> args[<span class="hljs-number">0</span>];
+        <span class="hljs-type">int</span> <span class="hljs-variable">portNumber</span> <span class="hljs-operator">=</span> Integer.parseInt(args[<span class="hljs-number">1</span>]);
+
+        <span class="hljs-keyword">try</span> ( <span class="hljs-comment">//try-with-resources -&gt; automatically closes streams</span>
+            <span class="hljs-type">Socket</span> <span class="hljs-variable">echoSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(hostName, portNumber);
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+						<span class="hljs-comment">//Server</span>
+						<span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span>
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(echoSocket.getOutputStream(), <span class="hljs-literal">true</span>); <span class="hljs-comment">//autoflush</span>
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span>
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(echoSocket.getInputStream()));
+
+            <span class="hljs-comment">//System</span>
+						<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">stdIn</span> <span class="hljs-operator">=</span>
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(System.in))
+        ) {
+            String userInput;
+            <span class="hljs-keyword">while</span> ((userInput = stdIn.readLine()) != <span class="hljs-literal">null</span>) { <span class="hljs-comment">//read from terminal</span>
+                out.println(userInput); <span class="hljs-comment">//send to server</span>
+                System.out.println(<span class="hljs-string">&quot;echo: &quot;</span> + in.readLine()); <span class="hljs-comment">//show response</span>
+            }
+
+        } <span class="hljs-keyword">catch</span> (UnknownHostException e) {
+            System.err.println(<span class="hljs-string">&quot;Don&#x27;t know about host &quot;</span> + hostName);
+            System.exit(<span class="hljs-number">1</span>);
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">&quot;Couldn&#x27;t get I/O for the connection to &quot;</span> +
+                hostName);
+            System.exit(<span class="hljs-number">1</span>);
+        }&#32;
+    }
+}</code></pre><p></p><p><code>java.net.ServerSocket</code></p><div class="indented"><p>Socket for Server program</p><p>Server runs has a socket with a port number and listens for requests.</p></div><p></p><p></p><p>Example: KnockKnock Client + Server</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">import</span> java.net.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KnockKnockClient</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+        <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">2</span>) {
+            System.err.println(
+                <span class="hljs-string">&quot;Usage: java EchoClient &lt;host name&gt; &lt;port number&gt;&quot;</span>);
+            System.exit(<span class="hljs-number">1</span>);
+        }
+
+        <span class="hljs-type">String</span> <span class="hljs-variable">hostName</span> <span class="hljs-operator">=</span> args[<span class="hljs-number">0</span>];
+        <span class="hljs-type">int</span> <span class="hljs-variable">portNumber</span> <span class="hljs-operator">=</span> Integer.parseInt(args[<span class="hljs-number">1</span>]);
+
+        <span class="hljs-keyword">try</span> (
+            <span class="hljs-type">Socket</span> <span class="hljs-variable">kkSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(hostName, portNumber);
+            <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(kkSocket.getOutputStream(), <span class="hljs-literal">true</span>);
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(kkSocket.getInputStream()));
+        ) {
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">stdIn</span> <span class="hljs-operator">=</span>
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(System.in));
+            String fromServer;
+            String fromUser;
+
+						<span class="hljs-comment">//wait for server response</span>
+            <span class="hljs-keyword">while</span> ((fromServer = in.readLine()) != <span class="hljs-literal">null</span>) {
+                System.out.println(<span class="hljs-string">&quot;Server: &quot;</span> + fromServer);
+                <span class="hljs-keyword">if</span> (fromServer.equals(<span class="hljs-string">&quot;Bye.&quot;</span>))
+                    <span class="hljs-keyword">break</span>;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+								<span class="hljs-comment">//wait for user input</span>
+                fromUser = stdIn.readLine();
+                <span class="hljs-keyword">if</span> (fromUser != <span class="hljs-literal">null</span>) {
+                    System.out.println(<span class="hljs-string">&quot;Client: &quot;</span> + fromUser);
+                    out.println(fromUser); <span class="hljs-comment">//send input to server</span>
+                }
+            }
+        } <span class="hljs-keyword">catch</span> (UnknownHostException e) {
+            System.err.println(<span class="hljs-string">&quot;Don&#x27;t know about host &quot;</span> + hostName);
+            System.exit(<span class="hljs-number">1</span>);
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">&quot;Couldn&#x27;t get I/O for the connection to &quot;</span> +
+                hostName);
+            System.exit(<span class="hljs-number">1</span>);
+        }
+    }
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.net.*;
+<span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KnockKnockServer</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+        <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">1</span>) {
+            System.err.println(<span class="hljs-string">&quot;Usage: java KnockKnockServer &lt;port number&gt;&quot;</span>);
+            System.exit(<span class="hljs-number">1</span>);
+        }
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">portNumber</span> <span class="hljs-operator">=</span> Integer.parseInt(args[<span class="hljs-number">0</span>]);
+
+        <span class="hljs-keyword">try</span> (&#32;
+            <span class="hljs-type">ServerSocket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServerSocket</span>(portNumber);
+            <span class="hljs-type">Socket</span> <span class="hljs-variable">clientSocket</span> <span class="hljs-operator">=</span> serverSocket.accept();
+            <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span>
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(clientSocket.getOutputStream(), <span class="hljs-literal">true</span>);
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(clientSocket.getInputStream()));
+        ) {
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+            String inputLine, outputLine;
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+            <span class="hljs-comment">// Initiate conversation with client</span>
+            <span class="hljs-type">KnockKnockProtocol</span> <span class="hljs-variable">kkp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KnockKnockProtocol</span>();
+            outputLine = kkp.processInput(<span class="hljs-literal">null</span>);
+            out.println(outputLine);
+
+						<span class="hljs-comment">//repeat until output is Bye</span>
+            <span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-literal">null</span>) {
+                outputLine = kkp.processInput(inputLine);
+                out.println(outputLine);
+                <span class="hljs-keyword">if</span> (outputLine.equals(<span class="hljs-string">&quot;Bye.&quot;</span>))
+                    <span class="hljs-keyword">break</span>;
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.out.println(<span class="hljs-string">&quot;Exception caught when trying to listen on port &quot;</span>
+                + portNumber + <span class="hljs-string">&quot; or listening for a connection&quot;</span>);
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.net.*;
+<span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KnockKnockProtocol</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">WAITING</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">SENTKNOCKKNOCK</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">SENTCLUE</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">ANOTHER</span> <span class="hljs-operator">=</span> <span class="hljs-number">3</span>;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">NUMJOKES</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">state</span> <span class="hljs-operator">=</span> WAITING;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">currentJoke</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">private</span> String[] clues = { <span class="hljs-string">&quot;Turnip&quot;</span>, <span class="hljs-string">&quot;Little Old Lady&quot;</span>, <span class="hljs-string">&quot;Atch&quot;</span>, <span class="hljs-string">&quot;Who&quot;</span>, <span class="hljs-string">&quot;Who&quot;</span> };
+    <span class="hljs-keyword">private</span> String[] answers = { <span class="hljs-string">&quot;Turnip the heat, it&#x27;s cold in here!&quot;</span>,
+                                 <span class="hljs-string">&quot;I didn&#x27;t know you could yodel!&quot;</span>,
+                                 <span class="hljs-string">&quot;Bless you!&quot;</span>,
+                                 <span class="hljs-string">&quot;Is there an owl in here?&quot;</span>,
+                                 <span class="hljs-string">&quot;Is there an echo in here?&quot;</span> };
+
+		<span class="hljs-comment">//returns output for given input</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">processInput</span><span class="hljs-params">(String theInput)</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">theOutput</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+
+        <span class="hljs-keyword">if</span> (state == WAITING) {
+            theOutput = <span class="hljs-string">&quot;Knock! Knock!&quot;</span>;
+            state = SENTKNOCKKNOCK;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == SENTKNOCKKNOCK) {
+            <span class="hljs-keyword">if</span> (theInput.equalsIgnoreCase(<span class="hljs-string">&quot;Who&#x27;s there?&quot;</span>)) {
+                theOutput = clues[currentJoke];
+                state = SENTCLUE;
+            } <span class="hljs-keyword">else</span> {
+                theOutput = <span class="hljs-string">&quot;You&#x27;re supposed to say \&quot;Who&#x27;s there?\&quot;! &quot;</span> +
+			    <span class="hljs-string">&quot;Try again. Knock! Knock!&quot;</span>;
+            }
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == SENTCLUE) {
+            <span class="hljs-keyword">if</span> (theInput.equalsIgnoreCase(clues[currentJoke] + <span class="hljs-string">&quot; who?&quot;</span>)) {
+                theOutput = answers[currentJoke] + <span class="hljs-string">&quot; Want another? (y/n)&quot;</span>;
+                state = ANOTHER;
+            } <span class="hljs-keyword">else</span> {
+                theOutput = <span class="hljs-string">&quot;You&#x27;re supposed to say \&quot;&quot;</span> +&#32;
+			    clues[currentJoke] +&#32;
+			    <span class="hljs-string">&quot; who?\&quot;&quot;</span> +&#32;
+			    <span class="hljs-string">&quot;! Try again. Knock! Knock!&quot;</span>;
+                state = SENTKNOCKKNOCK;
+            }
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == ANOTHER) {
+            <span class="hljs-keyword">if</span> (theInput.equalsIgnoreCase(<span class="hljs-string">&quot;y&quot;</span>)) {
+                theOutput = <span class="hljs-string">&quot;Knock! Knock!&quot;</span>;
+                <span class="hljs-keyword">if</span> (currentJoke == (NUMJOKES - <span class="hljs-number">1</span>))
+                    currentJoke = <span class="hljs-number">0</span>;
+                <span class="hljs-keyword">else</span>
+                    currentJoke++;
+                state = SENTKNOCKKNOCK;
+            } <span class="hljs-keyword">else</span> {
+                theOutput = <span class="hljs-string">&quot;Bye.&quot;</span>;
+                state = WAITING;
+            }
+        }
+        <span class="hljs-keyword">return</span> theOutput;
+    }
 }</code></pre><p></p><h1 id="87114389-dcac-4ab7-8df9-6ca4e2f2d194">Multiple Clients</h1><p>In the previous example - the server socket gets binded to the client socket and other clients wont get accepted.</p><p>We want multiple clients to come into the same port, queue them there and use multithreading.</p><p></p><p><mark class="highlight-gray"><code>KKMultiServer</code></mark><mark class="highlight-gray"></mark>
 loops forever:
 </p><pre class="code"><code>while (true) {
-listen for requests;
-accept a connection;
-create a new KKMultiServerThread thread to deal with the client;
-}</code></pre><p></p><pre class="code"><code>import java.net.*;
-import java.io.*;public class KKMultiServer {
-public static void main(String[] args) throws IOException {if (args.length != 1) {
-System.err.println("Usage: java KKMultiServer &lt;port number&gt;");
-System.exit(1);
-}int portNumber = Integer.parseInt(args[0]);
-boolean listening = true;try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
-while (listening) {
-new KKMultiServerThread(serverSocket.accept()).start(); //start thread
-}
-} catch (IOException e) {
-System.err.println("Could not listen on port " + portNumber);
-System.exit(-1);
-}
-}
-}</code></pre><pre class="code"><code>import java.net.*;
-import java.io.*;public class KKMultiServerThread extends Thread {
-private Socket socket = null;public KKMultiServerThread(Socket socket) {
-super("KKMultiServerThread"); //call constructor of parent
-this.socket = socket;
-}
-public void run() {try (
-PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-BufferedReader in = new BufferedReader(
-new InputStreamReader(
-socket.getInputStream()));
-) {
-String inputLine, outputLine;
-KnockKnockProtocol kkp = new KnockKnockProtocol();
-outputLine = kkp.processInput(null);
-out.println(outputLine);while ((inputLine = in.readLine()) != null) {
-outputLine = kkp.processInput(inputLine);
-out.println(outputLine);
-if (outputLine.equals("Bye"))
-break;
-}
-socket.close();
-} catch (IOException e) {
-e.printStackTrace();
-}
-}
+		listen for requests;
+    accept a connection;
+    create a new KKMultiServerThread thread to deal with the client;
+}</code></pre><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.net.*;
+<span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KKMultiServer</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
+
+        <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">1</span>) {
+            System.err.println(<span class="hljs-string">&quot;Usage: java KKMultiServer &lt;port number&gt;&quot;</span>);
+            System.exit(<span class="hljs-number">1</span>);
+        }
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">portNumber</span> <span class="hljs-operator">=</span> Integer.parseInt(args[<span class="hljs-number">0</span>]);
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">listening</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;
+
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">ServerSocket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServerSocket</span>(portNumber)) {
+            <span class="hljs-keyword">while</span> (listening) {
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">KKMultiServerThread</span>(serverSocket.accept()).start(); <span class="hljs-comment">//start thread</span>
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">&quot;Could not listen on port &quot;</span> + portNumber);
+            System.exit(-<span class="hljs-number">1</span>);
+        }
+    }
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.net.*;
+<span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KKMultiServerThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-type">Socket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">KKMultiServerThread</span><span class="hljs-params">(Socket socket)</span> {
+        <span class="hljs-built_in">super</span>(<span class="hljs-string">&quot;KKMultiServerThread&quot;</span>); <span class="hljs-comment">//call constructor of parent</span>
+        <span class="hljs-built_in">this</span>.socket = socket;
+    }
+&#32;&#32;&#32;&#32;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+
+        <span class="hljs-keyword">try</span> (
+            <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(socket.getOutputStream(), <span class="hljs-literal">true</span>);
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(
+                    socket.getInputStream()));
+        ) {
+            String inputLine, outputLine;
+            <span class="hljs-type">KnockKnockProtocol</span> <span class="hljs-variable">kkp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KnockKnockProtocol</span>();
+            outputLine = kkp.processInput(<span class="hljs-literal">null</span>);
+            out.println(outputLine);
+
+            <span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-literal">null</span>) {
+                outputLine = kkp.processInput(inputLine);
+                out.println(outputLine);
+                <span class="hljs-keyword">if</span> (outputLine.equals(<span class="hljs-string">&quot;Bye&quot;</span>))
+                    <span class="hljs-keyword">break</span>;
+            }
+            socket.close();
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }</code></pre><p></p><p></p><h1 id="72f094c5-6854-4c52-9c3b-4ba1ced2fbb6">Datagrams</h1><p>Packages are sent without a connection.</p><div class="indented"><p>No guarantee for arrival.</p><p>No order of arrival.</p></div><p></p><p></p><p><code>DatagramPacket</code></p><p></p><p><code>DatagramSocket</code></p><div class="indented"><p>Receives Packets.</p></div><p></p><p></p><p><code>MulticastSocket</code></p><div class="indented"><p><code><mark class="highlight-gray">DatagramPacket</mark></code><mark class="highlight-gray"><mark class="highlight-gray"></mark></mark>
 can be broadcasted to multiple recipients with MulticastSockets.
-</p></div><p></p><p></p><pre class="code"><code>import java.io.*;public class QuoteServer {
-public static void main(String[] args) throws IOException {
-new QuoteServerThread().start();
-}
-}</code></pre><pre class="code"><code>import java.io.*;
-import java.net.*;
-import java.util.*;public class QuoteClient {
-public static void main(String[] args) throws IOException {if (args.length != 1) {
-System.out.println("Usage: java QuoteClient &lt;hostname&gt;");
-return;
-}DatagramSocket socket = new DatagramSocket();// send request
-byte[] buf = new byte[256];
-InetAddress address = InetAddress.getByName(args[0]);
-DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4445);
-socket.send(packet);
-// get response
-packet = new DatagramPacket(buf, buf.length);
-socket.receive(packet);// display response
-String received = new String(packet.getData(), 0, packet.getLength());
-System.out.println("Quote of the Moment: " + received);
-socket.close();
-}
-}</code></pre><p></p><p>When a client sends a DataPacket to the Server, that means its requesting a quote.</p><pre class="code"><code>import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.util.Date;public class QuoteServerThread extends Thread {protected DatagramSocket socket = null; //quotes to send
-protected BufferedReader in = null; //quotes from file
-protected boolean moreQuotes = true;public QuoteServerThread() throws IOException {
-this("QuoteServerThread");
-}public QuoteServerThread(String name) throws IOException {
-super(name);
-socket = new DatagramSocket(4445);try {
-in = new BufferedReader(new FileReader("one-liners.txt"));
-} catch (FileNotFoundException e) {
-System.err.println("Could not open quote file. Serving time instead.");
-}
-}public void run() {while (moreQuotes) {
-try {
-byte[] buf = new byte[256];// receive request
-DatagramPacket packet = new DatagramPacket(buf, buf.length);
-socket.receive(packet); //content not read// figure out response
-String dString = null;
-if (in == null) {
-dString = new Date().toString();
-} else {
-dString = getNextQuote();
-}buf = dString.getBytes();// send the response to the client at "address" and "port"
-InetAddress address = packet.getAddress();
-int port = packet.getPort();
-packet = new DatagramPacket(buf, buf.length, address, port);
-socket.send(packet);} catch (IOException e) {
-e.printStackTrace();
-moreQuotes = false;
-}
-}
-socket.close();
-}protected String getNextQuote() {
-String returnValue = null;
-try {
-if ((returnValue = in.readLine()) == null) {
-in.close();
-moreQuotes = false;
-returnValue = "No more quotes. Goodbye.";
-}
-} catch (IOException e) {
-returnValue = "IOException occurred in server.";
-}
-return returnValue;
-}
+</p></div><p></p><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QuoteServer</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
+        <span class="hljs-keyword">new</span> <span class="hljs-title class_">QuoteServerThread</span>().start();
+    }
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">import</span> java.net.*;
+<span class="hljs-keyword">import</span> java.util.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QuoteClient</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
+
+        <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">1</span>) {
+             System.out.println(<span class="hljs-string">&quot;Usage: java QuoteClient &lt;hostname&gt;&quot;</span>);
+             <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-type">DatagramSocket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramSocket</span>();
+
+        <span class="hljs-comment">// send request</span>
+        <span class="hljs-type">byte</span>[] buf = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">256</span>];
+        <span class="hljs-type">InetAddress</span> <span class="hljs-variable">address</span> <span class="hljs-operator">=</span> InetAddress.getByName(args[<span class="hljs-number">0</span>]);
+        <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">packet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buf, buf.length, address, <span class="hljs-number">4445</span>);
+        socket.send(packet);
+&#32;&#32;&#32;&#32;
+        <span class="hljs-comment">// get response</span>
+        packet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buf, buf.length);
+        socket.receive(packet);
+
+	      <span class="hljs-comment">// display response</span>
+        <span class="hljs-type">String</span> <span class="hljs-variable">received</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(packet.getData(), <span class="hljs-number">0</span>, packet.getLength());
+        System.out.println(<span class="hljs-string">&quot;Quote of the Moment: &quot;</span> + received);
+&#32;&#32;&#32;&#32;
+        socket.close();
+    }
+}</code></pre><p></p><p>When a client sends a DataPacket to the Server, that means its requesting a quote.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.FileNotFoundException;
+<span class="hljs-keyword">import</span> java.io.FileReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.net.DatagramPacket;
+<span class="hljs-keyword">import</span> java.net.DatagramSocket;
+<span class="hljs-keyword">import</span> java.net.InetAddress;
+<span class="hljs-keyword">import</span> java.util.Date;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QuoteServerThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> {
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-type">DatagramSocket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">//quotes to send</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">//quotes from file</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">moreQuotes</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">QuoteServerThread</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException {
+        <span class="hljs-built_in">this</span>(<span class="hljs-string">&quot;QuoteServerThread&quot;</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">QuoteServerThread</span><span class="hljs-params">(String name)</span> <span class="hljs-keyword">throws</span> IOException {
+        <span class="hljs-built_in">super</span>(name);
+        socket = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramSocket</span>(<span class="hljs-number">4445</span>);
+
+        <span class="hljs-keyword">try</span> {
+            in = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;one-liners.txt&quot;</span>));
+        } <span class="hljs-keyword">catch</span> (FileNotFoundException e) {
+            System.err.println(<span class="hljs-string">&quot;Could not open quote file. Serving time instead.&quot;</span>);
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+
+        <span class="hljs-keyword">while</span> (moreQuotes) {
+            <span class="hljs-keyword">try</span> {
+                <span class="hljs-type">byte</span>[] buf = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">256</span>];
+
+                <span class="hljs-comment">// receive request</span>
+                <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">packet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buf, buf.length);
+                socket.receive(packet); <span class="hljs-comment">//content not read</span>
+
+                <span class="hljs-comment">// figure out response</span>
+                <span class="hljs-type">String</span> <span class="hljs-variable">dString</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+                <span class="hljs-keyword">if</span> (in == <span class="hljs-literal">null</span>) {
+                    dString = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().toString();
+                } <span class="hljs-keyword">else</span> {
+                    dString = getNextQuote();
+								}
+
+                buf = dString.getBytes();
+
+                <span class="hljs-comment">// send the response to the client at &quot;address&quot; and &quot;port&quot;</span>
+                <span class="hljs-type">InetAddress</span> <span class="hljs-variable">address</span> <span class="hljs-operator">=</span> packet.getAddress();
+                <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> packet.getPort();
+                packet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buf, buf.length, address, port);
+                socket.send(packet);
+
+            } <span class="hljs-keyword">catch</span> (IOException e) {
+                e.printStackTrace();
+                moreQuotes = <span class="hljs-literal">false</span>;
+            }
+        }
+        socket.close();
+    }
+
+    <span class="hljs-keyword">protected</span> String <span class="hljs-title function_">getNextQuote</span><span class="hljs-params">()</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">returnValue</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> ((returnValue = in.readLine()) == <span class="hljs-literal">null</span>) {
+                in.close();
+                moreQuotes = <span class="hljs-literal">false</span>;
+                returnValue = <span class="hljs-string">&quot;No more quotes. Goodbye.&quot;</span>;
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            returnValue = <span class="hljs-string">&quot;IOException occurred in server.&quot;</span>;
+        }
+        <span class="hljs-keyword">return</span> returnValue;
+    }
 }</code></pre></div></article></body></html>

@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">pthreads</h1><p class="page-description"></p></header><div class="page-body"><p></p><nav class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#58c618f7-8764-45b1-bcb2-2f4e704dc021">Definition</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ea02eb73-0ec6-4451-8628-a71af2e01852">Programming model</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8eac42b3-f1c1-4bd3-8cae-5b759399aaeb">Synchronization</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#16997797-85b4-49df-b387-22a76b2698bb">Safety</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c1e79b8a-6885-40cc-9cd6-8a260aae5f22">Wait free vs. lock free</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#61d88227-91c1-4ec0-8cf3-c4a5a5c21dc8">Synchronization constructs</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c5818493-23bd-451b-9a85-74cc35e2f7dc">Locks</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ca34988a-dfae-4a2e-aac8-427fe89f6805">Condition variables</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#13c23758-8331-4cfb-8c2f-128daeadbf68">Barriers</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c80de966-e0a7-4663-8298-39a9c25a5064">Semaphores</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f79595fa-bf9e-41c3-8365-88bd87505450">Atomic operation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8b78fb38-d747-4c35-acd0-b8d5cb620516">Work-pools (master-worker pattern)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e8147a13-d8c3-4487-89fb-fc00cee48f7f">Centralized work-pool</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#55519ea0-81db-426d-9729-632d69f5a744">Decentralized work-pool</a></div></nav><p></p><h1 id="58c618f7-8764-45b1-bcb2-2f4e704dc021">Definition</h1><p><mark class="highlight-blue">Process</mark></p><div class="indented"><p>Program in execution</p></div><p></p><p></p><p><mark class="highlight-blue">Thread</mark></p><div class="indented"><p><mark class="highlight-gray"><em>Used for thread parallel programming.</em></mark></p><p>Smallest independent stream of instructions that can be scheduled by OS.</p><div class="indented"><p><mark class="highlight-gray">Each contain local variable stack, registers, thread local storage.</mark></p></div><p></p><p>
 If scheduled by OS, then OS thread = lives inside an OS-process and shares global information (file pointers, global variables, static
@@ -608,27 +609,30 @@ Parallelism
 Synchronization between threads
 <p>There is no implicit synchronization between threasd - the progress independently and asynchronously.</p></li></ol><ol class="numbered-list" start="6" type="1"><li>Threads share process global data</li></ol><ol class="numbered-list" start="7" type="1"><li>
 Coordination mechanisms
-<p>for protecting access to shared variables (locks, condition variables).</p><p>All concurrent updates must be protected otherwise: illegal program with undefined outcome.</p></li></ol><ol class="numbered-list" start="8" type="1"><li><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>…</mo></mrow><annotation encoding="application/x-tex">\dots</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.12em; vertical-align: 0em"></span><span class="minner">…</span></span></span></span></span><span>﻿</span></span></li></ol></div><p></p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled.png" style="width: 144px"/></a></figure><p></p><p><mark class="highlight-blue">Pragmatics for parallel computing</mark></p><div class="indented"><p>Threads get scheduled and bound specified cores (non-standard).</p></div><p></p><p><mark class="highlight-blue">Symmetric Multi-Processor SMP</mark></p><div class="indented"><figure class="block-color-gray_background callout" style="white-space: pre-wrap; display: flex"><div style="font-size: 1.5em"><span class="icon">💡</span></div><div style="width: 100%">Don’t confuse symmetric multi-processor SMP with symmetric multi-processing SMP.</div></figure><ul class="bulleted-list"><li style="list-style-type: disc">Single OS</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">all cores treated equally</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">threads not bound to cores</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">there can be more threads than cores</li></ul></div><p></p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%201.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%201.png" style="width: 144px"/></a></figure><p></p><p><mark class="highlight-blue">Explicit parallelization of data parallel loop</mark></p><div class="indented"><p>Increased performance by spawning threads recursively instead of using loops.</p><pre class="code"><code>start = rank*n/p
-end = (rank+1)*n/pfor (i=start; i&lt;end; i++) {
-a[i] = f(i);
+<p>for protecting access to shared variables (locks, condition variables).</p><p>All concurrent updates must be protected otherwise: illegal program with undefined outcome.</p></li></ol><ol class="numbered-list" start="8" type="1"><li><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>…</mo></mrow><annotation encoding="application/x-tex">\dots</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.12em; vertical-align: 0em"></span><span class="minner">…</span></span></span></span></span><span>﻿</span></span></li></ol></div><p></p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled.png" style="width: 144px"/></a></figure><p></p><p><mark class="highlight-blue">Pragmatics for parallel computing</mark></p><div class="indented"><p>Threads get scheduled and bound specified cores (non-standard).</p></div><p></p><p><mark class="highlight-blue">Symmetric Multi-Processor SMP</mark></p><div class="indented"><figure class="block-color-gray_background callout" style="white-space: pre-wrap; display: flex"><div style="font-size: 1.5em"><span class="icon">💡</span></div><div style="width: 100%">Don’t confuse symmetric multi-processor SMP with symmetric multi-processing SMP.</div></figure><ul class="bulleted-list"><li style="list-style-type: disc">Single OS</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">all cores treated equally</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">threads not bound to cores</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">there can be more threads than cores</li></ul></div><p></p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%201.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%201.png" style="width: 144px"/></a></figure><p></p><p><mark class="highlight-blue">Explicit parallelization of data parallel loop</mark></p><div class="indented"><p>Increased performance by spawning threads recursively instead of using loops.</p><pre class="code"><code class="hljs language-c">start = rank*n/p
+end = (rank+<span class="hljs-number">1</span>)*n/p
+
+<span class="hljs-keyword">for</span> (i=start; i&lt;end; i++) {
+	a[i] = f(i);
 }</code></pre><p><mark class="highlight-gray"><code>rank</code></mark><mark class="highlight-gray"></mark>
 is the virtual thread id and is set by the spawning thread.
 </p><ul class="toggle"><li><details><summary>implementation (in depth)</summary><p>Using the argument struct</p><pre class="code"><code>typedef struct {
-int *array;
-int n;
-int rank;
-int size;
-} array_t;</code></pre><pre class="code"><code>loopblock(void *what) {
-array_t *ix = (array_t*)what;
-int *a = ix-&gt;array;
-int i;
-int n = ix-&gt;n;
-int p = ix-&gt;size; // no. of threads
-int start = ix-&gt;rank*(n/p);
-int end = start+n/p;
-for (i=start; i&lt;end; i++) {
-a[i] = f(i);
-}
+	int *array;
+	int n;
+	int rank;
+	int size;
+} array_t;</code></pre><pre class="code"><code class="hljs language-c">loopblock(<span class="hljs-type">void</span> *what) {
+	<span class="hljs-type">array_t</span> *ix = (<span class="hljs-type">array_t</span>*)what;
+	<span class="hljs-type">int</span> *a = ix-&gt;<span class="hljs-built_in">array</span>;
+	<span class="hljs-type">int</span> i;
+	<span class="hljs-type">int</span> n = ix-&gt;n;
+	<span class="hljs-type">int</span> p = ix-&gt;size; <span class="hljs-comment">// no. of threads</span>
+	<span class="hljs-type">int</span> start = ix-&gt;rank*(n/p);
+	<span class="hljs-type">int</span> end = start+n/p;
+&#9;
+	<span class="hljs-keyword">for</span> (i=start; i&lt;end; i++) {
+		a[i] = f(i);
+	}
 }</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>example: matrix-vector product</summary><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mover accent="true"><mi>y</mi><mo>⃗</mo></mover><mo>=</mo><mi>X</mi><mo>⋅</mo><mover accent="true"><mi>a</mi><mo>⃗</mo></mover></mstyle></mrow><annotation encoding="application/x-tex">\small \vec y = X \cdot \vec a</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.817596em; vertical-align: -0.174996em"></span><span class="mord accent sizing reset-size6 size5"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.714em"><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="mord mathnormal" style="margin-right: 0.03588em">y</span></span><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="accent-body" style="left: -0.17994em"><span class="overlay" style="height: 0.714em; width: 0.471em"><svg height="0.714em" preserveaspectratio="xMinYMin" style="width: 0.471em" viewbox="0 0 471 714" width="0.471em"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
 3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
 10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
@@ -641,31 +645,31 @@ c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span><span class="
 -1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
 -7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
 H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
-c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><p>Sequential solution</p><div class="indented"><pre class="code"><code>for (i=0; i&lt;n; i++) {
-y[i] = 0;
-for (j=0; j&lt;m; j++) {
-y[i] += x[i][j]*A[j];
-}
+c-16-25.333-24-45-24-59z"></path></svg></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><p>Sequential solution</p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+	y[i] = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;m; j++) {
+		y[i] += x[i][j]*A[j];
+	}
 }</code></pre></div><p></p><p>Parallel solution</p><div class="indented"><ul class="toggle"><li><details><summary>using cache ineffectively</summary><p>
 Thread with
 <mark class="highlight-gray"><code>id</code></mark>
 rank rank handles every
 <mark class="highlight-gray"><code>p</code></mark>
 ‘th index of matrix
-<mark class="highlight-gray"><code>x</code></mark></p><div class="indented"><pre class="code"><code>for (i=rank; i&lt;n; i+=p) {
-y[i] = 0;
-for (j=0;j&lt;m; j++) {
-y[i] += x[i][j]*A[j];
-}
+<mark class="highlight-gray"><code>x</code></mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=rank; i&lt;n; i+=p) {
+	y[i] = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>;j&lt;m; j++) {
+		y[i] += x[i][j]*A[j];
+	}
 }</code></pre><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%202.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%202.png" style="width: 240px"/></a></figure></div><p></p><p>
 But this way we use the cache ineffectively and each thread writes and reads into
 <mark class="highlight-gray"><code>y</code></mark><mark class="highlight-gray"></mark>
 at the same time.
-</p><p></p></details></li></ul><pre class="code"><code>for (i=rank*n/p; i&lt;(rank+1)*n/p; i++) {
-y[i] = 0;
-for (j=0;j&lt;m; j++) {
-y[i] += x[i][j]*a[j];
-}
+</p><p></p></details></li></ul><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=rank*n/p; i&lt;(rank+<span class="hljs-number">1</span>)*n/p; i++) {
+	y[i] = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>;j&lt;m; j++) {
+		y[i] += x[i][j]*a[j];
+	}
 }</code></pre><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%203.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%203.png" style="width: 192px"/></a></figure></div><p></p></details></li></ul><p></p><p></p></div><p></p><h1 id="8eac42b3-f1c1-4bd3-8cae-5b759399aaeb">Synchronization</h1><p>Synchronization / coordination constructs (from concurrent computing) prevent malicious non-determinism (ie. race conditions).</p><div class="indented"><p>Allow solving algorithms under weak memory consistency assumptions.</p></div><p></p><p></p><p><mark class="highlight-blue">Race condition</mark></p><div class="indented"><p>Outcome of parallel program execution depends on the relative timing of the updates by processors/threads (in an undesired way).</p></div><p></p><p><mark class="highlight-blue">Data race</mark></p><div class="indented"><p>Several threads (or cores, processes, …) compete for updating a shared variable.</p><p>Outcome depends on relative timing.</p></div><p></p><p><mark class="highlight-blue">Deadlock</mark></p><div class="indented"><p>Two or more threads in situation where they depend on eachother and can’t progress.</p><p>Deadlocks spread to all threads and eventually the program can not terminate.</p><ul class="toggle"><li><details><summary>example</summary><pre class="code"><code>pthread_mutex_t lock1 = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t lock2 = PTHREAD_MUTEX_INITIALIZER;</code></pre><div class="column-list"><div class="column" style="width: 50%"><pre class="code"><code>…
 pthread_mutex_lock(&amp;lock1);
@@ -725,29 +729,29 @@ can view in memory when releasing the lock,
 thread
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><msub><mi>T</mi><mn>2</mn></msub></mstyle></mrow><annotation encoding="application/x-tex">\small T_2</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.749997em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal" style="margin-right: 0.13889em">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: -0.13889em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>
 can view when acquiring the lock.
-</p></div><p></p><p><mark class="highlight-blue">Properties of pthread locks</mark></p><div class="indented"><p>Not fair, not starvation free, no bounded waiting - pthread locks are deadlock free but not starvation free.</p><p>Threads can starve eachother by never allowing the others to enter the critical section.</p><p>There is no guarantee that a thread will eventually acquire the lock it wants.</p></div><p></p><p></p><p><mark class="highlight-blue">Lock pattern</mark></p><div class="indented"><pre class="code"><code>flag = 1; x = … ;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>lock(&amp;lock);
-if (flag) {
-a = x;
-flag = 0;
+</p></div><p></p><p><mark class="highlight-blue">Properties of pthread locks</mark></p><div class="indented"><p>Not fair, not starvation free, no bounded waiting - pthread locks are deadlock free but not starvation free.</p><p>Threads can starve eachother by never allowing the others to enter the critical section.</p><p>There is no guarantee that a thread will eventually acquire the lock it wants.</p></div><p></p><p></p><p><mark class="highlight-blue">Lock pattern</mark></p><div class="indented"><pre class="code"><code>flag = 1; x = … ;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+<span class="hljs-keyword">if</span> (flag) {
+	a = x;
+	flag = <span class="hljs-number">0</span>;
 }
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>lock(&amp;lock);
-if (flag) {
-a = x;
-flag = 0;
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+<span class="hljs-keyword">if</span> (flag) {
+	a = x;
+	flag = <span class="hljs-number">0</span>;
 }
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code>lock(&amp;lock);
-if (flag) {
-a = x;
-flag = 0;
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+<span class="hljs-keyword">if</span> (flag) {
+	a = x;
+	flag = <span class="hljs-number">0</span>;
 }
 unlock(&amp;lock);</code></pre></div></div></div><p></p><p></p><p><mark class="highlight-blue">Example: using locks</mark></p><div class="indented"><ul class="toggle"><li><details><summary>unsafe program: race condition</summary><p>
 initial value:
-<mark class="highlight-gray"><code>x = 0;</code></mark></p><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>if (flag) {
-a = x;
-flag = 0;
-}</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>if (flag) {
-a = x;
-flag = 0;
+<mark class="highlight-gray"><code>x = 0;</code></mark></p><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">if</span> (flag) {
+	a = x;
+	flag = <span class="hljs-number">0</span>;
+}</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">if</span> (flag) {
+	a = x;
+	flag = <span class="hljs-number">0</span>;
 }</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code>flag = 1;
 x = 27;</code></pre></div></div><p><em>Conclusion: race condition -</em>
 What happens depends on relative timing.
@@ -762,19 +766,19 @@ what is the intended value of
 <mark class="highlight-gray"><code>a</code></mark><mark class="highlight-gray"></mark>
 for thread0, thread1?
 </p><pre class="code"><code>pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-x = 0;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>lock(&amp;lock);
-if (flag) {
-a = x;
-flag = 0;
+x = 0;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+<span class="hljs-keyword">if</span> (flag) {
+	a = x;
+	flag = <span class="hljs-number">0</span>;
 }
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>lock(&amp;lock);
-if (flag) {
-a = x;
-flag = 0;
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+<span class="hljs-keyword">if</span> (flag) {
+	a = x;
+	flag = <span class="hljs-number">0</span>;
 }
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code>lock(&amp;lock);
-flag = 1;
-x = 27;
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+flag = <span class="hljs-number">1</span>;
+x = <span class="hljs-number">27</span>;
 unlock(&amp;lock);</code></pre></div></div><p>Conclusion:</p><div class="indented"><p>
 Both read and write accesses to
 <mark class="highlight-gray"><code>x</code></mark><mark class="highlight-gray"></mark>
@@ -785,17 +789,17 @@ what is the intended value of
 for thread0, thread1?
 </p><pre class="code"><code>pthread_mutex_t lock1 = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t lock2 = PTHREAD_MUTEX_INITIALIZER;
-x = 0;</code></pre><pre class="code"><code>lock(&amp;lock1); // executed
-lock(&amp;lock2); // &lt;-- needs unlock of lock2 from thread1 to progress
-if (…)
+x = 0;</code></pre><pre class="code"><code class="hljs language-c">lock(&amp;lock1); <span class="hljs-comment">// executed</span>
+lock(&amp;lock2); <span class="hljs-comment">// &lt;-- needs unlock of lock2 from thread1 to progress </span>
+<span class="hljs-keyword">if</span> (…)
 unlock(&amp;lock2);
-unlock(&amp;lock1);</code></pre><pre class="code"><code>lock(&amp;lock2); // executed
-lock(&amp;lock1); // &lt;-- needs unlock of lock1 from thread0 to progress
-if (…)
+unlock(&amp;lock1);</code></pre><pre class="code"><code class="hljs language-c">lock(&amp;lock2); <span class="hljs-comment">// executed</span>
+lock(&amp;lock1); <span class="hljs-comment">// &lt;-- needs unlock of lock1 from thread0 to progress</span>
+<span class="hljs-keyword">if</span> (…)
 unlock(&amp;lock1);
-unlock(&amp;lock2);</code></pre><pre class="code"><code>lock(&amp;lock1);
-flag = 1;
-x = 27;
+unlock(&amp;lock2);</code></pre><pre class="code"><code class="hljs language-c">lock(&amp;lock1);
+flag = <span class="hljs-number">1</span>;
+x = <span class="hljs-number">27</span>;
 unlock(&amp;lock1);</code></pre><hr/><p>Conclusion: Deadlock</p><div class="indented"><p>Deadlock occurs if thread0 and thread1 try to progress “simultaniously” by each alternately executing one instruction</p></div><p></p><p></p></details></li></ul></div><p></p><p><mark class="highlight-blue">Example: using global locks</mark></p><div class="indented"><ul class="toggle"><li><details><summary>List procesing: locking entire list</summary><p><mark class="highlight-gray"><code>delete(e)</code></mark>
 operation:
 </p><div class="indented"><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-gray"><code>lock(listlock)</code></mark></li></ol><ol class="numbered-list" start="2" type="1"><li>
@@ -849,17 +853,17 @@ Delete: first lock
 <mark class="highlight-gray"><code>e2</code></mark>
 , then
 <mark class="highlight-gray"><code>e1</code></mark></li></ul></div><p></p><p>Then by executing them both a deadlock occurs</p></div><p></p><p></p></details></li></ul></div><p></p><p><mark class="highlight-blue">Example: using read/write locks</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Reading arbitrary value</summary><pre class="code"><code>pthread_rwlock_t lock = PTHREAD_RWLOCK_INITIALIZER;
-flag = false;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>rdlock(&amp;lock);
-if (flag) {
-a = x;
+flag = false;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">rdlock(&amp;lock);
+<span class="hljs-keyword">if</span> (flag) {&#32;
+	a = x;
 }
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>rdlock(&amp;lock);
-if (flag) {
-b = x;
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">rdlock(&amp;lock);
+<span class="hljs-keyword">if</span> (flag) {
+	b = x;
 }
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code>wrlock(&amp;lock);
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code class="hljs language-c">wrlock(&amp;lock);
 x = c;
-flag = true;
+flag = <span class="hljs-literal">true</span>;
 unlock(&amp;lock);</code></pre></div></div><p>Conclusion</p><div class="indented"><p>Thread0, thread1 can both enter their critical section simultaneously (read lock).</p><p>Thread2 is always alone in its critical section (write lock).</p><p>
 Therefore the thread0, thread1 either read the old
 <mark class="highlight-gray"><code>x</code></mark><mark class="highlight-gray"></mark>
@@ -869,15 +873,15 @@ value (
 </p></div><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>
 Reading newly assigned value (deadlock possible) → can be solved with
 <mark class="highlight-teal">condiction variables</mark></summary><pre class="code"><code>pthread_rwlock_t lock = PTHREAD_RWLOCK_INITIALIZER;
-flag = false;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>rdlock(&amp;lock);
-while(!flag) {}
+flag = false;</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">rdlock(&amp;lock);
+<span class="hljs-keyword">while</span>(!flag) {}
 a = x;
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code>rdlock(&amp;lock);
-while (!flag) {}
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c">rdlock(&amp;lock);
+<span class="hljs-keyword">while</span> (!flag) {}
 b = x;
-unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code>wrlock(&amp;lock);
+unlock(&amp;lock);</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code class="hljs language-c">wrlock(&amp;lock);
 x = c;
-flag = true;
+flag = <span class="hljs-literal">true</span>;
 unlock(&amp;lock);</code></pre></div></div><p>Same as above but threads wait until condition is met before continuing (because of the while loop).</p><p>Problem</p><div class="indented"><p>Active wait is inefficient.</p><p>Deadlock is possible.</p></div><p></p><p>Solution</p><div class="indented"><p>Condition variables</p></div><p></p><p></p></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Using locks to avoid deadlocks</mark></p><div class="indented"><p>The best solution is avoiding locks altogether by replicating shared information.</p><ul class="bulleted-list"><li style="list-style-type: disc">Use one lock at a time</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 If not possible: always acquire and release in the same order
 <mark class="highlight-gray">(this is difficult to do with libraries, because we don’t know how they are implemented)</mark><p>
@@ -896,56 +900,80 @@ Thread suspends itself, relinquishes (temporarily releases) lock but stays suspe
 condition is met.
 </li></ol><ol class="numbered-list" start="3" type="1"><li>
 Thread is resumed (woken up) later by a signal from some other signaling thread.
-<p>It has again acquired the lock.</p></li></ol></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Mutual exclusion</mark></p><div class="indented"><p>Mutual exclusion still guaranteed.</p><p>Suspended thread is only resumed when signaling thread left critical section.</p></div><p></p><p><mark class="highlight-blue">Risk of deadlock</mark></p><div class="indented"><p>if threads mutually wait on some condition but there are no signal-threads.</p><p></p></div><p></p><p><mark class="highlight-blue">weird bug in pthreads</mark></p><div class="indented"><p>There can be unwanted wakeups by signals from the runtime-system without explicit wakeup from other thread.</p><p>Good practice: rechecking whether wait-condition is fulfilled - even after waking up.</p></div><p></p><p></p><p><mark class="highlight-blue">Standard pattern</mark></p><div class="indented"><p>Thread waiting for condition (signalled thread)</p><div class="indented"><pre class="code"><code>lock(&amp;lock);
-// critical section ::while (!condition()) {
-pthread_cond_wait(&amp;cond, &amp;lock); // wait and release lock temporarily
+<p>It has again acquired the lock.</p></li></ol></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Mutual exclusion</mark></p><div class="indented"><p>Mutual exclusion still guaranteed.</p><p>Suspended thread is only resumed when signaling thread left critical section.</p></div><p></p><p><mark class="highlight-blue">Risk of deadlock</mark></p><div class="indented"><p>if threads mutually wait on some condition but there are no signal-threads.</p><p></p></div><p></p><p><mark class="highlight-blue">weird bug in pthreads</mark></p><div class="indented"><p>There can be unwanted wakeups by signals from the runtime-system without explicit wakeup from other thread.</p><p>Good practice: rechecking whether wait-condition is fulfilled - even after waking up.</p></div><p></p><p></p><p><mark class="highlight-blue">Standard pattern</mark></p><div class="indented"><p>Thread waiting for condition (signalled thread)</p><div class="indented"><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+<span class="hljs-comment">// critical section ::</span>
+
+<span class="hljs-keyword">while</span> (!condition()) {
+	pthread_cond_wait(&amp;cond, &amp;lock); <span class="hljs-comment">// wait and release lock temporarily</span>
 }
-// thread has been signaled, condition holds, lock is acquired again// :: critical section
+<span class="hljs-comment">// thread has been signaled, condition holds, lock is acquired again</span>
+
+<span class="hljs-comment">// :: critical section</span>
 unlock(&amp;lock);</code></pre></div><p></p><p>
 Thread broadcasting signal (signaling thread)
-<mark class="highlight-gray">— can be done inside or outside the critical section</mark></p><div class="indented"><ul class="toggle"><li><details><summary><mark class="highlight-teal"><em>Inside</em></mark></summary><pre class="code"><code>lock(&amp;lock);
-// critical section ::... // establishing condition
-cond_signal(&amp;cond); // signal if condition holds// :: critical section
+<mark class="highlight-gray">— can be done inside or outside the critical section</mark></p><div class="indented"><ul class="toggle"><li><details><summary><mark class="highlight-teal"><em>Inside</em></mark></summary><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+<span class="hljs-comment">// critical section ::</span>
+
+... <span class="hljs-comment">// establishing condition</span>
+cond_signal(&amp;cond); <span class="hljs-comment">// signal if condition holds</span>
+
+<span class="hljs-comment">// :: critical section</span>
 unlock(&amp;lock);</code></pre><ul class="bulleted-list"><li style="list-style-type: disc">
 Advantage: Establishing condition in critical section → therefore it should hold when suspended thread is resumed.
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Disadvantage: Suspended thread will block on mutex again - until signaling thread leaves the section.
-</li></ul></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal"><em>Outside</em></mark></summary><pre class="code"><code>lock(&amp;lock);
-... // establishing condition (in critical section)
-unlock(&amp;lock);cond_signal(&amp;cond); // signal</code></pre><ul class="bulleted-list"><li style="list-style-type: disc">Advantage: Suspended thread can immediately continue without blocking.</li></ul></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Readers-writers lock (with condition variables and locks) → unfair</summary><pre class="code"><code>typedef struct {
-int readers; // actice readers
-int writer;	// (boolean) active writer
-int waiting; // pending writes (writers in queue)
-pthread_cond_t read_ok; // condition: reading allowed
-pthread_cond_t write_ok; // condition: writing allowed
-pthread_mutex_t gateway; // lock} rwlock_t;</code></pre><pre class="code"><code>void rwlock_rlock(rwlock_t *rwlock) {
-pthread_mutex_lock(&amp;rwlock-&gt;gateway); // acquire gateway lockwhile (rwlock-&gt;waiting &gt; 0 || rwlock-&gt;writer) {
-// writers exist or wait - release gateway lock and wait for read_ok signal
-pthread_cond_wait(rwlock-&gt;read_ok, &amp;rwlock-&gt;gateway);
-}rwlock-&gt;readers++; // increment readers
-pthread_mutex_unlock(&amp;rwlock-&gt;gateway); // release gateway lock
-}</code></pre><pre class="code"><code>void rwlock_wlock(rwlock_t *rwlock) {
-pthread_mutex_lock(&amp;rwlock-&gt;gateway); // acquire gateway lock
-rwlock-&gt;waiting++; // pending write
-while (rwlock-&gt;readers &gt; 0 || rwlock-&gt;writer ) {
-// readers, writers exist - release gateway lock and wait for read_ok signal
-pthread_cond_wait(&amp;rwlock-&gt;writer_ok,	&amp;rwlock-&gt;gateway);
-}
-rwlock-&gt;waiting--; // remove writer from queue
-rwlock-&gt;writer = 1; // active writer == true
-pthread_mutex_unlock(&amp;rwlock-&gt;gateway); // release gateway lock
-}</code></pre><pre class="code"><code>void rwlock_unlock(rwlock_t *rwlock) {
-pthread_mutex_lock(&amp;rwlock-&gt;gateway); // acquire gateway lock// remove active writer or reader
-if (rwlock-&gt;writer) {
-rwlock-&gt;writer = 0;
-} else {
-rwlock-&gt;readers--;
-}// send signal: resume threads waiting to acquire
-if (rwlock-&gt;readers == 0 &amp;&amp; rwlock-&gt;waiting &gt; 0) {
-pthread_cond_signal(&amp;rwlock-&gt;writer_ok); // no readers, waiting writer
-} else {
-pthread_cond_broadcast(&amp;rwlock-&gt;reader_ok); // reader || no waiting writer
-}pthread_mutex_unlock(&amp;rwlock-&gt;gateway); // release gateway lock
+</li></ul></details></li></ul><ul class="toggle"><li><details><summary><mark class="highlight-teal"><em>Outside</em></mark></summary><pre class="code"><code class="hljs language-c">lock(&amp;lock);
+... <span class="hljs-comment">// establishing condition (in critical section)</span>
+unlock(&amp;lock);
+
+cond_signal(&amp;cond); <span class="hljs-comment">// signal</span></code></pre><ul class="bulleted-list"><li style="list-style-type: disc">Advantage: Suspended thread can immediately continue without blocking.</li></ul></details></li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Example</mark></p><div class="indented"><ul class="toggle"><li><details><summary>Readers-writers lock (with condition variables and locks) → unfair</summary><pre class="code"><code>typedef struct {
+	int readers; // actice readers
+	int writer;	// (boolean) active writer
+	int waiting; // pending writes (writers in queue)&#32;
+	pthread_cond_t read_ok; // condition: reading allowed
+	pthread_cond_t write_ok; // condition: writing allowed
+	pthread_mutex_t gateway; // lock
+
+} rwlock_t;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">rwlock_rlock</span><span class="hljs-params">(<span class="hljs-type">rwlock_t</span> *rwlock)</span> {
+	pthread_mutex_lock(&amp;rwlock-&gt;gateway); <span class="hljs-comment">// acquire gateway lock</span>
+
+	<span class="hljs-keyword">while</span> (rwlock-&gt;waiting &gt; <span class="hljs-number">0</span> || rwlock-&gt;writer) {
+		<span class="hljs-comment">// writers exist or wait - release gateway lock and wait for read_ok signal</span>
+		pthread_cond_wait(rwlock-&gt;read_ok, &amp;rwlock-&gt;gateway);
+	}
+
+	rwlock-&gt;readers++; <span class="hljs-comment">// increment readers</span>
+	pthread_mutex_unlock(&amp;rwlock-&gt;gateway); <span class="hljs-comment">// release gateway lock</span>
+}</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">rwlock_wlock</span><span class="hljs-params">(<span class="hljs-type">rwlock_t</span> *rwlock)</span> {
+	pthread_mutex_lock(&amp;rwlock-&gt;gateway); <span class="hljs-comment">// acquire gateway lock</span>
+	rwlock-&gt;waiting++; <span class="hljs-comment">// pending write</span>
+&#9;
+	<span class="hljs-keyword">while</span> (rwlock-&gt;readers &gt; <span class="hljs-number">0</span> || rwlock-&gt;writer ) {
+		<span class="hljs-comment">// readers, writers exist - release gateway lock and wait for read_ok signal</span>
+		pthread_cond_wait(&amp;rwlock-&gt;writer_ok,	&amp;rwlock-&gt;gateway);
+	}
+&#9;
+	rwlock-&gt;waiting--; <span class="hljs-comment">// remove writer from queue</span>
+	rwlock-&gt;writer = <span class="hljs-number">1</span>; <span class="hljs-comment">// active writer == true </span>
+	pthread_mutex_unlock(&amp;rwlock-&gt;gateway); <span class="hljs-comment">// release gateway lock</span>
+}</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">rwlock_unlock</span><span class="hljs-params">(<span class="hljs-type">rwlock_t</span> *rwlock)</span> {
+	pthread_mutex_lock(&amp;rwlock-&gt;gateway); <span class="hljs-comment">// acquire gateway lock</span>
+
+	<span class="hljs-comment">// remove active writer or reader</span>
+	<span class="hljs-keyword">if</span> (rwlock-&gt;writer) {
+		rwlock-&gt;writer = <span class="hljs-number">0</span>;
+	} <span class="hljs-keyword">else</span> {
+		rwlock-&gt;readers--;
+	}
+
+	<span class="hljs-comment">// send signal: resume threads waiting to acquire</span>
+	<span class="hljs-keyword">if</span> (rwlock-&gt;readers == <span class="hljs-number">0</span> &amp;&amp; rwlock-&gt;waiting &gt; <span class="hljs-number">0</span>) {
+		pthread_cond_signal(&amp;rwlock-&gt;writer_ok); <span class="hljs-comment">// no readers, waiting writer</span>
+	} <span class="hljs-keyword">else</span> {
+		pthread_cond_broadcast(&amp;rwlock-&gt;reader_ok); <span class="hljs-comment">// reader || no waiting writer</span>
+	}
+
+	pthread_mutex_unlock(&amp;rwlock-&gt;gateway); <span class="hljs-comment">// release gateway lock</span>
 }</code></pre><p>
 The signal in the release function could also be sent outside the critical section, but it would change up the semantics
 (readers/writers can be changed by other threads after unlock).
@@ -956,16 +984,22 @@ must wait until all or some number of threads have also executed
 <mark class="highlight-gray"><code>&lt;barrier&gt;</code></mark>
 .
 </p><pre class="code"><code>typedef struct {
-int tc; // thread count
-pthread_cond_t barrier_ok;
-pthread_mutex_t barwait;} barrier_t;</code></pre><pre class="code"><code>void barrier(barrier_t *b, int total_tc) {
-pthread_mutex_lock(&amp;b-&gt;barwait); // acquire barwait lockb-&gt;tc++;
-if (b-&gt;tc == total_tc) { // threshold reached
-b-&gt;tc = 0;
-pthread_cond_broadcast(&amp;b-&gt;barrier_ok);
-} else { // wait until barrier_ok signal (acquire and immediately release barwait)
-pthread_cond_wait(&amp;b-&gt;barrier_ok, &amp;b-&gt;barwait);
-}pthread_mutex_unlock(&amp;b-&gt;barwait); // release barwait lock
+	int tc; // thread count
+	pthread_cond_t barrier_ok;
+	pthread_mutex_t barwait;
+
+} barrier_t;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">barrier</span><span class="hljs-params">(<span class="hljs-type">barrier_t</span> *b, <span class="hljs-type">int</span> total_tc)</span> {
+	pthread_mutex_lock(&amp;b-&gt;barwait); <span class="hljs-comment">// acquire barwait lock</span>
+
+	b-&gt;tc++;
+	<span class="hljs-keyword">if</span> (b-&gt;tc == total_tc) { <span class="hljs-comment">// threshold reached</span>
+		b-&gt;tc = <span class="hljs-number">0</span>;
+		pthread_cond_broadcast(&amp;b-&gt;barrier_ok);
+	} <span class="hljs-keyword">else</span> { <span class="hljs-comment">// wait until barrier_ok signal (acquire and immediately release barwait)</span>
+		pthread_cond_wait(&amp;b-&gt;barrier_ok, &amp;b-&gt;barwait);
+	}
+
+	pthread_mutex_unlock(&amp;b-&gt;barwait); <span class="hljs-comment">// release barwait lock</span>
 }</code></pre><hr/><p>Problems</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">
 Not scalable
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><mi>p</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(p)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord mathnormal sizing reset-size6 size5">p</span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Probably not safe on spurious (unexpected) wake ups</li></ul></div><p></p><p>Solution: Tree structured barrier with an extra flag</p></details></li></ul></div><p></p><p></p><h2 id="13c23758-8331-4cfb-8c2f-128daeadbf68">Barriers</h2><p><mark class="highlight-blue">Barriers</mark></p><div class="indented"><p>
@@ -988,19 +1022,19 @@ Find all primes between
 and
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mstyle></mrow><annotation encoding="application/x-tex">\small 10^9</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.713364em; vertical-align: 0em"></span><span class="mord sizing reset-size6 size5">1</span><span class="mord sizing reset-size6 size5"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7926266666666666em"><span style="top: -2.963em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>
 .
-</p><div class="indented"><pre class="code"><code>for (i=2; i&lt;1000000000; i++) {
-if (isPrime(i)) printf("Found %d\n",i);
+</p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">2</span>; i&lt;<span class="hljs-number">1000000000</span>; i++) {
+	<span class="hljs-keyword">if</span> (isPrime(i)) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Found %d\n&quot;</span>,i);
 }</code></pre></div><p></p><p><mark class="highlight-teal">Solution 1) Statically scheduled data parallel loop</mark></p><div class="indented"><p>
 Each thread executes block of size
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup><mi mathvariant="normal">/</mi><mi>p</mi></mstyle></mrow><annotation encoding="application/x-tex">\small 10^9/p</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.938364em; vertical-align: -0.225em"></span><span class="mord sizing reset-size6 size5">1</span><span class="mord sizing reset-size6 size5"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7926266666666666em"><span style="top: -2.963em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span><span class="mord sizing reset-size6 size5">/</span><span class="mord mathnormal sizing reset-size6 size5">p</span></span></span></span></span><span>﻿</span></span>
 → load imbalance, only few processors perform expensive
 <mark class="highlight-gray"><code>isPrime()</code></mark><mark class="highlight-gray"></mark>
 checks.
-</p><p>Problem:</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Almost no speedup.</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Array compaction cannot help since we dont know where primes are in advance.</li></ul></div><p></p></div><p></p><p><mark class="highlight-teal">Solution 2) Shared global counter with global variable</mark></p><div class="indented"><pre class="code"><code>int i = 0; // shared globally</code></pre><pre class="code"><code>// thread code (function)
-while (i&lt;1000000000) {
-int j = i; // thread gets next value of i
-i++; // illegal concurrent update -&gt; race condition
-if (isPrime(j)) printf("Found %d\n",j);
+</p><p>Problem:</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Almost no speedup.</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Array compaction cannot help since we dont know where primes are in advance.</li></ul></div><p></p></div><p></p><p><mark class="highlight-teal">Solution 2) Shared global counter with global variable</mark></p><div class="indented"><pre class="code"><code>int i = 0; // shared globally</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// thread code (function)</span>
+<span class="hljs-keyword">while</span> (i&lt;<span class="hljs-number">1000000000</span>) {
+	<span class="hljs-type">int</span> j = i; <span class="hljs-comment">// thread gets next value of i </span>
+	i++; <span class="hljs-comment">// illegal concurrent update -&gt; race condition </span>
+	<span class="hljs-keyword">if</span> (isPrime(j)) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Found %d\n&quot;</span>,j);
 }</code></pre><p>Problem:</p><div class="indented"><p>
 Unsafe because of multiple threads update
 <mark class="highlight-gray"><code>i</code></mark><mark class="highlight-gray"></mark>
@@ -1017,31 +1051,31 @@ This way we can have an unwanted interleaving where
 is only incremented by 1 between two threads:
 </p><pre class="code"><code>										tmp = i;
 tmp = i;
-tmp = tmp+1;
+										tmp = tmp+1;
 tmp = tmp+1;
 i = tmp;
-i = tmp;</code></pre></details></li></ul></div><p></p></div><p></p><p><mark class="highlight-teal">Solution 3) Shared global counter with mutex</mark></p><div class="indented"><pre class="code"><code>int i = 0; // shared global. init once
-pthread_mutex_t count_lock = …;</code></pre><pre class="code"><code>// thread code (function)
-while (i&lt;1000000000) {
-int j;
-pthread_mutex_lock(&amp;count_lock); // critical section ::
-j = i;
-i++;
-if (isPrime(j)) printf("Found %d\n",j);
-pthread_mutex_unlock(&amp;count_lock); // :: critical section
+										i = tmp;</code></pre></details></li></ul></div><p></p></div><p></p><p><mark class="highlight-teal">Solution 3) Shared global counter with mutex</mark></p><div class="indented"><pre class="code"><code>int i = 0; // shared global. init once
+pthread_mutex_t count_lock = …;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// thread code (function)</span>
+<span class="hljs-keyword">while</span> (i&lt;<span class="hljs-number">1000000000</span>) {
+	<span class="hljs-type">int</span> j;
+	pthread_mutex_lock(&amp;count_lock); <span class="hljs-comment">// critical section ::</span>
+	j = i;
+	i++;
+	<span class="hljs-keyword">if</span> (isPrime(j)) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Found %d\n&quot;</span>,j);
+	pthread_mutex_unlock(&amp;count_lock); <span class="hljs-comment">// :: critical section</span>
 }</code></pre><ul class="toggle"><li><details><summary>
 Alternative: putting
 <mark class="highlight-gray"><code>isPrime()</code></mark><mark class="highlight-gray"></mark>
 out of the critical section
 </summary><pre class="code"><code>int i = 0; // shared global. init once
-pthread_mutex_t count_lock = …;</code></pre><pre class="code"><code>// thread code (function)
-while (i&lt;1000000000) {
-int j;
-pthread_mutex_lock(&amp;count_lock); // critical section ::
-j = i;
-i++; // thread could just stop here somewhere arbitrarily
-pthread_mutex_unlock(&amp;count_lock); // :: critical section
-if (isPrime(j)) printf("Found %d\n",j);
+pthread_mutex_t count_lock = …;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// thread code (function)</span>
+<span class="hljs-keyword">while</span> (i&lt;<span class="hljs-number">1000000000</span>) {
+	<span class="hljs-type">int</span> j;
+	pthread_mutex_lock(&amp;count_lock); <span class="hljs-comment">// critical section ::</span>
+	j = i;
+	i++; <span class="hljs-comment">// thread could just stop here somewhere arbitrarily</span>
+	pthread_mutex_unlock(&amp;count_lock); <span class="hljs-comment">// :: critical section</span>
+	<span class="hljs-keyword">if</span> (isPrime(j)) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Found %d\n&quot;</span>,j);
 }</code></pre><p>
 Problem: thread can sleep arbitrarily and make no progress
 <em>after</em>
@@ -1050,23 +1084,23 @@ acquiring the lock, while other threads just wait.
 No speedup → all the other threads can’t make any progress when
 <mark class="highlight-gray"><code>isPrime()</code></mark><mark class="highlight-gray"></mark>
 checks are in the critical section
-</p></div><p></p></div><p></p><p><mark class="highlight-teal">Solution 4) Atomic increment</mark></p><div class="indented"><pre class="code"><code>int i = 0; // shared global</code></pre><pre class="code"><code>// thread code (function)
-int done = 0;
-do {
-int j = fetch_and_inc(&amp;i); // return i, increment O(1)
-if (j==1000000000) done = 1;
-else if (isPrime(j)) printf("Found %d\n",j);
-} while (!done);</code></pre><p>Wait-free algorithm</p></div><p></p></details></li></ul></div><p></p><p></p><p></p><h1 id="8b78fb38-d747-4c35-acd0-b8d5cb620516">Work-pools (master-worker pattern)</h1><p>Useful implementation of higher-level parallel paradigm.</p><p></p><p><mark class="highlight-blue">Master</mark>
+</p></div><p></p></div><p></p><p><mark class="highlight-teal">Solution 4) Atomic increment</mark></p><div class="indented"><pre class="code"><code>int i = 0; // shared global</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// thread code (function)</span>
+<span class="hljs-type">int</span> done = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">do</span> {
+	<span class="hljs-type">int</span> j = fetch_and_inc(&amp;i); <span class="hljs-comment">// return i, increment O(1) </span>
+	<span class="hljs-keyword">if</span> (j==<span class="hljs-number">1000000000</span>) done = <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isPrime(j)) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Found %d\n&quot;</span>,j);
+} <span class="hljs-keyword">while</span> (!done);</code></pre><p>Wait-free algorithm</p></div><p></p></details></li></ul></div><p></p><p></p><p></p><h1 id="8b78fb38-d747-4c35-acd0-b8d5cb620516">Work-pools (master-worker pattern)</h1><p>Useful implementation of higher-level parallel paradigm.</p><p></p><p><mark class="highlight-blue">Master</mark>
 Maintains pool of work
 </p><p><mark class="highlight-blue">Workers</mark>
 ask for work, execute, return new results to master (until done)
 </p><p></p><h2 id="e8147a13-d8c3-4487-89fb-fc00cee48f7f">Centralized work-pool</h2><p><mark class="highlight-blue">Work-pool</mark>
 distributed pool of work nodes (function and arguments)
-</p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%204.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%204.png" style="width: 192px"/></a></figure><p></p><p><mark class="highlight-blue">Scalability bottleneck</mark></p><div class="indented"><p>Getting work = explicitly asking master or accessing shared data structure</p><p>There is a competition for the work in the work-pool.</p></div><p></p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%205.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%205.png" style="width: 192px"/></a></figure><p></p><p><mark class="highlight-blue">Implementation</mark></p><div class="indented"><p>Assume that work is executed in the order it was generated in (use deque data-structure as work-pool).</p><p>Each thread repeats until termination:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Acquire mutex, check queue, if non-empty, take from front (else wait for condition variable).</li></ol><ol class="numbered-list" start="2" type="1"><li>Execute work</li></ol><ol class="numbered-list" start="3" type="1"><li>If new work generated: acquire mutex, insert at end of deque, wake up waiting threads</li></ol></div><p></p><p>Work task as linked list:</p><div class="indented"><pre class="code"><code>typedef struct work {
-void (*routine)(void *args); // function
-void *args; // args
-struct work *next; // next node in list
-} work_t;</code></pre></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Problems with centralized work pool</mark></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">
+</p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%204.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%204.png" style="width: 192px"/></a></figure><p></p><p><mark class="highlight-blue">Scalability bottleneck</mark></p><div class="indented"><p>Getting work = explicitly asking master or accessing shared data structure</p><p>There is a competition for the work in the work-pool.</p></div><p></p><figure class="image"><a href="pthreads%204226272283d54654a102dc6c15e52351/Untitled%205.png"><img src="pthreads%204226272283d54654a102dc6c15e52351/Untitled%205.png" style="width: 192px"/></a></figure><p></p><p><mark class="highlight-blue">Implementation</mark></p><div class="indented"><p>Assume that work is executed in the order it was generated in (use deque data-structure as work-pool).</p><p>Each thread repeats until termination:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>Acquire mutex, check queue, if non-empty, take from front (else wait for condition variable).</li></ol><ol class="numbered-list" start="2" type="1"><li>Execute work</li></ol><ol class="numbered-list" start="3" type="1"><li>If new work generated: acquire mutex, insert at end of deque, wake up waiting threads</li></ol></div><p></p><p>Work task as linked list:</p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">work</span> {</span>
+	<span class="hljs-type">void</span> (*routine)(<span class="hljs-type">void</span> *args); <span class="hljs-comment">// function</span>
+	<span class="hljs-type">void</span> *args; <span class="hljs-comment">// args</span>
+	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">work</span> *<span class="hljs-title">next</span>;</span> <span class="hljs-comment">// next node in list</span>
+} <span class="hljs-type">work_t</span>;</code></pre></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Problems with centralized work pool</mark></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">
 Centralized resource
 <p>Bad for scalability</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Locks

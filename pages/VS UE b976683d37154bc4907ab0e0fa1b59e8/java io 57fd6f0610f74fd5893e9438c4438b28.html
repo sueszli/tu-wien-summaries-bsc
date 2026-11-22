@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">java.io</h1><p class="page-description"></p></header><div class="page-body"><p><a href="https://docs.oracle.com/javase/tutorial/essential/io/index.html">
 https://docs.oracle.com/javase/tutorial/essential/io/index.html
@@ -611,17 +612,31 @@ Streams müssen immer mit
 geschlossen werden wenn sie nicht
 <mark class="highlight-gray"><code>autoclosable</code></mark>
 sind, sonst treten IOExceptions auf.
-</p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><div class="indented"><p>Angenommen wir haben ein Dokument, dass aus rohen Daten besteht:</p><div class="indented"><p>Dokument [rohe Daten] →</p><p>FileInput / FileOuput [ungepuffert, rohe Daten] →</p><p>Angabe des Kodierungstyps + InputStreamReader / InputStreamWriter [ungepuffert, Zeichen] →</p><p>BufferedReader / BufferedWriter [gepuffert, Zeichen]</p><p></p></div><p></p></div><p></p><pre class="code"><code>//                             [gepuffert]	      [ungepuffert]	     [Datei]
-BufferedReader reader = new BufferedReader( new FileReader ( new File (path) ) );BufferedReader reader = null;
-FileReader fr = null;//check if path leads to file
-try {
-File file = new File(path);
-fr = new FileReader(file);
-reader = new BufferedReader(fr);} catch (FileNotFoundException e){
-System.err.println(" Error: File not found. " + e.getMessage());
-e.printStackTrace();//CelestialBodyCollection will stay unchanged
-System.exit(0);} catch (IOException e) {
-System.err.println(" Error: Invalid day argument " + e.getMessage());
-e.printStackTrace();//CelestialBodyCollection will stay unchanged
-System.exit(0);
-}System.out.println("&gt; File opening successful");</code></pre><p></p></div></article></body></html>
+</p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><div class="indented"><p>Angenommen wir haben ein Dokument, dass aus rohen Daten besteht:</p><div class="indented"><p>Dokument [rohe Daten] →</p><p>FileInput / FileOuput [ungepuffert, rohe Daten] →</p><p>Angabe des Kodierungstyps + InputStreamReader / InputStreamWriter [ungepuffert, Zeichen] →</p><p>BufferedReader / BufferedWriter [gepuffert, Zeichen]</p><p></p></div><p></p></div><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-comment">//                             [gepuffert]	      [ungepuffert]	     [Datei]</span>
+<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>( <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span> ( <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span> (path) ) );
+
+<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+<span class="hljs-type">FileReader</span> <span class="hljs-variable">fr</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+
+<span class="hljs-comment">//check if path leads to file</span>
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(path);
+    fr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(file);
+    reader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(fr);
+
+} <span class="hljs-keyword">catch</span> (FileNotFoundException e){
+    System.err.println(<span class="hljs-string">&quot; Error: File not found. &quot;</span> + e.getMessage());
+    e.printStackTrace();
+
+    <span class="hljs-comment">//CelestialBodyCollection will stay unchanged</span>
+    System.exit(<span class="hljs-number">0</span>);
+
+} <span class="hljs-keyword">catch</span> (IOException e) {
+    System.err.println(<span class="hljs-string">&quot; Error: Invalid day argument &quot;</span> + e.getMessage());
+    e.printStackTrace();
+
+    <span class="hljs-comment">//CelestialBodyCollection will stay unchanged</span>
+    System.exit(<span class="hljs-number">0</span>);
+}
+
+System.out.println(<span class="hljs-string">&quot;&gt; File opening successful&quot;</span>);</code></pre><p></p></div></article></body></html>

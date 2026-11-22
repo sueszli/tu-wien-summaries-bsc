@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Example 2 (continued)</h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-teal">Example:</mark>
 Changing the admins password
@@ -599,6 +600,6 @@ password: whatever</code></pre><p>
 And then when searching for messages sent to the user we access
 <mark class="highlight-gray"><code>$_SESSION["user"]</code></mark>
 :
-</p><pre class="code"><code>SELECT * FROM messages WHERE receiver = '';
-UPDATE TABLE users SET password = 'newpwd' WHERE user = 'admin'
--- -' AND content LIKE '%%'</code></pre><p>(The second query line was stored in the username)</p><p></p></div></article></body></html>
+</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> messages <span class="hljs-keyword">WHERE</span> receiver <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;&#x27;</span>;
+<span class="hljs-keyword">UPDATE</span> <span class="hljs-keyword">TABLE</span> users <span class="hljs-keyword">SET</span> password <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;newpwd&#x27;</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span>
+<span class="hljs-comment">-- -&#x27; AND content LIKE &#x27;%%&#x27;</span></code></pre><p>(The second query line was stored in the username)</p><p></p></div></article></body></html>

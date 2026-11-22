@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📎</span></div><h1 class="page-title">Allquantor erstellen</h1><p class="page-description"></p></header><div class="page-body"><p></p><h1>Allquantor</h1><p>"Allquantifizierte Queries"</p><p>SQL hat keinen Allquantor, es gibt 4 Workarounds.</p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><div class="indented"><p>
 Wähle Studenten die
@@ -603,16 +604,16 @@ Vorlesung ( VorlNr, Titel, SWS, gelesenVon )</code></pre><p></p></div><p></p><p>
 durch 2 x
 <code>not exists</code></p><p>
 Logische Umformung:
-<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>⇔</mo><mi mathvariant="normal">¬</mi><mi mathvariant="normal">∃</mi><mi>x</mi><mo stretchy="false">(</mo><mi mathvariant="normal">¬</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\forall x F(x) \Leftrightarrow \neg \exists x(\neg F(x))</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel">⇔</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">¬∃</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span><span>﻿</span></span></p><p>Wir suchen Studenten der nicht eine 4h LVA nicht gehört hat.</p><pre class="code"><code>select s.*
-from Student s
-where not exists
-( select *
-from Vorlesung v
-where v.SWS = 4 and not exists
-( select *
-from hören h
-where h.VorlNr = v.VorlNr
-and s.MatrNr = h.MatrNr ));</code></pre><p></p></div><p></p><p><mark class="highlight-blue">2. Teilmengen</mark></p><div class="indented"><p>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>⇔</mo><mi mathvariant="normal">¬</mi><mi mathvariant="normal">∃</mi><mi>x</mi><mo stretchy="false">(</mo><mi mathvariant="normal">¬</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\forall x F(x) \Leftrightarrow \neg \exists x(\neg F(x))</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel">⇔</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord">¬∃</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.13889em">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span><span>﻿</span></span></p><p>Wir suchen Studenten der nicht eine 4h LVA nicht gehört hat.</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> s.<span class="hljs-operator">*</span>
+<span class="hljs-keyword">from</span> Student s
+<span class="hljs-keyword">where</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span>
+			( <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span>
+			<span class="hljs-keyword">from</span> Vorlesung v
+			<span class="hljs-keyword">where</span> v.SWS <span class="hljs-operator">=</span> <span class="hljs-number">4</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span>
+						( <span class="hljs-keyword">select</span> <span class="hljs-operator">*</span>
+						<span class="hljs-keyword">from</span> hören h
+						<span class="hljs-keyword">where</span> h.VorlNr <span class="hljs-operator">=</span> v.VorlNr
+						<span class="hljs-keyword">and</span> s.MatrNr <span class="hljs-operator">=</span> h.MatrNr ));</code></pre><p></p></div><p></p><p><mark class="highlight-blue">2. Teilmengen</mark></p><div class="indented"><p>
 durch
 <code>exist</code>
 und
@@ -624,25 +625,25 @@ Menge aller von Student gehörten LVAs
 Menge aller 4h LVAs
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo></mrow><annotation encoding="application/x-tex">-</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em"></span><span class="mord">−</span></span></span></span></span><span>﻿</span></span>
 Menge aller von Student gehörten LVAs =
-<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi mathvariant="normal">∅</mi></mstyle></mrow><annotation encoding="application/x-tex">\small \empty</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.7250040000000001em; vertical-align: -0.050004em"></span><span class="mord sizing reset-size6 size5">∅</span></span></span></span></span><span>﻿</span></span><mark class="highlight-gray">wenn alle gehört</mark></p><pre class="code"><code>select s.*
-from Student s
-where not exists
-((select VorlNr
-from Vorlesung v
-where v.SWS = 4)
-except
-(select VorlNr
-from hören h
-where h.MatrNr = s.MatrNr))</code></pre><p></p><p></p></div><p></p><p><mark class="highlight-blue">3. Abzählen (Nicht empfohlen)</mark></p><div class="indented"><p>
+<span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi mathvariant="normal">∅</mi></mstyle></mrow><annotation encoding="application/x-tex">\small \empty</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.7250040000000001em; vertical-align: -0.050004em"></span><span class="mord sizing reset-size6 size5">∅</span></span></span></span></span><span>﻿</span></span><mark class="highlight-gray">wenn alle gehört</mark></p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> s.<span class="hljs-operator">*</span>
+<span class="hljs-keyword">from</span> Student s
+<span class="hljs-keyword">where</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span>
+			((<span class="hljs-keyword">select</span> VorlNr
+			<span class="hljs-keyword">from</span> Vorlesung v
+			<span class="hljs-keyword">where</span> v.SWS <span class="hljs-operator">=</span> <span class="hljs-number">4</span>)
+		<span class="hljs-keyword">except</span>
+			(<span class="hljs-keyword">select</span> VorlNr
+			<span class="hljs-keyword">from</span> hören h
+			<span class="hljs-keyword">where</span> h.MatrNr <span class="hljs-operator">=</span> s.MatrNr))</code></pre><p></p><p></p></div><p></p><p><mark class="highlight-blue">3. Abzählen (Nicht empfohlen)</mark></p><div class="indented"><p>
 durch
-<code>count</code></p><p># 4h LVAs jeder Student besucht hat = # 4h LVAs die es gibt</p><pre class="code"><code>select s.MatrNr, s.Name
-from Student s, hören h, Vorlesung v
-where s.MatrNr = h.Matrnr and
-h.VorlNr = v.VorlNr and
-vSWS = 4
-group by s.MatrNr, s.Name
-having count (*) =
-(select count (*) from Vorlesung where SWS = 4);</code></pre><p></p></div><p></p><p><mark class="highlight-blue">4. Division aus Relationaler Algebra</mark></p><div class="indented"><p>
+<code>count</code></p><p># 4h LVAs jeder Student besucht hat = # 4h LVAs die es gibt</p><pre class="code"><code class="hljs language-sql"><span class="hljs-keyword">select</span> s.MatrNr, s.Name
+<span class="hljs-keyword">from</span> Student s, hören h, Vorlesung v
+<span class="hljs-keyword">where</span> s.MatrNr <span class="hljs-operator">=</span> h.Matrnr <span class="hljs-keyword">and</span>
+			h.VorlNr <span class="hljs-operator">=</span> v.VorlNr <span class="hljs-keyword">and</span>
+			vSWS <span class="hljs-operator">=</span> <span class="hljs-number">4</span>
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> s.MatrNr, s.Name
+<span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span> (<span class="hljs-operator">*</span>) <span class="hljs-operator">=</span>&#32;
+						(<span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span> (<span class="hljs-operator">*</span>) <span class="hljs-keyword">from</span> Vorlesung <span class="hljs-keyword">where</span> SWS <span class="hljs-operator">=</span> <span class="hljs-number">4</span>);</code></pre><p></p></div><p></p><p><mark class="highlight-blue">4. Division aus Relationaler Algebra</mark></p><div class="indented"><p>
 durch 2x
 <code>except</code></p><ol class="numbered-list" start="1" type="1"><li>
 Finde Kreuzprodukt von Student und Vorlesung mit 4h
@@ -650,17 +651,17 @@ Finde Kreuzprodukt von Student und Vorlesung mit 4h
 Ziehe von Kreuzprodukt alles was studenten bisher gehört haben ab
 <p>= Alle Studenten die bisher nicht alles gehört haben</p></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Ziehe von allen Studenten, die die nicht alles gehört haben ab
-<p>= alle Studenten die alles gehört haben</p></li></ol><pre class="code"><code>	(select sja.MatrNr from Student sja) -- Alle studenten die es gibt
-except
-(select snein.MatrNr                 -- Alle Studenten die nicht alles gehört haben
-from (
-(select s.MatrNr, v.VorlNr
-from Student s, Vorlesung v
-where v.SWS = 4)
-except
-(select *
-from hören)
-)
-snein);</code></pre><figure class="link-to-page"><a href="Allquantor%20erstellen%20796d8b8c5e1b4851bad9a8972395ccaa/Divisionsbeispiel%20-%20in%20depth%20e583ff91aee24627a7bbf547a687b713.html"><span class="icon">📎</span>
+<p>= alle Studenten die alles gehört haben</p></li></ol><pre class="code"><code class="hljs language-sql">	(<span class="hljs-keyword">select</span> sja.MatrNr <span class="hljs-keyword">from</span> Student sja) <span class="hljs-comment">-- Alle studenten die es gibt</span>
+<span class="hljs-keyword">except</span>
+	(<span class="hljs-keyword">select</span> snein.MatrNr                 <span class="hljs-comment">-- Alle Studenten die nicht alles gehört haben</span>
+	 <span class="hljs-keyword">from</span> (
+			(<span class="hljs-keyword">select</span> s.MatrNr, v.VorlNr
+			 <span class="hljs-keyword">from</span> Student s, Vorlesung v
+			 <span class="hljs-keyword">where</span> v.SWS <span class="hljs-operator">=</span> <span class="hljs-number">4</span>)
+		<span class="hljs-keyword">except</span>&#32;
+			(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+			 <span class="hljs-keyword">from</span> hören)
+		)
+	snein);</code></pre><figure class="link-to-page"><a href="Allquantor%20erstellen%20796d8b8c5e1b4851bad9a8972395ccaa/Divisionsbeispiel%20-%20in%20depth%20e583ff91aee24627a7bbf547a687b713.html"><span class="icon">📎</span>
 Divisionsbeispiel - in depth
 </a></figure></div><p></p></div></article></body></html>

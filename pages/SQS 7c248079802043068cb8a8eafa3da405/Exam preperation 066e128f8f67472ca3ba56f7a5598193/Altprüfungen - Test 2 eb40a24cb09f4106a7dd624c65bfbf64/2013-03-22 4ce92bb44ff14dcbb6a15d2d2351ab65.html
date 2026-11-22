@@ -591,42 +591,58 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../../site.css">
-</head><body><article class="page sans"><header><h1 class="page-title"><mark class="highlight-blue">2013-03-22</mark></h1><p class="page-description"></p></header><div class="page-body"><p></p><p><mark class="highlight-blue">Finden sie die 5 Fehler in folgenden JUnit4 Tests</mark></p><p></p><p><mark class="highlight-blue">Schreiben Sie folgende zwei Tests für die Klasse DiceGame</mark></p><div class="indented"><p>Entwerfen Sie hierzu ein Mock oder ein Stub der Klasse Dice.</p><p><mark class="highlight-gray"><code>A: gewuerfelt: 6, muenzen: 4, gewinn: 16</code></mark></p><p><mark class="highlight-gray"><code>B: gewuerfelt: 2, muenzen: 5, gewinn: 0</code></mark></p><pre class="code"><code>public interface Dice {
-public int roll();
-}</code></pre><pre class="code"><code>public class DiceGame {
-private Dice dice;
-public DiceGame(Dice dice) {
-this.dice = dice;
-}public int play(int muenzen) {
-int augenzahl = dice.roll();if(augenzahl == 6) {
-return muenzen * 4;
-} else if(augenzahl == 5) {
-return muenzen * 2;
-} else {
-return 0;
-}
-}
-}</code></pre><p>Meine Lösung:</p><pre class="code"><code>public class DiceMock implements Dice {
-private int roll;public void setRoll(int roll) {
-this.roll = roll;
-}
-public int roll() {
-return roll;
-}
-}</code></pre><pre class="code"><code>public class DiceGameTest {
-private DiceGame dg;
-private DiceMock d;@BeforeAll
-public void setup() {
-this.d = new DiceMock();
-this.dg = new DiceGame((Dice) dm);
-}
-@Test
-public void testPlay_shouldMultiplyCoinsByFour() {
-this.d.setRoll(6);
-assertEquals(dg.play(4), 16);
-}@Test
-public void testPlay_shouldReturnNoCoins() {
-this.d.setRoll(2);
-assertEquals(dg.play(5), 0);
-}}</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Fehler finden</mark></p><div class="indented"><p>zweimal wurde nur Exception abgefangen, anstatt den genauen Fehler zu spezifizieren</p><p>Die Klasse heißt StackTest, testet aber die Klasse Queue</p></div><p></p></div></article></body></html>
+</head><body><article class="page sans"><header><h1 class="page-title"><mark class="highlight-blue">2013-03-22</mark></h1><p class="page-description"></p></header><div class="page-body"><p></p><p><mark class="highlight-blue">Finden sie die 5 Fehler in folgenden JUnit4 Tests</mark></p><p></p><p><mark class="highlight-blue">Schreiben Sie folgende zwei Tests für die Klasse DiceGame</mark></p><div class="indented"><p>Entwerfen Sie hierzu ein Mock oder ein Stub der Klasse Dice.</p><p><mark class="highlight-gray"><code>A: gewuerfelt: 6, muenzen: 4, gewinn: 16</code></mark></p><p><mark class="highlight-gray"><code>B: gewuerfelt: 2, muenzen: 5, gewinn: 0</code></mark></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Dice</span> {
+	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">roll</span><span class="hljs-params">()</span>;
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DiceGame</span> {
+	<span class="hljs-keyword">private</span> Dice dice;
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-title function_">DiceGame</span><span class="hljs-params">(Dice dice)</span> {
+		<span class="hljs-built_in">this</span>.dice = dice;
+	}
+
+	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">play</span><span class="hljs-params">(<span class="hljs-type">int</span> muenzen)</span> {
+		<span class="hljs-type">int</span> <span class="hljs-variable">augenzahl</span> <span class="hljs-operator">=</span> dice.roll();
+
+		<span class="hljs-keyword">if</span>(augenzahl == <span class="hljs-number">6</span>) {
+			<span class="hljs-keyword">return</span> muenzen * <span class="hljs-number">4</span>;
+		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(augenzahl == <span class="hljs-number">5</span>) {
+			<span class="hljs-keyword">return</span> muenzen * <span class="hljs-number">2</span>;
+		} <span class="hljs-keyword">else</span> {
+			<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+		}
+	}
+}</code></pre><p>Meine Lösung:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DiceMock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Dice</span> {
+	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> roll;
+
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setRoll</span><span class="hljs-params">(<span class="hljs-type">int</span> roll)</span> {
+		<span class="hljs-built_in">this</span>.roll = roll;
+	}
+&#9;
+	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">roll</span><span class="hljs-params">()</span> {
+		<span class="hljs-keyword">return</span> roll;
+	}
+}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DiceGameTest</span> {
+	<span class="hljs-keyword">private</span> DiceGame dg;&#9;&#9;
+	<span class="hljs-keyword">private</span> DiceMock d;
+
+	<span class="hljs-meta">@BeforeAll</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> {
+		<span class="hljs-built_in">this</span>.d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DiceMock</span>();
+		<span class="hljs-built_in">this</span>.dg = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DiceGame</span>((Dice) dm);
+	}
+&#9;
+	<span class="hljs-meta">@Test</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testPlay_shouldMultiplyCoinsByFour</span><span class="hljs-params">()</span> {
+		<span class="hljs-built_in">this</span>.d.setRoll(<span class="hljs-number">6</span>);
+		assertEquals(dg.play(<span class="hljs-number">4</span>), <span class="hljs-number">16</span>);
+	}
+
+	<span class="hljs-meta">@Test</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testPlay_shouldReturnNoCoins</span><span class="hljs-params">()</span> {
+		<span class="hljs-built_in">this</span>.d.setRoll(<span class="hljs-number">2</span>);
+		assertEquals(dg.play(<span class="hljs-number">5</span>), <span class="hljs-number">0</span>);
+	}
+
+}</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Fehler finden</mark></p><div class="indented"><p>zweimal wurde nur Exception abgefangen, anstatt den genauen Fehler zu spezifizieren</p><p>Die Klasse heißt StackTest, testet aber die Klasse Queue</p></div><p></p></div></article></body></html>

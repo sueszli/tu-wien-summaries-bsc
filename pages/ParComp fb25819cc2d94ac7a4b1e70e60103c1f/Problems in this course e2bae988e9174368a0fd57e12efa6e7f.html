@@ -670,9 +670,9 @@ Updated version of
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span>
 such that a convergence criteria is met
 </p><p>Matrix borders must be handled in a suitable way</p></div><p></p></div></div><pre class="code"><code>iterate {
-for all (i, j) {
-A[i,j] &lt;- (A[i-1,j] + A[i+1,j] + A[i,j-1] + A[i,j+1])/4
-}
+	for all (i, j) {
+		A[i,j] &lt;- (A[i-1,j] + A[i+1,j] + A[i,j-1] + A[i,j+1])/4
+	}
 } until (convergence)</code></pre><p></p><p></p><h2 id="4e2cfbd1-755d-4da6-92e7-2351c6249fbf">Merge and sort two arrays</h2><div class="column-list"><div class="column" style="width: 50%"><p>Input:</p><div class="indented"><p>
 Array of size
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em"></span><span class="mord mathnormal">n</span></span></span></span></span><span>﻿</span></span></p><p>

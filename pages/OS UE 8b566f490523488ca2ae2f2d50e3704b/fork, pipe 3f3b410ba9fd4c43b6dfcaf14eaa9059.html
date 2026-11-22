@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">fork, pipe</h1><p class="page-description"></p></header><div class="page-body"><p><em><mark class="highlight-gray">see:</mark></em><em><mark class="highlight-gray"><a href="https://github.com/osue-tuwien/osue-tuwien.github.com/wiki/fork-exec-and-unnamed-pipes">
 https://github.com/osue-tuwien/osue-tuwien.github.com/wiki/fork-exec-and-unnamed-pipes
@@ -602,31 +603,41 @@ https://sourceware.org/glibc/manual/latest/html_node/Creating-a-Pipe.html
 use
 <mark class="highlight-gray"><code>fflush()</code></mark><mark class="highlight-gray"></mark>
 to flush all open streams because they get inherited to the child.
-</p><pre class="code"><code>pid_t fork(); // &lt;-- PC of child @ next instruction
-switch (pid) {
-case -1:
-// error
-case 0:
-// child tasks
-default:
-// parent tasks
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-type">pid_t</span> <span class="hljs-title function_">fork</span><span class="hljs-params">()</span>; <span class="hljs-comment">// &lt;-- PC of child @ next instruction</span>
+<span class="hljs-keyword">switch</span> (pid) {
+	<span class="hljs-keyword">case</span> <span class="hljs-number">-1</span>:
+		<span class="hljs-comment">// error</span>
+	<span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+		<span class="hljs-comment">// child tasks</span>
+	<span class="hljs-keyword">default</span>:
+		<span class="hljs-comment">// parent tasks</span>
 }</code></pre><p><em><mark class="highlight-gray">see: process hierarchy with</mark></em><em><mark class="highlight-gray"><code>pstree</code></mark></em><em><mark class="highlight-gray">command</mark></em></p><p><em><mark class="highlight-gray">see:</mark></em><code><em><mark class="highlight-gray">set follow-fork-mode [child|parent]</mark></em></code><em><mark class="highlight-gray">in gdb</mark></em></p></div><p></p><p></p><p></p><h2>Exec</h2><p><code>exec...()</code></p><div class="indented"><p>execute / load new program into processes memory / replace process image under the same PID.</p><p>
 all exec functions are the frontend of
 <mark class="highlight-gray"><code>execve()</code></mark>
 .
 </p><p><code><mark class="highlight-gray">execlp()</mark></code><mark class="highlight-gray"></mark>
 is the easiest to use.
-</p><pre class="code"><code>// e: exec_e  ⟶ also set environment variable (see 'man environ')
-// p: exec_p  ⟶ search for environment variable $PATH for given program// l: execl_  ⟶ variable arguments input
-int execl   (char *path, char *arg, ...);
-int execlp  (char *file, char *arg, ...);
-int execle  (char *path, char *arg, ..., char *envp[]);// v: execv_  ⟶ array input
-int execv   (char *path, char *argv[]);
-int execvp  (char *file, char *argv[]);
-int execvpe (char *file, char *argv[], char *envp[]);// fexecve,execveat ⟶ accepts file descriptor instead of path
-int fexecve (int fd, char *argv[], char *envp[]);
-int execveat(int dirfd, char *pathname, char *argv[], char *envp[], int flags);</code></pre><pre class="code"><code>char *cmd[] = { "ls", "-l", (char *)0 };
-execv("/bin/ls", cmd); or execvp("ls", cmd);execl("/bin/ls", "ls", "-l", NULL);execlp("ls", "ls", "-l", NULL);</code></pre></div><p></p><p></p><p><code>exit()</code></p><div class="indented"><p>terminate self, send PID and exit status to parents.</p><p>
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// e: exec_e  ⟶ also set environment variable (see &#x27;man environ&#x27;)</span>
+<span class="hljs-comment">// p: exec_p  ⟶ search for environment variable $PATH for given program</span>
+
+<span class="hljs-comment">// l: execl_  ⟶ variable arguments input</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">execl</span>   <span class="hljs-params">(<span class="hljs-type">char</span> *path, <span class="hljs-type">char</span> *arg, ...)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">execlp</span>  <span class="hljs-params">(<span class="hljs-type">char</span> *file, <span class="hljs-type">char</span> *arg, ...)</span>;&#32;
+<span class="hljs-type">int</span> <span class="hljs-title function_">execle</span>  <span class="hljs-params">(<span class="hljs-type">char</span> *path, <span class="hljs-type">char</span> *arg, ..., <span class="hljs-type">char</span> *envp[])</span>;
+
+<span class="hljs-comment">// v: execv_  ⟶ array input</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">execv</span>   <span class="hljs-params">(<span class="hljs-type">char</span> *path, <span class="hljs-type">char</span> *argv[])</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">execvp</span>  <span class="hljs-params">(<span class="hljs-type">char</span> *file, <span class="hljs-type">char</span> *argv[])</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">execvpe</span> <span class="hljs-params">(<span class="hljs-type">char</span> *file, <span class="hljs-type">char</span> *argv[], <span class="hljs-type">char</span> *envp[])</span>;
+
+<span class="hljs-comment">// fexecve,execveat ⟶ accepts file descriptor instead of path</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">fexecve</span> <span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">char</span> *argv[], <span class="hljs-type">char</span> *envp[])</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">execveat</span><span class="hljs-params">(<span class="hljs-type">int</span> dirfd, <span class="hljs-type">char</span> *pathname, <span class="hljs-type">char</span> *argv[], <span class="hljs-type">char</span> *envp[], <span class="hljs-type">int</span> flags)</span>;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-type">char</span> *cmd[] = { <span class="hljs-string">&quot;ls&quot;</span>, <span class="hljs-string">&quot;-l&quot;</span>, (<span class="hljs-type">char</span> *)<span class="hljs-number">0</span> };
+execv(<span class="hljs-string">&quot;/bin/ls&quot;</span>, cmd); or <span class="hljs-title function_">execvp</span><span class="hljs-params">(<span class="hljs-string">&quot;ls&quot;</span>, cmd)</span>;
+
+execl(<span class="hljs-string">&quot;/bin/ls&quot;</span>, <span class="hljs-string">&quot;ls&quot;</span>, <span class="hljs-string">&quot;-l&quot;</span>, <span class="hljs-literal">NULL</span>);
+
+execlp(<span class="hljs-string">&quot;ls&quot;</span>, <span class="hljs-string">&quot;ls&quot;</span>, <span class="hljs-string">&quot;-l&quot;</span>, <span class="hljs-literal">NULL</span>);</code></pre></div><p></p><p></p><p><code>exit()</code></p><div class="indented"><p>terminate self, send PID and exit status to parents.</p><p>
 delete temproary files from
 <mark class="highlight-gray"><code>tmpfile()</code></mark>
 and call
@@ -656,24 +667,28 @@ unnamed pipe
 unidirectional interprocess communication for
 <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>related processes</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>
 .
-</p><pre class="code"><code>int pipe(int pipefd[2]);
-pipefd[1] // -&gt; fd for write-end (start of pipe)
-pipefd[0] // -&gt; fd for reading-end (end of pipe)</code></pre><p>when using two pipes it can cause deadlocks if both processes read from an empty pipe.</p><p>writing into pipe:</p><div class="indented"><p>blocks on full pipe</p><p>
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> <span class="hljs-title function_">pipe</span><span class="hljs-params">(<span class="hljs-type">int</span> pipefd[<span class="hljs-number">2</span>])</span>;
+pipefd[<span class="hljs-number">1</span>] <span class="hljs-comment">// -&gt; fd for write-end (start of pipe)</span>
+pipefd[<span class="hljs-number">0</span>] <span class="hljs-comment">// -&gt; fd for reading-end (end of pipe)</span></code></pre><p>when using two pipes it can cause deadlocks if both processes read from an empty pipe.</p><p>writing into pipe:</p><div class="indented"><p>blocks on full pipe</p><p>
 if reading-end is closed:
 <code><mark class="highlight-gray">SIGPIPE</mark></code><mark class="highlight-gray"></mark>
 signal,
 <code><mark class="highlight-gray">errno == EPIPE</mark></code></p></div><p></p><p>reading from pipe:</p><div class="indented"><p>blocks on empty pipe</p><p>
 if writing-end is closed: returns
-<mark class="highlight-gray"><code>EOF</code></mark></p></div><p></p></div><p></p><p></p><p><code>dup2()</code></p><div class="indented"><p>used for redirection</p><pre class="code"><code>int dup2(int oldfd, int newfd); // dup2: "olddf ist jetzt dein neues newdf"
-close(oldfd);</code></pre><pre class="code"><code>int file_fd = open("log.txt", O_WRONLY | O_CREAT);
-dup2(file_fd, STDOUT_FILENO); // file_fd &lt;-- stdout_fd
+<mark class="highlight-gray"><code>EOF</code></mark></p></div><p></p></div><p></p><p></p><p><code>dup2()</code></p><div class="indented"><p>used for redirection</p><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> <span class="hljs-title function_">dup2</span><span class="hljs-params">(<span class="hljs-type">int</span> oldfd, <span class="hljs-type">int</span> newfd)</span>; <span class="hljs-comment">// dup2: &quot;olddf ist jetzt dein neues newdf&quot;</span>
+close(oldfd);</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> file_fd = open(<span class="hljs-string">&quot;log.txt&quot;</span>, O_WRONLY | O_CREAT);
+dup2(file_fd, STDOUT_FILENO); <span class="hljs-comment">// file_fd &lt;-- stdout_fd</span>
 close(file_fd);
-execlp("ls", "ls", NULL); // prints something to stdout</code></pre><pre class="code"><code>int pipefd[2];
-pipe(pipefd); // create pipepid_t pid = fork();switch(pid) {
-case 0: // child
-close(pipefd[1]); // won't use pipe write-end
-dup2(pipefd[0], STDIN_FILENO); // pipe read-end -&gt; stdin
-close(pipefd[0]); // close pipe read-end
-execlp("wc", "wc", "-l", NULL);
-// error: reached this line
-...</code></pre></div><p></p><p></p></div></article></body></html>
+execlp(<span class="hljs-string">&quot;ls&quot;</span>, <span class="hljs-string">&quot;ls&quot;</span>, <span class="hljs-literal">NULL</span>); <span class="hljs-comment">// prints something to stdout</span></code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> pipefd[<span class="hljs-number">2</span>];
+pipe(pipefd); <span class="hljs-comment">// create pipe</span>
+
+<span class="hljs-type">pid_t</span> pid = fork();
+
+<span class="hljs-keyword">switch</span>(pid) {
+	<span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// child</span>
+		close(pipefd[<span class="hljs-number">1</span>]); <span class="hljs-comment">// won&#x27;t use pipe write-end</span>
+		dup2(pipefd[<span class="hljs-number">0</span>], STDIN_FILENO); <span class="hljs-comment">// pipe read-end -&gt; stdin</span>
+		close(pipefd[<span class="hljs-number">0</span>]); <span class="hljs-comment">// close pipe read-end</span>
+		execlp(<span class="hljs-string">&quot;wc&quot;</span>, <span class="hljs-string">&quot;wc&quot;</span>, <span class="hljs-string">&quot;-l&quot;</span>, <span class="hljs-literal">NULL</span>);
+		<span class="hljs-comment">// error: reached this line</span>
+	...</code></pre></div><p></p><p></p></div></article></body></html>

@@ -1,3 +1,15 @@
+pre.code > code {
+  display: block;
+  overflow: visible;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+}
+
+:not(pre) > code {
+  color: #852843;
+}
+
 @media screen {
   body {
     padding-inline: clamp(1rem, 4vw, 2rem);

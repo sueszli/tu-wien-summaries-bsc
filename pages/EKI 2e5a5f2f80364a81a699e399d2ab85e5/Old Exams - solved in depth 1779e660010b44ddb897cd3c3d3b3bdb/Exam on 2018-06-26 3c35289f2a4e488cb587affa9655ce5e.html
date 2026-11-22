@@ -592,6 +592,7 @@ min-height: 1em !important;
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../../vendor/katex-0.13.2/katex.min.css">
+<link rel="stylesheet" href="../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Exam on 2018-06-26</h1><p class="page-description"></p></header><div class="page-body"><figure><div class="source"><a href="Exam%20on%202018-06-26%203c35289f2a4e488cb587affa9655ce5e/TU_Wien-Einfhrung_in_die_Knstliche_Intelligenz_VU_(Eiter_Tompits)_-_Prfung_2018-06-26.pdf">
 TU_Wien-Einfhrung_in_die_Knstliche_Intelligenz_VU_(Eiter_Tompits)_-_Prfung_2018-06-26.pdf
@@ -726,17 +727,19 @@ DFS limited with
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>cutoff</mtext></mrow><annotation encoding="application/x-tex">\text{cutoff}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord text"><span class="mord">cutoff</span></span></span></span></span></span><span>﻿</span></span>
 subtree/subgraph.
 </p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function DEPTH-LIMITED-SEARCH(problem, limit) returns a solution, or failure/cutoff
-return RECURSIVE-DLS(MAKE-NODE(problem.INITIAL-STATE), problem, limit)function RECURSIVE-DLS(node, problem, limit) returns a solution, or failure/cutoff
-if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
-else if limit = 0 then return cutoff
-else
-cutoff occurred? ← false
-for each action in problem.ACTIONS(node.STATE) do
-child ← CHILD-NODE(problem, node, action)
-result ← RECURSIVE-DLS(child, problem, limit − 1)
-if result = cutoff then cutoff occurred? ← true
-else if result != failure then return result
-if cutoff occurred? then return cutoff else return failure</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	return RECURSIVE-DLS(MAKE-NODE(problem.INITIAL-STATE), problem, limit)
+
+function RECURSIVE-DLS(node, problem, limit) returns a solution, or failure/cutoff
+	if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
+	else if limit = 0 then return cutoff
+	else
+	cutoff occurred? ← false
+		for each action in problem.ACTIONS(node.STATE) do
+			child ← CHILD-NODE(problem, node, action)
+			result ← RECURSIVE-DLS(child, problem, limit − 1)
+			if result = cutoff then cutoff occurred? ← true
+			else if result != failure then return result
+		if cutoff occurred? then return cutoff else return failure</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 No - May not terminate (even for finite search space)
 </p><p><mark class="highlight-teal">time complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>b</mi><mi mathvariant="normal">ℓ</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b^\ell)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.099108em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.849108em"><span style="top: -3.063em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">ℓ</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-teal">space complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>b</mi><mi mathvariant="normal">ℓ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b\ell )</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mord">ℓ</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p><mark class="highlight-teal">solution optimality</mark>
 No
@@ -745,9 +748,9 @@ Iteratively increasing
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">ℓ</mi></mrow><annotation encoding="application/x-tex">\ell</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.69444em; vertical-align: 0em"></span><span class="mord">ℓ</span></span></span></span></span><span>﻿</span></span>
 in DLS to gain completeness.
 </p><ul class="block-color-gray toggle"><li><details><summary>Pseudocode</summary><pre class="code"><code>function ITERATIVE-DEEPENING-SEARCH(problem) returns a solution, or failure
-for depth = 0 to ∞ do
-result ← DEPTH-LIMITED-SEARCH(problem, depth)
-if result 6= cutoff then return result</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
+	for depth = 0 to ∞ do
+	result ← DEPTH-LIMITED-SEARCH(problem, depth)
+	if result 6= cutoff then return result</code></pre></details></li></ul><p><mark class="highlight-teal">completeness</mark>
 Yes
 </p><p><mark class="highlight-teal">time complexity</mark><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>b</mi><mi>d</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(b^d)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.099108em; vertical-align: -0.25em"></span><span class="mord mathnormal" style="margin-right: 0.02778em">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.849108em"><span style="top: -3.063em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><div class="indented"><ul class="block-color-gray toggle"><li><details><summary>in depth</summary><p>
 Only
@@ -930,10 +933,10 @@ We have 2 local variables:
 and
 <code>neighbour</code>
 that get chosen randomly in the beginning. (random-restart-hill-climbing).
-</p><pre class="code"><code>while(true){
-neighbour := highest valued neighbour
-if(neigbour.value ≤ current.value) return current.state
-else current := neighbour
+</p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
+	neighbour := highest valued neighbour
+	<span class="hljs-keyword">if</span>(neigbour.value ≤ current.value) <span class="hljs-keyword">return</span> current.state
+	<span class="hljs-keyword">else</span> current := neighbour
 }</code></pre><p>
 We pick the neighbour with the highest value until there are no higher values left - then we can't climb anymore. Then we return the highest
 found state.

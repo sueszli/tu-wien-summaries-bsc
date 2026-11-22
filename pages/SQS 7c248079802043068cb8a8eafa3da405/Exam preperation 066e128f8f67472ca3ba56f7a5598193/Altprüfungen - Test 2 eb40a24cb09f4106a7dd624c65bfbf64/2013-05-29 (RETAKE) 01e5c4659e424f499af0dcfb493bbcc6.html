@@ -591,6 +591,7 @@ min-height: 1em !important;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title"><mark class="highlight-blue">2013-05-29 (RETAKE)</mark></h1><p class="page-description"></p></header><div class="page-body"><p><mark class="highlight-blue">Beispiel: Äquivalenzklassenzerlegung</mark></p><div class="indented"><p>
 "Im gregorianischen Kalender ist jenes Jahr ein Schaltjahr, das durch 4 teilbar ist, jedoch nicht durch 100. Ausnahme dabei sind die
@@ -599,10 +600,12 @@ Jahre, die durch 400 teilbar sind. Erstellen Sie die Äquivalenzklassen für die
 und schreiben Sie 2 Testfälle, die aufgrund der Äquivalenzklassenzerlegung sinnvoll sind." (kein JUnit - lediglich Parameter angeben →
 Grenzwerte)
 </p><pre class="code"><code>Jahr % 4 == 0
-Jahr % 100 == 0 -&gt; kein Schaltjahr
-Jahr % 100 != 0 -&gt; SchaltjahrJahr % 4 != 0
-Jahr % 100 == 0 -&gt; kein Schaltjahr
-Jahr % 100 != 0 -&gt; kein Schaltjahr</code></pre><p><mark class="highlight-gray">Grenzfälle: 99, 100, 101 - 3, 4, 5</mark></p></div><p></p><p></p><p><mark class="highlight-blue">Beispiel: Zweigabdeckung</mark></p><div class="indented"><p>
+	Jahr % 100 == 0 -&gt; kein Schaltjahr
+	Jahr % 100 != 0 -&gt; Schaltjahr
+
+Jahr % 4 != 0
+	Jahr % 100 == 0 -&gt; kein Schaltjahr
+	Jahr % 100 != 0 -&gt; kein Schaltjahr</code></pre><p><mark class="highlight-gray">Grenzfälle: 99, 100, 101 - 3, 4, 5</mark></p></div><p></p><p></p><p><mark class="highlight-blue">Beispiel: Zweigabdeckung</mark></p><div class="indented"><p>
 Dabei war ein Code-Snippet gegeben mit Variablen a, b, c und man musste sich Testfälle überlegen, mit denen eine vollständige
 c1-Abdeckung (Zweigabdeckung) gegeben war.
 </p><p>Dabei reicht es die Werte, die a, b und c dabei annehmen, hinzuschreiben.</p><p>(z.B: Testcase 1: a &gt; 0 (z.B. 1), b &lt; 0 (z.B. -1), c egal)</p></div><p></p><p></p><p><mark class="highlight-blue">Mocking/Stubbing</mark></p><div class="indented"><p>
@@ -615,23 +618,25 @@ Münzen. Nun war die Aufgabe das Interface Dice zu mocken oder zu stubben und zw
 </p></div><p></p><p></p><p><mark class="highlight-blue">JUnit-Testing</mark></p><div class="indented"><p>
 Hierbei war die Definition eines Stacks gegeben und man musste die Tests pop_shouldRemoveFirstElement() und pop_whenStackIsEmpty()
 implementiert werden.
-</p><p><em>Korrekte Lösung</em></p><pre class="code"><code>@Test
-public void pop_shouldRemoveElement() {
-try {
-assertEquals(ELEM2, stack.pop());
-assertEquals(ELEM1, stack.pop());
-} catch(Exception e) {
-fail("irgeneine Message");
+</p><p><em>Korrekte Lösung</em></p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pop_shouldRemoveElement</span><span class="hljs-params">()</span> {
+	<span class="hljs-keyword">try</span> {
+		assertEquals(ELEM2, stack.pop());
+		assertEquals(ELEM1, stack.pop());
+	} <span class="hljs-keyword">catch</span>(Exception e) {
+		fail(<span class="hljs-string">&quot;irgeneine Message&quot;</span>);
+	}
 }
-}@Test (expected = StackEmptyException.class)
-public void pop_whenStackIsEmpty() {
-try {
-while (!stack.isEmpty()) {
-stack.pop();
-} catch(Exception e) {
-fail("meeh");
-}
-stack.pop(); //diese Zeile soll erst Exception auslösen
+
+<span class="hljs-meta">@Test</span> (expected = StackEmptyException.class)
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pop_whenStackIsEmpty</span><span class="hljs-params">()</span> {
+	<span class="hljs-keyword">try</span> {
+		<span class="hljs-keyword">while</span> (!stack.isEmpty()) {
+			stack.pop();
+	} <span class="hljs-keyword">catch</span>(Exception e) {
+		fail(<span class="hljs-string">&quot;meeh&quot;</span>);
+	}
+	stack.pop(); <span class="hljs-comment">//diese Zeile soll erst Exception auslösen</span>
 }</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Beispiel: JUnit-Test-Refactoring</mark></p><div class="indented"><p>
 Gegeben waren 3 Tests, die diverse Fehler beinhalteten und darunter eine Tabelle, wo die gefundenen Fehler (5 Fehler waren zu finden)
 dokumentiert werden sollten.

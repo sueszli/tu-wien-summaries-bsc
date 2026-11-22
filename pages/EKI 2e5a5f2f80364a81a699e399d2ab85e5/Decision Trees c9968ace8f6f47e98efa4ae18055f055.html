@@ -649,17 +649,25 @@ are the decisions (boolean output).
 - examples: (x, y) pairs
 - attributes: attributes of values x_1, x_2, ... x_n in x in example
 - classification: y_j = true / false
-*/function DTL(examples, attributes, parent_examples) returns a decision tree
-if examples is empty then return MAJORITY(parent_examples.classifications)
-else if all examples have the same classification then return the classification
-else if attributes is empty then return MAJORITY(examples.classification)
-else
-A = empty
-for each Attribute A' do
-A ← maxImportance(A, A', examples)tree ← a new decision tree with root test Afor each (value v of A) do //all possible values from domain of A
-exs ← {e : e ∈ examples | e.A = v} //all examples where this value occured
-subtree ← DTL(exs, attributes\{A}, examples) //recursive call
-add a new branch to tree with label "A = v" and subtree subtreereturn tree</code></pre><p>The algorithm is recursive, every sub tree is an independent problem with fewer examples and one less attribute.</p><p>
+*/
+
+function DTL(examples, attributes, parent_examples) returns a decision tree
+	if examples is empty then return MAJORITY(parent_examples.classifications)
+	else if all examples have the same classification then return the classification
+	else if attributes is empty then return MAJORITY(examples.classification)
+	else
+		A = empty
+		for each Attribute A' do
+			A ← maxImportance(A, A', examples)
+
+		tree ← a new decision tree with root test A
+
+		for each (value v of A) do //all possible values from domain of A&#32;&#9;&#9;
+			exs ← {e : e ∈ examples | e.A = v} //all examples where this value occured
+			subtree ← DTL(exs, attributes\{A}, examples) //recursive call
+			add a new branch to tree with label "A = v" and subtree subtree
+
+		return tree</code></pre><p>The algorithm is recursive, every sub tree is an independent problem with fewer examples and one less attribute.</p><p>
 The returned tree is not identical to the correct function / tree
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi></mrow><annotation encoding="application/x-tex">f</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.8888799999999999em; vertical-align: -0.19444em"></span><span class="mord mathnormal" style="margin-right: 0.10764em">f</span></span></span></span></span><span>﻿</span></span>
 . It is a hypothesis
