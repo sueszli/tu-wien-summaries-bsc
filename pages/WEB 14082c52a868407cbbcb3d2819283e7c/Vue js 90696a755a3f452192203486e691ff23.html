@@ -748,14 +748,14 @@ As attribute
 				}&#9;
 		}&#9;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p></p><p>Requires getters and setters for two way binding:</p><pre class="code"><code class="hljs language-javascript">computed	:	{&#9;
-		ingredients	:	{&#9;
-				<span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {&#9;
-						<span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">ingredientInput</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);&#9;
-				},&#9;
-				<span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">ingredients</span>) {&#9;
-						<span class="hljs-variable language_">this</span>.<span class="hljs-property">ingredientInput</span> = ingredients.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;,&#x27;</span>);&#9;
-				}&#9;
-		}&#9;
+    ingredients	:	{&#9;
+        <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {&#9;
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">ingredientInput</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);&#9;
+        },&#9;
+        <span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">ingredients</span>) {&#9;
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">ingredientInput</span> = ingredients.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;,&#x27;</span>);&#9;
+        }&#9;
+    }&#9;
 }</code></pre><h2 id="467564b7-c598-4e5c-bdf8-765584a3bca9">
 Conditional rendering in Templates
 <code>v-if</code>
@@ -868,10 +868,10 @@ Can be read in components
 <code>this.$store.dispatch('incrementCart')</code></p></li></ol><p></p><h2 id="56f80e92-b413-44cd-b3da-5a4c835236e6">Routing / Navigation</h2><p>For single page applications.</p><p>
 URL fragments allow linking while on the same browser page:
 <mark class="highlight-gray"><code>www.example.com/#/coolStuff</code></mark></p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">const</span> routes = [
- { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/search&#x27;</span>},
- { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/search&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Search</span>},
- { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/cart&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Cart</span>},
- { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/checkout&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Checkout</span>},
- { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/config/:artworkId&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Config</span>, <span class="hljs-attr">props</span>: <span class="hljs-literal">true</span> },
- { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;*&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">PageNotFound</span>},
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/search&#x27;</span>},
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/search&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Search</span>},
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/cart&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Cart</span>},
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/checkout&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Checkout</span>},
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/config/:artworkId&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">Config</span>, <span class="hljs-attr">props</span>: <span class="hljs-literal">true</span> },
+    { <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;*&#x27;</span>, <span class="hljs-attr">component</span>: <span class="hljs-title class_">PageNotFound</span>},
 ]</code></pre><p></p></div></article></body></html>

@@ -1148,47 +1148,63 @@ Soll-Ist-Vergleich → auf Anforderungsänderungen kann besser reagiert werden.
 • Singleton – Provision of a single instance only • Factory – Method in a derived class creates associates • Prototype – Factory
 for cloning new instances from a prototypical instance
 </p><p></p><p><strong>○ Singleton</strong></p><p>Provision of a single instance only</p><p><span style="border-bottom: 0.05em solid">Issue</span></p><div class="indented"><p>Only one object instance should exist:</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">Database access</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Id generator</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Logger</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Communication with hardware</li></ul></div><p></p></div><p></p><p><span style="border-bottom: 0.05em solid">Solution</span></p><div class="indented"><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> {
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">LOG</span> <span class="hljs-operator">=</span> LoggerFactory.getLogger(Person.class);
-&#9;
-	Logger <span class="hljs-title function_">getLogger</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">return</span> LOG;
-	}
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">LOG</span> <span class="hljs-operator">=</span> LoggerFactory.getLogger(Person.class);
+
+    Logger <span class="hljs-title function_">getLogger</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> LOG;
+    }
 }</code></pre><p>
 In this case
 <code>LOG</code>
 is the same object even without static due to the way the LoggerFactory works.
-</p></details></li></ul></div><p></p><p></p><p><strong>○ Factory</strong></p><p>Method in a derived class creates associates</p><p><span style="border-bottom: 0.05em solid">Issue</span></p><div class="indented"><p>Object creation &amp; configuration is complex</p></div><p></p><p><span style="border-bottom: 0.05em solid">Solution</span></p><div class="indented"><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Product</span> { <span class="hljs-type">float</span> <span class="hljs-title function_">getPrice</span><span class="hljs-params">()</span>; }
+</p></details></li></ul></div><p></p><p></p><p><strong>○ Factory</strong></p><p>Method in a derived class creates associates</p><p><span style="border-bottom: 0.05em solid">Issue</span></p><div class="indented"><p>Object creation &amp; configuration is complex</p></div><p></p><p><span style="border-bottom: 0.05em solid">Solution</span></p><div class="indented"><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Product</span> {
+    <span class="hljs-type">float</span> <span class="hljs-title function_">getPrice</span><span class="hljs-params">()</span>;
+}
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Milk</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Product</span> {
-	<span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price;
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">Milk</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price)</span> { <span class="hljs-built_in">this</span>.price = price; } <span class="hljs-comment">//constructor</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-type">float</span> <span class="hljs-title function_">getPrice</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> price; } <span class="hljs-comment">//getter</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price;
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Milk</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price)</span> {
+        <span class="hljs-built_in">this</span>.price = price;
+    } <span class="hljs-comment">//constructor</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">float</span> <span class="hljs-title function_">getPrice</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> price;
+    } <span class="hljs-comment">//getter</span>
 }
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Sugar</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Product</span> {
-	<span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price;
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">Sugar</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price)</span> { <span class="hljs-built_in">this</span>.price = price; } <span class="hljs-comment">//constructor</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-type">float</span> <span class="hljs-title function_">getPrice</span> <span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> price; } <span class="hljs-comment">//getter</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price;
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Sugar</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-type">float</span> price)</span> {
+        <span class="hljs-built_in">this</span>.price = price;
+    } <span class="hljs-comment">//constructor</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">float</span> <span class="hljs-title function_">getPrice</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> price;
+    } <span class="hljs-comment">//getter</span>
 }
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Product</span> Factory {
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Product <span class="hljs-title function_">createProduct</span><span class="hljs-params">(String what)</span>{
-		<span class="hljs-comment">//When sugar is requested, we return sugar:</span>
-		<span class="hljs-keyword">if</span> (what.equals(<span class="hljs-string">&quot;Sugar&quot;</span>)) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Sugar</span>(<span class="hljs-number">1.49F</span>) ; }
-		<span class="hljs-comment">// When milk is needed, we return milk:</span>
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (what.equals(<span class="hljs-string">&quot;Milk&quot;</span>)) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Milk</span>(<span class="hljs-number">0.99F</span>); }
-		<span class="hljs-comment">// Otherwise return at least sugar</span>
-		<span class="hljs-keyword">else</span> { <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Sugar</span>(<span class="hljs-number">1.49F</span>); }
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Product <span class="hljs-title function_">createProduct</span><span class="hljs-params">(String what)</span> {
+        <span class="hljs-comment">//When sugar is requested, we return sugar:</span>
+        <span class="hljs-keyword">if</span> (what.equals(<span class="hljs-string">&quot;Sugar&quot;</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Sugar</span>(<span class="hljs-number">1.49F</span>);
+        }
+        <span class="hljs-comment">// When milk is needed, we return milk:</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (what.equals(<span class="hljs-string">&quot;Milk&quot;</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Milk</span>(<span class="hljs-number">0.99F</span>);
+        }
+        <span class="hljs-comment">// Otherwise return at least sugar</span>
+        <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Sugar</span>(<span class="hljs-number">1.49F</span>);
+        }
+    }
 }</code></pre><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%202.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%202.png" style="width: 240px"/></a></figure></details></li></ul></div><p></p><p></p><p><strong>○ Abstract Factory</strong></p><p>Factory for building related objects without specifying their concrete classes</p><p><span style="border-bottom: 0.05em solid">Issue</span></p><div class="indented"><p>Achieving higher abstraction by grouping individual factories with a common theme</p></div><p></p><p><span style="border-bottom: 0.05em solid">Solution</span></p><div class="indented"><p>A group of individual factories that have a common theme</p><p>Two hierarchies → abstract AbstractFactory class provides interface</p><p>Client only knows abstract interface → Family may grow independently of the client</p></div><p></p><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%203.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%203.png" style="width: 192px"/></a></figure><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%204.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%204.png" style="width: 192px"/></a></figure><p></p></details></li></ul><p></p><ul class="toggle"><li><details><summary><span style="border-bottom: 0.05em solid">4 Structural Patterns beschreiben.</span></summary><p>
 • Facade – Facade simplifies the interface for a subsystem • Adapter – Translator adapts a server interface for a client • Proxy
 – One object approximates another • Bridge – Abstraction for binding one of many implementations
 </p><p></p><p><strong>○ Facade / Facet</strong></p><p>Simplifies the interface for a subsystem</p><p><span style="border-bottom: 0.05em solid">Issue</span></p><div class="indented"><p>Need simplified access to a complex subsystem</p><p>Provides an abstracted interface of a subsystem</p></div><p></p><p><span style="border-bottom: 0.05em solid">Solution</span></p><div class="indented"><ul class="toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleMail</span> {
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">sendMail</span><span class="hljs-params">(String address, String subject, String body)</span> {
-		<span class="hljs-type">int</span> <span class="hljs-variable">status</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
-		... <span class="hljs-comment">//Complex mail sending operation</span>
-		<span class="hljs-keyword">return</span> status;
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">sendMail</span><span class="hljs-params">(String address, String subject, String body)</span> {
+        <span class="hljs-type">int</span> <span class="hljs-variable">status</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+        ... <span class="hljs-comment">//Complex mail sending operation</span>
+        <span class="hljs-keyword">return</span> status;
+    }
 }</code></pre></details></li></ul></div><p></p><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%205.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%205.png" style="width: 144px"/></a></figure><p></p><p><strong>○ Adapter / Translator</strong></p><p>Adapts a server interface for a client</p><p><span style="border-bottom: 0.05em solid">Issue</span></p><div class="indented"><p>Need to integrate incompatible external functionality</p></div><p></p><p><span style="border-bottom: 0.05em solid">Solution</span></p><div class="indented"><p>Translates (data transformation) into a compatible interface</p></div><p></p><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%206.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%206.png" style="width: 144px"/></a></figure><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%207.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%207.png" style="width: 132px"/></a></figure><p></p><p><strong>○ Proxy</strong></p><p>One object approximates another</p><p><span style="border-bottom: 0.05em solid">Issue</span></p><div class="indented"><p>Need to integrate further actions before intended method call</p></div><p></p><p><span style="border-bottom: 0.05em solid">Solution</span></p><div class="indented"><p>Extends concept of the delegation pattern</p><p>Implements interface and acts as a representative of the „original“ implementation</p><p>Used in: security, logging, caching</p></div><p></p><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%208.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%208.png" style="width: 192px"/></a></figure><figure class="image"><a href="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%209.png"><img src="../Design%20Patterns%204b9b5103b6fd4bd5815582be952a932a/Untitled%209.png" style="width: 192px"/></a></figure><p></p><p><strong>○ Inversion of Control IoC</strong></p><p>Die Verantwortung für das Erzeugen und Initialisieren von Objekten wird an eine zentrale Stelle (z.B. eine Klasse) delegiert.</p><p>Von der zentralen Stelle kann man die Abhängigkeiten zwischen den Objekten leichter überblicken und steuern.</p><p></p></details></li></ul><p></p><ul class="toggle"><li><details><summary><span style="border-bottom: 0.05em solid">
 Beschreiben Sie das Data Access Object Pattern (DAO) anhand eines UML-Diagramms und erläutern Sie dessen Funktionsweise.
 Wann kommt dieses Pattern typischerweise zum Einsatz?

@@ -615,35 +615,35 @@ in
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;omp.h&gt;</span> <span class="hljs-comment">// OpenMP header</span></span>
 
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> {
-	<span class="hljs-type">int</span> threads, myid;
-	<span class="hljs-type">int</span> i;
-	threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// shared variable</span>
-&#9;
-	<span class="hljs-comment">// read from commandline</span>
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
-		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
-				<span class="hljs-built_in">sscanf</span>(argv[++i],<span class="hljs-string">&quot;%d&quot;</span>,&amp;threads);
-		}
-	}
+    <span class="hljs-type">int</span> threads, myid;
+    <span class="hljs-type">int</span> i;
+    threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// shared variable</span>
 
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Maximum number of threads possible is %d\n&quot;</span>, omp_get_max_threads());
+    <span class="hljs-comment">// read from commandline</span>
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+        <span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+            <span class="hljs-built_in">sscanf</span>(argv[++i],<span class="hljs-string">&quot;%d&quot;</span>,&amp;threads);
+        }
+    }
 
-	<span class="hljs-comment">// check if below max, else set to max</span>
-	<span class="hljs-keyword">if</span> (threads &lt; omp_get_max_threads()) {
-		<span class="hljs-keyword">if</span> (threads&lt;<span class="hljs-number">1</span>) {
-			threads = <span class="hljs-number">1</span>;
-		}
-		omp_set_num_threads(threads);
-	} <span class="hljs-keyword">else</span> {
-		threads = omp_get_max_threads();
-	}
-&#9;
-	<span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp parallel num_threads(threads) {</span>
-		<span class="hljs-type">int</span> myid = omp_get_thread_num(); <span class="hljs-comment">// private variable</span>
-		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread %d of %d active\n&quot;</span>, myid, threads);
-	}
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Maximum number of threads possible is %d\n&quot;</span>, omp_get_max_threads());
 
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-comment">// check if below max, else set to max</span>
+    <span class="hljs-keyword">if</span> (threads &lt; omp_get_max_threads()) {
+        <span class="hljs-keyword">if</span> (threads&lt;<span class="hljs-number">1</span>) {
+            threads = <span class="hljs-number">1</span>;
+        }
+        omp_set_num_threads(threads);
+    } <span class="hljs-keyword">else</span> {
+        threads = omp_get_max_threads();
+    }
+
+    <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp parallel num_threads(threads) {</span>
+        <span class="hljs-type">int</span> myid = omp_get_thread_num(); <span class="hljs-comment">// private variable</span>
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread %d of %d active\n&quot;</span>, myid, threads);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre></details></li></ul></div><p></p><p></p><p></p><h1 id="54ee91de-df52-41ae-bf5f-0657e0a4f4b3">Benchmarking</h1><p><mark class="highlight-blue">Timing computations for benchmarking</mark></p><div class="indented"><p>used for performance evaluation:</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">thread safe</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">non deterministic: influenced by OS and other active users.</li></ul></div><p></p><p>
 Wall-clock time in seconds since some time in the past returned by
 <mark class="highlight-gray"><code>omp_get_wtime()</code></mark>

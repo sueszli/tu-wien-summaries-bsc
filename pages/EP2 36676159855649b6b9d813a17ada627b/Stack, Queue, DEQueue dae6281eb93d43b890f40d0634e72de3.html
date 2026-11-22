@@ -594,83 +594,83 @@ min-height: 1em !important;
 <link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Stack, Queue, DEQueue</h1><p class="page-description"></p></header><div class="page-body"><h1>Interfaces</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Stack</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Iterable</span> {
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">push</span><span class="hljs-params">(String element)</span>;
-	String <span class="hljs-title function_">pop</span><span class="hljs-params">()</span>;
-	String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span>;
-	<span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">push</span><span class="hljs-params">(String element)</span>;
+    String <span class="hljs-title function_">pop</span><span class="hljs-params">()</span>;
+    String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span>;
+    <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Queue</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Iterable</span> {
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String element)</span>;
-	String <span class="hljs-title function_">poll</span><span class="hljs-params">()</span>;
-	String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span>;
-	<span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String element)</span>;
+    String <span class="hljs-title function_">poll</span><span class="hljs-params">()</span>;
+    String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span>;
+    <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Deque</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Queue</span>, Stack {
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">addFirst</span><span class="hljs-params">(String element)</span>;
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">addLast</span><span class="hljs-params">(String element)</span>;
-	String <span class="hljs-title function_">pollFirst</span><span class="hljs-params">()</span>;
-	String <span class="hljs-title function_">pollLast</span><span class="hljs-params">()</span>;
-	String <span class="hljs-title function_">peekFirst</span><span class="hljs-params">()</span>;
-	String <span class="hljs-title function_">peekLast</span><span class="hljs-params">()</span>;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">addFirst</span><span class="hljs-params">(String element)</span>;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">addLast</span><span class="hljs-params">(String element)</span>;
+    String <span class="hljs-title function_">pollFirst</span><span class="hljs-params">()</span>;
+    String <span class="hljs-title function_">pollLast</span><span class="hljs-params">()</span>;
+    String <span class="hljs-title function_">peekFirst</span><span class="hljs-params">()</span>;
+    String <span class="hljs-title function_">peekLast</span><span class="hljs-params">()</span>;
 }</code></pre><p></p><h1>Implementierung</h1><p>Wrapper Implementierung (Nutz Double Ended Queue DEQueue)</p><figure class="image"><a href="Stack,%20Queue,%20DEQueue%20dae6281eb93d43b890f40d0634e72de3/Untitled.png"><img src="Stack,%20Queue,%20DEQueue%20dae6281eb93d43b890f40d0634e72de3/Untitled.png" style="width: 865px"/></a></figure><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SQueue</span> {
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">DEQueue</span> <span class="hljs-variable">q</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DEQueue</span>();
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">DEQueue</span> <span class="hljs-variable">q</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DEQueue</span>();
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String e)</span> { q.addLast(e); } <span class="hljs-comment">//Stack wird auf der &quot;last&quot; Seite aufgebaut</span>
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">poll</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> q.pollFirst(); }
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> q.peekFirst(); }
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> q.size(); }
-}</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SStack</span> {
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">DEQueue</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DEQueue</span> ();
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">push</span><span class="hljs-params">(String e)</span> { s.addFirst(e); } <span class="hljs-comment">//Queue auf &quot;first&quot; Seite</span>
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">pop</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> s.pollFirst(); }
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> s.peekFirst(); }
-}</code></pre><p></p><p>(Implementierung zu kompliziert - nicht nützlich)</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DEQueue</span> {
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">mask</span> <span class="hljs-operator">=</span> <span class="hljs-number">7</span>;
-	<span class="hljs-keyword">private</span> String[] es = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">8</span>];
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> head , tail;
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addFirst</span><span class="hljs-params">(String e)</span> {
-		es[head = (head - <span class="hljs-number">1</span>) &amp; mask] = e;
-		<span class="hljs-keyword">if</span> (tail == head) { doubleCapacity(); }
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String e)</span> { q.addLast(e); } <span class="hljs-comment">//Stack wird auf der &quot;last&quot; Seite aufgebaut</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">poll</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> q.pollFirst(); }
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> q.peekFirst(); }
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> q.size(); }
+    }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SStack</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">DEQueue</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DEQueue</span> ();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">push</span><span class="hljs-params">(String e)</span> { s.addFirst(e); } <span class="hljs-comment">//Queue auf &quot;first&quot; Seite</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">pop</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> s.pollFirst(); }
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">peek</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> s.peekFirst(); }
+    }</code></pre><p></p><p>(Implementierung zu kompliziert - nicht nützlich)</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DEQueue</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">mask</span> <span class="hljs-operator">=</span> <span class="hljs-number">7</span>;
+    <span class="hljs-keyword">private</span> String[] es = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">8</span>];
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> head , tail;
 
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">pollFirst</span><span class="hljs-params">()</span> {
-		<span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> es[head];
-		es[head] = <span class="hljs-literal">null</span>;
-		<span class="hljs-keyword">if</span> (tail != head) { head = (head + <span class="hljs-number">1</span>) &amp; mask; }
-		<span class="hljs-keyword">return</span> result;
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addFirst</span><span class="hljs-params">(String e)</span> {
+        es[head = (head - <span class="hljs-number">1</span>) &amp; mask] = e;
+        <span class="hljs-keyword">if</span> (tail == head) { doubleCapacity(); }
+    }
 
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">peekFirst</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">return</span> es[head];
-	}&#9;
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">pollFirst</span><span class="hljs-params">()</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> es[head];
+        es[head] = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">if</span> (tail != head) { head = (head + <span class="hljs-number">1</span>) &amp; mask; }
+        <span class="hljs-keyword">return</span> result;
+    }
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addLast</span><span class="hljs-params">(String e)</span> {
-		es[tail] = e;
-		tail = (tail + <span class="hljs-number">1</span>) &amp; mask;
-		<span class="hljs-keyword">if</span> (tail == head) { doubleCapacity (); }
-	}
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">peekFirst</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> es[head];
+    }&#9;
 
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">pollLast</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">if</span> (tail != head) { tail = (tail - <span class="hljs-number">1</span>) &amp; mask; }
-		<span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> es[tail ];
-		es[tail] = <span class="hljs-literal">null</span>;
-		<span class="hljs-keyword">return</span> result ;
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addLast</span><span class="hljs-params">(String e)</span> {
+        es[tail] = e;
+        tail = (tail + <span class="hljs-number">1</span>) &amp; mask;
+        <span class="hljs-keyword">if</span> (tail == head) { doubleCapacity (); }
+    }
 
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">peekLast</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">return</span> es [(tail - <span class="hljs-number">1</span>) &amp; mask ];
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> (tail - head) &amp; mask; }
-&#9;
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doubleCapacity</span><span class="hljs-params">()</span> {
-		mask = mask * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>
-		String[] newes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span> [mask + <span class="hljs-number">1</span>];
-		<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;
-		<span class="hljs-keyword">while</span> (i &lt; head) { newes [j++] = es[i++]; }
-			j = head += es.length;
-		<span class="hljs-keyword">while</span> (i &lt; es.length ) { newes[j++] = es[i ++]; }
-			es = newes ;
-	}
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">pollLast</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">if</span> (tail != head) { tail = (tail - <span class="hljs-number">1</span>) &amp; mask; }
+        <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> es[tail ];
+        es[tail] = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">return</span> result ;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">peekLast</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> es [(tail - <span class="hljs-number">1</span>) &amp; mask ];
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> (tail - head) &amp; mask; }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doubleCapacity</span><span class="hljs-params">()</span> {
+        mask = mask * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>
+        String[] newes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span> [mask + <span class="hljs-number">1</span>];
+        <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (i &lt; head) { newes [j++] = es[i++]; }
+        j = head += es.length;
+        <span class="hljs-keyword">while</span> (i &lt; es.length ) { newes[j++] = es[i ++]; }
+        es = newes ;
+    }
 }</code></pre><p></p><h1>Java Library</h1><p><code>java.util</code>
 enthält
 </p><div class="indented"><p><code>ArrayDeque&lt;...&gt;</code>

@@ -597,30 +597,30 @@ min-height: 1em !important;
 TU_Wien-Software-Qualittssicherung_VU_(Biffl)_-_Praxis_Test_WS21.pdf
 </a></div></figure><p></p><p></p><h1>Mock vs. Stub</h1><p>Ein System nützt die folgende Schnittstelle zum Suchen nach Events:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">OnlineEventService</span> {
 
-	<span class="hljs-comment">/**
+    <span class="hljs-comment">/**
 	* Searches for events in the given location on the given date.
 	*
 	* <span class="hljs-doctag">@param</span> location must not be null
 	* <span class="hljs-doctag">@param</span> date must not be in the past
 	* <span class="hljs-doctag">@return</span> a list with the results
 	*/</span>
-	List&lt;String&gt; <span class="hljs-title function_">find</span><span class="hljs-params">(String location, LocalDate date)</span>;
+    List&lt;String&gt; <span class="hljs-title function_">find</span><span class="hljs-params">(String location, LocalDate date)</span>;
 }</code></pre><p></p><p>Um das System isoliert mit Unit-Tests zu testen wurde folgender Test Double implementiert:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleEventService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">OnlineEventService</span> {
-	<span class="hljs-keyword">private</span> List&lt;String&gt; events;
-	<span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> called;
+    <span class="hljs-keyword">private</span> List&lt;String&gt; events;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> called;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setEvents</span><span class="hljs-params">(List&lt;String&gt; events)</span> { <span class="hljs-built_in">this</span>.events = events; }
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isCalled</span><span class="hljs-params">()</span>{ <span class="hljs-keyword">return</span> called; }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setEvents</span><span class="hljs-params">(List&lt;String&gt; events)</span> { <span class="hljs-built_in">this</span>.events = events; }
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isCalled</span><span class="hljs-params">()</span>{ <span class="hljs-keyword">return</span> called; }
 
-	<span class="hljs-meta">@Override</span>
-	<span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">find</span><span class="hljs-params">(String location, LocalDate date)</span> {
-		Assertions.assertNotNull(location);
-		Assertlons.assertNotNull(date);
-		Assertions.assertTrue(date.isAfter(LocalDate.now());
-&#9;&#9;
-		called = <span class="hljs-literal">true</span>;
-		<span class="hljs-keyword">return</span> events;
-	}
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">find</span><span class="hljs-params">(String location, LocalDate date)</span> {
+        Assertions.assertNotNull(location);
+        Assertlons.assertNotNull(date);
+        Assertions.assertTrue(date.isAfter(LocalDate.now());
+
+        called = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">return</span> events;
+    }
 }</code></pre><p></p><p>Handelt es sich dabei um ein Stub oder ein Mock?</p><p>Begründen Sie Ihre Antwort und erläutern Sie den Unterschied basierend auf dem gegebenen Beispiel.</p><p><mark class="highlight-gray">Es handelt sich um ein Mock, da die Argumente die an das Mock gegeben werden auch überprüft werden.</mark></p><p><mark class="highlight-gray">Ein Mock erkennt wenn unerwartete Werte erhalten werden - mit Assertions und Exceptions.</mark></p><p></p><p></p><h1>Äquivalenzklassen</h1><p>Ein Wintersportgebiet wirbt mit einer Rabattaktion.</p><p>Auf Tageskarten wird deshalb 10% Rabatt, auf Wochenkarten 15% Rabatt und auf Stundenkarten 5% Rabatt vergeben.</p><p>Personen, die eine aktive Mitgliedschaft beim Alpenverein haben, erhalten beim Kauf einer Tages- bzw. Wochenkarte zusätzlich 20% Rabatt.</p><p>Bei Online-Kauf werden allen Personen zusätzlich 5% auf Tageskarten gewährt.</p><p>Rabatte akkumulieren sich.</p><p></p><p>Definieren Sie anhand der gegebenen Informationen alle Aquivalenzklassen.</p><p>Geben Sie zwei wichtige Testfälle (nicht JUnit-Tests) an.</p><p></p><p><mark class="highlight-gray">Äquivalenzklassen:</mark></p><pre class="code"><code>Tageskarten
 	Aktive Mitgliedschaft
 		Online -&gt; 30%
@@ -644,46 +644,46 @@ Stundenkarten
 	Keine aktive Mitliedschaft
 		Online -&gt; 10%
 		Offline -&gt; 5%</code></pre><p></p><p><mark class="highlight-gray">Zwei wichtige Testfälle (ohne JUnit)</mark></p><div class="indented"><p class="block-color-gray"><mark class="highlight-gray">Die folgenden Testfälle sind wichtig, da sie aus ganz unterschiedlichen Äquivalenzklassen sind:</mark></p><ol class="block-color-gray numbered-list" start="1" type="1"><li>Tageskarte / Aktive Mitgliedschaft / Online → 30% Rabatt</li></ol><ol class="block-color-gray numbered-list" start="2" type="1"><li>Stundenkarte / Keine aktive Mitgliedschaft / Offline → 5% Rabatt</li></ol></div><p></p><p></p><p></p><h1>JUnit Testfälle</h1><p>Führen Sie ein Review der nachfolgenden JUnit-5 Testfälle durch.</p><p>Finden Sie 5 Fehler in der Implementierung der Testfälle.</p><p>Erklären Sie die gefundenen Probleme und geben Sie Vorschläge zur Behebung.</p><p>Achten Sie im Speziellen auf Bad Practices.</p><p></p><p>(Hinweis: Mehrfach auftretende Fehler der selben Art nur 1x aufzählen)</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleListTest</span> {
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> List&lt;String&gt; list;
-&#9;
-	<span class="hljs-meta">@BeforeAll</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setUp</span><span class="hljs-params">()</span> {
-		list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();
-		list.add(<span class="hljs-string">&quot;A&quot;</span>);
-		list.add(<span class="hljs-string">&quot;B&quot;</span>);
-	}
-&#9;
-	<span class="hljs-meta">@Test</span> <span class="hljs-comment">// (1)</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testContains_shouldFindElement</span><span class="hljs-params">()</span> {
-		list.add(<span class="hljs-string">&quot;C&quot;</span>);
-		<span class="hljs-type">boolean</span> <span class="hljs-variable">isFound</span> <span class="hljs-operator">=</span> list.contains(<span class="hljs-string">&quot;C&quot;</span>);
-	}
-&#9;
-	<span class="hljs-meta">@Test</span> <span class="hljs-comment">// (2)</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldAddElement</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">3</span>; i++) {
-			list.add(i, <span class="hljs-string">&quot;C-&quot;</span> + i);
-		}
-		assertTrue(
-			list.get(<span class="hljs-number">0</span>).equals(<span class="hljs-string">&quot;C-0&quot;</span>)
-			&amp;&amp; list.get(<span class="hljs-number">1</span>).equals(<span class="hljs-string">&quot;C-1&quot;</span>)
-			&amp;&amp; list.get(<span class="hljs-number">2</span>).equals(<span class="hljs-string">&quot;C-2&quot;</span>)
-		);
-	}
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> List&lt;String&gt; list;
 
-	<span class="hljs-meta">@Test</span> <span class="hljs-comment">// (3)</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_shouldFail</span><span class="hljs-params">()</span>{
-		<span class="hljs-keyword">if</span> (!list.contains(<span class="hljs-string">&quot;Z&quot;</span>)) {
-			assertTrue(<span class="hljs-literal">true</span>);
-		} <span class="hljs-keyword">else</span>{
-			fail();
-		}
-	}
+    <span class="hljs-meta">@BeforeAll</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setUp</span><span class="hljs-params">()</span> {
+        list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();
+        list.add(<span class="hljs-string">&quot;A&quot;</span>);
+        list.add(<span class="hljs-string">&quot;B&quot;</span>);
+    }
 
-	<span class="hljs-meta">@Test</span> <span class="hljs-comment">// (4)</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAddWrongIndex_shouldFail</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IndexOutOfBoundsException {
-		assertThrows(Exception.class, () -&gt; list.add(<span class="hljs-number">100</span>, <span class="hljs-string">&quot;Elem-100&quot;</span>));
-	}
+    <span class="hljs-meta">@Test</span> <span class="hljs-comment">// (1)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testContains_shouldFindElement</span><span class="hljs-params">()</span> {
+        list.add(<span class="hljs-string">&quot;C&quot;</span>);
+        <span class="hljs-type">boolean</span> <span class="hljs-variable">isFound</span> <span class="hljs-operator">=</span> list.contains(<span class="hljs-string">&quot;C&quot;</span>);
+    }
+
+    <span class="hljs-meta">@Test</span> <span class="hljs-comment">// (2)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldAddElement</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">3</span>; i++) {
+            list.add(i, <span class="hljs-string">&quot;C-&quot;</span> + i);
+        }
+        assertTrue(
+            list.get(<span class="hljs-number">0</span>).equals(<span class="hljs-string">&quot;C-0&quot;</span>)
+            &amp;&amp; list.get(<span class="hljs-number">1</span>).equals(<span class="hljs-string">&quot;C-1&quot;</span>)
+            &amp;&amp; list.get(<span class="hljs-number">2</span>).equals(<span class="hljs-string">&quot;C-2&quot;</span>)
+        );
+    }
+
+    <span class="hljs-meta">@Test</span> <span class="hljs-comment">// (3)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_shouldFail</span><span class="hljs-params">()</span>{
+        <span class="hljs-keyword">if</span> (!list.contains(<span class="hljs-string">&quot;Z&quot;</span>)) {
+            assertTrue(<span class="hljs-literal">true</span>);
+        } <span class="hljs-keyword">else</span>{
+            fail();
+        }
+    }
+
+    <span class="hljs-meta">@Test</span> <span class="hljs-comment">// (4)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAddWrongIndex_shouldFail</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IndexOutOfBoundsException {
+        assertThrows(Exception.class, () -&gt; list.add(<span class="hljs-number">100</span>, <span class="hljs-string">&quot;Elem-100&quot;</span>));
+    }
 }</code></pre><p></p><p class="block-color-gray">Fehler:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
 Keine Testisolation
 <p><mark class="highlight-gray">Die Datenstruktur</mark><mark class="highlight-gray"><code>list</code></mark>
@@ -707,47 +707,47 @@ ist nicht implementiert
 </p></li></ol><ol class="numbered-list" start="6" type="1"><li>
 Sinnlose asserts
 <p><mark class="highlight-gray"><code>assertTrue(true)</code></mark><mark class="highlight-gray">wird immer erfüllt</mark></p></li></ol></div><p></p><p></p><p></p><h1>Stringbasierter Stack, JUnit</h1><p>Bei der Klasse StringStack handelt es sich um eine stringbasierte Stack Implementierung.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StringStack</span>
-	<span class="hljs-keyword">private</span> String[] storage;
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> position;
+<span class="hljs-keyword">private</span> String[] storage;
+<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> position;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">StringStack</span><span class="hljs-params">(<span class="hljs-type">int</span> capacity)</span> { <span class="hljs-built_in">this</span>.storage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[capacity]; }
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">StringStack</span><span class="hljs-params">(<span class="hljs-type">int</span> capacity)</span> { <span class="hljs-built_in">this</span>.storage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[capacity]; }
 
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> position; }
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> position; }
 
-	<span class="hljs-comment">// doesn&#x27;t check whether position &lt; storage.length()</span>
-	<span class="hljs-comment">// can cause IndexOutOfBound</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">push</span> <span class="hljs-params">(String elem)</span> {
-		storage[position] = elem;
-		position++;
-	}
+<span class="hljs-comment">// doesn&#x27;t check whether position &lt; storage.length()</span>
+<span class="hljs-comment">// can cause IndexOutOfBound</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">push</span> <span class="hljs-params">(String elem)</span> {
+    storage[position] = elem;
+    position++;
+}
 
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">pop</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> EmptyStackException {
-		<span class="hljs-keyword">if</span> (position == <span class="hljs-number">0</span>) { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EmptyStackEx</span> ception (); }
+<span class="hljs-keyword">public</span> String <span class="hljs-title function_">pop</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> EmptyStackException {
+        <span class="hljs-keyword">if</span> (position == <span class="hljs-number">0</span>) { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EmptyStackEx</span> ception (); }
 
-		<span class="hljs-type">String</span> <span class="hljs-variable">elem</span> <span class="hljs-operator">=</span> storage[position-<span class="hljs-number">1</span>];
-		storage[position-<span class="hljs-number">1</span>] = <span class="hljs-literal">null</span>;
-		position--;
-&#9;&#9;
-		<span class="hljs-keyword">return</span> elem;
-	}
+    <span class="hljs-type">String</span> <span class="hljs-variable">elem</span> <span class="hljs-operator">=</span> storage[position-<span class="hljs-number">1</span>];
+    storage[position-<span class="hljs-number">1</span>] = <span class="hljs-literal">null</span>;
+    position--;
+
+    <span class="hljs-keyword">return</span> elem;
+}
 }</code></pre><p></p><p>Überprüfen Sie die Funktionalität der Methode pop() indem Sie für folgende zwei Szenarien einen JUnit 5 Test definieren:</p><div class="indented"><p>
 a)
 <em>Normalfall:</em>
 Aufruf der Methode pop() auf einem befüllten Stack
 </p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testPop_fullStack_shouldSucceed</span><span class="hljs-params">()</span> {
-	<span class="hljs-type">StringStack</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringStack</span>(<span class="hljs-number">2</span>);
-	s.push(<span class="hljs-string">&quot;foo&quot;</span>);
-	s.push(<span class="hljs-string">&quot;bar&quot;</span>);
-	assertEquals(<span class="hljs-string">&quot;bar&quot;</span>, s.pop());
+    <span class="hljs-type">StringStack</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringStack</span>(<span class="hljs-number">2</span>);
+    s.push(<span class="hljs-string">&quot;foo&quot;</span>);
+    s.push(<span class="hljs-string">&quot;bar&quot;</span>);
+    assertEquals(<span class="hljs-string">&quot;bar&quot;</span>, s.pop());
 }</code></pre><p>
 b)
 <em>Fehlerfall:</em>
 Aufruf der Methode pop() auf einem leeren Stack
 </p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testPop_emptyStack_shouldThrowEmptyStackException</span><span class="hljs-params">()</span> {
-	<span class="hljs-type">StringStack</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringStack</span>(<span class="hljs-number">0</span>);
-	assertThrows(EmptyStackException.class, () -&gt; s.pop());
+    <span class="hljs-type">StringStack</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringStack</span>(<span class="hljs-number">0</span>);
+    assertThrows(EmptyStackException.class, () -&gt; s.pop());
 }</code></pre></div><p></p><p>Bedenken Sie auch Best Practices bei der Erstellung von Tests.</p><p>Sie können davon ausgehen, dass die Methoden size() sowie push() korrekt funktionieren.</p><p></p><h1>Qualitätsfaktoren</h1><p>Ihr Unternehmen wurde mit der Entwicklung einer Web Applikation für Schulen beauftragt.</p><p>
 Die Applikation soll im ersten Schritt die Stundenpläne der einzelnen Klassen darstellen und Lehrern/Lehrerinnen die Anwesenhitskontrolle
 der Schüler/Schülerinnen während des Unterrichts ermöglichen.

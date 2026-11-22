@@ -708,29 +708,29 @@ MPI_Finalize();</code></pre></div><p></p><p></p><p><mark class="highlight-blue">
 MPI_Comm_size(MPI_COMM_WORLD,&amp;size);</code></pre><hr/><ul class="toggle"><li><details><summary>Example: Check rank and size of communicator</summary><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;mpi.h&gt;</span></span>
 
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> {
-	<span class="hljs-type">int</span> rank, size;
-	MPI_Init(&amp;argc, &amp;argv); <span class="hljs-comment">// first call, performed by all -&gt; MPI_Initialized(flag)</span>
+    <span class="hljs-type">int</span> rank, size;
+    MPI_Init(&amp;argc, &amp;argv); <span class="hljs-comment">// first call, performed by all -&gt; MPI_Initialized(flag)</span>
 
-	MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
-	MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank); <span class="hljs-comment">// Who am I?</span>
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank); <span class="hljs-comment">// Who am I?</span>
 
-	<span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stdout</span>,<span class="hljs-string">&quot;Here is %d out of %d\n&quot;</span>, rank, size);
+    <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stdout</span>,<span class="hljs-string">&quot;Here is %d out of %d\n&quot;</span>, rank, size);
 
-	MPI_Finalize(); <span class="hljs-comment">// last call, performed by all -&gt; MPI_Finalized(flag)</span>
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    MPI_Finalize(); <span class="hljs-comment">// last call, performed by all -&gt; MPI_Finalized(flag)</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Assign task to processor</summary><pre class="code"><code class="hljs language-c">MPI_Comm_size(MPI_COMM_WORLD,&amp;size);
 MPI_Comm_rank(MPI_COMM_WORLD,&amp;rank);
 
 <span class="hljs-keyword">if</span> (size&lt;<span class="hljs-number">10</span> || size&gt;<span class="hljs-number">1000000</span>) MPI_Abort(comm,errcode);
 
 <span class="hljs-keyword">if</span> (rank==<span class="hljs-number">0</span>) {
-	<span class="hljs-comment">// code for rank 0; may be special</span>
+    <span class="hljs-comment">// code for rank 0; may be special</span>
 } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rank%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>) {
-	<span class="hljs-comment">// remainder even ranks</span>
+    <span class="hljs-comment">// remainder even ranks</span>
 } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rank==<span class="hljs-number">7</span>) {
-	<span class="hljs-comment">// another special one</span>
+    <span class="hljs-comment">// another special one</span>
 } <span class="hljs-keyword">else</span> {
-	<span class="hljs-comment">// all other (odd) processes…</span>
+    <span class="hljs-comment">// all other (odd) processes…</span>
 }</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Benchmarking</mark></p><div class="indented"><pre class="code"><code class="hljs language-c">MPI_Barrier(MPI_COMM_WORLD); <span class="hljs-comment">// synchronize processes (semantically)</span>
 <span class="hljs-type">double</span> point_in_time = MPI_Wtime(); <span class="hljs-comment">// get time</span></code></pre></div><p></p><p></p><p><mark class="highlight-blue">Freeing memory for communicators</mark></p><div class="indented"><p>Frees any allocated communicator after use.</p><pre class="code"><code>MPI_Comm_free(&amp;comm);</code></pre><p><mark class="highlight-gray">(</mark><mark class="highlight-gray"><code>MPI_COMM_WORLD</code></mark><mark class="highlight-gray">,</mark><mark class="highlight-gray"><code>MPI_COMM_SELF</code></mark><mark class="highlight-gray">can not be freed)</mark></p></div><p></p><p></p><p></p><h1 id="43c2d29f-5919-40d4-b2cc-a7d750ade21c">Point-to-point communication</h1><p><mark class="highlight-blue">Point-to-point communication</mark></p><div class="indented"><p>Two processes communicate explicitly.</p><p>Both involved as: sender, receiver.</p></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%202.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%202.png" style="width: 144px"/></a></figure><p><mark class="highlight-blue">General properties</mark></p><div class="indented"><p>Deadlock free Message is eventually received (with matching operations)</p><p>Non-overtaking Messages sent to the same destination arrive there in sent order.</p><p>Different order can be enforced with tags.</p><p>Reliable Messages don’t get lost, content can be trusted.</p></div><p></p><p></p><h2 id="af3295e7-db2e-40cb-a765-c0614c628dbd">Sending</h2><p><mark class="highlight-blue">Sender</mark></p><div class="indented"><p>Completion is non-local:</p><div class="indented"><p>Call return may depend on receiving rank having initiated receive operation.</p><p>The local completion depends on implementation (can be done so that the sender returns fast).</p></div><p></p><p>Operation is blocking:</p><div class="indented"><p><mark class="highlight-gray"><code>MPI_Send</code></mark><mark class="highlight-gray"></mark>
 returns back to caller of function, when
@@ -828,13 +828,13 @@ Process500
 <span class="hljs-type">int</span> count = <span class="hljs-number">500</span>;
 
 <span class="hljs-keyword">if</span> (rank==<span class="hljs-number">2</span>) {
-	<span class="hljs-type">int</span> sendbuf[<span class="hljs-number">500</span>] = {&lt;<span class="hljs-number">500</span> integers&gt;};
-	MPI_Send(sendbuf,count,MPI_INT,<span class="hljs-number">4</span>,THISMSGTAG,comm);
+    <span class="hljs-type">int</span> sendbuf[<span class="hljs-number">500</span>] = {&lt;<span class="hljs-number">500</span> integers&gt;};
+    MPI_Send(sendbuf,count,MPI_INT,<span class="hljs-number">4</span>,THISMSGTAG,comm);
 
 } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rank==<span class="hljs-number">4</span>) {
-	<span class="hljs-type">int</span> recvbuf[count + <span class="hljs-number">100</span>]; <span class="hljs-comment">// equal or larger than what is being sent</span>
-	MPI_Status status;
-	success = MPI_Recv(recvbuf,count,MPI_INT,<span class="hljs-number">2</span>,THISMSGTAG,comm,&amp;status);
+    <span class="hljs-type">int</span> recvbuf[count + <span class="hljs-number">100</span>]; <span class="hljs-comment">// equal or larger than what is being sent</span>
+    MPI_Status status;
+    success = MPI_Recv(recvbuf,count,MPI_INT,<span class="hljs-number">2</span>,THISMSGTAG,comm,&amp;status);
 
 }</code></pre><p><em>“Start reception of message</em><mark class="highlight-gray"><code><em>THISMSGTAG</em></code></mark><em>from rank 2 in</em><mark class="highlight-gray"><code><em>comm</em></code></mark><em>, store result in</em><mark class="highlight-gray"><code><em>recvbuf</em></code></mark><em>, at most 600 consecutive integers (otherwise</em><mark class="highlight-gray"><code><em>success==MPI_ERR_TRUNCATE</em></code></mark><em>)</em></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Non matching types</summary><p>Here the types dont match.</p><div class="indented"><p>Communication would take place but its bad practice.</p><p>Type could be lost → Processors could have different endianness.</p></div><p></p><pre class="code"><code class="hljs language-c"><span class="hljs-type">double</span> a;
 MPI_Send(&amp;a,<span class="hljs-number">1</span>,MPI_DOUBLE,j,<span class="hljs-number">1111</span>,MPI_COMM_WORLD);</code></pre><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="1.2em"><mo>↓</mo></mstyle></mrow><annotation encoding="application/x-tex">\large \downarrow</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 1.066656em; vertical-align: -0.23332799999999998em"></span><span class="mrel sizing reset-size6 size7">↓</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-c"><span class="hljs-type">double</span> a;
@@ -903,7 +903,7 @@ and
 <mark class="highlight-gray"><code>b</code></mark>
 distributed in blocks over MPI processes
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=n[j]; i&lt;n[j+<span class="hljs-number">1</span>]; i++) {
-	b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
+    b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
 }</code></pre><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%205.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%205.png" style="width: 240px"/></a></figure><p></p><ol class="numbered-list" start="1" type="1"><li>
 Receiving before sending
 <pre class="code"><code class="hljs language-c"><span class="hljs-type">float</span> *a = <span class="hljs-built_in">malloc</span>((n/p+<span class="hljs-number">2</span>)*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">float</span>));
@@ -911,18 +911,18 @@ a += <span class="hljs-number">1</span>; <span class="hljs-comment">// offset, s
 
 <span class="hljs-comment">// step 1 [1; size-1]</span>
 <span class="hljs-keyword">if</span> (rank&gt;<span class="hljs-number">0</span>) {
-	MPI_Recv(&amp;a[<span class="hljs-number">-1</span>],<span class="hljs-number">1</span>,MPI_FLOAT,rank<span class="hljs-number">-1</span>,<span class="hljs-number">999</span>,comm,&amp;status); <span class="hljs-comment">// &lt;-- DEADLOCK</span>
-	MPI_Send(&amp;a[<span class="hljs-number">0</span>],<span class="hljs-number">1</span>,MPI_FLOAT,rank<span class="hljs-number">-1</span>,<span class="hljs-number">999</span>,comm);
+    MPI_Recv(&amp;a[<span class="hljs-number">-1</span>],<span class="hljs-number">1</span>,MPI_FLOAT,rank<span class="hljs-number">-1</span>,<span class="hljs-number">999</span>,comm,&amp;status); <span class="hljs-comment">// &lt;-- DEADLOCK</span>
+    MPI_Send(&amp;a[<span class="hljs-number">0</span>],<span class="hljs-number">1</span>,MPI_FLOAT,rank<span class="hljs-number">-1</span>,<span class="hljs-number">999</span>,comm);
 }
 
 <span class="hljs-comment">// step 2 [0; size-2]</span>
 <span class="hljs-keyword">if</span> (rank&lt;size<span class="hljs-number">-1</span>) {
-	MPI_Recv(&amp;a[n/p],<span class="hljs-number">1</span>,MPI_FLOAT,rank+<span class="hljs-number">1</span>,<span class="hljs-number">999</span>,comm,&amp;status); <span class="hljs-comment">// &lt;-- DEADLOCK</span>
-	MPI_Send(&amp;a[n/p<span class="hljs-number">-1</span>],<span class="hljs-number">1</span>,MPI_FLOAT,rank+<span class="hljs-number">1</span>,<span class="hljs-number">999</span>,comm;
+    MPI_Recv(&amp;a[n/p],<span class="hljs-number">1</span>,MPI_FLOAT,rank+<span class="hljs-number">1</span>,<span class="hljs-number">999</span>,comm,&amp;status); <span class="hljs-comment">// &lt;-- DEADLOCK</span>
+    MPI_Send(&amp;a[n/p<span class="hljs-number">-1</span>],<span class="hljs-number">1</span>,MPI_FLOAT,rank+<span class="hljs-number">1</span>,<span class="hljs-number">999</span>,comm;
 }
 
 <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n/p; i++) {
-	b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
+    b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
 }</code></pre><p><mark class="highlight-red">Deadlock:</mark>
 Processes try to receive without sending blocks.
 </p><p></p></li></ol><ol class="numbered-list" start="2" type="1"><li>
@@ -954,22 +954,22 @@ and
 <mark class="highlight-gray"><code>b</code></mark>
 distributed in blocks over MPI processes
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=n[j]; i&lt;n[j+<span class="hljs-number">1</span>]; i++) {
-	b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
+    b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
 }</code></pre><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%205.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%205.png" style="width: 240px"/></a></figure><p></p><pre class="code"><code class="hljs language-c"><span class="hljs-type">float</span> *a = <span class="hljs-built_in">malloc</span>((n/p+<span class="hljs-number">2</span>)*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">float</span>));
 a += <span class="hljs-number">1</span>; <span class="hljs-comment">// offset, such that -1 and n/p can b addressed</span>
 
 <span class="hljs-comment">// step 1 [1; size-1]</span>
 <span class="hljs-keyword">if</span> (rank&gt;<span class="hljs-number">0</span>) {
-	MPI_Sendrecv(…,rank+<span class="hljs-number">1</span>,…,rank<span class="hljs-number">-1</span>,…);
+    MPI_Sendrecv(…,rank+<span class="hljs-number">1</span>,…,rank<span class="hljs-number">-1</span>,…);
 }
 
 <span class="hljs-comment">// step 2 [0; size-2]</span>
 <span class="hljs-keyword">if</span> (rank&lt;size<span class="hljs-number">-1</span>) {
-	MPI_Sendrecv(…,rank<span class="hljs-number">-1</span>,…,rank+<span class="hljs-number">1</span>,…);
+    MPI_Sendrecv(…,rank<span class="hljs-number">-1</span>,…,rank+<span class="hljs-number">1</span>,…);
 }
 
 <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n/p; i++) {
-	b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
+    b[i] = a[i<span class="hljs-number">-1</span>]+a[i]+a[i+<span class="hljs-number">1</span>];
 }</code></pre><p></p><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: Hillis-Steele prefix sums algorithm (safe)</summary><p>
 Round
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>k</mi></mstyle></mrow><annotation encoding="application/x-tex">\small k</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.624996em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03148em">k</span></span></span></span></span><span>﻿</span></span>
@@ -1054,12 +1054,12 @@ MPI_Accumulate( <span class="hljs-comment">// atomic operation, concurrency allo
 u = n; <span class="hljs-comment">// upper boundary</span>
 
 <span class="hljs-keyword">do</span> {
-	m = (l+u)/<span class="hljs-number">2</span>; <span class="hljs-comment">// half</span>
-	<span class="hljs-keyword">if</span> (x&lt;A[m]) {
-		u = m; <span class="hljs-comment">// upper &lt;- half</span>
-	} <span class="hljs-keyword">else</span> {
-		l = m; <span class="hljs-comment">// lower &lt;- half</span>
-	}
+    m = (l+u)/<span class="hljs-number">2</span>; <span class="hljs-comment">// half</span>
+    <span class="hljs-keyword">if</span> (x&lt;A[m]) {
+        u = m; <span class="hljs-comment">// upper &lt;- half</span>
+    } <span class="hljs-keyword">else</span> {
+        l = m; <span class="hljs-comment">// lower &lt;- half</span>
+    }
 } <span class="hljs-keyword">while</span> (l+<span class="hljs-number">1</span>&lt;u);
 
 i = l;</code></pre><p>
@@ -1091,19 +1091,19 @@ u = n; <span class="hljs-comment">// upper boundary</span>
 mA; <span class="hljs-comment">// equivalent of A[m] in this process&#x27; block</span>
 
 <span class="hljs-keyword">do</span> {
-	m = (l+u)/<span class="hljs-number">2</span>; <span class="hljs-comment">// half</span>
+    m = (l+u)/<span class="hljs-number">2</span>; <span class="hljs-comment">// half</span>
 
-	MPI_Win_fence(MPI_NO_PRECEDE,win);
-	t = m/p; <span class="hljs-comment">// target process</span>
-	tix = m%p; <span class="hljs-comment">// index at target</span>
-	MPI_Get(&amp;mA,<span class="hljs-number">1</span>,MPI_INT,t,tix,<span class="hljs-number">1</span>,MPI_INT,win);
-	MPI_Win_fence(MPI_NO_SUCCEED,win);
+    MPI_Win_fence(MPI_NO_PRECEDE,win);
+    t = m/p; <span class="hljs-comment">// target process</span>
+    tix = m%p; <span class="hljs-comment">// index at target</span>
+    MPI_Get(&amp;mA,<span class="hljs-number">1</span>,MPI_INT,t,tix,<span class="hljs-number">1</span>,MPI_INT,win);
+    MPI_Win_fence(MPI_NO_SUCCEED,win);
 
-	<span class="hljs-keyword">if</span> (x&lt;mA) {
-		u = m; <span class="hljs-comment">// upper &lt;- half</span>
-	} <span class="hljs-keyword">else</span> {
-		l = m; <span class="hljs-comment">// lower &lt;- half</span>
-	}
+    <span class="hljs-keyword">if</span> (x&lt;mA) {
+        u = m; <span class="hljs-comment">// upper &lt;- half</span>
+    } <span class="hljs-keyword">else</span> {
+        l = m; <span class="hljs-comment">// lower &lt;- half</span>
+    }
 } <span class="hljs-keyword">while</span> (l+<span class="hljs-number">1</span>&lt;u);
 
 i = l;</code></pre><p>Alternatively, instead of fences one could use:</p><pre class="code"><code class="hljs language-c">MPI_Win_lock(MPI_LOCK_SHARED,t,<span class="hljs-number">0</span>,win);
@@ -1245,8 +1245,8 @@ Good practice when writing libraries: here the library uses
 <mark class="highlight-gray"><code>libcomm</code></mark><mark class="highlight-gray"></mark>
 and there is no interference.
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> <span class="hljs-title function_">my_library_init</span><span class="hljs-params">(comm, &amp;libcomm)</span> {
-	MPI_Comm_dup(comm, &amp;libcomm); <span class="hljs-comment">// store somewhere</span>
-	...
+    MPI_Comm_dup(comm, &amp;libcomm); <span class="hljs-comment">// store somewhere</span>
+    ...
 }</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Splitting communicators</mark></p><div class="indented"><p>Partition processes into disjoint sets with independent comms.</p><pre class="code"><code>MPI_Comm_split(comm1,color,key,&amp;comm2);
 MPI_Comm_create(comm1,group,&amp;comm2);</code></pre><p>
 color defines subset in
@@ -1314,29 +1314,29 @@ calls should never be needed for correctness of MPI programs (there is always a 
 MPI_Allreduce(&amp;local_time,&amp;spent_time,<span class="hljs-number">1</span>,MPI_DOUBLE,MPI_MAX,comm);</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">Bcast</mark></p><div class="indented"><p>distributes data: root → all</p><pre class="code"><code class="hljs language-c">MPI_Bcast(buffer,count,datatype,root,comm); <span class="hljs-comment">// root stays the same for all</span></code></pre><p>Root sends data to all other non-root processes.</p><p>Any process can be the root.</p><hr/><ul class="toggle"><li><details><summary>Example: Different sizes (unsafe)</summary><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> matrixdims[<span class="hljs-number">3</span>]; <span class="hljs-comment">// 3 dimensional matrix</span>
 
 <span class="hljs-keyword">if</span> (rank==<span class="hljs-number">0</span>) {
-	MPI_Bcast(matrixdims,<span class="hljs-number">3</span>,MPI_INT,<span class="hljs-number">0</span>,comm); <span class="hljs-comment">// different sizes: 3</span>
+    MPI_Bcast(matrixdims,<span class="hljs-number">3</span>,MPI_INT,<span class="hljs-number">0</span>,comm); <span class="hljs-comment">// different sizes: 3</span>
 } <span class="hljs-keyword">else</span> {
-	MPI_Bcast(matrixdims,<span class="hljs-number">2</span>,MPI_INT,<span class="hljs-number">0</span>,comm); <span class="hljs-comment">// different sizes: 2</span>
+    MPI_Bcast(matrixdims,<span class="hljs-number">2</span>,MPI_INT,<span class="hljs-number">0</span>,comm); <span class="hljs-comment">// different sizes: 2</span>
 }</code></pre><p>The implementation above probably works, but it’s unsafe</p></details></li></ul></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2026.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2026.png" style="width: 192px"/></a></figure><p></p><p><mark class="highlight-blue">Gather</mark></p><div class="indented"><p>gathers data: all → root</p><pre class="code"><code class="hljs language-c">MPI_Gather(
 	sbuf,scount,stype, <span class="hljs-comment">// sender</span>
 	rbuf,rcount,rtype, <span class="hljs-comment">// receiver</span>
 	root,comm
 );</code></pre><ul class="toggle"><li><details><summary>Alternative</summary><p>The implementation is much more efficient.</p><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// root</span>
 <span class="hljs-keyword">if</span> (rank==root) {
-	<span class="hljs-comment">// receive from others</span>
-	<span class="hljs-keyword">for</span> (…i!=root…) {
-		MPI_Recv(rbuf+i*rcount*extent(rtype),rcount,rtype,i,GATTAG,comm,MPI_STATUS_IGNORE);
-	}
-	<span class="hljs-comment">// send and receive from self</span>
-	MPI_Sendrecv(
-		sbuf,…,root,…,
-		rbuf+root*rcount*extent(rtype),…,root,…
-	);
+    <span class="hljs-comment">// receive from others</span>
+    <span class="hljs-keyword">for</span> (…i!=root…) {
+        MPI_Recv(rbuf+i*rcount*extent(rtype),rcount,rtype,i,GATTAG,comm,MPI_STATUS_IGNORE);
+    }
+    <span class="hljs-comment">// send and receive from self</span>
+    MPI_Sendrecv(
+        sbuf,…,root,…,
+        rbuf+root*rcount*extent(rtype),…,root,…
+    );
 
-<span class="hljs-comment">// others</span>
+    <span class="hljs-comment">// others</span>
 } <span class="hljs-keyword">else</span> {
-	<span class="hljs-comment">// send</span>
-	MPI_Send(sbuf,scount,stype,root,GATTAG,comm);
+    <span class="hljs-comment">// send</span>
+    MPI_Send(sbuf,scount,stype,root,GATTAG,comm);
 }</code></pre><p></p></details></li></ul><p>
 Each process contributes to block of data at buffer
 <mark class="highlight-gray"><code>rbuf</code></mark><mark class="highlight-gray"></mark>
@@ -1384,24 +1384,24 @@ assert(n%p==<span class="hljs-number">0</span>); <span class="hljs-comment">// e
 
 <span class="hljs-comment">// allocate a,c and initialize a with values</span>
 <span class="hljs-keyword">if</span> (rank==root) {
-	<span class="hljs-type">int</span> *a = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(n*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">// a: root -&gt; all</span>
-	<span class="hljs-type">int</span> *c = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(n*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">// c: root &lt;- all</span>
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) a[i] = &lt;init&gt;;
+    <span class="hljs-type">int</span> *a = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(n*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">// a: root -&gt; all</span>
+    <span class="hljs-type">int</span> *c = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(n*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">// c: root &lt;- all</span>
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) a[i] = &lt;init&gt;;
 }
 
 <span class="hljs-comment">// allocate b</span>
 <span class="hljs-type">int</span> *b = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>((n/p)*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)); <span class="hljs-comment">// a -&gt; b block -&gt; c</span>
 
 MPI_Scatter( <span class="hljs-comment">// root: a -&gt; b</span>
-	a,n/p,MPI_INT,
-	b,n/p,MPI_INT,
-	root,comm
+    a,n/p,MPI_INT,
+    b,n/p,MPI_INT,
+    root,comm
 );
 ... <span class="hljs-comment">// compute on b: all processes</span>
 MPI_Gather( <span class="hljs-comment">// root: b -&gt; c</span>
-	b,n/p,MPI_INT,&#32;
-	c,n/p,MPI_INT,
-	root,comm
+    b,n/p,MPI_INT,&#32;
+    c,n/p,MPI_INT,
+    root,comm
 );</code></pre><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2029.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2029.png" style="width: 192px"/></a></figure><p></p></details></li></ul><ul class="toggle"><li><details><summary>Example: barrier (unsafe)</summary><p>
 May have better performance than
 <mark class="highlight-gray"><code>send-recv</code></mark><mark class="highlight-gray"></mark>
@@ -1413,8 +1413,8 @@ MPI_Scatter(<span class="hljs-literal">NULL</span>,<span class="hljs-number">0</
 	comm
 );</code></pre><ul class="toggle"><li><details><summary>Alternative</summary><pre class="code"><code class="hljs language-c">MPI_Gather(sbuf,…,rbuf,…,<span class="hljs-number">0</span>,comm);
 MPI_Bcast(rbuf,size*rcount,rtype,…,<span class="hljs-number">0</span>,comm);</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i) { <span class="hljs-comment">// all-to-all broadcast</span>
-	<span class="hljs-keyword">if</span> (i==rank) MPI_Bcast(sbuf,…,i,comm);
-	<span class="hljs-keyword">else</span> MPI_Bcast(rbuf+i*rcount*extent(rtype),…,i,comm);
+    <span class="hljs-keyword">if</span> (i==rank) MPI_Bcast(sbuf,…,i,comm);
+    <span class="hljs-keyword">else</span> MPI_Bcast(rbuf+i*rcount*extent(rtype),…,i,comm);
 }
 <span class="hljs-built_in">memcpy</span>(rbuf+rank*rcount*extent(rtype),sbuf,…);</code></pre><p>but performance of library is much better-</p><p>
 It always performs better than
@@ -1475,20 +1475,20 @@ Won’t work if root doesn’t know
 <mark class="highlight-gray"><code>scount</code></mark>
 of other processes.
 </p></div><p></p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">if</span> (rank==root) {
-	MPI_Gatherv(sbuf,…rbuf,rcounts,rdisp,…,comm); <span class="hljs-comment">// rcounts as array</span>
+    MPI_Gatherv(sbuf,…rbuf,rcounts,rdisp,…,comm); <span class="hljs-comment">// rcounts as array</span>
 } <span class="hljs-keyword">else</span> {
-	MPI_Gatherv(sbuf,scount,…,comm); <span class="hljs-comment">// scount</span>
+    MPI_Gatherv(sbuf,scount,…,comm); <span class="hljs-comment">// scount</span>
 }</code></pre><p></p><p>
 Here we use regular gather to gather the
 <mark class="highlight-gray"><code>rcounts</code></mark>
 array from all processes.
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">if</span> (rank==root) {
-	MPI_Gather(scount,<span class="hljs-number">1</span>,MPI_INT,rcounts,<span class="hljs-number">1</span>,MPI_INT,comm);
-	<span class="hljs-comment">// compute displacements</span>
-	MPI_Gatherv(sbuf,…rbuf,rcounts,rdisp,…,comm);
+    MPI_Gather(scount,<span class="hljs-number">1</span>,MPI_INT,rcounts,<span class="hljs-number">1</span>,MPI_INT,comm);
+    <span class="hljs-comment">// compute displacements</span>
+    MPI_Gatherv(sbuf,…rbuf,rcounts,rdisp,…,comm);
 } <span class="hljs-keyword">else</span> {
-	MPI_Gather(scount,<span class="hljs-number">1</span>,MPI_INT,rcounts,<span class="hljs-number">1</span>,MPI_INT,comm);
-	MPI_Gatherv(sbuf,scount,…,comm);
+    MPI_Gather(scount,<span class="hljs-number">1</span>,MPI_INT,rcounts,<span class="hljs-number">1</span>,MPI_INT,comm);
+    MPI_Gatherv(sbuf,scount,…,comm);
 }</code></pre></details></li></ul></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2035.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2035.png" style="width: 192px"/></a></figure><p></p><h2 id="3b2e7c91-3d61-4e14-825b-238e74185fcd">Reduction collectives</h2><p><em><mark class="highlight-blue">About reduction collectives</mark></em></p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">
 Each process has vector of data
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mover accent="true"><mi>x</mi><mo>⃗</mo></mover></mstyle></mrow><annotation encoding="application/x-tex">\small \vec x</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.6426em; vertical-align: 0em"></span><span class="mord accent sizing reset-size6 size5"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.714em"><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="mord mathnormal">x</span></span><span style="top: -2.9em"><span class="pstrut" style="height: 2.9em"></span><span class="accent-body" style="left: -0.20772em"><span class="overlay" style="height: 0.714em; width: 0.471em"><svg height="0.714em" preserveaspectratio="xMinYMin" style="width: 0.471em" viewbox="0 0 471 714" width="0.471em"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
@@ -1578,13 +1578,13 @@ as argument for
 <mark class="highlight-gray"><code>rbuf</code></mark>
 .
 </p><hr/><ul class="toggle"><li><details><summary>Example: Single scalar</summary><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">if</span> (rank==root) {
-	x = rank;
-	MPI_Reduce(&amp;x,&amp;y,<span class="hljs-number">1</span>,MPI_INT,MPI_SUM,root,comm);
-	<span class="hljs-keyword">if</span> (y!=(size*(size<span class="hljs-number">-1</span>))/<span class="hljs-number">2</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error!\n&quot;</span>);
-	<span class="hljs-comment">// y significant at root only</span>
+    x = rank;
+    MPI_Reduce(&amp;x,&amp;y,<span class="hljs-number">1</span>,MPI_INT,MPI_SUM,root,comm);
+    <span class="hljs-keyword">if</span> (y!=(size*(size<span class="hljs-number">-1</span>))/<span class="hljs-number">2</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error!\n&quot;</span>);
+    <span class="hljs-comment">// y significant at root only</span>
 } <span class="hljs-keyword">else</span> {
-	x = rank;
-	MPI_Reduce(&amp;x,&amp;y,<span class="hljs-number">1</span>,MPI_INT,MPI_SUM,root,comm);
+    x = rank;
+    MPI_Reduce(&amp;x,&amp;y,<span class="hljs-number">1</span>,MPI_INT,MPI_SUM,root,comm);
 }</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Example: Ring</summary><p>Root passes vector to next process ... and so on ... until it reaches root again.</p><p><mark class="highlight-teal">Idea</mark></p><div class="indented"><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mi>x</mi><mn>3</mn></msub><mo>+</mo><mo>…</mo><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>y</mi></mstyle></mrow><annotation encoding="application/x-tex">
 \small x_{0}+x_{1}+x_{2}+x_3+\ldots+x_{p-2}+x_{p-1}=y
 </annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6599970000000001em; vertical-align: -0.135em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.599994em; vertical-align: -0.07499700000000001em"></span><span class="minner sizing reset-size6 size5">…</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.776661em; vertical-align: -0.25166400000000005em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">+</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.6391680000000001em; vertical-align: -0.25166400000000005em"></span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span style="top: -2.45em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2796266666666667em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel sizing reset-size6 size5">=</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 0.5625em; vertical-align: -0.174996em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03588em">y</span></span></span></span></span><span>﻿</span></span></p><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mo>…</mo><mo>+</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mi>y</mi></mstyle></mrow><annotation encoding="application/x-tex">
@@ -1622,8 +1622,8 @@ r
 </span><span class="mspace nobreak mtight"><span class="mtight"></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em"><span></span></span></span></span></span><span class="mclose sizing reset-size7 size6 delimcenter" style="top: -0.04999999999999999em"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel sizing reset-size6 size5">=</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">r</span><span class="mclose sizing reset-size6 size5">!</span><span class="mord sizing reset-size6 size5">/</span><span class="mopen sizing reset-size6 size5">((</span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">r</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">−</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03148em">k</span><span class="mclose sizing reset-size6 size5">)!</span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03148em">k</span><span class="mclose sizing reset-size6 size5">!)</span></span></span></span></span><span>﻿</span></span></p></div><p></p><p></p><p><mark class="highlight-teal">Algorithm</mark></p><div class="indented"><pre class="code"><code class="hljs language-c">bit = <span class="hljs-number">0x1</span>;
 
 <span class="hljs-keyword">while</span> ((rank&amp;bit)==<span class="hljs-number">0x0</span> &amp; bit&lt;size) {
-	&lt;receive from rank|bit&gt; <span class="hljs-comment">// bit set</span>
-	bit &lt;&lt;= <span class="hljs-number">1</span>; <span class="hljs-comment">// shift right</span>
+    &lt;receive from rank|bit&gt; <span class="hljs-comment">// bit set</span>
+        bit &lt;&lt;= <span class="hljs-number">1</span>; <span class="hljs-comment">// shift right</span>
 }
 &lt;send to rank | (~bit)&gt; <span class="hljs-comment">// mask out bit</span></code></pre><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2038.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2038.png" style="width: 288px"/></a></figure></div><p></p></details></li></ul></div><p></p><figure class="image"><a href="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2039.png"><img src="MPI%2020fd651f521e4ebebc3762c8dee24adb/Untitled%2039.png" style="width: 84px"/></a></figure><p></p><p><mark class="highlight-blue">Allreduce</mark></p><div class="indented"><pre class="code"><code>MPI_Allreduce(sbuf,rbuf,count,type,op,comm);</code></pre><p>
 Elementwise result stored in

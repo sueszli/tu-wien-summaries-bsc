@@ -652,38 +652,38 @@ endElement: course</code></pre><p>Program consists of 2 classes:</p><div class="
 <span class="hljs-keyword">import</span> org.xml.sax.helpers.*;
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CourseApp</span> {
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
 
-		<span class="hljs-comment">//create XMLReader (parser reads and calls callbacks in handler)</span>
-		<span class="hljs-type">XMLReader</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> XMLReaderFactory.createXMLReader();
+        <span class="hljs-comment">//create XMLReader (parser reads and calls callbacks in handler)</span>
+        <span class="hljs-type">XMLReader</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> XMLReaderFactory.createXMLReader();
 
-		<span class="hljs-comment">//install the content handler</span>
-		<span class="hljs-type">MyHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyHandler</span>();
-		parser.setContentHandler(handler);
-&#9;&#9;
-		<span class="hljs-comment">//start parsinqg</span>
-		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>; i &lt; args.length; i++) {
-			parser.parse(args[i]);
-		}
-	}
+        <span class="hljs-comment">//install the content handler</span>
+        <span class="hljs-type">MyHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyHandler</span>();
+        parser.setContentHandler(handler);
+
+        <span class="hljs-comment">//start parsinqg</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>; i &lt; args.length; i++) {
+            parser.parse(args[i]);
+        }
+    }
 }</code></pre></details></li></ul><ul class="toggle"><li><details><summary><code><mark class="highlight-gray">MyHandler</mark></code></summary><p>contains handlers for 3 kinds of callbacks</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.xml.sax.*;
 <span class="hljs-keyword">import</span> org.xml.sax.helpers.*; <span class="hljs-comment">// implements other methods</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ContentHandler</span> {
 
-	<span class="hljs-comment">//SAX calls this method when it encounters a start tag</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">startElement</span><span class="hljs-params">(String namespaceURI, String localName, String qualifiedName, Attributes atts)</span> <span class="hljs-keyword">throws</span> SAXException {
-		System.out.println(<span class="hljs-string">&quot;startElement: &quot;</span> + qualifiedName);
-	}
+    <span class="hljs-comment">//SAX calls this method when it encounters a start tag</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">startElement</span><span class="hljs-params">(String namespaceURI, String localName, String qualifiedName, Attributes atts)</span> <span class="hljs-keyword">throws</span> SAXException {
+        System.out.println(<span class="hljs-string">&quot;startElement: &quot;</span> + qualifiedName);
+    }
 
-	<span class="hljs-comment">//SAX calls this method to pass in character data</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">characters</span><span class="hljs-params">(<span class="hljs-type">char</span>[] text, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> length)</span> <span class="hljs-keyword">throws</span> SAXException {
-		System.out.println(<span class="hljs-string">&quot;characters: &quot;</span> + <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(text, start, length));
-	}
+    <span class="hljs-comment">//SAX calls this method to pass in character data</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">characters</span><span class="hljs-params">(<span class="hljs-type">char</span>[] text, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> length)</span> <span class="hljs-keyword">throws</span> SAXException {
+        System.out.println(<span class="hljs-string">&quot;characters: &quot;</span> + <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(text, start, length));
+    }
 
-	<span class="hljs-comment">//SAX calls this method when it encounters an end tag</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">endElement</span><span class="hljs-params">(String namespaceURI, String localName, String qualifiedName)</span> <span class="hljs-keyword">throws</span> SAXException {
-		System.out.println(<span class="hljs-string">&quot;endElement: &quot;</span> + qualifiedName);
-	}
+    <span class="hljs-comment">//SAX calls this method when it encounters an end tag</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">endElement</span><span class="hljs-params">(String namespaceURI, String localName, String qualifiedName)</span> <span class="hljs-keyword">throws</span> SAXException {
+        System.out.println(<span class="hljs-string">&quot;endElement: &quot;</span> + qualifiedName);
+    }
 }</code></pre><p>
 Use the default-handler package
 <mark class="highlight-gray"><code>org.xml.sax.helpers.*</code></mark><mark class="highlight-gray"></mark>
@@ -727,79 +727,79 @@ https://docs.oracle.com/javase/8/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 <span class="hljs-tag">&lt;/<span class="hljs-name">products</span>&gt;</span></code></pre></details></li></ul><ul class="toggle"><li><details><summary>Output</summary><pre class="code"><code>Total value of Product A: 1900
 Total value of Product D: 1300</code></pre></details></li></ul><p>Handler:</p><div class="indented"><ul class="toggle"><li><details><summary><code><mark class="highlight-gray">TopProducts</mark></code></summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.xml.sax.*;
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TopProducts</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">DefaultHandler</span> {
-	String eleText;
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">level</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    String eleText;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">level</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">startElement</span><span class="hljs-params">(String namespaceURI, String localName, String qName, Attributes atts)</span> <span class="hljs-keyword">throws</span> SAXException {
-		<span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;product&quot;</span>.equals(localName)) {
-			level++;
-		}
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">startElement</span><span class="hljs-params">(String namespaceURI, String localName, String qName, Attributes atts)</span> <span class="hljs-keyword">throws</span> SAXException {
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;product&quot;</span>.equals(localName)) {
+            level++;
+        }
+    }
 
-	<span class="hljs-comment">//  SAX calls this method to pass in character data</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">characters</span><span class="hljs-params">(<span class="hljs-type">char</span>[] text, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> length)</span> <span class="hljs-keyword">throws</span> SAXException {
-		eleText = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(text, start, length);
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">endElement</span><span class="hljs-params">(String namespaceURI, String localName, String qName)</span> <span class="hljs-keyword">throws</span> SAXException {
-		<span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;name&quot;</span>.equals(localName) &amp;&amp; level == <span class="hljs-number">1</span>) {
-			System.out.print(<span class="hljs-string">&quot;Total value of &quot;</span> + eleText + <span class="hljs-string">&quot;: &quot;</span>);
-		}
-		<span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;value&quot;</span>.equals(localName)) {
-			value += Integer.parseInt(eleText);
-		}
-		<span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;product&quot;</span>.equals(localName)) {
-			level--;
-			<span class="hljs-keyword">if</span> (level == <span class="hljs-number">0</span>) {
-				System.out.println(value);
-				value = <span class="hljs-number">0</span>;
-			}
-	}
+    <span class="hljs-comment">//  SAX calls this method to pass in character data</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">characters</span><span class="hljs-params">(<span class="hljs-type">char</span>[] text, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> length)</span> <span class="hljs-keyword">throws</span> SAXException {
+        eleText = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(text, start, length);
+    }
 
-}</code></pre></details></li></ul></div><p></p></div><p></p><p></p><p></p><h1 id="30fc3978-b260-4fb6-b3c4-fa49312d389e">Error Handling</h1><p>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">endElement</span><span class="hljs-params">(String namespaceURI, String localName, String qName)</span> <span class="hljs-keyword">throws</span> SAXException {
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;name&quot;</span>.equals(localName) &amp;&amp; level == <span class="hljs-number">1</span>) {
+            System.out.print(<span class="hljs-string">&quot;Total value of &quot;</span> + eleText + <span class="hljs-string">&quot;: &quot;</span>);
+        }
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;value&quot;</span>.equals(localName)) {
+            value += Integer.parseInt(eleText);
+        }
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;product&quot;</span>.equals(localName)) {
+            level--;
+            <span class="hljs-keyword">if</span> (level == <span class="hljs-number">0</span>) {
+                System.out.println(value);
+                value = <span class="hljs-number">0</span>;
+            }
+        }
+
+    }</code></pre></details></li></ul></div><p></p></div><p></p><p></p><p></p><h1 id="30fc3978-b260-4fb6-b3c4-fa49312d389e">Error Handling</h1><p>
 Programming an
 <mark class="highlight-gray"><code>ErrorHandler</code></mark>
 to handle parsing errors (otherwise parsing errors will be ignored).
 </p><p>Example:</p><div class="indented"><ul class="toggle"><li><details><summary>Installing error handler</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.xml.sax.*;
 <span class="hljs-keyword">import</span> org.xml.sax.helpers.*;
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CourseApp</span> {
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
-&#9;&#9;
-		<span class="hljs-comment">//create XMLReader</span>
-		<span class="hljs-type">XMLReader</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> XMLReaderFactory.createXMLReader();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
 
-		<span class="hljs-comment">//install the content and error handler</span>
-		<span class="hljs-type">MyHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyHandler</span>();
-		parser.setContentHandler(handler);
-		parser.setErrorHandler(handler); <span class="hljs-comment">// &lt;------</span>
+        <span class="hljs-comment">//create XMLReader</span>
+        <span class="hljs-type">XMLReader</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> XMLReaderFactory.createXMLReader();
 
-		<span class="hljs-comment">//start parsing</span>
-		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>; i &lt; args.length; i++) {
-			parser.parse(args[i]);
-		}
-	}
+        <span class="hljs-comment">//install the content and error handler</span>
+        <span class="hljs-type">MyHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyHandler</span>();
+        parser.setContentHandler(handler);
+        parser.setErrorHandler(handler); <span class="hljs-comment">// &lt;------</span>
+
+        <span class="hljs-comment">//start parsing</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>; i &lt; args.length; i++) {
+            parser.parse(args[i]);
+        }
+    }
 }</code></pre></details></li></ul><ul class="toggle"><li><details><summary>Implementing methods</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.xml.sax.*;
 <span class="hljs-keyword">import</span> org.xml.sax.helpers.*;
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyHandler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">DefaultHandler</span> {
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">fatalError</span><span class="hljs-params">(SAXParseException ex)</span> <span class="hljs-keyword">throws</span> SAXException {
-		printError(<span class="hljs-string">&quot;FATAL ERROR&quot;</span>, ex)
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">fatalError</span><span class="hljs-params">(SAXParseException ex)</span> <span class="hljs-keyword">throws</span> SAXException {
+        printError(<span class="hljs-string">&quot;FATAL ERROR&quot;</span>, ex)
+    }
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">error</span><span class="hljs-params">(SAXParseException ex)</span> <span class="hljs-keyword">throws</span> SAXException {
-		printError(<span class="hljs-string">&quot;ERROR&quot;</span>, ex)
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">error</span><span class="hljs-params">(SAXParseException ex)</span> <span class="hljs-keyword">throws</span> SAXException {
+        printError(<span class="hljs-string">&quot;ERROR&quot;</span>, ex)
+    }
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">warning</span><span class="hljs-params">(SAXParseException ex)</span> <span class="hljs-keyword">throws</span> SAXException {
-		printError(<span class="hljs-string">&quot;WARNING&quot;</span>, ex)
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">warning</span><span class="hljs-params">(SAXParseException ex)</span> <span class="hljs-keyword">throws</span> SAXException {
+        printError(<span class="hljs-string">&quot;WARNING&quot;</span>, ex)
+    }
 
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printError</span><span class="hljs-params">(String err, SAXParseException ex)</span> {
-		System.out.printf(<span class="hljs-string">&quot;%s at %3d, %3d: %s \n&quot;</span>, err, ex.getLineNumber(), ex.getColumnNumber(),
-		ex.getMessage());
-	}
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printError</span><span class="hljs-params">(String err, SAXParseException ex)</span> {
+        System.out.printf(<span class="hljs-string">&quot;%s at %3d, %3d: %s \n&quot;</span>, err, ex.getLineNumber(), ex.getColumnNumber(),
+                          ex.getMessage());
+    }
 }</code></pre></details></li></ul></div><p></p><p></p><p><mark class="highlight-blue">ErrorHandler Methods</mark></p><div class="indented"><p><mark class="highlight-gray"><code>public void fatalError(SAXParseException ex) throws SAXException</code></mark><mark class="highlight-gray"></mark>
 → well-formedness error
 </p><p><mark class="highlight-gray"><code>public void error(SAXParseException ex) throws SAXException</code></mark><mark class="highlight-gray"></mark>
@@ -811,23 +811,23 @@ Used to configure parser with:
 <mark class="highlight-gray"><code>setFeature(java.lang.String name, boolean value)</code></mark></p><ul class="block-color-gray toggle"><li><details><summary>Example</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.xml.sax.*;
 <span class="hljs-keyword">import</span> org.xml.sax.helpers.*;
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CourseApp</span> {
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
-		<span class="hljs-comment">//create XMLReader</span>
-		<span class="hljs-type">XMLReader</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> XMLReaderFactory.createXMLReader();
-&#9;
-		<span class="hljs-comment">//install the content and error handler</span>
-		<span class="hljs-type">MyHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyHandler</span>();
-		parser.setContentHandler(handler);
-		parser.setErrorHandler(handler);
-&#9;
-		<span class="hljs-comment">//turn on validation</span>
-		parser.setFeature(<span class="hljs-string">&quot;http://xml.org/sax/features/validation&quot;</span>, <span class="hljs-literal">true</span>);
-&#9;
-		<span class="hljs-comment">//start parsing</span>
-		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>; i &lt; args.length; i++) {
-			parser.parse(args[i]);
-		}
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+        <span class="hljs-comment">//create XMLReader</span>
+        <span class="hljs-type">XMLReader</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> XMLReaderFactory.createXMLReader();
+
+        <span class="hljs-comment">//install the content and error handler</span>
+        <span class="hljs-type">MyHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyHandler</span>();
+        parser.setContentHandler(handler);
+        parser.setErrorHandler(handler);
+
+        <span class="hljs-comment">//turn on validation</span>
+        parser.setFeature(<span class="hljs-string">&quot;http://xml.org/sax/features/validation&quot;</span>, <span class="hljs-literal">true</span>);
+
+        <span class="hljs-comment">//start parsing</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>; i &lt; args.length; i++) {
+            parser.parse(args[i]);
+        }
+    }
 }</code></pre></details></li></ul><hr/><p>can throw 2 exceptions:</p><div class="indented"><p><mark class="highlight-gray"><code>SAXNotRecognizedException</code></mark>
 - if feature can not be assigned
 </p><div class="indented"><p>ie. turn on validation in a non-validating parser</p></div><p></p><p><mark class="highlight-gray"><code>SAXNotSupportedException</code></mark>

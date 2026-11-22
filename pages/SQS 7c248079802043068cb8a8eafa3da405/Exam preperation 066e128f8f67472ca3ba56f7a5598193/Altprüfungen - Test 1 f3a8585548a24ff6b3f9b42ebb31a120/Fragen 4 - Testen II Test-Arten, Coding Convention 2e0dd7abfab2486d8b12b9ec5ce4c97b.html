@@ -632,22 +632,22 @@ Testfälle sind isoliert
 <p>keine Abhängigkeiten zueinander: Jeder Testfall bereitet eigene Daten vor, räumt sie auf</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Keine Logik in Tests (Abfragen, Schleifen, try/catch)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">
 Jeder Testfall testet nur einen Aspekt bzw Zustand
 <p>Nur ein Testfall per Methode</p><p>Keine Zufallsdaten sondern Äquivalenzklassen</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Namenskonventionen einhalten</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Verständliche Fehlermeldungen bei Assertions</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Klassen und Testklassen liegen im selben Package</li></ul><p></p></details></li></ul><ul class="toggle"><li><details><summary>Ist es möglich den White Box Test mit JUnit Framework durchzuführen. Wie?</summary><p>Ja - Dazu schreibt man Tests, die beispielsweise alle Bedingungen oder Kanten in einer Komponente explizit durchlaufen.</p></details></li></ul><p></p><p><mark class="highlight-blue">JUnit</mark></p><ul class="toggle"><li><details><summary>Livecycle Methoden</summary><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">StandardTest</span> {
-&#9;
-	<span class="hljs-meta">@BeforeAll</span>
-	<span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initAll</span><span class="hljs-params">()</span> {...}
-&#9;
-	<span class="hljs-meta">@AfterAll</span>
-	<span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDownAll</span><span class="hljs-params">()</span> {...}
-&#9;
-	<span class="hljs-meta">@BeforeEach</span>
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> {...}
-&#9;
-	<span class="hljs-meta">@AfterEach</span>
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDown</span><span class="hljs-params">()</span> {...}
-&#9;
-	<span class="hljs-meta">@Test</span>
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldDoSomething</span><span class="hljs-params">()</span> {...}
-}</code></pre><p><mark class="highlight-gray"><code>@BeforeClass</code></mark>
+
+    <span class="hljs-meta">@BeforeAll</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initAll</span><span class="hljs-params">()</span> {...}
+
+    <span class="hljs-meta">@AfterAll</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDownAll</span><span class="hljs-params">()</span> {...}
+
+    <span class="hljs-meta">@BeforeEach</span>
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> {...}
+
+    <span class="hljs-meta">@AfterEach</span>
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">tearDown</span><span class="hljs-params">()</span> {...}
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testAdd_shouldDoSomething</span><span class="hljs-params">()</span> {...}
+    }</code></pre><p><mark class="highlight-gray"><code>@BeforeClass</code></mark>
 wird einmal bei der Initialisierung der Klasse ausgeführt.
 </p><p><mark class="highlight-gray"><code>@AfterClass</code></mark>
 wird einmal vor verlassen der Klasse ausgeführt

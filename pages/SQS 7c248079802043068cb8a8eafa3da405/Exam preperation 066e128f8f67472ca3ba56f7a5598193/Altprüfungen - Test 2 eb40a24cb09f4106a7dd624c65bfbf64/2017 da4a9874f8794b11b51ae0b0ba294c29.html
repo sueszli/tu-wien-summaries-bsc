@@ -620,53 +620,53 @@ Anonymer Kunde
 		&gt;=8 Punkte -&gt; Einkaufssumme +0 EUR, +0 Punkte
 		&lt;8 Punkte -&gt; Einkaufssumme +0 EUR, +0 Punkte</code></pre><p class="block-color-gray"><mark class="highlight-gray">Zwei wichtige Testfälle (Grenzfälle)</mark></p><div class="indented"><ol class="numbered-list" start="1" type="1"><li><mark class="highlight-gray"><code>10€, 7 Punkte</code></mark></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-gray"><code>11€, 9 Punkte</code></mark></li></ol></div><p></p><p></p><p></p><h1>Mocking möglich?</h1><p>Kann für die folgende Klasse ein Integrationstest mit Hilfe von Mocking durchgeführt werden?</p><p>Begründen Sie Ihre Antwort ausführlich.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MoneyTransferService</span> {
 
-	<span class="hljs-keyword">private</span> BankService bs;
+    <span class="hljs-keyword">private</span> BankService bs;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setBankService</span><span class="hljs-params">(BankService bs)</span> { <span class="hljs-built_in">this</span>.bs = bs; }
-&#9;
-	<span class="hljs-keyword">public</span> MoneyTransferResult <span class="hljs-title function_">transferMoney</span><span class="hljs-params">(String ibanFrom, String ibanTo, <span class="hljs-type">int</span> amount)</span> {
-		<span class="hljs-built_in">this</span>.bs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleBankService</span>();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setBankService</span><span class="hljs-params">(BankService bs)</span> { <span class="hljs-built_in">this</span>.bs = bs; }
 
-		<span class="hljs-keyword">if</span> (!isValid(ibanFrom)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvalidIbanException</span> (<span class="hljs-string">&quot;Invalid from IBAN&quot;</span>) ;
-		<span class="hljs-keyword">if</span>(!isValid(ibanTo)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvalidIbanException</span>(<span class="hljs-string">&quot;Invalid to IBAN&quot;</span>);
-		<span class="hljs-keyword">if</span> (amount &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvalidAmountException</span>(<span class="hljs-string">&quot;Amount must be positive&quot;</span>) ;
-&#9;&#9;
-		<span class="hljs-keyword">return</span> bs.transter(ibanFrom, ibanTo, amount);
-	}
+    <span class="hljs-keyword">public</span> MoneyTransferResult <span class="hljs-title function_">transferMoney</span><span class="hljs-params">(String ibanFrom, String ibanTo, <span class="hljs-type">int</span> amount)</span> {
+        <span class="hljs-built_in">this</span>.bs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleBankService</span>();
+
+        <span class="hljs-keyword">if</span> (!isValid(ibanFrom)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvalidIbanException</span> (<span class="hljs-string">&quot;Invalid from IBAN&quot;</span>) ;
+        <span class="hljs-keyword">if</span>(!isValid(ibanTo)) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvalidIbanException</span>(<span class="hljs-string">&quot;Invalid to IBAN&quot;</span>);
+        <span class="hljs-keyword">if</span> (amount &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvalidAmountException</span>(<span class="hljs-string">&quot;Amount must be positive&quot;</span>) ;
+
+        <span class="hljs-keyword">return</span> bs.transter(ibanFrom, ibanTo, amount);
+    }
 
 }</code></pre><p class="block-color-gray"><mark class="highlight-gray">Nein:</mark></p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
 Mocks sollen nur bei Komponententests eingesetzt werden, nicht bei Integrationtests.
 <p><mark class="highlight-gray">Bei Integrationtests würden Mocks keinen Sinn machen.</mark></p></li></ol><ol class="numbered-list" start="2" type="1"><li><mark class="highlight-gray">Die setter Methode wird eigentlich ignoriert, da wir bei</mark><code><mark class="highlight-gray">transferMoney</mark></code><mark class="highlight-gray">jedes Mal die Objektvariable</mark><code><mark class="highlight-gray">bs</mark></code><mark class="highlight-gray">neu initialisieren.</mark><p>Deshalb könnten wir den begangenen Pfad der Klasse nicht ändern.</p></li></ol><p></p></div><p></p><p></p><h1>Review für JUnit4 Testfälle</h1><p>Hinweis: Mehrfache Fehler vom selben Typ dürfen nicht mehrfach gezählt werden.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SetTest</span> {
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Set&lt;Integer&gt; integersSet;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Set&lt;Integer&gt; integersSet;
 
-	<span class="hljs-meta">@BeforeClass</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setUp</span><span class="hljs-params">()</span> {
-		integersSet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();
-		integersSet.add(<span class="hljs-number">1</span>);
-		integersSet.add(<span class="hljs-number">2</span>);
-		integersSet.add(<span class="hljs-number">3</span>);
-	}
+    <span class="hljs-meta">@BeforeClass</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setUp</span><span class="hljs-params">()</span> {
+        integersSet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();
+        integersSet.add(<span class="hljs-number">1</span>);
+        integersSet.add(<span class="hljs-number">2</span>);
+        integersSet.add(<span class="hljs-number">3</span>);
+    }
 
-	<span class="hljs-meta">@Test</span> <span class="hljs-comment">// (1)</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSetDoesSomethingShouldFail</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">assert</span>(!integersSet.remove(<span class="hljs-number">3</span>));
-	}
+    <span class="hljs-meta">@Test</span> <span class="hljs-comment">// (1)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSetDoesSomethingShouldFail</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">assert</span>(!integersSet.remove(<span class="hljs-number">3</span>));
+    }
 
-	<span class="hljs-meta">@Test</span> <span class="hljs-comment">// (2)</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setRemoveShouldReturnTrueIfELementIsRemoved</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>; i&lt;=<span class="hljs-number">3</span>; i++) {
-			<span class="hljs-keyword">if</span>(!integersSet.remove(i))
-				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(<span class="hljs-string">&quot;Failed to remove value from set&quot;</span>);
-		}
-	}
+    <span class="hljs-meta">@Test</span> <span class="hljs-comment">// (2)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setRemoveShouldReturnTrueIfELementIsRemoved</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>; i&lt;=<span class="hljs-number">3</span>; i++) {
+            <span class="hljs-keyword">if</span>(!integersSet.remove(i))
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(<span class="hljs-string">&quot;Failed to remove value from set&quot;</span>);
+        }
+    }
 
-	<span class="hljs-meta">@Test(expected = IllegalStateException.class)</span> <span class="hljs-comment">// (3)</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addingExistingElementToSetShouldEnsureElementExistsOnlyOnce</span><span class="hljs-params">()</span> {
-		integersSet.add(<span class="hljs-number">1</span>);
-		integersSet.remove(<span class="hljs-number">1</span>);
-		<span class="hljs-keyword">if</span>(!integersSet.remove(<span class="hljs-number">1</span>))
-			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(<span class="hljs-string">&quot;Failed to remove value from set&quot;</span>);&#9;
-	}
+    <span class="hljs-meta">@Test(expected = IllegalStateException.class)</span> <span class="hljs-comment">// (3)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addingExistingElementToSetShouldEnsureElementExistsOnlyOnce</span><span class="hljs-params">()</span> {
+        integersSet.add(<span class="hljs-number">1</span>);
+        integersSet.remove(<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">if</span>(!integersSet.remove(<span class="hljs-number">1</span>))
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(<span class="hljs-string">&quot;Failed to remove value from set&quot;</span>);&#9;
+    }
 }</code></pre><p class="block-color-gray"><mark class="highlight-gray">Fehler:</mark></p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
 Keine Testisolation
 <p>alle Tests greifen auf die selbe Datenstruktur zu.</p><p>Wir wissen nicht in welcher Reihenfolge die Tests ausgeführt werden - es gibt Abhängigkeiten zwischen den Tests.</p></li></ol><ol class="numbered-list" start="2" type="1"><li>
@@ -678,99 +678,99 @@ Bei der Klasse
 <mark class="highlight-gray"><code>AlarmService</code></mark><mark class="highlight-gray"></mark>
 handelt es sich um ein Service, dass in einem gegebenen Zeitintervall eine Alarmanlage aktiviert.
 </p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Clock</span> {
-	<span class="hljs-comment">// throws IllegalArgumentException if timeZoneOffset is not in range [+-24]</span>
-	Integer <span class="hljs-title function_">getDayTimeInMillis</span><span class="hljs-params">(Integer timeZoneOffset)</span> <span class="hljs-keyword">throws</span> IllegalArgumentException;
+    <span class="hljs-comment">// throws IllegalArgumentException if timeZoneOffset is not in range [+-24]</span>
+    Integer <span class="hljs-title function_">getDayTimeInMillis</span><span class="hljs-params">(Integer timeZoneOffset)</span> <span class="hljs-keyword">throws</span> IllegalArgumentException;
 }
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">AlarmService</span> {
-	<span class="hljs-keyword">private</span> Clock clock;
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setClock</span><span class="hljs-params">(Clock clock)</span> { <span class="hljs-built_in">this</span>.clock = clock; }&#9;
+    <span class="hljs-keyword">private</span> Clock clock;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAlarmActive</span><span class="hljs-params">(<span class="hljs-type">int</span> startHour, <span class="hljs-type">int</span> endHour, <span class="hljs-type">boolean</span> daylightSaving)</span> {
-		<span class="hljs-type">Integer</span> <span class="hljs-variable">dayTime</span> <span class="hljs-operator">=</span> clock.getDayTimeInMillis(daylightSaving?<span class="hljs-number">1</span>:<span class="hljs-number">0</span>)/<span class="hljs-number">1000</span>/<span class="hljs-number">60</span>/<span class="hljs-number">60</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setClock</span><span class="hljs-params">(Clock clock)</span> { <span class="hljs-built_in">this</span>.clock = clock; }&#9;
 
-		<span class="hljs-keyword">if</span>(startHour &lt;= endHour)
-			<span class="hljs-keyword">return</span> (dayTime &gt;= startHour) &amp;&amp; (dayTime &lt;= endHour);
-		<span class="hljs-keyword">else</span>
-			<span class="hljs-keyword">return</span> (dayTime &lt;= startHour) &amp;&amp; (dayTime &gt;= endHour);
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAlarmActive</span><span class="hljs-params">(<span class="hljs-type">int</span> startHour, <span class="hljs-type">int</span> endHour, <span class="hljs-type">boolean</span> daylightSaving)</span> {
+        <span class="hljs-type">Integer</span> <span class="hljs-variable">dayTime</span> <span class="hljs-operator">=</span> clock.getDayTimeInMillis(daylightSaving?<span class="hljs-number">1</span>:<span class="hljs-number">0</span>)/<span class="hljs-number">1000</span>/<span class="hljs-number">60</span>/<span class="hljs-number">60</span>;
+
+        <span class="hljs-keyword">if</span>(startHour &lt;= endHour)
+            <span class="hljs-keyword">return</span> (dayTime &gt;= startHour) &amp;&amp; (dayTime &lt;= endHour);
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> (dayTime &lt;= startHour) &amp;&amp; (dayTime &gt;= endHour);
+    }
 }</code></pre><p></p><p>
 Testen Sie die Methode
 <mark class="highlight-gray"><code>isAlarmActive</code></mark><mark class="highlight-gray"></mark>
 indem Sie die folgenden Testfälle in JUnit Syntax mit mocking implementieren (ohne Mocking Framework).
 </p><div class="indented"><ol class="numbered-list" start="1" type="a"><li><mark class="highlight-gray"><code>startHour = 20, endHour = 6, daylightSaving = false, result = true</code></mark></li></ol><ol class="numbered-list" start="2" type="a"><li><mark class="highlight-gray"><code>startHour = 8, endHour = 16, daylightSaving = true, result = false</code></mark></li></ol></div><p></p><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AlarmTest</span> {
-	<span class="hljs-keyword">public</span> MockClock mc;
-	<span class="hljs-keyword">public</span> AlarmService as;
+    <span class="hljs-keyword">public</span> MockClock mc;
+    <span class="hljs-keyword">public</span> AlarmService as;
 
-	<span class="hljs-meta">@BeforeAll</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> {
-		<span class="hljs-type">AlarmService</span> <span class="hljs-variable">as</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AlarmService</span>();
-		<span class="hljs-type">Clock</span> <span class="hljs-variable">mc</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MockClock</span>();
-		as.setClock(mc);
-	}
+    <span class="hljs-meta">@BeforeAll</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> {
+        <span class="hljs-type">AlarmService</span> <span class="hljs-variable">as</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AlarmService</span>();
+        <span class="hljs-type">Clock</span> <span class="hljs-variable">mc</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MockClock</span>();
+        as.setClock(mc);
+    }
 
-	<span class="hljs-meta">@Test</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testIsAlarmActive_shouldReturnTrueWithMock</span><span class="hljs-params">()</span> {
-		mc.setTime(<span class="hljs-number">16</span>); <span class="hljs-comment">// getDayTimeInMillis() always returns 16</span>
-		assertTrue(as.isAlarmActive(<span class="hljs-number">20</span>,<span class="hljs-number">6</span>,<span class="hljs-literal">false</span>));
-	}
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testIsAlarmActive_shouldReturnTrueWithMock</span><span class="hljs-params">()</span> {
+        mc.setTime(<span class="hljs-number">16</span>); <span class="hljs-comment">// getDayTimeInMillis() always returns 16</span>
+        assertTrue(as.isAlarmActive(<span class="hljs-number">20</span>,<span class="hljs-number">6</span>,<span class="hljs-literal">false</span>));
+    }
 
-	<span class="hljs-meta">@Test</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testIsAlarmActive_shouldReturnFalseWithMock</span><span class="hljs-params">()</span> {
-		mc.setTime(<span class="hljs-number">16</span>); <span class="hljs-comment">// getDayTimeInMillis() always returns 16</span>
-		assertFalse(as.isAlarmActive(<span class="hljs-number">8</span>,<span class="hljs-number">16</span>,<span class="hljs-literal">true</span>));
-	}
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testIsAlarmActive_shouldReturnFalseWithMock</span><span class="hljs-params">()</span> {
+        mc.setTime(<span class="hljs-number">16</span>); <span class="hljs-comment">// getDayTimeInMillis() always returns 16</span>
+        assertFalse(as.isAlarmActive(<span class="hljs-number">8</span>,<span class="hljs-number">16</span>,<span class="hljs-literal">true</span>));
+    }
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MockClock</span> {
-	<span class="hljs-keyword">private</span> Integer time;
+    <span class="hljs-keyword">private</span> Integer time;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTime</span><span class="hljs-params">(Integer time)</span> { <span class="hljs-built_in">this</span>.time = time; }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTime</span><span class="hljs-params">(Integer time)</span> { <span class="hljs-built_in">this</span>.time = time; }
 
-	<span class="hljs-keyword">public</span> Integer <span class="hljs-title function_">getDayTimeInMillis</span><span class="hljs-params">(Integer timeZoneOffset)</span> <span class="hljs-keyword">throws</span> IllegalArgumentException {
-		<span class="hljs-keyword">if</span> (time == <span class="hljs-literal">null</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>;
-		<span class="hljs-keyword">if</span> (timeZoneOffset &gt; <span class="hljs-number">24</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>;
-		<span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.time;
-	}
+    <span class="hljs-keyword">public</span> Integer <span class="hljs-title function_">getDayTimeInMillis</span><span class="hljs-params">(Integer timeZoneOffset)</span> <span class="hljs-keyword">throws</span> IllegalArgumentException {
+        <span class="hljs-keyword">if</span> (time == <span class="hljs-literal">null</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>;
+        <span class="hljs-keyword">if</span> (timeZoneOffset &gt; <span class="hljs-number">24</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.time;
+    }
 }</code></pre><p></p><p></p><h1>JUnit implementieren</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyMapInterface</span> {
-	<span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
+    <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
 
-	<span class="hljs-comment">// to be tested ::</span>
-	Integer <span class="hljs-title function_">remove</span><span class="hljs-params">(String name)</span> <span class="hljs-keyword">throws</span> NoSuchElementException;
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">removeAll</span><span class="hljs-params">()</span>;
-	<span class="hljs-comment">// :: to be tested</span>
+    <span class="hljs-comment">// to be tested ::</span>
+    Integer <span class="hljs-title function_">remove</span><span class="hljs-params">(String name)</span> <span class="hljs-keyword">throws</span> NoSuchElementException;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeAll</span><span class="hljs-params">()</span>;
+    <span class="hljs-comment">// :: to be tested</span>
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MapTest</span> {
-	<span class="hljs-keyword">private</span> MyMap&lt;String, Integer&gt; map;
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">NAME_1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Jane&quot;</span>;
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">NAME_2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;John&quot;</span>;
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Integer</span> <span class="hljs-variable">AGE_1</span> <span class="hljs-operator">=</span> <span class="hljs-number">25</span>;
-	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Integer</span> <span class="hljs-variable">AGE_2</span> <span class="hljs-operator">=</span> <span class="hljs-number">26</span>;
-&#9;
-	<span class="hljs-meta">@Before</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> {
-		map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyMap</span>&lt;&gt;();
-		map.put(NAME_1, AGE_1);
-		map.put(NAME_2, AGE_2);
-	}
+    <span class="hljs-keyword">private</span> MyMap&lt;String, Integer&gt; map;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">NAME_1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Jane&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">NAME_2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;John&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Integer</span> <span class="hljs-variable">AGE_1</span> <span class="hljs-operator">=</span> <span class="hljs-number">25</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Integer</span> <span class="hljs-variable">AGE_2</span> <span class="hljs-operator">=</span> <span class="hljs-number">26</span>;
 
-	<span class="hljs-meta">@Test</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeCorrectValueForGivenKey</span><span class="hljs-params">()</span> {
-		map.put(<span class="hljs-string">&quot;TestVal&quot;</span>, <span class="hljs-number">42</span>); <span class="hljs-comment">// tested seperately</span>
-		assertEquals(map.remove(<span class="hljs-string">&quot;TestVal&quot;</span>), <span class="hljs-number">42</span>);
-	}
+    <span class="hljs-meta">@Before</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setup</span><span class="hljs-params">()</span> {
+        map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyMap</span>&lt;&gt;();
+        map.put(NAME_1, AGE_1);
+        map.put(NAME_2, AGE_2);
+    }
 
-	<span class="hljs-meta">@Test</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeShouldFailWhenKeyDoesNotExist</span><span class="hljs-params">()</span> {
-		map.removeAll(); <span class="hljs-comment">// tested seperately</span>
-		assertThrows(NoSuchElementException.class, () -&gt; map.remove(<span class="hljs-string">&quot;non-existent-entry&quot;</span>));
-	}
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeCorrectValueForGivenKey</span><span class="hljs-params">()</span> {
+        map.put(<span class="hljs-string">&quot;TestVal&quot;</span>, <span class="hljs-number">42</span>); <span class="hljs-comment">// tested seperately</span>
+        assertEquals(map.remove(<span class="hljs-string">&quot;TestVal&quot;</span>), <span class="hljs-number">42</span>);
+    }
 
-	<span class="hljs-meta">@Test</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeAllShouldRemoveAllElements</span><span class="hljs-params">()</span> {
-		map.put(<span class="hljs-string">&quot;TestVal&quot;</span>, <span class="hljs-number">42</span>); <span class="hljs-comment">// tested seperately</span>
-		assertTrue(map.size() != <span class="hljs-number">0</span>)
-		map.removeAll();
-		assertTrue(map.size() == <span class="hljs-number">0</span>)&#9;&#9;
-	}
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeShouldFailWhenKeyDoesNotExist</span><span class="hljs-params">()</span> {
+        map.removeAll(); <span class="hljs-comment">// tested seperately</span>
+        assertThrows(NoSuchElementException.class, () -&gt; map.remove(<span class="hljs-string">&quot;non-existent-entry&quot;</span>));
+    }
+
+    <span class="hljs-meta">@Test</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeAllShouldRemoveAllElements</span><span class="hljs-params">()</span> {
+        map.put(<span class="hljs-string">&quot;TestVal&quot;</span>, <span class="hljs-number">42</span>); <span class="hljs-comment">// tested seperately</span>
+        assertTrue(map.size() != <span class="hljs-number">0</span>)
+            map.removeAll();
+        assertTrue(map.size() == <span class="hljs-number">0</span>)&#9;&#9;
+    }
 }</code></pre><p><mark class="highlight-gray">
 Ich habe mich bemüht nicht die bestehenden Datensätze zu nutzen, um möglichst hohe Testisolation zuh ermöglichen.
 </mark></p></div></article></body></html>

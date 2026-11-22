@@ -619,14 +619,14 @@ We can climb up with
 Host: example.com</code></pre><p></p><p><mark class="highlight-teal">Prevention: Defense in Depth</mark><mark class="highlight-gray">(choose multiple defense mechanisms)</mark></p><ol class="numbered-list" start="1" type="1"><li>Not using user controlled input for filenames</li></ol><ol class="numbered-list" start="2" type="1"><li>
 Validating, filtering user input
 <p>only allow file names from static list</p><p>compare them with canonical path</p><ul class="block-color-gray toggle"><li><details><summary>example</summary><pre class="code"><code class="hljs language-php"><span class="hljs-meta">&lt;?php</span>
-	<span class="hljs-variable">$pdir</span> = <span class="hljs-string">&quot;/var/www/html/pages/&quot;</span>;
-	<span class="hljs-variable">$file</span> = <span class="hljs-title function_ invoke__">realpath</span>(<span class="hljs-variable">$pdir</span> . <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;file&quot;</span>]); &lt;- concatenates user input to path
-&#9;&#32;
-	<span class="hljs-keyword">if</span> (<span class="hljs-variable">$file</span> !== <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-title function_ invoke__">strncmp</span>(<span class="hljs-variable">$file</span>, <span class="hljs-variable">$pdir</span>, <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$pdir</span>)) === <span class="hljs-number">0</span>) { &lt;- canonical path
-		<span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file</span>);
-	} <span class="hljs-keyword">else</span> {
-		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Error: invalid input&quot;</span>;
-	}
+    <span class="hljs-variable">$pdir</span> = <span class="hljs-string">&quot;/var/www/html/pages/&quot;</span>;
+    <span class="hljs-variable">$file</span> = <span class="hljs-title function_ invoke__">realpath</span>(<span class="hljs-variable">$pdir</span> . <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;file&quot;</span>]); &lt;- concatenates user input to path
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$file</span> !== <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-title function_ invoke__">strncmp</span>(<span class="hljs-variable">$file</span>, <span class="hljs-variable">$pdir</span>, <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$pdir</span>)) === <span class="hljs-number">0</span>) { &lt;- canonical path
+        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file</span>);
+} <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Error: invalid input&quot;</span>;
+}
 <span class="hljs-meta">?&gt;</span></code></pre></details></li></ul></li></ol><ol class="numbered-list" start="3" type="1"><li>
 Reduced web server privileges
 <ul class="bulleted-list"><li style="list-style-type: disc">Restrict access of web server to its own directory</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Sandbox environments to enforce boundary between web server and the OS</li></ul></li></ol><p></p><h1 id="bd744923-278a-4a1b-84c6-426cc7cad7a1">Remote Code Execution RCE</h1><p>Code &amp; Command injection</p><p><mark class="highlight-teal">Vulnerable code</mark></p><p>Most languages have functions to execute system commands</p><p><mark class="highlight-gray"><code>system()</code></mark><mark class="highlight-gray"></mark>

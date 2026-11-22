@@ -684,7 +684,7 @@ on that connection
         <span class="hljs-type">URL</span> <span class="hljs-variable">oracle</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(<span class="hljs-string">&quot;http://www.example.com/&quot;</span>);
         <span class="hljs-type">URLConnection</span> <span class="hljs-variable">yc</span> <span class="hljs-operator">=</span> oracle.openConnection();
         <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(
-                                    yc.getInputStream()));
+            yc.getInputStream()));
         String inputLine;
         <span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-literal">null</span>)&#32;
             System.out.println(inputLine);
@@ -696,25 +696,25 @@ on that connection
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Reverse</span> {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
 
-				<span class="hljs-comment">//read args</span>
+        <span class="hljs-comment">//read args</span>
         <span class="hljs-type">URL</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(args[<span class="hljs-number">0</span>]);
         <span class="hljs-type">String</span> <span class="hljs-variable">stringToReverse</span> <span class="hljs-operator">=</span> URLEncoder.encode(args[<span class="hljs-number">1</span>], <span class="hljs-string">&quot;UTF-8&quot;</span>);
 
         <span class="hljs-type">URLConnection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> url.openConnection();
         connection.setDoOutput(<span class="hljs-literal">true</span>);
 
-				<span class="hljs-comment">//send string to server</span>
+        <span class="hljs-comment">//send string to server</span>
         <span class="hljs-type">OutputStreamWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OutputStreamWriter</span>(
-                                         connection.getOutputStream());
+            connection.getOutputStream());
         out.write(<span class="hljs-string">&quot;string=&quot;</span> + stringToReverse);
         out.close();
 
         <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
-                                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(
-                                    connection.getInputStream()));
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(
+                connection.getInputStream()));
         String decodedString;
 
-				<span class="hljs-comment">//read server response</span>
+        <span class="hljs-comment">//read server response</span>
         <span class="hljs-keyword">while</span> ((decodedString = in.readLine()) != <span class="hljs-literal">null</span>) {
             System.out.println(<span class="hljs-string">&quot;server response: &quot;</span> + decodedString);
         }
@@ -729,29 +729,29 @@ is one endpoint of a two-way communication link between two programs running on 
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EchoClient</span> {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
-&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+
         <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">2</span>) {
             System.err.println(
                 <span class="hljs-string">&quot;Usage: java EchoClient &lt;host name&gt; &lt;port number&gt;&quot;</span>);
             System.exit(<span class="hljs-number">1</span>);
         }
 
-				<span class="hljs-comment">//read input</span>
+        <span class="hljs-comment">//read input</span>
         <span class="hljs-type">String</span> <span class="hljs-variable">hostName</span> <span class="hljs-operator">=</span> args[<span class="hljs-number">0</span>];
         <span class="hljs-type">int</span> <span class="hljs-variable">portNumber</span> <span class="hljs-operator">=</span> Integer.parseInt(args[<span class="hljs-number">1</span>]);
 
         <span class="hljs-keyword">try</span> ( <span class="hljs-comment">//try-with-resources -&gt; automatically closes streams</span>
             <span class="hljs-type">Socket</span> <span class="hljs-variable">echoSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(hostName, portNumber);
-&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
-						<span class="hljs-comment">//Server</span>
-						<span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span>
+
+            <span class="hljs-comment">//Server</span>
+            <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span>
                 <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(echoSocket.getOutputStream(), <span class="hljs-literal">true</span>); <span class="hljs-comment">//autoflush</span>
             <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span>
                 <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
                     <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(echoSocket.getInputStream()));
 
             <span class="hljs-comment">//System</span>
-						<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">stdIn</span> <span class="hljs-operator">=</span>
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">stdIn</span> <span class="hljs-operator">=</span>
                 <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
                     <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(System.in))
         ) {
@@ -766,7 +766,7 @@ is one endpoint of a two-way communication link between two programs running on 
             System.exit(<span class="hljs-number">1</span>);
         } <span class="hljs-keyword">catch</span> (IOException e) {
             System.err.println(<span class="hljs-string">&quot;Couldn&#x27;t get I/O for the connection to &quot;</span> +
-                hostName);
+                               hostName);
             System.exit(<span class="hljs-number">1</span>);
         }&#32;
     }
@@ -775,7 +775,7 @@ is one endpoint of a two-way communication link between two programs running on 
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KnockKnockClient</span> {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
-&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+
         <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">2</span>) {
             System.err.println(
                 <span class="hljs-string">&quot;Usage: java EchoClient &lt;host name&gt; &lt;port number&gt;&quot;</span>);
@@ -796,13 +796,13 @@ is one endpoint of a two-way communication link between two programs running on 
             String fromServer;
             String fromUser;
 
-						<span class="hljs-comment">//wait for server response</span>
+            <span class="hljs-comment">//wait for server response</span>
             <span class="hljs-keyword">while</span> ((fromServer = in.readLine()) != <span class="hljs-literal">null</span>) {
                 System.out.println(<span class="hljs-string">&quot;Server: &quot;</span> + fromServer);
                 <span class="hljs-keyword">if</span> (fromServer.equals(<span class="hljs-string">&quot;Bye.&quot;</span>))
                     <span class="hljs-keyword">break</span>;
-&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
-								<span class="hljs-comment">//wait for user input</span>
+
+                <span class="hljs-comment">//wait for user input</span>
                 fromUser = stdIn.readLine();
                 <span class="hljs-keyword">if</span> (fromUser != <span class="hljs-literal">null</span>) {
                     System.out.println(<span class="hljs-string">&quot;Client: &quot;</span> + fromUser);
@@ -814,7 +814,7 @@ is one endpoint of a two-way communication link between two programs running on 
             System.exit(<span class="hljs-number">1</span>);
         } <span class="hljs-keyword">catch</span> (IOException e) {
             System.err.println(<span class="hljs-string">&quot;Couldn&#x27;t get I/O for the connection to &quot;</span> +
-                hostName);
+                               hostName);
             System.exit(<span class="hljs-number">1</span>);
         }
     }
@@ -823,7 +823,7 @@ is one endpoint of a two-way communication link between two programs running on 
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KnockKnockServer</span> {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
-&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+
         <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">1</span>) {
             System.err.println(<span class="hljs-string">&quot;Usage: java KnockKnockServer &lt;port number&gt;&quot;</span>);
             System.exit(<span class="hljs-number">1</span>);
@@ -839,15 +839,15 @@ is one endpoint of a two-way communication link between two programs running on 
             <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(
                 <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(clientSocket.getInputStream()));
         ) {
-&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+
             String inputLine, outputLine;
-&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+
             <span class="hljs-comment">// Initiate conversation with client</span>
             <span class="hljs-type">KnockKnockProtocol</span> <span class="hljs-variable">kkp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">KnockKnockProtocol</span>();
             outputLine = kkp.processInput(<span class="hljs-literal">null</span>);
             out.println(outputLine);
 
-						<span class="hljs-comment">//repeat until output is Bye</span>
+            <span class="hljs-comment">//repeat until output is Bye</span>
             <span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-literal">null</span>) {
                 outputLine = kkp.processInput(inputLine);
                 out.println(outputLine);
@@ -876,12 +876,12 @@ is one endpoint of a two-way communication link between two programs running on 
 
     <span class="hljs-keyword">private</span> String[] clues = { <span class="hljs-string">&quot;Turnip&quot;</span>, <span class="hljs-string">&quot;Little Old Lady&quot;</span>, <span class="hljs-string">&quot;Atch&quot;</span>, <span class="hljs-string">&quot;Who&quot;</span>, <span class="hljs-string">&quot;Who&quot;</span> };
     <span class="hljs-keyword">private</span> String[] answers = { <span class="hljs-string">&quot;Turnip the heat, it&#x27;s cold in here!&quot;</span>,
-                                 <span class="hljs-string">&quot;I didn&#x27;t know you could yodel!&quot;</span>,
-                                 <span class="hljs-string">&quot;Bless you!&quot;</span>,
-                                 <span class="hljs-string">&quot;Is there an owl in here?&quot;</span>,
-                                 <span class="hljs-string">&quot;Is there an echo in here?&quot;</span> };
+                                <span class="hljs-string">&quot;I didn&#x27;t know you could yodel!&quot;</span>,
+                                <span class="hljs-string">&quot;Bless you!&quot;</span>,
+                                <span class="hljs-string">&quot;Is there an owl in here?&quot;</span>,
+                                <span class="hljs-string">&quot;Is there an echo in here?&quot;</span> };
 
-		<span class="hljs-comment">//returns output for given input</span>
+    <span class="hljs-comment">//returns output for given input</span>
     <span class="hljs-keyword">public</span> String <span class="hljs-title function_">processInput</span><span class="hljs-params">(String theInput)</span> {
         <span class="hljs-type">String</span> <span class="hljs-variable">theOutput</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
 
@@ -894,7 +894,7 @@ is one endpoint of a two-way communication link between two programs running on 
                 state = SENTCLUE;
             } <span class="hljs-keyword">else</span> {
                 theOutput = <span class="hljs-string">&quot;You&#x27;re supposed to say \&quot;Who&#x27;s there?\&quot;! &quot;</span> +
-			    <span class="hljs-string">&quot;Try again. Knock! Knock!&quot;</span>;
+                            <span class="hljs-string">&quot;Try again. Knock! Knock!&quot;</span>;
             }
         } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == SENTCLUE) {
             <span class="hljs-keyword">if</span> (theInput.equalsIgnoreCase(clues[currentJoke] + <span class="hljs-string">&quot; who?&quot;</span>)) {
@@ -902,9 +902,9 @@ is one endpoint of a two-way communication link between two programs running on 
                 state = ANOTHER;
             } <span class="hljs-keyword">else</span> {
                 theOutput = <span class="hljs-string">&quot;You&#x27;re supposed to say \&quot;&quot;</span> +&#32;
-			    clues[currentJoke] +&#32;
-			    <span class="hljs-string">&quot; who?\&quot;&quot;</span> +&#32;
-			    <span class="hljs-string">&quot;! Try again. Knock! Knock!&quot;</span>;
+                            clues[currentJoke] +&#32;
+                <span class="hljs-string">&quot; who?\&quot;&quot;</span> +&#32;
+                            <span class="hljs-string">&quot;! Try again. Knock! Knock!&quot;</span>;
                 state = SENTKNOCKKNOCK;
             }
         } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (state == ANOTHER) {
@@ -961,7 +961,7 @@ loops forever:
         <span class="hljs-built_in">super</span>(<span class="hljs-string">&quot;KKMultiServerThread&quot;</span>); <span class="hljs-comment">//call constructor of parent</span>
         <span class="hljs-built_in">this</span>.socket = socket;
     }
-&#32;&#32;&#32;&#32;
+
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
 
         <span class="hljs-keyword">try</span> (
@@ -1002,8 +1002,8 @@ can be broadcasted to multiple recipients with MulticastSockets.
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException {
 
         <span class="hljs-keyword">if</span> (args.length != <span class="hljs-number">1</span>) {
-             System.out.println(<span class="hljs-string">&quot;Usage: java QuoteClient &lt;hostname&gt;&quot;</span>);
-             <span class="hljs-keyword">return</span>;
+            System.out.println(<span class="hljs-string">&quot;Usage: java QuoteClient &lt;hostname&gt;&quot;</span>);
+            <span class="hljs-keyword">return</span>;
         }
 
         <span class="hljs-type">DatagramSocket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramSocket</span>();
@@ -1013,15 +1013,15 @@ can be broadcasted to multiple recipients with MulticastSockets.
         <span class="hljs-type">InetAddress</span> <span class="hljs-variable">address</span> <span class="hljs-operator">=</span> InetAddress.getByName(args[<span class="hljs-number">0</span>]);
         <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">packet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buf, buf.length, address, <span class="hljs-number">4445</span>);
         socket.send(packet);
-&#32;&#32;&#32;&#32;
+
         <span class="hljs-comment">// get response</span>
         packet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buf, buf.length);
         socket.receive(packet);
 
-	      <span class="hljs-comment">// display response</span>
+        <span class="hljs-comment">// display response</span>
         <span class="hljs-type">String</span> <span class="hljs-variable">received</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(packet.getData(), <span class="hljs-number">0</span>, packet.getLength());
         System.out.println(<span class="hljs-string">&quot;Quote of the Moment: &quot;</span> + received);
-&#32;&#32;&#32;&#32;
+
         socket.close();
     }
 }</code></pre><p></p><p>When a client sends a DataPacket to the Server, that means its requesting a quote.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.io.BufferedReader;
@@ -1070,7 +1070,7 @@ can be broadcasted to multiple recipients with MulticastSockets.
                     dString = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().toString();
                 } <span class="hljs-keyword">else</span> {
                     dString = getNextQuote();
-								}
+                }
 
                 buf = dString.getBytes();
 

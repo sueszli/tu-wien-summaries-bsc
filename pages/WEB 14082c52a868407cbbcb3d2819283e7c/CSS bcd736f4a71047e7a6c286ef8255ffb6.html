@@ -667,10 +667,10 @@ Pseudo class is a common best practice
 </p><p></p><p>
 Fallback values (if name does not exist):
 <code>var(--name, black)</code></p><pre class="code"><code class="hljs language-css"><span class="hljs-selector-tag">h2</span> {
-		<span class="hljs-attr">--alarm-color</span>:	darkred;
+    <span class="hljs-attr">--alarm-color</span>:	darkred;
 }
 <span class="hljs-selector-pseudo">:root</span> {
-		<span class="hljs-attr">--alarm-color</span>:	crimson;
+    <span class="hljs-attr">--alarm-color</span>:	crimson;
 }</code></pre><p></p></details></li></ul><ul class="toggle"><li><details><summary>Pseudo Classes</summary><p>Use information present outside the document tree based on:</p><ul class="bulleted-list"><li style="list-style-type: disc">
 form status
 <p><code>:hover, :focus</code>
@@ -704,7 +704,7 @@ Content inserted before or after the specified element
 </li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><code>rem</code>
 : relative to root element (&lt;HTML&gt;) font size.
 <p class="block-color-gray">a) 16 px by default</p><p class="block-color-gray">b) set by the browser settings</p><div class="indented"><p><mark class="highlight-gray">Good for accessibility because it is convenient for the user.</mark></p><figure class="image"><a href="CSS%20bcd736f4a71047e7a6c286ef8255ffb6/Untitled.png"><img src="CSS%20bcd736f4a71047e7a6c286ef8255ffb6/Untitled.png" style="width: 288px"/></a></figure><p><mark class="highlight-gray">rem is more predictable than em and more useful for grids.</mark></p></div><p></p><p class="block-color-gray">c) sized by ourselves - like so:</p><div class="indented"><pre class="code"><code class="hljs language-css"><span class="hljs-selector-tag">html</span>{
-	<span class="hljs-attribute">font-size</span>: <span class="hljs-number">10px</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10px</span>;
 }</code></pre></div><p></p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><code>ex</code>
 (Thex height): relies on font-family.
 <p class="block-color-gray">The height of the lower-case x of that font.</p><p class="block-color-gray">Often times, this is about at the middle mark of the font.</p></li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><code>ch</code>
@@ -994,7 +994,7 @@ designate an empty cell in the grid.
 After creating an area's template for your grid container, you can place an item in your custom area by referencing the
 name you gave it:
 </p><pre class="code code-wrap"><code class="hljs language-css"><span class="hljs-selector-class">.item1</span> {
-  <span class="hljs-attribute">grid-area</span>: header;
+    <span class="hljs-attribute">grid-area</span>: header;
 }</code></pre><p>
 This lets the grid know that you want the
 <code>item1</code>
@@ -1013,10 +1013,10 @@ up — Rules decided by parent
 <span class="hljs-selector-tag">main</span>	&gt;	<span class="hljs-selector-tag">aside</span>		{	<span class="hljs-attribute">order</span>:	<span class="hljs-number">3</span>;	<span class="hljs-attribute">width</span>:	<span class="hljs-number">200px</span>; }
 
 <span class="hljs-keyword">@media</span>	all	<span class="hljs-keyword">and</span>	(<span class="hljs-attribute">max-width</span>:	<span class="hljs-number">600px</span>)	{
-		<span class="hljs-selector-tag">main</span>	{	<span class="hljs-attribute">flex-flow</span>:	column; }
-		<span class="hljs-selector-tag">main</span>	&gt;	<span class="hljs-selector-tag">article</span>,	<span class="hljs-selector-tag">main</span>	&gt;	<span class="hljs-selector-tag">nav</span>,	<span class="hljs-selector-tag">main</span>	&gt;	<span class="hljs-selector-tag">aside</span>	{
-				<span class="hljs-attribute">order</span>:	<span class="hljs-number">0</span>;	<span class="hljs-attribute">width</span>:	auto;
-		}
+    <span class="hljs-selector-tag">main</span>	{	<span class="hljs-attribute">flex-flow</span>:	column; }
+    <span class="hljs-selector-tag">main</span>	&gt;	<span class="hljs-selector-tag">article</span>,	<span class="hljs-selector-tag">main</span>	&gt;	<span class="hljs-selector-tag">nav</span>,	<span class="hljs-selector-tag">main</span>	&gt;	<span class="hljs-selector-tag">aside</span>	{
+        <span class="hljs-attribute">order</span>:	<span class="hljs-number">0</span>;	<span class="hljs-attribute">width</span>:	auto;
+    }
 }</code></pre><pre class="code"><code class="hljs language-xml"><span class="hljs-meta">&lt;!DOCTYPE	<span class="hljs-keyword">html</span>&gt;</span>
 ...
 <span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span>
@@ -1052,10 +1052,10 @@ Control viewport in HTML5 through meta-element
 @media	tv	and	(min-width:	700px)	and	(orientation:	landscape)	{	…	}
 <span class="hljs-comment">&lt;!--	comma	acts	as	&#x27;or&#x27;	--&gt;</span>
 @media	(min-width:	700px),	handheld	and	(orientation:	landscape)	{	…	}</code></pre></div><p></p><p></p><p>Many modern mobile devices have high-density screens that are difficult to read.</p><p>Use media queries and relative values for your fonts:</p><div class="indented"><pre class="code"><code class="hljs language-css"><span class="hljs-keyword">@media</span>	screen	<span class="hljs-keyword">and</span>	(<span class="hljs-attribute">min-width</span>:	<span class="hljs-number">481px</span>)	<span class="hljs-keyword">and</span>	(<span class="hljs-attribute">max-width</span>:	<span class="hljs-number">768px</span>)	{
-		<span class="hljs-selector-tag">p</span>	{	<span class="hljs-attribute">font-size</span>:	<span class="hljs-number">0.9em</span>; }
+    <span class="hljs-selector-tag">p</span>	{	<span class="hljs-attribute">font-size</span>:	<span class="hljs-number">0.9em</span>; }
 }
 <span class="hljs-keyword">@media</span>	screen	<span class="hljs-keyword">and</span>	(<span class="hljs-attribute">max-width</span>:	<span class="hljs-number">480px</span>)	{
-		<span class="hljs-selector-tag">p</span>	{	<span class="hljs-attribute">font-size</span>:	<span class="hljs-number">0.7em</span>; }
+    <span class="hljs-selector-tag">p</span>	{	<span class="hljs-attribute">font-size</span>:	<span class="hljs-number">0.7em</span>; }
 }</code></pre></div><p></p><p></p><h1 id="b38d456b-e792-4d4b-9037-4eac62f8e3a8">Sources</h1><p>Layouts:</p><div class="indented"><p><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout">
 https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout
 </a></p></div><p></p><p>Practice CSS:</p><div class="indented"><p><a href="https://www.freecodecamp.org/learn/responsive-web-design">https://www.freecodecamp.org/learn/responsive-web-design</a></p><p><a href="http://flexboxfroggy.com/#de">http://flexboxfroggy.com/#de</a></p></div><p></p><p>Useful tools:</p><div class="indented"><p><a href="https://kittygiraudel.com/projects/selectors-explained/">CSS Selectors explained in plain English</a></p><p>

@@ -639,15 +639,15 @@ hints.ai_flags = AI_PASSIVE;
 
 <span class="hljs-type">int</span> res = getaddrinfo(<span class="hljs-string">&quot;localhost&quot;</span>/<span class="hljs-literal">NULL</span>, <span class="hljs-string">&quot;1280&quot;</span>, &amp;hints, &amp;ai);
 <span class="hljs-keyword">if</span> (res != <span class="hljs-number">0</span>) {
-	<span class="hljs-comment">// error</span>
+    <span class="hljs-comment">// error</span>
 }
 
 <span class="hljs-type">int</span> sockfd = socket(ai-&gt;ai_family, ai-&gt;ai_socktype, ai-&gt;ai_protocol);
 <span class="hljs-keyword">if</span> (sockfd == <span class="hljs-number">-1</span>) {
-	<span class="hljs-comment">// error</span>
+    <span class="hljs-comment">// error</span>
 }
 <span class="hljs-keyword">if</span> (connect/bind(sockfd, ai-&gt;ai_addr, ai-&gt;ai_addrlen) == <span class="hljs-number">-1</span>) {
-	<span class="hljs-comment">// error</span>
+    <span class="hljs-comment">// error</span>
 }
 freeaddrinfo(ai);</code></pre><p></p></div><p></p><p><code>read()</code>
 /

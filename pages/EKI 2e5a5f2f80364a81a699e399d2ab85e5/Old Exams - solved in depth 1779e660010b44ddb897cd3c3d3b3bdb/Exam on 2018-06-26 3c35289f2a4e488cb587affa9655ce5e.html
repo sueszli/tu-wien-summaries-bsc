@@ -934,9 +934,9 @@ and
 <code>neighbour</code>
 that get chosen randomly in the beginning. (random-restart-hill-climbing).
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	neighbour := highest valued neighbour
-	<span class="hljs-keyword">if</span>(neigbour.value ≤ current.value) <span class="hljs-keyword">return</span> current.state
-	<span class="hljs-keyword">else</span> current := neighbour
+    neighbour := highest valued neighbour
+    <span class="hljs-keyword">if</span>(neigbour.value ≤ current.value) <span class="hljs-keyword">return</span> current.state
+    <span class="hljs-keyword">else</span> current := neighbour
 }</code></pre><p>
 We pick the neighbour with the highest value until there are no higher values left - then we can't climb anymore. Then we return the highest
 found state.

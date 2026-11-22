@@ -594,38 +594,38 @@ min-height: 1em !important;
 <link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Datenströme (java.io)</h1><p class="page-description"></p></header><div class="page-body"><p>Ein Stream überträgt rohe Daten oder Zeichen zwischen Java und dem Betriebssystem und kann lesen oder schreiben.</p><div class="indented"><p>(Kommandozeilenaufrufe benötigen keine Streams oder Kodierung in Zeichen)</p><pre class="code"><code>Java &lt;----- |optionaler Puffer| -----&gt; Betriebssystem</code></pre></div><p></p><p></p><h1><strong>Puffer</strong></h1><p><strong>ungepuffert: direkt</strong></p><div class="indented"><p>Meistens nur wenn Puffer schon voll (sehr ineffizient)</p></div><p></p><p><strong>gepuffert: indirekt</strong></p><div class="indented"><p>effizient, nützlicher (zB readLine möglich) aber Synchronisationsprobleme</p></div><p></p><p></p><h1><strong>Streaminhalte</strong></h1><figure class="image"><a href="../VS%20UE%20b976683d37154bc4907ab0e0fa1b59e8/java%20io%2057fd6f0610f74fd5893e9438c4438b28/Untitled.png"><img src="../VS%20UE%20b976683d37154bc4907ab0e0fa1b59e8/java%20io%2057fd6f0610f74fd5893e9438c4438b28/Untitled.png" style="width: 864px"/></a></figure><p></p><h1>Anwendung</h1><p>Angenommen wir haben ein Dokument, dass aus rohen Daten besteht:</p><div class="indented"><p>Dokument [rohe Daten] →</p><p>FileInput / FileOuput [ungepuffert, rohe Daten] →</p><p>Angabe des Kodierungstyps + InputStreamReader / InputStreamWriter [ungepuffert, Zeichen] →</p><p>BufferedReader / BufferedWriter [gepuffert, Zeichen]</p></div><p></p><pre class="code"><code class="hljs language-java"><span class="hljs-comment">//                             [gepuffert]	      [ungepuffert]	     [Datei]</span>
-	<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>( <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span> ( <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span> (path) ) );
+<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>( <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span> ( <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span> (path) ) );
 
-        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
-        <span class="hljs-type">FileReader</span> <span class="hljs-variable">fr</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
+<span class="hljs-type">FileReader</span> <span class="hljs-variable">fr</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;
 
-        <span class="hljs-comment">//check if path leads to file</span>
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(path);
-            fr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(file);
-            reader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(fr);
+<span class="hljs-comment">//check if path leads to file</span>
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-type">File</span> <span class="hljs-variable">file</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(path);
+    fr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(file);
+    reader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(fr);
 
-        } <span class="hljs-keyword">catch</span> (FileNotFoundException e){
-            System.err.println(<span class="hljs-string">&quot; Error: File not found. &quot;</span> + e.getMessage());
-            e.printStackTrace();
+} <span class="hljs-keyword">catch</span> (FileNotFoundException e){
+    System.err.println(<span class="hljs-string">&quot; Error: File not found. &quot;</span> + e.getMessage());
+    e.printStackTrace();
 
-            <span class="hljs-comment">//CelestialBodyCollection will stay unchanged</span>
-            System.exit(<span class="hljs-number">0</span>);
+    <span class="hljs-comment">//CelestialBodyCollection will stay unchanged</span>
+    System.exit(<span class="hljs-number">0</span>);
 
-        } <span class="hljs-keyword">catch</span> (IOException e) {
-            System.err.println(<span class="hljs-string">&quot; Error: Invalid day argument &quot;</span> + e.getMessage());
-            e.printStackTrace();
+} <span class="hljs-keyword">catch</span> (IOException e) {
+    System.err.println(<span class="hljs-string">&quot; Error: Invalid day argument &quot;</span> + e.getMessage());
+    e.printStackTrace();
 
-            <span class="hljs-comment">//CelestialBodyCollection will stay unchanged</span>
-            System.exit(<span class="hljs-number">0</span>);
-        }
+    <span class="hljs-comment">//CelestialBodyCollection will stay unchanged</span>
+    System.exit(<span class="hljs-number">0</span>);
+}
 
-        System.out.println(<span class="hljs-string">&quot;&gt; File opening successful&quot;</span>);</code></pre><p>Streams müssen immer mit close(); geschlossen werden wenn sie nicht autoclosable sind, sonst treten IOExceptions auf.</p><p></p><h1>try-catch-Blöcke</h1><p>IOExceptions sind checked Exceptions die sich mit „exception handling“ behandeln lassen.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">try</span> {
-<span class="hljs-type">FileReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;test.txt&quot;</span>);
+System.out.println(<span class="hljs-string">&quot;&gt; File opening successful&quot;</span>);</code></pre><p>Streams müssen immer mit close(); geschlossen werden wenn sie nicht autoclosable sind, sonst treten IOExceptions auf.</p><p></p><h1>try-catch-Blöcke</h1><p>IOExceptions sind checked Exceptions die sich mit „exception handling“ behandeln lassen.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">try</span> {
+    <span class="hljs-type">FileReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;test.txt&quot;</span>);
 } <span class="hljs-keyword">catch</span> (FileNotFoundException e) {
-e.printStackTrace();
+    e.printStackTrace();
 } <span class="hljs-keyword">finally</span> {
-system.out.println(<span class="hljs-string">&quot;finally&quot;</span>);
+    system.out.println(<span class="hljs-string">&quot;finally&quot;</span>);
 }
 system.out.println(<span class="hljs-string">&quot;outside&quot;</span>);
 

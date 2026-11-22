@@ -594,33 +594,33 @@ min-height: 1em !important;
 <link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Iterable, Iterator</h1><p class="page-description"></p></header><div class="page-body"><figure class="image"><a href="Iterable,%20Iterator%202839cb06ed7b4312b63b93744c3453c1/Untitled.png"><img src="Iterable,%20Iterator%202839cb06ed7b4312b63b93744c3453c1/Untitled.png" style="width: 451px"/></a></figure><p>Bei map müssen über keys und values unabhängig iteriert werden.</p><p></p><h1>Iterable</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Iterable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">java</span>.lang.Iterable&lt;String&gt;{
-	Iterator <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span>;
+    Iterator <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span>;
 }</code></pre><p></p><h1>Iterator</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Iterator</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">java</span>.util.Iterator&lt;String&gt;{
-	String <span class="hljs-title function_">next</span><span class="hljs-params">()</span>;
-	<span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span><span class="hljs-params">()</span>; <span class="hljs-comment">//wirft NoSuchElementException</span>
+    String <span class="hljs-title function_">next</span><span class="hljs-params">()</span>;
+    <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span><span class="hljs-params">()</span>; <span class="hljs-comment">//wirft NoSuchElementException</span>
 }</code></pre><p>
 Durch
 <code>java.util.Iterator&lt;~&gt;</code>
 kann man for-each Schleifen nutzen.
 </p><p></p><h1>Implementierung</h1><p>Beispielsweise bei singly linked list</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ListQueue</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Queue</span> {
-	...
-	<span class="hljs-comment">// Implementierung von Queue mit Singly Linked List</span>
-	...&#9;
+    ...
+    <span class="hljs-comment">// Implementierung von Queue mit Singly Linked List</span>
+    ...&#9;
 
-	<span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNodeIter</span>(head);
-	}
+    <span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNodeIter</span>(head);
+    }
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ListNodeIter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Iterator</span> {
-	<span class="hljs-keyword">private</span> ListNode n;
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">ListNodeIter</span><span class="hljs-params">(ListNode n)</span> { <span class="hljs-built_in">this</span>.n = n; }
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span> <span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> n != <span class="hljs-literal">null</span>; }
-&#9;
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">next</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">if</span> (n == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
-		<span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> n.value();
-		n = n.next();
-		<span class="hljs-keyword">return</span> result;
-	}
+    <span class="hljs-keyword">private</span> ListNode n;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ListNodeIter</span><span class="hljs-params">(ListNode n)</span> { <span class="hljs-built_in">this</span>.n = n; }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span> <span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> n != <span class="hljs-literal">null</span>; }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">next</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
+        <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> n.value();
+        n = n.next();
+        <span class="hljs-keyword">return</span> result;
+    }
 }</code></pre></div></article></body></html>

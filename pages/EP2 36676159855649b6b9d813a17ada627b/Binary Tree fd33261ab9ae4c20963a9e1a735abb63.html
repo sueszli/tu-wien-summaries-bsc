@@ -594,311 +594,311 @@ min-height: 1em !important;
 <link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Binary Tree</h1><p class="page-description"></p></header><div class="page-body"><p>Rekursive Datenstruktur</p><div class="indented"><p>Binärer Baum</p></div><p></p><h1>Implementierung</h1><p>Baum wird in der Node selbst traversiert</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TreeNode</span> {
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> value;
-	<span class="hljs-keyword">private</span> TreeNode left, right;
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">TreeNode</span> <span class="hljs-params">(<span class="hljs-type">int</span> v)</span> { value = v; }
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
-		<span class="hljs-keyword">if</span> (v &lt; value) {
-			<span class="hljs-keyword">if</span> (left != <span class="hljs-literal">null</span>) {
-				left.add(v);
-			} <span class="hljs-keyword">else</span> {
-				left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(v);
-			}
-		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (v &gt; value ) {
-			<span class="hljs-keyword">if</span> (right != <span class="hljs-literal">null</span>) {
-				right.add(v);
-			} <span class="hljs-keyword">else</span> {
-				right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(v);
-			}
-		}
-	}
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> value;
+    <span class="hljs-keyword">private</span> TreeNode left, right;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">contains</span> <span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
-		<span class="hljs-keyword">return</span> v == value ||&#32;
-				(v &lt; value ? left != <span class="hljs-literal">null</span> &amp;&amp; left.contains(v) : right != <span class="hljs-literal">null</span> &amp;&amp; right.contains(v));
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">TreeNode</span> <span class="hljs-params">(<span class="hljs-type">int</span> v)</span> { value = v; }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
+        <span class="hljs-keyword">if</span> (v &lt; value) {
+            <span class="hljs-keyword">if</span> (left != <span class="hljs-literal">null</span>) {
+                left.add(v);
+            } <span class="hljs-keyword">else</span> {
+                left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(v);
+            }
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (v &gt; value ) {
+            <span class="hljs-keyword">if</span> (right != <span class="hljs-literal">null</span>) {
+                right.add(v);
+            } <span class="hljs-keyword">else</span> {
+                right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(v);
+            }
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">contains</span> <span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
+        <span class="hljs-keyword">return</span> v == value ||&#32;
+            (v &lt; value ? left != <span class="hljs-literal">null</span> &amp;&amp; left.contains(v) : right != <span class="hljs-literal">null</span> &amp;&amp; right.contains(v));
+    }
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">STree</span> {
-	<span class="hljs-keyword">private</span> TreeNode root;
-&#9;
-	<span class="hljs-comment">// add v if not already in the tree</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
-		<span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) {
-			root = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(v);
-		} <span class="hljs-keyword">else</span> {
-			root.add(v);
-		}
-	}
-&#9;
-	<span class="hljs-comment">// is v in the tree?</span>
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
-		<span class="hljs-keyword">return</span> root != <span class="hljs-literal">null</span> &amp;&amp; root.contains(v);
-	}
+    <span class="hljs-keyword">private</span> TreeNode root;
+
+    <span class="hljs-comment">// add v if not already in the tree</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) {
+            root = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TreeNode</span>(v);
+        } <span class="hljs-keyword">else</span> {
+            root.add(v);
+        }
+    }
+
+    <span class="hljs-comment">// is v in the tree?</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(<span class="hljs-type">int</span> v)</span> {
+        <span class="hljs-keyword">return</span> root != <span class="hljs-literal">null</span> &amp;&amp; root.contains(v);
+    }
 }</code></pre><p></p><h2>Assoziative Datenstruktur: Map</h2><p><code>x.compareTo(y)</code>
 verwendet
 </p><div class="indented"><p>&lt; 0 → x lexikographisch vor y</p><p>&gt; 0 → y lexikographisch vor x</p><p>0 → x und y gleich</p><p>(Annahme: null lexikographisch vor jeder Zeichenkette)</p><p>Sortierung auf keys, nicht damit assoziierten values.</p></div><p></p><p></p><p>Node:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TANode</span> {
-	<span class="hljs-keyword">private</span> String key, value;
-	<span class="hljs-keyword">private</span> TANode left, right ;
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">TANode</span><span class="hljs-params">(String k, String v)</span> {
-		key = k;
-		value = v;
-	}
-&#9;
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span> <span class="hljs-params">( String k)</span> {
-		<span class="hljs-keyword">if</span> (k == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> key == <span class="hljs-literal">null</span> ? <span class="hljs-number">0</span> : -<span class="hljs-number">1</span>; }
-		<span class="hljs-keyword">if</span> (key == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
-		<span class="hljs-keyword">return</span> k.compareTo(key);
-	}
-&#9;
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">put</span><span class="hljs-params">(String k, String v)</span> {
-		<span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> compare(k);
-		<span class="hljs-keyword">if</span> (cmp &lt; <span class="hljs-number">0</span>) {
-			<span class="hljs-keyword">if</span> (left != <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> left.put(k,v); }
-			left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TANode</span> (k,v);
-		} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
-			<span class="hljs-keyword">if</span> ( right != <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> right.put(k,v); }
-			right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TANode</span> (k,v);
-		} <span class="hljs-keyword">else</span> {
-			<span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> value;
-			value = v;
-			<span class="hljs-keyword">return</span> result ;
-		}
-		<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-	}
+    <span class="hljs-keyword">private</span> String key, value;
+    <span class="hljs-keyword">private</span> TANode left, right ;
 
-	<span class="hljs-keyword">public</span> TANode <span class="hljs-title function_">find</span><span class="hljs-params">(String k)</span> {
-		<span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> compare (k);
-		<span class="hljs-keyword">if</span> (cmp == <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>; }
-		<span class="hljs-type">TANode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> cmp &lt; <span class="hljs-number">0</span> ? left : right;
-		<span class="hljs-keyword">if</span> ( node == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
-		<span class="hljs-keyword">return</span> node.find(k);
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">TANode</span><span class="hljs-params">(String k, String v)</span> {
+        key = k;
+        value = v;
+    }
 
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasValue</span> <span class="hljs-params">(String v)</span> {
-		<span class="hljs-keyword">return</span> (v == <span class="hljs-literal">null</span> ? value == v : v.equals(value)) ||
-		(left != <span class="hljs-literal">null</span> &amp;&amp; left.hasValue (v)) ||
-		(right != <span class="hljs-literal">null</span> &amp;&amp; right.hasValue (v));
-	}
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span> <span class="hljs-params">( String k)</span> {
+        <span class="hljs-keyword">if</span> (k == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> key == <span class="hljs-literal">null</span> ? <span class="hljs-number">0</span> : -<span class="hljs-number">1</span>; }
+        <span class="hljs-keyword">if</span> (key == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
+        <span class="hljs-keyword">return</span> k.compareTo(key);
+    }
 
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">value</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> value; }
-}</code></pre><p></p><p>Map:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TreeAssoc</span> {
-	<span class="hljs-keyword">private</span> TANode root;
-&#9;
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">put</span><span class="hljs-params">(String k, String v)</span> {
-		<span class="hljs-keyword">if</span> (root != <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> root.put(k,v); }
-		root = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TANode</span>(k,v);
-		<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-	}
-&#9;
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">get</span><span class="hljs-params">(String k)</span> {
-		<span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
-		<span class="hljs-type">TANode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> root.find(k);
-		<span class="hljs-keyword">return</span> node == <span class="hljs-literal">null</span> ? <span class="hljs-literal">null</span> : node.value();
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsKey</span><span class="hljs-params">(String k)</span> {
-		<span class="hljs-keyword">return</span> root != <span class="hljs-literal">null</span> &amp;&amp; root.find(k) != <span class="hljs-literal">null</span>;
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsValue</span><span class="hljs-params">(String v)</span> {
-		<span class="hljs-keyword">return</span> root != <span class="hljs-literal">null</span> &amp;&amp; root.hasValue(v);
-	}
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">put</span><span class="hljs-params">(String k, String v)</span> {
+        <span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> compare(k);
+        <span class="hljs-keyword">if</span> (cmp &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">if</span> (left != <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> left.put(k,v); }
+            left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TANode</span> (k,v);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">if</span> ( right != <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> right.put(k,v); }
+            right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TANode</span> (k,v);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> value;
+            value = v;
+            <span class="hljs-keyword">return</span> result ;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    }
+
+    <span class="hljs-keyword">public</span> TANode <span class="hljs-title function_">find</span><span class="hljs-params">(String k)</span> {
+        <span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> compare (k);
+        <span class="hljs-keyword">if</span> (cmp == <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>; }
+        <span class="hljs-type">TANode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> cmp &lt; <span class="hljs-number">0</span> ? left : right;
+        <span class="hljs-keyword">if</span> ( node == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
+        <span class="hljs-keyword">return</span> node.find(k);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasValue</span> <span class="hljs-params">(String v)</span> {
+        <span class="hljs-keyword">return</span> (v == <span class="hljs-literal">null</span> ? value == v : v.equals(value)) ||
+            (left != <span class="hljs-literal">null</span> &amp;&amp; left.hasValue (v)) ||
+            (right != <span class="hljs-literal">null</span> &amp;&amp; right.hasValue (v));
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">value</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> value; }
+    }</code></pre><p></p><p>Map:</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TreeAssoc</span> {
+    <span class="hljs-keyword">private</span> TANode root;
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">put</span><span class="hljs-params">(String k, String v)</span> {
+        <span class="hljs-keyword">if</span> (root != <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> root.put(k,v); }
+        root = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TANode</span>(k,v);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">get</span><span class="hljs-params">(String k)</span> {
+        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
+        <span class="hljs-type">TANode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> root.find(k);
+        <span class="hljs-keyword">return</span> node == <span class="hljs-literal">null</span> ? <span class="hljs-literal">null</span> : node.value();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsKey</span><span class="hljs-params">(String k)</span> {
+        <span class="hljs-keyword">return</span> root != <span class="hljs-literal">null</span> &amp;&amp; root.find(k) != <span class="hljs-literal">null</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsValue</span><span class="hljs-params">(String v)</span> {
+        <span class="hljs-keyword">return</span> root != <span class="hljs-literal">null</span> &amp;&amp; root.hasValue(v);
+    }
 
 }</code></pre><p></p><h2>Sortierter Baum</h2><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Ordered</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Collection</span> { }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.util.Arrays;
 
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderedTree</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ordered</span> {
-	<span class="hljs-keyword">private</span> OTNode root;
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> [] cnt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">1</span>];
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">OrderedTree</span><span class="hljs-params">()</span> {}
-		<span class="hljs-keyword">public</span> <span class="hljs-title function_">OrderedTree</span><span class="hljs-params">(String [] elems)</span> {
-		<span class="hljs-keyword">for</span> ( String e : elems) { add(e); }
-		}
-		<span class="hljs-keyword">public</span> <span class="hljs-title function_">OrderedTree</span><span class="hljs-params">( Iterable elems)</span> {
-		<span class="hljs-keyword">for</span> ( String e : elems) { add(e); }
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">( String e)</span> {
-		cnt [<span class="hljs-number">0</span>]++;
-		<span class="hljs-keyword">if</span> ( root != <span class="hljs-literal">null</span>) { root.add (e); }
-		<span class="hljs-keyword">else</span> { root = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span> (e); }
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">contains</span> <span class="hljs-params">( String e)</span> {
-		<span class="hljs-keyword">if</span> ( root == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
-		<span class="hljs-keyword">return</span> root. contains (e);
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeAll</span> <span class="hljs-params">( String e)</span> {
-		<span class="hljs-type">int</span> <span class="hljs-variable">oldcnt</span> <span class="hljs-operator">=</span> cnt [<span class="hljs-number">0</span>];
-		<span class="hljs-keyword">if</span> ( root != <span class="hljs-literal">null</span>) { root = root.rmv(e, cnt ); }
-		<span class="hljs-keyword">return</span> oldcnt - cnt [<span class="hljs-number">0</span>];
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clear</span> <span class="hljs-params">()</span> { root = <span class="hljs-literal">null</span>; cnt [<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>; }
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span> <span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> cnt [<span class="hljs-number">0</span>]; }
-&#9;
-	<span class="hljs-keyword">public</span> String [] toArray () {
-		String [] array = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span> [size ()];
-		toArray ( array );
-		<span class="hljs-keyword">return</span> array ;
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">toArray</span> <span class="hljs-params">( String [] array)</span> {
-		<span class="hljs-keyword">return</span> root == <span class="hljs-literal">null</span> ? <span class="hljs-number">0</span> : root.fill(array , <span class="hljs-number">0</span>);
-	}
-&#9;
-	<span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">iterator</span> <span class="hljs-params">()</span> {
-		<span class="hljs-type">OTIter</span> <span class="hljs-variable">iter</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span> ();
-		<span class="hljs-keyword">if</span> ( root != <span class="hljs-literal">null</span>) { root.iter(iter , <span class="hljs-literal">false</span> ); }
-		<span class="hljs-keyword">return</span> iter;
-	}
-&#9;
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span> <span class="hljs-params">()</span> {
-		<span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;
-		<span class="hljs-keyword">for</span> ( String s : <span class="hljs-built_in">this</span>)
-		res += (res. isEmpty () ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;, &quot;</span>) + s;
-		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;{&quot;</span> + res + <span class="hljs-string">&quot;}&quot;</span>;
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span> <span class="hljs-params">( Object o)</span> {
-		<span class="hljs-keyword">if</span> ( <span class="hljs-built_in">this</span> == o) { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }
-		<span class="hljs-keyword">if</span> (o == <span class="hljs-literal">null</span> || o. getClass () != getClass ())
-		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> ;
-		<span class="hljs-type">OrderedTree</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> ( OrderedTree)o;
-		<span class="hljs-keyword">return</span> Arrays . equals (t. toArray (), toArray ());
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span> <span class="hljs-params">()</span> {
-		<span class="hljs-keyword">return</span> <span class="hljs-number">57</span> - Arrays . hashCode ( toArray ());
-	}
+    <span class="hljs-keyword">private</span> OTNode root;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> [] cnt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">1</span>];
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">OrderedTree</span><span class="hljs-params">()</span> {}
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">OrderedTree</span><span class="hljs-params">(String [] elems)</span> {
+        <span class="hljs-keyword">for</span> ( String e : elems) { add(e); }
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">OrderedTree</span><span class="hljs-params">( Iterable elems)</span> {
+        <span class="hljs-keyword">for</span> ( String e : elems) { add(e); }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">( String e)</span> {
+        cnt [<span class="hljs-number">0</span>]++;
+        <span class="hljs-keyword">if</span> ( root != <span class="hljs-literal">null</span>) { root.add (e); }
+        <span class="hljs-keyword">else</span> { root = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span> (e); }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">contains</span> <span class="hljs-params">( String e)</span> {
+        <span class="hljs-keyword">if</span> ( root == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; }
+        <span class="hljs-keyword">return</span> root. contains (e);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeAll</span> <span class="hljs-params">( String e)</span> {
+        <span class="hljs-type">int</span> <span class="hljs-variable">oldcnt</span> <span class="hljs-operator">=</span> cnt [<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">if</span> ( root != <span class="hljs-literal">null</span>) { root = root.rmv(e, cnt ); }
+        <span class="hljs-keyword">return</span> oldcnt - cnt [<span class="hljs-number">0</span>];
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clear</span> <span class="hljs-params">()</span> { root = <span class="hljs-literal">null</span>; cnt [<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>; }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span> <span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> cnt [<span class="hljs-number">0</span>]; }
+
+    <span class="hljs-keyword">public</span> String [] toArray () {
+        String [] array = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span> [size ()];
+        toArray ( array );
+        <span class="hljs-keyword">return</span> array ;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">toArray</span> <span class="hljs-params">( String [] array)</span> {
+        <span class="hljs-keyword">return</span> root == <span class="hljs-literal">null</span> ? <span class="hljs-number">0</span> : root.fill(array , <span class="hljs-number">0</span>);
+    }
+
+    <span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">iterator</span> <span class="hljs-params">()</span> {
+        <span class="hljs-type">OTIter</span> <span class="hljs-variable">iter</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span> ();
+        <span class="hljs-keyword">if</span> ( root != <span class="hljs-literal">null</span>) { root.iter(iter , <span class="hljs-literal">false</span> ); }
+        <span class="hljs-keyword">return</span> iter;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span> <span class="hljs-params">()</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-keyword">for</span> ( String s : <span class="hljs-built_in">this</span>)
+            res += (res. isEmpty () ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;, &quot;</span>) + s;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;{&quot;</span> + res + <span class="hljs-string">&quot;}&quot;</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span> <span class="hljs-params">( Object o)</span> {
+        <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">this</span> == o) { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }
+        <span class="hljs-keyword">if</span> (o == <span class="hljs-literal">null</span> || o. getClass () != getClass ())
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> ;
+        <span class="hljs-type">OrderedTree</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> ( OrderedTree)o;
+        <span class="hljs-keyword">return</span> Arrays . equals (t. toArray (), toArray ());
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span> <span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">57</span> - Arrays . hashCode ( toArray ());
+    }
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTNode</span> {
-	<span class="hljs-keyword">private</span> String elem;
-	<span class="hljs-keyword">private</span> OTNode left , right;
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">OTNode</span> <span class="hljs-params">( String e)</span> { elem = e; }
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">fill</span><span class="hljs-params">( String [] array , <span class="hljs-type">int</span> i)</span> {
-		<span class="hljs-keyword">if</span> (left != <span class="hljs-literal">null</span>) { i = left. fill(array , i); }
-		<span class="hljs-keyword">if</span> (i &lt; array. length ) {
-			array[i++] = elem;
-		<span class="hljs-keyword">if</span> (right != <span class="hljs-literal">null</span>)&#32;
-			i = right.fill(array ,i);
-		}
-		<span class="hljs-keyword">return</span> i;
-	}
-&#9;
-	<span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(String e)</span> {
-		<span class="hljs-keyword">if</span> (e == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> elem == e ? <span class="hljs-number">0</span> : -<span class="hljs-number">1</span>; }
-		<span class="hljs-keyword">return</span> elem == <span class="hljs-literal">null</span> ? <span class="hljs-number">1</span> : e.compareTo(elem);
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String e)</span> {
-		<span class="hljs-type">int</span> cmp;
-		OTNode p, n = <span class="hljs-built_in">this</span>;
-		<span class="hljs-keyword">do</span> {
-			cmp = (p = n).compare(e);
-			n = cmp &gt; <span class="hljs-number">0</span> ? p.right : p.left;
-		} <span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>);
-&#9;
-		<span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
-			p.right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span> (e);
-		} <span class="hljs-keyword">else</span> {
-			p.left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span> (e);
-		}
-	}
+    <span class="hljs-keyword">private</span> String elem;
+    <span class="hljs-keyword">private</span> OTNode left , right;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(String e)</span> {
-		<span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
-		<span class="hljs-type">OTNode</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>;
-&#9;&#9;
-		<span class="hljs-keyword">do</span> {
-			<span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> n. compare (e);
-			<span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
-				n = n.right;
-			} <span class="hljs-keyword">else</span> {
-				n = n. left;
-				<span class="hljs-keyword">if</span> (cmp == <span class="hljs-number">0</span>) { count ++; }
-			}
-		} <span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>);
-			<span class="hljs-keyword">return</span> count;
-		}
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">OTNode</span> <span class="hljs-params">( String e)</span> { elem = e; }
 
-	<span class="hljs-keyword">public</span> OTNode <span class="hljs-title function_">rmv</span><span class="hljs-params">( String e, <span class="hljs-type">int</span> [] cnt)</span> {
-		<span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> compare (e);
-		<span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
-			<span class="hljs-keyword">if</span> ( right != <span class="hljs-literal">null</span>)
-				right = right.rmv(e, cnt );
-		} <span class="hljs-keyword">else</span> {
-		<span class="hljs-keyword">if</span> ( left != <span class="hljs-literal">null</span>) left = left.rmv(e, cnt );
-			<span class="hljs-keyword">if</span> (cmp == <span class="hljs-number">0</span>) {
-				cnt [<span class="hljs-number">0</span>] - -;
-				<span class="hljs-keyword">if</span> ( left == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> right; }
-				<span class="hljs-type">OTNode</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> left;
-				<span class="hljs-keyword">while</span> (p.right != <span class="hljs-literal">null</span>) { p = p. right; }
-				p. right = right;
-				<span class="hljs-keyword">return</span> left;
-			}
-		}
-		<span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">fill</span><span class="hljs-params">( String [] array , <span class="hljs-type">int</span> i)</span> {
+        <span class="hljs-keyword">if</span> (left != <span class="hljs-literal">null</span>) { i = left. fill(array , i); }
+        <span class="hljs-keyword">if</span> (i &lt; array. length ) {
+            array[i++] = elem;
+            <span class="hljs-keyword">if</span> (right != <span class="hljs-literal">null</span>)&#32;
+                i = right.fill(array ,i);
+        }
+        <span class="hljs-keyword">return</span> i;
+    }
 
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">iter</span><span class="hljs-params">(OTIter iter , <span class="hljs-type">boolean</span> next)</span> {
-		<span class="hljs-type">OTNode</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> next ? right : <span class="hljs-built_in">this</span>;
-		<span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>) {
-			<span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span> (n, iter);
-			n = n. left;
-		}
-		<span class="hljs-keyword">return</span> elem;
-	}
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(String e)</span> {
+        <span class="hljs-keyword">if</span> (e == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> elem == e ? <span class="hljs-number">0</span> : -<span class="hljs-number">1</span>; }
+        <span class="hljs-keyword">return</span> elem == <span class="hljs-literal">null</span> ? <span class="hljs-number">1</span> : e.compareTo(elem);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(String e)</span> {
+        <span class="hljs-type">int</span> cmp;
+        OTNode p, n = <span class="hljs-built_in">this</span>;
+        <span class="hljs-keyword">do</span> {
+            cmp = (p = n).compare(e);
+            n = cmp &gt; <span class="hljs-number">0</span> ? p.right : p.left;
+        } <span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>);
+
+        <span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
+            p.right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span> (e);
+        } <span class="hljs-keyword">else</span> {
+            p.left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span> (e);
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(String e)</span> {
+        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+        <span class="hljs-type">OTNode</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>;
+
+        <span class="hljs-keyword">do</span> {
+            <span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> n. compare (e);
+            <span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
+                n = n.right;
+            } <span class="hljs-keyword">else</span> {
+                n = n. left;
+                <span class="hljs-keyword">if</span> (cmp == <span class="hljs-number">0</span>) { count ++; }
+            }
+        } <span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>);
+        <span class="hljs-keyword">return</span> count;
+    }
+
+    <span class="hljs-keyword">public</span> OTNode <span class="hljs-title function_">rmv</span><span class="hljs-params">( String e, <span class="hljs-type">int</span> [] cnt)</span> {
+        <span class="hljs-type">int</span> <span class="hljs-variable">cmp</span> <span class="hljs-operator">=</span> compare (e);
+        <span class="hljs-keyword">if</span> (cmp &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">if</span> ( right != <span class="hljs-literal">null</span>)
+                right = right.rmv(e, cnt );
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> ( left != <span class="hljs-literal">null</span>) left = left.rmv(e, cnt );
+            <span class="hljs-keyword">if</span> (cmp == <span class="hljs-number">0</span>) {
+                cnt [<span class="hljs-number">0</span>] - -;
+                <span class="hljs-keyword">if</span> ( left == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> right; }
+                <span class="hljs-type">OTNode</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> left;
+                <span class="hljs-keyword">while</span> (p.right != <span class="hljs-literal">null</span>) { p = p. right; }
+                p. right = right;
+                <span class="hljs-keyword">return</span> left;
+            }
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">iter</span><span class="hljs-params">(OTIter iter , <span class="hljs-type">boolean</span> next)</span> {
+        <span class="hljs-type">OTNode</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> next ? right : <span class="hljs-built_in">this</span>;
+        <span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>) {
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span> (n, iter);
+            n = n. left;
+        }
+        <span class="hljs-keyword">return</span> elem;
+    }
 }</code></pre><p></p><h1>Sortierender Baum - Iterator</h1><p><mark class="highlight-gray">
 Zu kompliziert um nützlich zu sein. → Leichtere Implementierung möglich mit Linked List der man alle Werte hinzufügt beim traversieren.
-</mark></p><p>Baum</p><pre class="code"><code class="hljs language-java">	<span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">iterator</span> <span class="hljs-params">()</span> {
-		<span class="hljs-type">OTIter</span> <span class="hljs-variable">iter</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span>();
-		<span class="hljs-keyword">if</span> (root != <span class="hljs-literal">null</span>) { root.iter(iter , <span class="hljs-literal">false</span>); } <span class="hljs-comment">//false - root gets chosen</span>
-		<span class="hljs-keyword">return</span> iter;
-	}</code></pre><p>Node</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTNode</span> {
-  <span class="hljs-keyword">private</span> String elem;
-  <span class="hljs-keyword">private</span> OTNode left, right;
-  <span class="hljs-keyword">public</span> <span class="hljs-title function_">OTNode</span><span class="hljs-params">(String e)</span> {
-    elem = e;
-  }
-	<span class="hljs-comment">//...</span>
- &#9;<span class="hljs-keyword">public</span> String <span class="hljs-title function_">iter</span><span class="hljs-params">(OTIter iter , <span class="hljs-type">boolean</span> next)</span> {
-		<span class="hljs-type">OTNode</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> next ? right : <span class="hljs-built_in">this</span>;
-		<span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>) {
-			<span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span>(n, iter);
-			n = n.left;
-		}
-		<span class="hljs-keyword">return</span> elem;
-	}
+</mark></p><p>Baum</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">iterator</span> <span class="hljs-params">()</span> {
+    <span class="hljs-type">OTIter</span> <span class="hljs-variable">iter</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span>();
+        <span class="hljs-keyword">if</span> (root != <span class="hljs-literal">null</span>) { root.iter(iter , <span class="hljs-literal">false</span>); } <span class="hljs-comment">//false - root gets chosen</span>
+    <span class="hljs-keyword">return</span> iter;
+}</code></pre><p>Node</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTNode</span> {
+    <span class="hljs-keyword">private</span> String elem;
+    <span class="hljs-keyword">private</span> OTNode left, right;
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">OTNode</span><span class="hljs-params">(String e)</span> {
+        elem = e;
+    }
+    <span class="hljs-comment">//...</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">iter</span><span class="hljs-params">(OTIter iter , <span class="hljs-type">boolean</span> next)</span> {
+        <span class="hljs-type">OTNode</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> next ? right : <span class="hljs-built_in">this</span>;
+        <span class="hljs-keyword">while</span> (n != <span class="hljs-literal">null</span>) {
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTIter</span>(n, iter);
+            n = n.left;
+        }
+        <span class="hljs-keyword">return</span> elem;
+    }
 }</code></pre><p>Iterator</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OTIter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Iterator</span> {
-	<span class="hljs-keyword">private</span> OTNode node; <span class="hljs-comment">//node</span>
-	<span class="hljs-keyword">private</span> OTIter parent; <span class="hljs-comment">//iterator</span>
+    <span class="hljs-keyword">private</span> OTNode node; <span class="hljs-comment">//node</span>
+    <span class="hljs-keyword">private</span> OTIter parent; <span class="hljs-comment">//iterator</span>
 
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">OTIter</span><span class="hljs-params">()</span> {}
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">OTIter</span><span class="hljs-params">()</span> {}
 
-	<span class="hljs-keyword">public</span> <span class="hljs-title function_">OTIter</span><span class="hljs-params">(OTNode n, OTIter p)</span> {
-		<span class="hljs-built_in">this</span>.node = p.node;
-		p.node = n;
-		<span class="hljs-built_in">this</span>.parent = p.parent;
-		p.parent = <span class="hljs-built_in">this</span>;
-	}
-&#9;
-	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.node != <span class="hljs-literal">null</span>; }
-&#9;
-	<span class="hljs-keyword">public</span> String <span class="hljs-title function_">next</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">if</span> (node == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
-&#9;&#9;
-		<span class="hljs-comment">//this gets parents node, and parent gets removed</span>
-		<span class="hljs-type">OTNode</span> <span class="hljs-variable">todo</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.node;
-		<span class="hljs-built_in">this</span>.node = parent.node;
-		parent = parent.parent;
-		<span class="hljs-keyword">return</span> todo.iter(<span class="hljs-built_in">this</span>, <span class="hljs-literal">true</span>); <span class="hljs-comment">//calls Node.iter</span>
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">OTIter</span><span class="hljs-params">(OTNode n, OTIter p)</span> {
+        <span class="hljs-built_in">this</span>.node = p.node;
+        p.node = n;
+        <span class="hljs-built_in">this</span>.parent = p.parent;
+        p.parent = <span class="hljs-built_in">this</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span><span class="hljs-params">()</span> { <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.node != <span class="hljs-literal">null</span>; }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">next</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">if</span> (node == <span class="hljs-literal">null</span>) { <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; }
+
+        <span class="hljs-comment">//this gets parents node, and parent gets removed</span>
+        <span class="hljs-type">OTNode</span> <span class="hljs-variable">todo</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.node;
+        <span class="hljs-built_in">this</span>.node = parent.node;
+        parent = parent.parent;
+        <span class="hljs-keyword">return</span> todo.iter(<span class="hljs-built_in">this</span>, <span class="hljs-literal">true</span>); <span class="hljs-comment">//calls Node.iter</span>
+    }
 }</code></pre><p></p><p>OTIter ist eigentlich eine singly linked list</p><div class="indented"><ul class="bulleted-list"><li style="list-style-type: disc">parent ist die Referenz auf die nächste Node</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">node ist das was gespeichert wird</li></ul></div><p></p><p></p><p>Beispiel</p><pre class="code"><code class="hljs language-java"><span class="hljs-type">OTIter</span> <span class="hljs-variable">pVal</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span>(...); <span class="hljs-comment">//future val of childsParent</span>
 <span class="hljs-type">OTIter</span> <span class="hljs-variable">child</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTITer</span>(pVal, ...);
 <span class="hljs-type">OTNode</span> <span class="hljs-variable">cVal</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OTNode</span>(...); <span class="hljs-comment">//future val of child</span>
@@ -978,5 +978,5 @@ p{n} --parent--&gt; this{p.node} --parent--&gt; p.parent{p.parent.node} ...&#32;
         }
     }
 
-		<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeAll</span> <span class="hljs-params">(String e)</span> { ... };
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeAll</span> <span class="hljs-params">(String e)</span> { ... };
 }</code></pre></div></article></body></html>

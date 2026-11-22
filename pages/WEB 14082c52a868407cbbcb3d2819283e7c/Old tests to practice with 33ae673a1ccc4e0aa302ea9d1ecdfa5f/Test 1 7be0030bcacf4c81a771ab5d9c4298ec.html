@@ -751,28 +751,28 @@ output in the browser? The HTML for the relevant part of the page is given as fo
  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Wolfs<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Bison<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre><pre class="code"><code class="hljs language-css"><span class="hljs-selector-tag">section</span><span class="hljs-selector-id">#content</span> <span class="hljs-selector-tag">div</span> {
- <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
- <span class="hljs-attribute">margin</span>: <span class="hljs-number">4px</span>;
- <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;
- <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;
- <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">4px</span>;
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
 }</code></pre><p><a href="https://jsfiddle.net/ertk8L0y/1/">https://jsfiddle.net/ertk8L0y/1/</a></p><p></p><p>chooses section with id = "content" and div as is child</p><p><em>therefore all children of this section</em></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>
 You are given this CSS code and have to figure out which of the following resulting CSS rules are true for the element
 <code>&lt;h1 class="alarm"&gt;...&lt;/h1&gt;</code>
 on a device with 300px width.
 </summary><pre class="code"><code class="hljs language-css"><span class="hljs-selector-tag">h1</span> {
- <span class="hljs-attr">--alarm-color</span>: darkred;
+    <span class="hljs-attr">--alarm-color</span>: darkred;
 }
 
 <span class="hljs-selector-tag">h1</span><span class="hljs-selector-class">.alarm</span> {&#32;
- <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2em</span>;
- <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--alarm-color, red);
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2em</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--alarm-color, red);
 }
 
 <span class="hljs-keyword">@media</span> <span class="hljs-keyword">only</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">max-width</span>: <span class="hljs-number">400px</span>) {&#32;
- <span class="hljs-selector-tag">h1</span><span class="hljs-selector-class">.alarm</span> {
- <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
- }
+    <span class="hljs-selector-tag">h1</span><span class="hljs-selector-class">.alarm</span> {
+        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
+    }
 }</code></pre><p></p><p>
 because the screen has &lt; 400 pixel
 <code>h1</code>
@@ -787,51 +787,51 @@ apply.
 
 <span class="hljs-comment">// Beware that event.toElement.value returns a string</span>
 el.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;change&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span>
-	<span class="hljs-title function_">addSpeedClassification</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;speed&#x27;</span>).<span class="hljs-property">value</span>)); &lt;-- only 1 argument
+    <span class="hljs-title function_">addSpeedClassification</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;speed&#x27;</span>).<span class="hljs-property">value</span>)); &lt;-- only 1 argument
 
 
 function addSpeedClassification(speed, classification) { &lt;-- classification = undefined
-	const output = document.getElementById(&#x27;output&#x27;);
-&#9;
-	// reset markup
-	output.innerHTML = &#x27;&#x27;;
-	output.border = &#x27;none&#x27;;
-&#9;
-	if(isSpeedLimit(speed, [30, 50, 100, 130])) { //if speed == one of limits
-		output.style.border = &#x27;4px dashed red&#x27;;
-	}
-&#9;
-	if(!classification) { //!undefined is equal to true (implicit type conversion)
-		classification = {
-			text: {&#x27;slow&#x27; : 50, &#x27;normal&#x27; : 90, &#x27;fast&#x27; : 130},
-			overText: &#x27;too fast&#x27;
-		}
-	}
-&#9;
-	let classificationOutputText; //determines in which range speed is
-	for(let key in classification.text) {
-		if(speed &lt;= classification.text[key]) {
-			classificationOutputText = key;
-		}
-	}
-&#9;
-	if(!classificationOutputText) { //if speed &gt; 130
-		classificationOutputText = classification.overText;
-	}
-&#9;
-	const strongText = document.createElement(&#x27;strong&#x27;);
-	strongText.innerText = `${speed} (${classificationOutputText})`;
-	output.appendChild(strongText);
+    const output = document.getElementById(&#x27;output&#x27;);
+
+    // reset markup
+    output.innerHTML = &#x27;&#x27;;
+    output.border = &#x27;none&#x27;;
+
+    if(isSpeedLimit(speed, [30, 50, 100, 130])) { //if speed == one of limits
+        output.style.border = &#x27;4px dashed red&#x27;;
+    }
+
+    if(!classification) { //!undefined is equal to true (implicit type conversion)
+        classification = {
+            text: {&#x27;slow&#x27; : 50, &#x27;normal&#x27; : 90, &#x27;fast&#x27; : 130},
+            overText: &#x27;too fast&#x27;
+        }
+    }
+
+    let classificationOutputText; //determines in which range speed is
+    for(let key in classification.text) {
+        if(speed &lt;= classification.text[key]) {
+            classificationOutputText = key;
+        }
+    }
+
+    if(!classificationOutputText) { //if speed &gt; 130
+        classificationOutputText = classification.overText;
+    }
+
+    const strongText = document.createElement(&#x27;strong&#x27;);
+    strongText.innerText = `${speed} (${classificationOutputText})`;
+    output.appendChild(strongText);
 }
 
 
 function isSpeedLimit(speed, limits=[15, 40, 90]) {
-	for(let limit of limits) {
-		if(speed == limit) {
-			return true;
-		}
-	}
-	return false;
+    for(let limit of limits) {
+        if(speed == limit) {
+            return true;
+        }
+    }
+    return false;
 }</code></pre><p><a href="https://jsfiddle.net/q5y60knb/1/">https://jsfiddle.net/q5y60knb/1/</a></p><p></p><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%203.png" style="width: 276px"/></a></figure><figure class="image"><a href="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png"><img src="Test%201%207be0030bcacf4c81a771ab5d9c4298ec/Untitled%204.png" style="width: 291px"/></a></figure><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>What are promises in JavaScript?</summary><p class="block-color-gray">Analogy:</p><div class="indented"><p>
 Fans have subscribed the mailing subscription list of a singer so that they get instantly notified once the next album
 becomes becomes available or if something goes wrong.
@@ -850,7 +850,7 @@ The constructor syntax for a
 <mark class="highlight-teal">promise object</mark>
 is:
 </p><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-comment">/*executor(resolve, reject)*/</span>);&#32;</code></pre><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
-  <span class="hljs-comment">// executor (the producing code)</span>
+    <span class="hljs-comment">// executor (the producing code)</span>
 });&#32;</code></pre><p>The executor runs automatically and attempts to perform a job. When it is finished with the attempt it calls</p><div class="indented"><p><code>resolve</code>
 if it was successful
 </p><p><code>reject</code>
@@ -882,7 +882,7 @@ when
 <code>reject(error)</code>
 is called by the executor
 </li></ul></li></ol></div><p></p><p></p><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%205.png" style="width: 336px"/></a></figure><p></p><p>Example: Successful</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
-  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;done&quot;</span>), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;done&quot; is the result</span>
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;done&quot;</span>), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;done&quot; is the result</span>
 });&#32;</code></pre><p>
 After one second of “processing” the executor calls
 <code>resolve("done")</code>
@@ -890,7 +890,7 @@ to produce the result. This changes the state of the
 <code>promise</code>
 object:
 </p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%206.png" style="width: 384px"/></a></figure></div><p></p></div><p></p><p></p><p>Example: Unsuccessful</p><div class="indented"><pre class="code"><code class="hljs language-javascript"><span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) {
-  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Whoops!&quot;</span>)), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;whoops&quot; is the error statement</span>
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Whoops!&quot;</span>)), <span class="hljs-number">1000</span>); <span class="hljs-comment">//&quot;whoops&quot; is the error statement</span>
 });&#32;</code></pre><p>But it is recommended to use Error objects (or objects that inherit from Error).</p><p>The call to reject(...) moves the promise object to "rejected" state:</p><div class="indented"><figure class="image"><a href="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png"><img src="../JavaScript%20899f5abf45de4645a6c26ff871060237/Untitled%207.png" style="width: 384px"/></a></figure></div><p></p></div><p></p></details></li></ul><p></p><ul class="block-color-gray toggle"><li><details><summary>Why are promises a solution to "callback hell" in JavaScript?</summary><p>
 In a “callback-based” style of asynchronous programming. A function that does something asynchronously (at a later point in
 time) should provide a

@@ -689,14 +689,14 @@ turn := 0..1 //can be set to either 0 or 1</code></pre><p>
 Process
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.13889em">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.31166399999999994em"><span style="top: -2.5500000000000003em; margin-left: -0.13889em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-c">flag[i] := <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">while</span> (flag[j]) { &#9;				<span class="hljs-comment">//both flags set to true</span>
-	<span class="hljs-keyword">if</span> (turn == j) { &#9;				<span class="hljs-comment">//it&#x27;s the other process&#x27; turn</span>
-		flag[i] := <span class="hljs-literal">false</span>;
-		<span class="hljs-keyword">while</span> turn == j <span class="hljs-keyword">do</span> nothing;
-		flag[i] := <span class="hljs-literal">true</span>;
-	}
+    <span class="hljs-keyword">if</span> (turn == j) { &#9;				<span class="hljs-comment">//it&#x27;s the other process&#x27; turn</span>
+        flag[i] := <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">while</span> turn == j <span class="hljs-keyword">do</span> nothing;
+        flag[i] := <span class="hljs-literal">true</span>;
+    }
 }
 ... critical section
-turn := j;
+    turn := j;
 flag[i] := <span class="hljs-literal">false</span>;
 ... remainder section</code></pre><p>
 While loop can only be left if
@@ -713,12 +713,12 @@ flag[j] := false;
 turn := 0..1 //can be set to either 0 or 1</code></pre><p>
 Process
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.13889em">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.31166399999999994em"><span style="top: -2.5500000000000003em; margin-left: -0.13889em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) {
-	flag[i] := <span class="hljs-literal">true</span>;
-	turn := j;
-	<span class="hljs-keyword">while</span> flag[j] and turn = j <span class="hljs-keyword">do</span> nothing;
-	...critical section
-	flag[i] := <span class="hljs-literal">false</span>;
-	...remainder section
+    flag[i] := <span class="hljs-literal">true</span>;
+    turn := j;
+    <span class="hljs-keyword">while</span> flag[j] and turn = j <span class="hljs-keyword">do</span> nothing;
+    ...critical section
+        flag[i] := <span class="hljs-literal">false</span>;
+    ...remainder section
 }</code></pre><p>
 Mutual exclusion: Ab der Zeile
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">4</span></span></span></span></span><span>﻿</span></span>
@@ -737,18 +737,18 @@ kann immer nur für ein Prozess true sein wodurch nur ein Prozess in while schle
 number: int array [0..n-1] //mit 0 initialisiert</code></pre><p>Alle Prozesse erhalten eine Nummer.</p><p></p><p>
 Prozess
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.13889em">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.31166399999999994em"><span style="top: -2.5500000000000003em; margin-left: -0.13889em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
-	choosing[i] := <span class="hljs-literal">true</span>;
-	number[i] := <span class="hljs-number">1</span> + max(number[<span class="hljs-number">0</span>], ..., number[n<span class="hljs-number">-1</span>]);
-	choosing[i] := <span class="hljs-literal">false</span>;
-&#9;
-	<span class="hljs-keyword">for</span> (j := <span class="hljs-number">0</span> to n<span class="hljs-number">-1</span>) <span class="hljs-keyword">do</span> {
-		<span class="hljs-keyword">while</span> choosing[j] <span class="hljs-keyword">do</span> nothing;
-		<span class="hljs-keyword">while</span> number[j] != <span class="hljs-number">0</span> &amp;&amp;
-				(number[j] != number[i] ? number[j] &lt; number[i] : j &lt; i) <span class="hljs-keyword">do</span> nothing;
-	}
-	...critical section
-	number [i] := <span class="hljs-number">0</span>;
-	...remainder section
+    choosing[i] := <span class="hljs-literal">true</span>;
+    number[i] := <span class="hljs-number">1</span> + max(number[<span class="hljs-number">0</span>], ..., number[n<span class="hljs-number">-1</span>]);
+    choosing[i] := <span class="hljs-literal">false</span>;
+
+    <span class="hljs-keyword">for</span> (j := <span class="hljs-number">0</span> to n<span class="hljs-number">-1</span>) <span class="hljs-keyword">do</span> {
+        <span class="hljs-keyword">while</span> choosing[j] <span class="hljs-keyword">do</span> nothing;
+        <span class="hljs-keyword">while</span> number[j] != <span class="hljs-number">0</span> &amp;&amp;
+                    (number[j] != number[i] ? number[j] &lt; number[i] : j &lt; i) <span class="hljs-keyword">do</span> nothing;
+        }
+    ...critical section
+        number [i] := <span class="hljs-number">0</span>;
+    ...remainder section
 }</code></pre><p>
 Nummer
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">0</span></span></span></span></span><span>﻿</span></span>
@@ -758,12 +758,12 @@ neue Nummern ≥ alte Nummern - gleiche Nummernvergabe möglich wenn mehrere Pro
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span><span class="mord">3</span></span></span></span></span><span>﻿</span></span>
 ausführen.
 </p><p></p><h2 id="1ac60bc4-e2a9-4a7a-a62b-5357680ff216">Hardwareunterstützte Lösungen</h2><figure class="block-color-gray_background callout" style="white-space: pre-wrap; display: flex"><div style="font-size: 1.5em"><span class="icon">💡</span></div><div style="width: 100%">Annahme: Atomare Maschinen-Instruktionen</div></figure><h3 id="12c76df6-365f-4f04-b96d-2b5b854c6ae1"><mark class="highlight-blue">Interrupt Disabling</mark></h3><p>Interrupt Disabling während kritischen Abschnitt:</p><div class="indented"><p>Nur bei singlecores möglich (da bei multicores echte Parallelität).</p><p>Für kleine, sichere OS tasks sinnvoll aber nicht für user tasks da man halting nicht prüfen kann.</p></div><p></p><p></p><h3 id="a1641522-f733-4516-ad6d-1815dfbf3b2f"><mark class="highlight-blue">Test and Set</mark></h3><p>Eine einzige hardware instruction die 2 Aktionen atomar ausführt:</p><pre class="code"><code class="hljs language-c">function <span class="hljs-title function_">testset</span><span class="hljs-params">(i: <span class="hljs-type">int</span>)</span>: boolean {
-	<span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>){&#32;
-		i := <span class="hljs-number">1</span>;
-		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;&#9;&#9;
-	} <span class="hljs-keyword">else</span> {
-		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-	}
+    <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>){&#32;
+        i := <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;&#9;&#9;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
 }</code></pre><p>Globale Variable</p><pre class="code"><code>var b: integer;
 b := 0;</code></pre><p>
 Prozess
@@ -775,7 +775,7 @@ Prozess
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.13889em">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.31166399999999994em"><span style="top: -2.5500000000000003em; margin-left: -0.13889em; margin-right: 0.05em"><span class="pstrut" style="height: 2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-c">key := <span class="hljs-number">1</span>;
 <span class="hljs-keyword">do</span> <span class="hljs-title function_">exchange</span><span class="hljs-params">(key,b)</span> <span class="hljs-title function_">while</span> <span class="hljs-params">(key == <span class="hljs-number">1</span>)</span>;
 ...critical section
-<span class="hljs-title function_">exchange</span><span class="hljs-params">(key,b)</span>;
+    <span class="hljs-title function_">exchange</span><span class="hljs-params">(key,b)</span>;
 ...remainder section</code></pre><p>
 Damit ein Prozess die while Schleife erreicht, muss
 <mark class="highlight-gray"><code>key := 1</code></mark>
@@ -806,11 +806,11 @@ Nicht eindeutig festgelegt
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rarr</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.36687em; vertical-align: 0em"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>
 Race Condition.
 </p><p>Durch Bedingungssynchronisation geben wir die execution order vor.</p><h2 id="2a5f5e97-04f2-4294-bad1-00ac6b21a2ca">Semaphore</h2><p><mark class="highlight-blue">Beispiel 1: Vorgegebene Reihenfolge</mark></p><p>Ausführung von Code-Abschnitten in 2 Programmen.</p><pre class="code"><code class="hljs language-c">init(S,<span class="hljs-number">0</span>);</code></pre><div class="column-list"><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	...First this
-	<span class="hljs-title function_">signal</span><span class="hljs-params">(S)</span>;
+    ...First this
+        <span class="hljs-title function_">signal</span><span class="hljs-params">(S)</span>;
 }</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(S);
-	...Then that
+    wait(S);
+    ...Then that
 }</code></pre></div></div><p></p><p><mark class="highlight-blue">Beispiel 2: Abwechselnder Zugriff</mark></p><p>Daten werden nicht doppelt gelesen oder geschrieben.</p><p>P1 muss immer vollständig abgearbeitet werden bevor P2 starten kann - aber:</p><div class="indented"><ol class="numbered-list" start="1" type="1"><li>
 P1 kann nur in das
 <mark class="highlight-gray"><code>ShM</code></mark><mark class="highlight-gray"></mark>
@@ -822,64 +822,64 @@ Vorgegebene Abarbeitungsreihenfolge und mutual exclusion bei
 <mark class="highlight-gray"><code>ShM</code></mark><mark class="highlight-gray"></mark>
 wodurch wir Datenkonsistenz haben.
 </p></div><p></p><pre class="code"><code class="hljs language-c">init(A,<span class="hljs-number">1</span>); init(B,<span class="hljs-number">0</span>);</code></pre><div class="column-list"><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	generate data;
-	wait(A);
-	write ShM;
-	signal(B);
+    generate data;
+    wait(A);
+    write ShM;
+    signal(B);
 }</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(B)
-	read ShM;
-	signal(A);
-	use data;
+    wait(B)
+        read ShM;
+    signal(A);
+    use data;
 }</code></pre></div></div><p>Semaphore B ist gleich wie aus vorherigem Beispiel und A ist umgedreht, damit sie sich abwechseln.</p><p></p><p><mark class="highlight-blue">Beispiel 3: Abwechselnder Zugriff</mark></p><p>Gleich wie davor aber mit 3 Prozessen wobei die lesenden Prozesse parallel abgearbeitet werden sollen können.</p><p></p><p><em>Versuch 1</em></p><p>Keine Parallelität von P2, P3 gegeben - sondern P3 muss immer nach P2 kommen.</p><pre class="code"><code class="hljs language-c">init(A,<span class="hljs-number">1</span>); init(B,<span class="hljs-number">0</span>); init(C,<span class="hljs-number">0</span>);</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	generate data;
-	wait(A);
-	write ShM;
-	signal(B);
+    generate data;
+    wait(A);
+    write ShM;
+    signal(B);
 }</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(B)
-	read ShM;
-	signal(C);
-	use data;
+    wait(B)
+        read ShM;
+    signal(C);
+    use data;
 }</code></pre></div><div class="column" style="width: 33.33333333333334%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(C)
-	read ShM;
-	signal(A);
-	use data;
+    wait(C)
+        read ShM;
+    signal(A);
+    use data;
 }</code></pre></div></div><p></p><p><em>Versuch 2</em></p><p>Hier lösen wir das Beispiel genau nach dem Schema des vorherigen Beispiels.</p><p>Starvation von P2 oder P3 möglich, da eines von ihnen mehrfach ausgeführt werden kann ohne sich abzuwechseln.</p><pre class="code"><code class="hljs language-c">init(A,<span class="hljs-number">2</span>); init(B,<span class="hljs-number">0</span>);</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	generate data;
-	wait(A);
-	wait(A);
-	write ShM;
-	signal(B);
-	signal(B);
+    generate data;
+    wait(A);
+    wait(A);
+    write ShM;
+    signal(B);
+    signal(B);
 }</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(B)
-	read ShM;
-	signal(A);
-	use data;
+    wait(B)
+        read ShM;
+    signal(A);
+    use data;
 }</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(B)
-	read ShM;
-	signal(A);
-	use data;
+    wait(B)
+        read ShM;
+    signal(A);
+    use data;
 }</code></pre></div></div><p></p><p><em>Lösung</em></p><p>Kleine Abänderung um Starvation zu vermeiden</p><pre class="code"><code class="hljs language-c">init(A,<span class="hljs-number">2</span>); init(B1,<span class="hljs-number">0</span>); init(B2,<span class="hljs-number">0</span>);</code></pre><div class="column-list"><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	generate data;
-	wait(A);
-	wait(A);
-	write ShM;
-	signal(B1);
-	signal(B2);
+    generate data;
+    wait(A);
+    wait(A);
+    write ShM;
+    signal(B1);
+    signal(B2);
 }</code></pre></div><div class="column" style="width: 33.333333333333336%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(B1)
-	read ShM;
-	signal(A);
-	use data;
+    wait(B1)
+        read ShM;
+    signal(A);
+    use data;
 }</code></pre></div><div class="column" style="width: 33.33333333333333%"><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	wait(B2)
-	read ShM;
-	signal(A);
-	use data;
+    wait(B2)
+        read ShM;
+    signal(A);
+    use data;
 }</code></pre></div></div><h1 id="5e5e564a-6fbc-4b72-a789-42a439002937">____________</h1><h1 id="b86015a1-58a9-42e4-890f-3e102eb81559">Höhere Synchronisations-Konstrukte</h1><h2 id="42fe70f2-6236-4002-a298-33a9acab5996">Semaphore</h2><p>Von OS zur Verfügung gestellt.</p><p>Wir vermeiden busy waiting - Prozesse warten in blocked queues bis ein Event auftritt.</p><figure class="link-to-page"><a href="Mutual%20Exclusion,%20Condition%20Synchronization%20c9a796adbddf4b84aff54fa6efbde582/Semaphoren%20Patterns%20ab7ddee9f9214711976eee0832ee4282.html"><span class="icon">📎</span>
 Semaphoren Patterns
 </a></figure><p></p><p><mark class="highlight-blue">Implementierung</mark></p><ul class="toggle"><li><details><summary><mark class="highlight-gray">Detailiert</mark></summary><pre class="code"><code>type semaphore = record
@@ -888,15 +888,15 @@ Semaphoren Patterns
 									end;</code></pre><pre class="code"><code>init(S, val):
 	S.value := val;
 	S.queue := empty list;</code></pre><pre class="code"><code class="hljs language-c">wait(S):
-	S.value := S.value - <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">if</span> (S.value &lt; <span class="hljs-number">0</span>) {
-		...add this process to S.<span class="hljs-built_in">queue</span> and block it;
-	}
-&#9;</code></pre><pre class="code"><code class="hljs language-c">signal(S):
-	S.value := S.value + <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">if</span> (S.value &lt;= <span class="hljs-number">0</span>) {
-		...remove a process P from S.<span class="hljs-built_in">queue</span> and place on ready <span class="hljs-built_in">queue</span>;
-	}</code></pre></details></li></ul><p>
+    S.value := S.value - <span class="hljs-number">1</span>;
+<span class="hljs-keyword">if</span> (S.value &lt; <span class="hljs-number">0</span>) {
+    ...add this process to S.<span class="hljs-built_in">queue</span> and block it;
+}
+</code></pre><pre class="code"><code class="hljs language-c">signal(S):
+    S.value := S.value + <span class="hljs-number">1</span>;
+<span class="hljs-keyword">if</span> (S.value &lt;= <span class="hljs-number">0</span>) {
+    ...remove a process P from S.<span class="hljs-built_in">queue</span> and place on ready <span class="hljs-built_in">queue</span>;
+}</code></pre></details></li></ul><p>
 Die Funktionen
 <mark class="highlight-gray"><code>wait(S)</code></mark><mark class="highlight-gray">/</mark><code><mark class="highlight-gray">P(S)</mark></code>
 ,
@@ -927,24 +927,24 @@ Monitor Datei:
 <mark class="highlight-gray"><code>ProducerConsumer</code></mark></p><pre class="code"><code>b: array[0..K-1] of items;
 In := 0, Out := 0, count := 0 : integer;
 notfull, notempty: condition;</code></pre><div class="column-list"><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c">append(v):
-	<span class="hljs-keyword">if</span> (count = K) cwait(notfull);
-	b[In] := v;
-	In := (In + <span class="hljs-number">1</span>) mod K;
-	count++;
-	csignal(notempty);</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c">take(v):
-	<span class="hljs-keyword">if</span> (count = <span class="hljs-number">0</span>) cwait(notempty);
-	v := b[Out];
-	Out := (Out + <span class="hljs-number">1</span>) mod K;
-	count--;
-	csignal(notfull);</code></pre></div></div><p></p><h2 id="a3baf892-2e33-42d7-9b09-9553c1352080">Message Passing / Nachrichten</h2><p>Methode zur Interprozesskommunikation IPC für einzelne Computer und verteilte Systeme.</p><p>Nachrichten versichern Datenkonsistenz und sind atomare Datenstrukturen:</p><div class="indented"><p>Es sind entweder gar keine Daten da oder konsistente.</p></div><p></p><p>Es gibt eine Queue für empfangene Daten</p><p></p><p><mark class="highlight-blue">Senden</mark><mark class="highlight-gray"><code>send(destination, message)</code></mark></p><p>Es können mehrere oder ein einziger Empfänder adressiert werden.</p><p>Es ist auch möglich direkt (Mailbox) oder indirekt (Portadresse) Nachrichten zu versenden.</p><div class="indented"><p>blocking Blockiere so lange an Sendeoperation bis Empfänger die Nachricht erhalten hat.</p><p>non-blocking Setzte auch fort wenn unklar ob Nachricht erhalten wurde.</p></div><p></p><p></p><p><mark class="highlight-blue">Empfangen</mark><mark class="highlight-gray"></mark><mark class="highlight-gray"><code>receive(source, message)</code></mark></p><p>Empfangene Daten können in einer Queue gespeichert werden (Ereignissemantik) oder alte empfangene Daten überschreiben (Zustandssemantik).</p><div class="indented"><p>blocking Blockiere so lange an dieser Operation bis eine Nachricht angekommen ist</p><p>non-blocking</p><p>test for arrival</p></div><p></p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><p>
+    <span class="hljs-keyword">if</span> (count = K) cwait(notfull);
+b[In] := v;
+In := (In + <span class="hljs-number">1</span>) mod K;
+count++;
+csignal(notempty);</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c">take(v):
+    <span class="hljs-keyword">if</span> (count = <span class="hljs-number">0</span>) cwait(notempty);
+v := b[Out];
+Out := (Out + <span class="hljs-number">1</span>) mod K;
+count--;
+csignal(notfull);</code></pre></div></div><p></p><h2 id="a3baf892-2e33-42d7-9b09-9553c1352080">Message Passing / Nachrichten</h2><p>Methode zur Interprozesskommunikation IPC für einzelne Computer und verteilte Systeme.</p><p>Nachrichten versichern Datenkonsistenz und sind atomare Datenstrukturen:</p><div class="indented"><p>Es sind entweder gar keine Daten da oder konsistente.</p></div><p></p><p>Es gibt eine Queue für empfangene Daten</p><p></p><p><mark class="highlight-blue">Senden</mark><mark class="highlight-gray"><code>send(destination, message)</code></mark></p><p>Es können mehrere oder ein einziger Empfänder adressiert werden.</p><p>Es ist auch möglich direkt (Mailbox) oder indirekt (Portadresse) Nachrichten zu versenden.</p><div class="indented"><p>blocking Blockiere so lange an Sendeoperation bis Empfänger die Nachricht erhalten hat.</p><p>non-blocking Setzte auch fort wenn unklar ob Nachricht erhalten wurde.</p></div><p></p><p></p><p><mark class="highlight-blue">Empfangen</mark><mark class="highlight-gray"></mark><mark class="highlight-gray"><code>receive(source, message)</code></mark></p><p>Empfangene Daten können in einer Queue gespeichert werden (Ereignissemantik) oder alte empfangene Daten überschreiben (Zustandssemantik).</p><div class="indented"><p>blocking Blockiere so lange an dieser Operation bis eine Nachricht angekommen ist</p><p>non-blocking</p><p>test for arrival</p></div><p></p><p></p><p><mark class="highlight-blue">Beispiel</mark></p><p>
 Gemeinsame mailbox
 <mark class="highlight-gray"><code>mutex</code></mark><mark class="highlight-gray"></mark>
 wird von mehreren Prozessen benutzt um eine blockierende Nachricht zu schicken und zu erhalten.
 </p><pre class="code"><code>init: send(mutex, msg);</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
-	receive(mutex, msg); <span class="hljs-comment">//blocking receive </span>
-	...critical section
-	<span class="hljs-title function_">send</span><span class="hljs-params">(mutex, msg)</span>; <span class="hljs-comment">//non-blocking send</span>
-	...remainder section
+    receive(mutex, msg); <span class="hljs-comment">//blocking receive </span>
+    ...critical section
+        <span class="hljs-title function_">send</span><span class="hljs-params">(mutex, msg)</span>; <span class="hljs-comment">//non-blocking send</span>
+    ...remainder section
 }</code></pre><p></p><h2 id="f9f50cc6-1bea-4c69-abd5-d84fe563fdbc">Lock</h2><p><mark class="highlight-gray"><code>enter(lock)</code></mark>
 blockiert nachfolgende enter-Aufrufe
 </p><p><mark class="highlight-gray"><code>release(lock)</code></mark>

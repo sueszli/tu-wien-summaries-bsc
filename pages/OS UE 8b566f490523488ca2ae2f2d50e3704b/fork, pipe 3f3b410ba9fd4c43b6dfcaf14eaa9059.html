@@ -605,12 +605,12 @@ use
 to flush all open streams because they get inherited to the child.
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-type">pid_t</span> <span class="hljs-title function_">fork</span><span class="hljs-params">()</span>; <span class="hljs-comment">// &lt;-- PC of child @ next instruction</span>
 <span class="hljs-keyword">switch</span> (pid) {
-	<span class="hljs-keyword">case</span> <span class="hljs-number">-1</span>:
-		<span class="hljs-comment">// error</span>
-	<span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
-		<span class="hljs-comment">// child tasks</span>
-	<span class="hljs-keyword">default</span>:
-		<span class="hljs-comment">// parent tasks</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">-1</span>:
+        <span class="hljs-comment">// error</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+        <span class="hljs-comment">// child tasks</span>
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-comment">// parent tasks</span>
 }</code></pre><p><em><mark class="highlight-gray">see: process hierarchy with</mark></em><em><mark class="highlight-gray"><code>pstree</code></mark></em><em><mark class="highlight-gray">command</mark></em></p><p><em><mark class="highlight-gray">see:</mark></em><code><em><mark class="highlight-gray">set follow-fork-mode [child|parent]</mark></em></code><em><mark class="highlight-gray">in gdb</mark></em></p></div><p></p><p></p><p></p><h2>Exec</h2><p><code>exec...()</code></p><div class="indented"><p>execute / load new program into processes memory / replace process image under the same PID.</p><p>
 all exec functions are the frontend of
 <mark class="highlight-gray"><code>execve()</code></mark>
@@ -685,10 +685,10 @@ pipe(pipefd); <span class="hljs-comment">// create pipe</span>
 <span class="hljs-type">pid_t</span> pid = fork();
 
 <span class="hljs-keyword">switch</span>(pid) {
-	<span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// child</span>
-		close(pipefd[<span class="hljs-number">1</span>]); <span class="hljs-comment">// won&#x27;t use pipe write-end</span>
-		dup2(pipefd[<span class="hljs-number">0</span>], STDIN_FILENO); <span class="hljs-comment">// pipe read-end -&gt; stdin</span>
-		close(pipefd[<span class="hljs-number">0</span>]); <span class="hljs-comment">// close pipe read-end</span>
-		execlp(<span class="hljs-string">&quot;wc&quot;</span>, <span class="hljs-string">&quot;wc&quot;</span>, <span class="hljs-string">&quot;-l&quot;</span>, <span class="hljs-literal">NULL</span>);
-		<span class="hljs-comment">// error: reached this line</span>
-	...</code></pre></div><p></p><p></p></div></article></body></html>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: <span class="hljs-comment">// child</span>
+    close(pipefd[<span class="hljs-number">1</span>]); <span class="hljs-comment">// won&#x27;t use pipe write-end</span>
+    dup2(pipefd[<span class="hljs-number">0</span>], STDIN_FILENO); <span class="hljs-comment">// pipe read-end -&gt; stdin</span>
+    close(pipefd[<span class="hljs-number">0</span>]); <span class="hljs-comment">// close pipe read-end</span>
+    execlp(<span class="hljs-string">&quot;wc&quot;</span>, <span class="hljs-string">&quot;wc&quot;</span>, <span class="hljs-string">&quot;-l&quot;</span>, <span class="hljs-literal">NULL</span>);
+    <span class="hljs-comment">// error: reached this line</span>
+    ...</code></pre></div><p></p><p></p></div></article></body></html>

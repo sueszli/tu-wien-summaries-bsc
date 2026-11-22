@@ -596,13 +596,13 @@ min-height: 1em !important;
 </head><body><article class="page sans"><header><h1 class="page-title">2015-01-14</h1><p class="page-description"></p></header><div class="page-body"><figure><div class="source"><a href="../Altpr%C3%BCfungen%20-%20Test%201%20f3a8585548a24ff6b3f9b42ebb31a120/All%20vowi%20documents%20(V0)%20291d6f3c51a54a7d82c239aba340fa7a/TU_Wien_Software-Qualittssicherung_VU_(Biffl)_Prfung_2015-01-14_-_VoWi.pdf">
 TU_Wien_Software-Qualittssicherung_VU_(Biffl)_Prfung_2015-01-14_-_VoWi.pdf
 </a></div></figure><p></p><p><mark class="highlight-blue">Äquivalenzklassen</mark></p><div class="indented"><p>Kunden kriegen ab € 100 einen Rabatt von € 2,50, Stammkunden ab € 50,00.</p><p>Eine Methode die den Rabatt berechnet war gegeben, Input bzw. Return war aber in Cent gefragt.</p><p>2 Testfälle (Nicht Junit) ableiten.</p></div><p></p><p></p><p><mark class="highlight-blue">Mocking</mark></p><div class="indented"><p>Ist folgende ServiceKlasse mockbar? Begründe.</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MessageService</span>{
-	<span class="hljs-keyword">private</span> MessageDAO messageDao;
+    <span class="hljs-keyword">private</span> MessageDAO messageDao;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">persist</span><span class="hljs-params">(String message)</span>{
-		messageDao = MessageDAO.getInstance();
-		messageDao.persist(message);
-		<span class="hljs-comment">//...</span>
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">persist</span><span class="hljs-params">(String message)</span>{
+        messageDao = MessageDAO.getInstance();
+        messageDao.persist(message);
+        <span class="hljs-comment">//...</span>
+    }
 }</code></pre><p><mark class="highlight-gray">
 Nein: weil ein Factory-Pattern angewendet wird bei der die Instanz von der statischen Klasse erzeugt wird.
 </mark></p></div><p></p><p></p><p><mark class="highlight-blue">Junit Praxis</mark></p><div class="indented"><p>Remove() und clear() von einer Liste mit JUnit prüfen.</p><p>Remove gibt das Element am Index zurück und entfernt es, zusätzlich darf man size() verwenden.</p><p>a) erstes Element removen du prüfen</p><p>b) ungültiger Index - Soll Exception auslösen</p><p>c) remove testen</p></div><p></p><p></p><p><mark class="highlight-blue">Mocking Praxis</mark></p><div class="indented"><p>

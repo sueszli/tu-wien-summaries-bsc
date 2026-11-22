@@ -594,39 +594,39 @@ min-height: 1em !important;
 <link rel="stylesheet" href="../../vendor/highlightjs-11.11.1/github.min.css">
 <link rel="stylesheet" href="../../site.css">
 </head><body><article class="page sans"><header><h1 class="page-title">Sortieren</h1><p class="page-description"></p></header><div class="page-body"><h1>BubbleSort</h1><p>Bubble Sort für Singly Linked List</p><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">List</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Collection</span> {
-	<span class="hljs-type">int</span> <span class="hljs-title function_">indexOf</span><span class="hljs-params">(String element)</span>;
-	String <span class="hljs-title function_">get</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span>;
-	<span class="hljs-type">boolean</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> index, String element)</span>;
-	String <span class="hljs-title function_">set</span><span class="hljs-params">(<span class="hljs-type">int</span> index, String element)</span>;
-	String <span class="hljs-title function_">remove</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span>;
-	<span class="hljs-keyword">void</span> <span class="hljs-title function_">sort</span><span class="hljs-params">()</span>;
-	Iterator <span class="hljs-title function_">sortedIterator</span><span class="hljs-params">()</span>;
+    <span class="hljs-type">int</span> <span class="hljs-title function_">indexOf</span><span class="hljs-params">(String element)</span>;
+    String <span class="hljs-title function_">get</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span>;
+    <span class="hljs-type">boolean</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> index, String element)</span>;
+    String <span class="hljs-title function_">set</span><span class="hljs-params">(<span class="hljs-type">int</span> index, String element)</span>;
+    String <span class="hljs-title function_">remove</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span>;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">sort</span><span class="hljs-params">()</span>;
+    Iterator <span class="hljs-title function_">sortedIterator</span><span class="hljs-params">()</span>;
 }</code></pre><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LinearList</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">List</span> {
-	<span class="hljs-keyword">private</span> ListNode head;
+    <span class="hljs-keyword">private</span> ListNode head;
 
-	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sort</span> <span class="hljs-params">()</span> {
-		<span class="hljs-keyword">if</span> (head != <span class="hljs-literal">null</span>) {
-			<span class="hljs-type">boolean</span> modified ;
-			<span class="hljs-keyword">do</span> {
-				modified = <span class="hljs-literal">false</span>;
-				ListNode m, n = head;
-				<span class="hljs-keyword">while</span> ((n = (m = n). next ()) != <span class="hljs-literal">null</span>) {
-					String x=m. value (), y=n.value ();
-					<span class="hljs-keyword">if</span> (x != <span class="hljs-literal">null</span> &amp;&amp; (y == <span class="hljs-literal">null</span>	|| x. compareTo (y) &lt; <span class="hljs-number">0</span>)) {
-						m. setValue (y);
-						n. setValue (x);
-						modified = <span class="hljs-literal">true</span>;
-					}
-				}
-			} <span class="hljs-keyword">while</span> ( modified );
-		}
-	}
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sort</span> <span class="hljs-params">()</span> {
+        <span class="hljs-keyword">if</span> (head != <span class="hljs-literal">null</span>) {
+            <span class="hljs-type">boolean</span> modified ;
+            <span class="hljs-keyword">do</span> {
+                modified = <span class="hljs-literal">false</span>;
+                ListNode m, n = head;
+                <span class="hljs-keyword">while</span> ((n = (m = n). next ()) != <span class="hljs-literal">null</span>) {
+                    String x=m. value (), y=n.value ();
+                    <span class="hljs-keyword">if</span> (x != <span class="hljs-literal">null</span> &amp;&amp; (y == <span class="hljs-literal">null</span>	|| x. compareTo (y) &lt; <span class="hljs-number">0</span>)) {
+                        m. setValue (y);
+                        n. setValue (x);
+                        modified = <span class="hljs-literal">true</span>;
+                    }
+                }
+            } <span class="hljs-keyword">while</span> ( modified );
+        }
+    }
 
-	<span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">sortedIterator</span><span class="hljs-params">()</span> {
-		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SortedListNodeIter</span>(head);
-	}
+    <span class="hljs-keyword">public</span> Iterator <span class="hljs-title function_">sortedIterator</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SortedListNodeIter</span>(head);
+    }
 
-	<span class="hljs-comment">// zahlreiche weitere Methoden zu implementieren . . .</span>
+    <span class="hljs-comment">// zahlreiche weitere Methoden zu implementieren . . .</span>
 }</code></pre><p></p><h1>MergeSort</h1><pre class="code"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LinearList</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">List</span> {
     <span class="hljs-keyword">private</span> ListNode head;
 
@@ -701,10 +701,10 @@ verletzt werden.
             <span class="hljs-keyword">if</span> (n == next) {
                 c = <span class="hljs-number">1</span>;
             } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((next == <span class="hljs-literal">null</span> || prec(next, n, c)) &amp;&amp;
-												(min == <span class="hljs-literal">null</span> || prec(n, min, <span class="hljs-number">0</span>))) {
+                       (min == <span class="hljs-literal">null</span> || prec(n, min, <span class="hljs-number">0</span>))) {
                 min = n;
-	          }
-						n = n.next();
+            }
+            n = n.next();
         }
         next = min;
     }

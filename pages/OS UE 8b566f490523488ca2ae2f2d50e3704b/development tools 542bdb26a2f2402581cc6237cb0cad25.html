@@ -612,12 +612,12 @@ s only compile files that have changed based on the given rules:
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 
 <span class="hljs-type">void</span> <span class="hljs-title function_">say_hello</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span> {
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s!\n&quot;</span>, name);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s!\n&quot;</span>, name);
 }</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;dependency.h&quot;</span></span>
 
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> {
-	say_hello(<span class="hljs-string">&quot;Hello World&quot;</span>);
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    say_hello(<span class="hljs-string">&quot;Hello World&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre><p></p></div></div><pre class="code"><code># ELF executable
 main: main.o dependency.o
 	gcc -o dependency main.o dependency.o # -&gt; Third: link together

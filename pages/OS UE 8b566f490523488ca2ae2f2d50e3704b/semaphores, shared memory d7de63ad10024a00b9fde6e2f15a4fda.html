@@ -664,21 +664,21 @@ frees memory
 </p><p></p><figure class="image"><a href="semaphores,%20shared%20memory%20d7de63ad10024a00b9fde6e2f15a4fda/Untitled.png"><img src="semaphores,%20shared%20memory%20d7de63ad10024a00b9fde6e2f15a4fda/Untitled.png" style="width: 432px"/></a></figure><p></p><p></p><h2>Circular buffer</h2><p>concurrent data structure using an array where the modulo operator is used.</p><pre class="code"><code class="hljs language-c"><span class="hljs-type">int</span> wr_pos = <span class="hljs-number">0</span>;
 
 <span class="hljs-type">void</span> <span class="hljs-title function_">write</span><span class="hljs-params">(<span class="hljs-type">int</span> val)</span> {
-	sem_wait(free_sem);
-	buf[wr_pos] = val;
-	sem_post(used_sem);
+    sem_wait(free_sem);
+    buf[wr_pos] = val;
+    sem_post(used_sem);
 
-	wr_pos += <span class="hljs-number">1</span>;
-	wr_pos %= <span class="hljs-keyword">sizeof</span>(buf);
+    wr_pos += <span class="hljs-number">1</span>;
+    wr_pos %= <span class="hljs-keyword">sizeof</span>(buf);
 }
 
 <span class="hljs-type">int</span> rd_pos = <span class="hljs-number">0</span>;
 
 <span class="hljs-type">void</span> <span class="hljs-title function_">read</span><span class="hljs-params">()</span> {
-	sem_wait(used_sem);
-	<span class="hljs-type">int</span> val = buf[rd_pos];
-	sem_post(free_sem);
+    sem_wait(used_sem);
+    <span class="hljs-type">int</span> val = buf[rd_pos];
+    sem_post(free_sem);
 
-	rd_pos += <span class="hljs-number">1</span>;
-	rd_pos %= <span class="hljs-keyword">sizeof</span>(buf);
+    rd_pos += <span class="hljs-number">1</span>;
+    rd_pos %= <span class="hljs-keyword">sizeof</span>(buf);
 }</code></pre><p></p></div></article></body></html>

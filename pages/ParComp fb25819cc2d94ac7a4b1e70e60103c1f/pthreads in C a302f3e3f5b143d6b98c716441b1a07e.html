@@ -626,35 +626,35 @@ threads
 
 <span class="hljs-comment">// code for thread functions</span>
 <span class="hljs-type">void</span> *<span class="hljs-title function_">something</span><span class="hljs-params">(<span class="hljs-type">void</span> *argument)</span>{
-	<span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
-	pthread_exit(<span class="hljs-literal">NULL</span>);
+    <span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
+    pthread_exit(<span class="hljs-literal">NULL</span>);
 }
 
 
 <span class="hljs-comment">// main</span>
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span>{
- &#9;<span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
-	<span class="hljs-type">int</span> i;
-	<span class="hljs-type">pthread_t</span> *handle;
-&#9;
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
-		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
-			i++;
-			<span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
-		}
-	}
-&#9;
-	threads_glob = threads;
-&#9;
-	handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
+    <span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
+    <span class="hljs-type">int</span> i;
+    <span class="hljs-type">pthread_t</span> *handle;
 
-	<span class="hljs-comment">// fork the threads</span>
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
-		pthread_create(&amp;handle[i],<span class="hljs-literal">NULL</span>,something,(<span class="hljs-type">void</span>*)i); <span class="hljs-comment">// bad practice (casting)</span>
-	}
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+        <span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+            i++;
+            <span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
+        }
+    }
 
-	<span class="hljs-comment">// ...</span>
+    threads_glob = threads;
+
+    handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
+
+    <span class="hljs-comment">// fork the threads</span>
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+        pthread_create(&amp;handle[i],<span class="hljs-literal">NULL</span>,something,(<span class="hljs-type">void</span>*)i); <span class="hljs-comment">// bad practice (casting)</span>
+    }
+
+    <span class="hljs-comment">// ...</span>
 }</code></pre><p>This program is non deterministic - race condition:</p><div class="indented"><p>
 Variable
 <mark class="highlight-gray"><code>i</code></mark><mark class="highlight-gray"></mark>
@@ -672,55 +672,55 @@ read by many threads.
 
 <span class="hljs-comment">// code for thread functions</span>
 <span class="hljs-type">void</span> *<span class="hljs-title function_">something</span><span class="hljs-params">(<span class="hljs-type">void</span> *argument)</span>{
-	<span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
-	pthread_exit(<span class="hljs-literal">NULL</span>);
+    <span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
+    pthread_exit(<span class="hljs-literal">NULL</span>);
 }
 
 
 <span class="hljs-comment">// main</span>
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span>{
- &#9;<span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
-	<span class="hljs-type">int</span> rank;
-	<span class="hljs-type">pthread_t</span> *handle;
-&#9;&#9;
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
-		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
-			rank[i] = i;
-			<span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
-		}
-	}
-&#9;
-	threads_glob = threads;
+    <span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
+    <span class="hljs-type">int</span> rank;
+    <span class="hljs-type">pthread_t</span> *handle;
 
-	handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
-	rank = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+        <span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+            rank[i] = i;
+            <span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
+        }
+    }
 
-	<span class="hljs-comment">// fork the threads</span>
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
-		rank[i] = i;
-		errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
-		assert(errcode==<span class="hljs-number">0</span>);
-	}
-&#9;
-	<span class="hljs-comment">// join the threads again</span>
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
-		pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
-	}&#9;
+    threads_glob = threads;
 
-	<span class="hljs-built_in">free</span>(rank);
-	<span class="hljs-built_in">free</span>(handle);
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
+    rank = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));
+
+    <span class="hljs-comment">// fork the threads</span>
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+        rank[i] = i;
+        errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
+        assert(errcode==<span class="hljs-number">0</span>);
+    }
+
+    <span class="hljs-comment">// join the threads again</span>
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+        pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
+    }&#9;
+
+    <span class="hljs-built_in">free</span>(rank);
+    <span class="hljs-built_in">free</span>(handle);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre><p>The performance is limited when we scale up because the sequential part is too big (amdahl):</p><div class="indented"><p>Thread creation is expensive.</p><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// fork the threads</span>
 <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
-	rank[i] = i;
-	errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
-	assert(errcode==<span class="hljs-number">0</span>);
+    rank[i] = i;
+    errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
+    assert(errcode==<span class="hljs-number">0</span>);
 }
 
 <span class="hljs-comment">// join the threads again</span>
 <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
-	pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
+    pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
 }&#9;</code></pre></div><p></p><p>Solutions:</p><div class="indented"><ol class="numbered-list" start="1" type="a"><li>Spawn recursively</li></ol><ol class="numbered-list" start="2" type="a"><li>
 postpone thread creation overhead by keeping threads alive and only exit at the very end. (ie. wait on
 <em>condition variable</em>
@@ -738,45 +738,45 @@ postpone thread creation overhead by keeping threads alive and only exit at the 
 
 <span class="hljs-comment">// code for thread functions</span>
 <span class="hljs-type">void</span> *<span class="hljs-title function_">something</span><span class="hljs-params">(<span class="hljs-type">void</span> *argument)</span>{
-	<span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
-	pthread_exit(<span class="hljs-literal">NULL</span>);
+    <span class="hljs-type">int</span> rank = (<span class="hljs-type">int</span>)argument; <span class="hljs-comment">// bad practice (casting)</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thread rank %d of %d responding\n&quot;</span>, rank, threads_glob);
+    pthread_exit(<span class="hljs-literal">NULL</span>);
 }
 
 
 <span class="hljs-comment">// main</span>
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span>{
- &#9;<span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
-	<span class="hljs-type">int</span> rank;
-	<span class="hljs-type">pthread_t</span> *handle;
-&#9;&#9;
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
-		<span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
-			rank[i] = i;
-			<span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
-		}
-	}
-&#9;
-	threads_glob = threads;
+    <span class="hljs-type">int</span> threads = <span class="hljs-number">1</span>; <span class="hljs-comment">// default</span>
+    <span class="hljs-type">int</span> rank;
+    <span class="hljs-type">pthread_t</span> *handle;
 
-	handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
-	rank = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;argc &amp;&amp; argv[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;-&#x27;</span>; i++) {
+        <span class="hljs-keyword">if</span> (argv[i][<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;t&#x27;</span>) {
+            rank[i] = i;
+            <span class="hljs-built_in">sscanf</span>(argv[i], <span class="hljs-string">&quot;%d&quot;</span>, &amp;threads); <span class="hljs-comment">// get number of threads from commandline</span>
+        }
+    }
 
-	<span class="hljs-comment">// fork the threads</span>
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
-		rank[i] = i;
-		errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
-		assert(errcode==<span class="hljs-number">0</span>);
-	}
-&#9;
-	<span class="hljs-comment">// join the threads again</span>
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
-		pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
-	}&#9;
+    threads_glob = threads;
 
-	<span class="hljs-built_in">free</span>(rank);
-	<span class="hljs-built_in">free</span>(handle);
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    handle = (<span class="hljs-type">pthread_t</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">pthread_t</span>));
+    rank = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(threads*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));
+
+    <span class="hljs-comment">// fork the threads</span>
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+        rank[i] = i;
+        errcode = pthread_create(&amp;handle[i], <span class="hljs-literal">NULL</span>, something, &amp;rank[i]);
+        assert(errcode==<span class="hljs-number">0</span>);
+    }
+
+    <span class="hljs-comment">// join the threads again</span>
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;threads; i++) {
+        pthread_join(handle[i],<span class="hljs-literal">NULL</span>); <span class="hljs-comment">// wait to terminate</span>
+    }&#9;
+
+    <span class="hljs-built_in">free</span>(rank);
+    <span class="hljs-built_in">free</span>(handle);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }</code></pre><p></p></details></li></ul></div><p></p><p></p><h2 id="5eee7dc7-7a11-42bf-99ed-392aaef6a851">Error codes</h2><p><mark class="highlight-blue">pthread error codes</mark></p><div class="indented"><p>
 Good practice: checking return value (
 <mark class="highlight-gray"><code>error</code></mark>
@@ -784,8 +784,8 @@ Good practice: checking return value (
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
 error = pthread_&lt;any pthreads function&gt;
 <span class="hljs-keyword">if</span> (error!=<span class="hljs-number">0</span>) {
-	<span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;Thread %d in trouble with %d\&quot;, myid, error);
-	// ...
+    <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;Thread %d in trouble with %d\&quot;, myid, error);
+    // ...
 }</span></code></pre></div><p></p><p></p><h2 id="55d7601f-348a-49eb-9d2c-9e3155d968b5">Finalizing</h2><p><mark class="highlight-blue">finalizing thread</mark></p><div class="indented"><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
 <span class="hljs-type">void</span> <span class="hljs-title function_">pthread_exit</span><span class="hljs-params">(<span class="hljs-type">void</span> *status)</span>;</code></pre><pre class="code"><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
 <span class="hljs-type">int</span> <span class="hljs-title function_">pthread_join</span><span class="hljs-params">(<span class="hljs-type">pthread_t</span> thread, <span class="hljs-type">void</span> **status)</span>; <span class="hljs-comment">// allows catching status</span></code></pre></div><p></p><figure class="image"><a href="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled%201.png"><img src="pthreads%20in%20C%20a302f3e3f5b143d6b98c716441b1a07e/Untitled%201.png" style="width: 240px"/></a></figure><p></p><h2 id="13f86ba0-4797-4b0a-b9ff-82e001256e14">Binding threads to cores</h2><p><mark class="highlight-blue">Binding threads to cores</mark></p><div class="indented"><p><mark class="highlight-gray"><code>_np</code></mark><mark class="highlight-gray"></mark>

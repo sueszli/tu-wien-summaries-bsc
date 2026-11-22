@@ -600,19 +600,19 @@ https://stackoverflow.com/questions/41474299/checking-if-errno-eintr-what-does-i
 </a></em></mark></p><pre class="code"><code class="hljs language-c"><span class="hljs-type">static</span> <span class="hljs-keyword">volatile</span> <span class="hljs-type">sig_atomic_t</span> quit = <span class="hljs-number">0</span>; <span class="hljs-comment">// interrupts main loop</span>
 
 <span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">onSignal</span><span class="hljs-params">(<span class="hljs-type">int</span> signal)</span> {
-  quit = <span class="hljs-number">1</span>;
+    quit = <span class="hljs-number">1</span>;
 }
 
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span> {
 
-  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sigaction</span> <span class="hljs-title">sa</span>;</span>
-  <span class="hljs-built_in">memset</span>(&amp;sa, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(sa)); <span class="hljs-comment">// initialize to 0</span>
-  sa.sa_handler = onSignal;
-	sigaction(SIGTERM, &amp;sa, <span class="hljs-literal">NULL</span>)
-  <span class="hljs-comment">// error: sigaction returns -1</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sigaction</span> <span class="hljs-title">sa</span>;</span>
+    <span class="hljs-built_in">memset</span>(&amp;sa, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(sa)); <span class="hljs-comment">// initialize to 0</span>
+    sa.sa_handler = onSignal;
+    sigaction(SIGTERM, &amp;sa, <span class="hljs-literal">NULL</span>)
+    <span class="hljs-comment">// error: sigaction returns -1</span>
 
-  <span class="hljs-keyword">while</span> (!quit) {
-		...
-	}
-  <span class="hljs-keyword">return</span> EXIT_SUCCESS;
+    <span class="hljs-keyword">while</span> (!quit) {
+        ...
+    }
+    <span class="hljs-keyword">return</span> EXIT_SUCCESS;
 }</code></pre></div><p></p><p></p></div></article></body></html>

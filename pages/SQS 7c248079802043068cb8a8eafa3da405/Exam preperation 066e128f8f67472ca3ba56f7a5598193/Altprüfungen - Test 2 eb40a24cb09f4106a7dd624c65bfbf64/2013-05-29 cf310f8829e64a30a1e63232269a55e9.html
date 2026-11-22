@@ -623,21 +623,21 @@ Beim 2. Test muss man besonders aufpassen. Man musste so lange next() aufrufen, 
 oh, easy.
 </p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span> (expected = Exception.class)
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_shouldThrowExceptionWhenNextElementIsNotAvailable</span><span class="hljs-params">()</span> {
-	it.next();
-	it.next();
-	it.next();
+    it.next();
+    it.next();
+    it.next();
 }</code></pre><p>
 FALSCH! Dadurch weiß man nämlich nicht wo die Exception geworfen wurde. Es kann genauso gut sein, dass das erste it.next() bereits die
 Exception geworfen hat, was den Testfall unsinnig macht.
 </p><p>Gewünscht wäre gewesen:</p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span> (expected = Exception.class)
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test_shouldThrowExceptionWhenNextElementIsNotAvailable</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception {
-	<span class="hljs-keyword">try</span> {
-		it.next();
-		it.next();
-	} <span class="hljs-keyword">catch</span>(Exception e) {
-		fail(<span class="hljs-string">&quot;next()-Aufruf fehlgeschlagen.&quot;</span>);
-	}
-	it.next(); <span class="hljs-comment">// Dieser next()-Aufruf sollte die Exception auslösen</span>
+    <span class="hljs-keyword">try</span> {
+        it.next();
+        it.next();
+    } <span class="hljs-keyword">catch</span>(Exception e) {
+        fail(<span class="hljs-string">&quot;next()-Aufruf fehlgeschlagen.&quot;</span>);
+    }
+    it.next(); <span class="hljs-comment">// Dieser next()-Aufruf sollte die Exception auslösen</span>
 }</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Test-Refactoring</mark></p><div class="indented"><p>Hier waren JUnit-Tests gegeben, die ein Queue-Objekt testeten.</p><p>Worauf bei solchen Beispielen besonders zu achten ist:</p><ul class="bulleted-list"><li style="list-style-type: disc">korrekte Benennung der Testfälle</li></ul><ul class="bulleted-list"><li style="list-style-type: disc"><mark class="highlight-gray"><code>assertEquals</code></mark>
 ist
 <mark class="highlight-gray"><code>assertTrue</code></mark>

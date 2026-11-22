@@ -620,24 +620,24 @@ Hierbei war die Definition eines Stacks gegeben und man musste die Tests pop_sho
 implementiert werden.
 </p><p><em>Korrekte Lösung</em></p><pre class="code"><code class="hljs language-java"><span class="hljs-meta">@Test</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pop_shouldRemoveElement</span><span class="hljs-params">()</span> {
-	<span class="hljs-keyword">try</span> {
-		assertEquals(ELEM2, stack.pop());
-		assertEquals(ELEM1, stack.pop());
-	} <span class="hljs-keyword">catch</span>(Exception e) {
-		fail(<span class="hljs-string">&quot;irgeneine Message&quot;</span>);
-	}
+    <span class="hljs-keyword">try</span> {
+        assertEquals(ELEM2, stack.pop());
+        assertEquals(ELEM1, stack.pop());
+    } <span class="hljs-keyword">catch</span>(Exception e) {
+        fail(<span class="hljs-string">&quot;irgeneine Message&quot;</span>);
+    }
 }
 
 <span class="hljs-meta">@Test</span> (expected = StackEmptyException.class)
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pop_whenStackIsEmpty</span><span class="hljs-params">()</span> {
-	<span class="hljs-keyword">try</span> {
-		<span class="hljs-keyword">while</span> (!stack.isEmpty()) {
-			stack.pop();
-	} <span class="hljs-keyword">catch</span>(Exception e) {
-		fail(<span class="hljs-string">&quot;meeh&quot;</span>);
-	}
-	stack.pop(); <span class="hljs-comment">//diese Zeile soll erst Exception auslösen</span>
-}</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Beispiel: JUnit-Test-Refactoring</mark></p><div class="indented"><p>
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">while</span> (!stack.isEmpty()) {
+            stack.pop();
+        } <span class="hljs-keyword">catch</span>(Exception e) {
+            fail(<span class="hljs-string">&quot;meeh&quot;</span>);
+        }
+        stack.pop(); <span class="hljs-comment">//diese Zeile soll erst Exception auslösen</span>
+    }</code></pre></div><p></p><p></p><p><mark class="highlight-blue">Beispiel: JUnit-Test-Refactoring</mark></p><div class="indented"><p>
 Gegeben waren 3 Tests, die diverse Fehler beinhalteten und darunter eine Tabelle, wo die gefundenen Fehler (5 Fehler waren zu finden)
 dokumentiert werden sollten.
 </p><p>Dabei ist wieder auf die selben Dinge zu achten, die ich bereits beim 1. Praxistest erläutert habe.</p></div><p></p></div></article></body></html>

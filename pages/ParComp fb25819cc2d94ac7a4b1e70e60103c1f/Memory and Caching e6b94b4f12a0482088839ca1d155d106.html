@@ -686,12 +686,12 @@ for some
 <mark class="highlight-gray"><code>r,r'&gt;0</code></mark></p><p>Mod and div then can be translated into mask and shift.</p><p></p></details></li></ul></li></ul></div><p></p><p></p><h2 id="64b8047c-19e5-45b3-b87a-a2298ce64000">Cache read/write-miss</h2><p>A “cache-hit” is when the address is already in the cache and ready to be read.</p><p></p><p><mark class="highlight-blue">Cache reading</mark></p><div class="indented"><p>Cache hit Read from cache</p><p>Read cache-miss Load block from memory into cache and read from cache</p></div><p></p><p></p><p><mark class="highlight-blue">Cache writing</mark></p><div class="indented"><p>Cache hit Overwrite cache (and memory or wait until block is evicted)</p><div class="indented"><p><mark class="highlight-teal">a) Write-back cache</mark></p><div class="indented"><p><mark class="highlight-gray">(typically also write-allocate)</mark></p><p>block is passed to memory, when it’s being evicted from cache</p></div><p></p><p><mark class="highlight-teal">b) Write-through cache</mark></p><div class="indented"><p><mark class="highlight-gray">(typically also write-non-allocate)</mark></p><p>each write to cache is immediately passed to memory</p></div><p></p></div><p></p><hr/><p>Write cache-miss Loading block from memory is optional</p><div class="indented"><p><mark class="highlight-teal">a) Write allocate</mark></p><div class="indented"><p>Load block from memory into cache, then overwrite</p></div><p></p><p><mark class="highlight-teal">b) Write non-allocate</mark></p><div class="indented"><p>Overwrite memory directly</p></div><p></p></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Types of misses</mark></p><div class="indented"><p>Cold cache</p><div class="indented"><p>Cache hasn’t been in use and is therefore empty.</p><ul class="bulleted-list"><li style="list-style-type: disc">Cold miss every (read) memory access that is a cache-miss</li></ul></div><p></p><p>Warm cache</p><div class="indented"><p>Cache has been in use.</p><ul class="bulleted-list"><li style="list-style-type: disc">Capacity miss entire cache full - some lines must be evicted</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Conflict miss specific line is full (not necessarily the whole cache) - must be evicted</li></ul></div><p></p></div><p></p><p></p><p><mark class="highlight-blue">Hit-rate, miss-rate</mark></p><div class="indented"><p>Memory references divided by number of instructions that hit or miss the catch.</p></div><p></p><p></p><p><mark class="highlight-blue">Eviction (removal) from cache</mark></p><div class="indented"><p>When there is a capacity or conflict miss, the cache evicts line to make room for new one.</p><p>For direct mapping caches we use the mapping.</p><p>For associative caches:</p><div class="indented"><p><em>LRU least recently used</em></p><p><em>LFU least frequently used</em></p><p><em>Random replacement</em></p></div><p></p></div><p></p><p></p><p></p><h1 id="e88ebb51-cb42-483c-ac42-aacc3ab96d8b">Cache impact on performance</h1><p>Cache usually maintained in hardware (”free lunch”).</p><p>The cache impacts the sequential and parallel performance.</p><p></p><h2 id="9b1230d6-9ecf-4392-bd40-e51d33209c8e">Example: Matrix-Matrix multiplication</h2><p><mark class="highlight-blue">Matrix-Matrix multiplication</mark></p><div class="indented"><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>C</mi><mo>=</mo><mi>A</mi><mo>⋅</mo><mi>B</mi></mstyle></mrow><annotation encoding="application/x-tex">\small C = A\cdot B</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.614997em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.07153em">C</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel sizing reset-size6 size5">=</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 0.614997em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">A</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">⋅</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.614997em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.05017em">B</span></span></span></span></span><span>﻿</span></span>
 (associative, distributive but not commutative)
 </p><p><span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>C</mi><mo stretchy="false">[</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">]</mo><mo>=</mo><msub><mo>∑</mo><mrow><mn>0</mn><mo>≤</mo><mi>k</mi><mo>&lt;</mo><mi>n</mi></mrow></msub><mi>A</mi><mo stretchy="false">[</mo><mi>i</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">]</mo><mo>⋅</mo><mi>B</mi><mo stretchy="false">[</mo><mi>k</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">]</mo></mstyle></mrow><annotation encoding="application/x-tex">\small C[i,j] = \sum_{0 \leq k &lt; n} A[i,k] \cdot B[k,j]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.07153em">C</span><span class="mopen sizing reset-size6 size5">[</span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mpunct sizing reset-size6 size5">,</span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.05724em">j</span><span class="mclose sizing reset-size6 size5">]</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span><span class="mrel sizing reset-size6 size5">=</span><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height: 1.041591em; vertical-align: -0.366591em"></span><span class="mop sizing reset-size6 size5"><span class="mop op-symbol small-op" style="position: relative; top: -0.0000050000000000050004em">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.14628333333333327em"><span style="top: -2.2833233333333336em; margin-left: 0em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mrel mtight">≤</span><span class="mord mathnormal mtight" style="margin-right: 0.03148em">k</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.4073233333333333em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5">A</span><span class="mopen sizing reset-size6 size5">[</span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mpunct sizing reset-size6 size5">,</span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03148em">k</span><span class="mclose sizing reset-size6 size5">]</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span><span class="mbin sizing reset-size6 size5">⋅</span><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.05017em">B</span><span class="mopen sizing reset-size6 size5">[</span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03148em">k</span><span class="mpunct sizing reset-size6 size5">,</span><span class="mspace" style="margin-right: 0.16666666666666666em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.05724em">j</span><span class="mclose sizing reset-size6 size5">]</span></span></span></span></span><span>﻿</span></span></p><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
-	<span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
-		C[i][j] = <span class="hljs-number">0</span>;
-		<span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
-			C[i][j] += A[i][k]*B[k][j];
-		}
-	}
+    <span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
+        C[i][j] = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
+            C[i][j] += A[i][k]*B[k][j];
+        }
+    }
 }</code></pre><p>Simple implementation based on mathematical definition (not the best).</p><p>
 Work
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\small O(n^3)</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.938364em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.02778em">O</span><span class="mopen sizing reset-size6 size5">(</span><span class="mord sizing reset-size6 size5"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7926266666666666em"><span style="top: -2.963em; margin-right: 0.05555555555555556em"><span class="pstrut" style="height: 2.6em"></span><span class="sizing reset-size5 size2 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose sizing reset-size6 size5">)</span></span></span></span></span><span>﻿</span></span></p><p>
@@ -718,11 +718,11 @@ worst performance:
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>i</mi></mstyle></mrow><annotation encoding="application/x-tex">\small i</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.593568em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5">i</span></span></span></span></span><span>﻿</span></span>
 as the innermost loop (jki, kji)
 </summary><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
-	<span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
-		<span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
-			C[i][j] += A[i][k]*B[k][j];
-		}
-	}
+    <span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
+        <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
+            C[i][j] += A[i][k]*B[k][j];
+        }
+    }
 }</code></pre><p><mark class="highlight-gray"><code>B[k][j]</code></mark>
 is independent of
 <mark class="highlight-gray"><code>i</code></mark>
@@ -738,12 +738,12 @@ medium performance:
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>k</mi></mstyle></mrow><annotation encoding="application/x-tex">\small k</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.624996em; vertical-align: 0em"></span><span class="mord mathnormal sizing reset-size6 size5" style="margin-right: 0.03148em">k</span></span></span></span></span><span>﻿</span></span>
 as the innermost loop (ijk, jik)
 </summary><pre class="code"><code class="hljs language-c"><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
-	<span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
-		C[i][j] = <span class="hljs-number">0</span>;
-		<span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
-			C[i][j] += A[i][k]*B[k][j];
-		}
-	}
+    <span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
+        C[i][j] = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
+            C[i][j] += A[i][k]*B[k][j];
+        }
+    }
 }</code></pre><p><mark class="highlight-gray"><code>C[i][j]</code></mark>
 is independent of
 <mark class="highlight-gray"><code>k</code></mark>
@@ -767,11 +767,11 @@ as the innermost loop (ikj, kij)
 </summary><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// initialize C[i][j] = 0;</span>
 
 <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;n; i++) {
-	<span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
-		<span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
-			C[i][j] += A[i][k]*B[k][j];
-		}
-	}
+    <span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
+        <span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;n; j++) {
+            C[i][j] += A[i][k]*B[k][j];
+        }
+    }
 }</code></pre><p><mark class="highlight-gray"><code>A[i][k]</code></mark>
 is independent of
 <mark class="highlight-gray"><code>j</code></mark>
@@ -789,10 +789,10 @@ loop should be in increasing order (unless commutativity of
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mo>+</mo></mstyle></mrow><annotation encoding="application/x-tex">\small +</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.599994em; vertical-align: -0.07499700000000001em"></span><span class="mord sizing reset-size6 size5">+</span></span></span></span></span><span>﻿</span></span>
 is exploited)
 </p><pre class="code"><code class="hljs language-c">par (<span class="hljs-number">0</span>&lt;=i&lt;n, <span class="hljs-number">0</span>&lt;=j&lt;n) {
-	C[i][j] = <span class="hljs-number">0</span>;
-	<span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
-		C[i][j] += A[i][k]*B[k][j];&#9;
-	}
+    C[i][j] = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>; k&lt;n; k++) {
+        C[i][j] += A[i][k]*B[k][j];&#9;
+    }
 }</code></pre></div><p></p><p></p><h2 id="a2f0f739-9f03-4818-bc85-2c118175c755">Recursive solution</h2><p><mark class="highlight-blue">Alternative solution: recursive</mark></p><div class="indented"><p>Recursively splitting matrices in half in both dimensions.</p><p>Each recursion level has 8 submatrix multiplications, 4 submatrix additions:</p><pre class="code"><code>C00 = A00 * B00 + A01 * B10
 C01 = A00 * B01 + A01 * B11
 C10 = A10 * B00 + A11 * B10
@@ -854,43 +854,43 @@ The recursion is stopped when the smallest matrix has size
 <mark class="highlight-gray"><code>m1-m0 &lt; CUTOFF</code></mark>
 (determined experimentally).
 </p><pre class="code"><code class="hljs language-c"><span class="hljs-type">void</span> <span class="hljs-title function_">MM</span><span class="hljs-params">(
-	<span class="hljs-type">double</span> A[][], <span class="hljs-type">double</span> B[][],
-	<span class="hljs-type">int</span> m0, <span class="hljs-type">int</span> m1, <span class="hljs-type">int</span> k0, <span class="hljs-type">int</span> k1, <span class="hljs-type">int</span> n0, <span class="hljs-type">int</span> n1,
-	<span class="hljs-type">double</span> C[][],
-	<span class="hljs-type">int</span> mo, <span class="hljs-type">int</span> no <span class="hljs-comment">// offset in c0, c1</span>
+    <span class="hljs-type">double</span> A[][], <span class="hljs-type">double</span> B[][],
+    <span class="hljs-type">int</span> m0, <span class="hljs-type">int</span> m1, <span class="hljs-type">int</span> k0, <span class="hljs-type">int</span> k1, <span class="hljs-type">int</span> n0, <span class="hljs-type">int</span> n1,
+    <span class="hljs-type">double</span> C[][],
+    <span class="hljs-type">int</span> mo, <span class="hljs-type">int</span> no <span class="hljs-comment">// offset in c0, c1</span>
 )</span> {
-	<span class="hljs-keyword">if</span> (<span class="hljs-comment">/*n0,n1,k0,k1,m0,m1 too small: CUTOFF*/</span>) {
-		BaseMM(A,B,m0,m1,k0,k1,n0,n1,C,mo,no); <span class="hljs-comment">// call other function with all args</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-comment">/*n0,n1,k0,k1,m0,m1 too small: CUTOFF*/</span>) {
+        BaseMM(A,B,m0,m1,k0,k1,n0,n1,C,mo,no); <span class="hljs-comment">// call other function with all args</span>
 
-	} <span class="hljs-keyword">else</span> {
-		<span class="hljs-type">double</span> c0[m1-m0][n1-n0]; <span class="hljs-comment">// output of top half of B</span>
-		<span class="hljs-type">double</span> c1[m1-m0][n1-n0]; <span class="hljs-comment">// output of bottom half of B</span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-type">double</span> c0[m1-m0][n1-n0]; <span class="hljs-comment">// output of top half of B</span>
+        <span class="hljs-type">double</span> c1[m1-m0][n1-n0]; <span class="hljs-comment">// output of bottom half of B</span>
 
-		<span class="hljs-comment">// A (left-top quad) vs. B (top half) --&gt; C0 (top half)</span>
-		MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, k0, (k0+k1)/<span class="hljs-number">2</span>, n0, (n0+n1)/<span class="hljs-number">2</span>, c0, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
-		MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, k0, (k0+k1)/<span class="hljs-number">2</span>, (n0+n1)/<span class="hljs-number">2</span>, n1, c0, <span class="hljs-number">0</span>, (n1-n0)/<span class="hljs-number">2</span>);
+        <span class="hljs-comment">// A (left-top quad) vs. B (top half) --&gt; C0 (top half)</span>
+        MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, k0, (k0+k1)/<span class="hljs-number">2</span>, n0, (n0+n1)/<span class="hljs-number">2</span>, c0, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+        MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, k0, (k0+k1)/<span class="hljs-number">2</span>, (n0+n1)/<span class="hljs-number">2</span>, n1, c0, <span class="hljs-number">0</span>, (n1-n0)/<span class="hljs-number">2</span>);
 
-		<span class="hljs-comment">// A (right-top quad) vs. B (bottom half) --&gt; C1 (top half)</span>
-		MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, (k0+k1)/<span class="hljs-number">2</span>, k1, n0, (n0+n1)/<span class="hljs-number">2</span>, c1, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
-		MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, (k0+k1)/<span class="hljs-number">2</span>, k1, (n0+n1)/<span class="hljs-number">2</span>, n1, c1, <span class="hljs-number">0</span>, (n1-n0)/<span class="hljs-number">2</span>);
-&#9;&#9;
-		<span class="hljs-comment">// A (left-bottom quad) vs. B (top half) --&gt; C0 (bottom half)</span>
-		MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, k0, (k0+k1)/<span class="hljs-number">2</span>, n0, (n0+n1)/<span class="hljs-number">2</span>, c0, m1-m0, <span class="hljs-number">0</span>);&#9;&#9;
-		MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, k0, (k0+k1)/<span class="hljs-number">2</span>, (n0+n1)/<span class="hljs-number">2</span>, n1, c0, m1-m0, (n1-n0)/<span class="hljs-number">2</span>);
+        <span class="hljs-comment">// A (right-top quad) vs. B (bottom half) --&gt; C1 (top half)</span>
+        MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, (k0+k1)/<span class="hljs-number">2</span>, k1, n0, (n0+n1)/<span class="hljs-number">2</span>, c1, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+        MM(A, B, m0, (m0+m1)/<span class="hljs-number">2</span>, (k0+k1)/<span class="hljs-number">2</span>, k1, (n0+n1)/<span class="hljs-number">2</span>, n1, c1, <span class="hljs-number">0</span>, (n1-n0)/<span class="hljs-number">2</span>);
 
-		<span class="hljs-comment">// A (right-bottom quad) vs. B (bottom half) --&gt; C1 (bottom half)</span>
-		MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, (k0+k1)/<span class="hljs-number">2</span>, k1, n0, (n0+n1)/<span class="hljs-number">2</span>, c1, m1-m0, <span class="hljs-number">0</span>);&#9;&#9;
-		MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, (k0+k1)/<span class="hljs-number">2</span>, k1, (n0+n1)/<span class="hljs-number">2</span>, n1, c1, m1-m0, (n1-n0)/<span class="hljs-number">2</span>);
+        <span class="hljs-comment">// A (left-bottom quad) vs. B (top half) --&gt; C0 (bottom half)</span>
+        MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, k0, (k0+k1)/<span class="hljs-number">2</span>, n0, (n0+n1)/<span class="hljs-number">2</span>, c0, m1-m0, <span class="hljs-number">0</span>);&#9;&#9;
+        MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, k0, (k0+k1)/<span class="hljs-number">2</span>, (n0+n1)/<span class="hljs-number">2</span>, n1, c0, m1-m0, (n1-n0)/<span class="hljs-number">2</span>);
 
-		<span class="hljs-comment">// C = c0 + c1 (using offset)</span>
-		<span class="hljs-keyword">for</span> (i=m0; i&lt;m1; i++) {
-			<span class="hljs-keyword">for</span> (j=n0; j&lt;n1; j++) {
-				C[mo+i][no+j] = c0[i-m0][j-n0] + c1[i-m0][j-n0];
-			}
-		}
+        <span class="hljs-comment">// A (right-bottom quad) vs. B (bottom half) --&gt; C1 (bottom half)</span>
+        MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, (k0+k1)/<span class="hljs-number">2</span>, k1, n0, (n0+n1)/<span class="hljs-number">2</span>, c1, m1-m0, <span class="hljs-number">0</span>);&#9;&#9;
+        MM(A, B, (m0+m1)/<span class="hljs-number">2</span>, m1, (k0+k1)/<span class="hljs-number">2</span>, k1, (n0+n1)/<span class="hljs-number">2</span>, n1, c1, m1-m0, (n1-n0)/<span class="hljs-number">2</span>);
 
-		... <span class="hljs-built_in">free</span> memory of c0 and c1
-	}
+        <span class="hljs-comment">// C = c0 + c1 (using offset)</span>
+        <span class="hljs-keyword">for</span> (i=m0; i&lt;m1; i++) {
+            <span class="hljs-keyword">for</span> (j=n0; j&lt;n1; j++) {
+                C[mo+i][no+j] = c0[i-m0][j-n0] + c1[i-m0][j-n0];
+            }
+        }
+
+        ... <span class="hljs-built_in">free</span> memory of c0 and c1
+    }
 }</code></pre><p>
 Call with
 <mark class="highlight-gray"><code>MM(A,B,0,m,0,k,0,n,C,0,0);</code></mark></p><p>All MM calls are independent.</p></details></li></ul><p></p><p></p><h1 id="818f25e1-5345-4a25-8253-6da60788403d">Cache coherence</h1><p><mark class="highlight-blue">Example: caches that are not coherent</mark></p><div class="indented"><p>
@@ -1089,11 +1089,11 @@ are not spatially close and wont be updated based on eachother.
 <span class="hljs-comment">// row order access</span>
 <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp parallel for</span>
 <span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>; j&lt;m; j++) {
-	<span class="hljs-type">int</span> *x = a+j*n; <span class="hljs-comment">// get address of row</span>
-	<span class="hljs-type">int</span> i;
-	<span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;n; i++) { <span class="hljs-comment">// sum all elements of row and store in [0]</span>
-		x[<span class="hljs-number">0</span>] += x[i];
-	}
+    <span class="hljs-type">int</span> *x = a+j*n; <span class="hljs-comment">// get address of row</span>
+    <span class="hljs-type">int</span> i;
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>; i&lt;n; i++) { <span class="hljs-comment">// sum all elements of row and store in [0]</span>
+        x[<span class="hljs-number">0</span>] += x[i];
+    }
 }</code></pre></div><p></p><figure class="image"><a href="Memory%20and%20Caching%20e6b94b4f12a0482088839ca1d155d106/Untitled%2014.png"><img src="Memory%20and%20Caching%20e6b94b4f12a0482088839ca1d155d106/Untitled%2014.png" style="width: 240px"/></a></figure><p></p><p><mark class="highlight-blue">Example 3) storing sum of rows: col-major</mark></p><div class="indented"><p>same problem as above</p><p>Matrix is stored col-major in FORTRAN.</p><div class="indented"><p>
 Therefore all
 <span class="notion-text-equation-token" contenteditable="false" data-token-index="0" style="user-select: all; -webkit-user-select: all; -moz-user-select: all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathsize="0.9em"><mi>a</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mn>0</mn><mo stretchy="false">]</mo></mstyle></mrow><annotation encoding="application/x-tex">\small a[i][0]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="base"><span class="strut" style="height: 0.9em; vertical-align: -0.225em"></span><span class="mord mathnormal sizing reset-size6 size5">a</span><span class="mopen sizing reset-size6 size5">[</span><span class="mord mathnormal sizing reset-size6 size5">i</span><span class="mclose sizing reset-size6 size5">]</span><span class="mopen sizing reset-size6 size5">[</span><span class="mord sizing reset-size6 size5">0</span><span class="mclose sizing reset-size6 size5">]</span></span></span></span></span><span>﻿</span></span>
@@ -1105,25 +1105,25 @@ times.
 
 <span class="hljs-comment">// row order access</span>
 <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp parallel { <span class="hljs-comment">// assuming p = m</span></span>
-	<span class="hljs-type">int</span> t = omp_get_thread_num(); <span class="hljs-comment">// thread id</span>
-	<span class="hljs-type">int</span> i, j;
-	<span class="hljs-type">int</span> *x = a;
-	<span class="hljs-keyword">for</span> (j=t+p, i=<span class="hljs-number">1</span>; i&lt;n; i++,j+=p) {
-		x[t] += x[j];
-	}
+    <span class="hljs-type">int</span> t = omp_get_thread_num(); <span class="hljs-comment">// thread id</span>
+    <span class="hljs-type">int</span> i, j;
+    <span class="hljs-type">int</span> *x = a;
+    <span class="hljs-keyword">for</span> (j=t+p, i=<span class="hljs-number">1</span>; i&lt;n; i++,j+=p) {
+        x[t] += x[j];
+    }
 }</code></pre><ul class="toggle"><li><details><summary>implementation with variable</summary><p>should have no false sharing (as the original FORTRAN implementation).</p><p>But compiler might put the variable in a different cache-line.</p><pre class="code"><code class="hljs language-c"><span class="hljs-comment">// x[m][n] two dimensional matrix</span>
 <span class="hljs-type">int</span> *a = (<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(n*m*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));
 
 <span class="hljs-comment">// row order access</span>
 <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> omp parallel {</span>
-	<span class="hljs-type">int</span> t = omp_get_thread_num(); <span class="hljs-comment">// thread id</span>
-	<span class="hljs-type">int</span> i, j;
-	<span class="hljs-type">int</span> *x = a;
-	<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;
-	<span class="hljs-keyword">for</span> (j=t+p, i=<span class="hljs-number">1</span>; i&lt;n; i++,j+=p) {
-		sum += x[j];
-	}
-	x[t] = sum;
+    <span class="hljs-type">int</span> t = omp_get_thread_num(); <span class="hljs-comment">// thread id</span>
+    <span class="hljs-type">int</span> i, j;
+    <span class="hljs-type">int</span> *x = a;
+    <span class="hljs-keyword">register</span> <span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (j=t+p, i=<span class="hljs-number">1</span>; i&lt;n; i++,j+=p) {
+        sum += x[j];
+    }
+    x[t] = sum;
 }</code></pre></details></li></ul></div><p></p><figure class="image"><a href="Memory%20and%20Caching%20e6b94b4f12a0482088839ca1d155d106/Untitled%2015.png"><img src="Memory%20and%20Caching%20e6b94b4f12a0482088839ca1d155d106/Untitled%2015.png" style="width: 240px"/></a></figure><p></p><p></p><h1 id="dc607523-0ab7-4699-86f4-4907acbc9c2f">NUMA memory performance</h1><p><mark class="highlight-blue">Memory (”von Neumann”) bottleneck in NUMA</mark></p><div class="indented"><p>The memory access times are non-uniform:</p><div class="indented"><p>Memory closer to a core is faster than memory on another CPU</p></div><p></p><ul class="toggle"><li><details><summary>other problems</summary><ul class="bulleted-list"><li style="list-style-type: disc">Connection to memory via memory controllers (prefered by memory in bank)</li></ul><ul class="bulleted-list"><li style="list-style-type: disc">Less memory controllers than cores and they all share the same memory bandwidth</li></ul></details></li></ul></div><p></p><figure class="image"><a href="Memory%20and%20Caching%20e6b94b4f12a0482088839ca1d155d106/Untitled.png"><img src="Memory%20and%20Caching%20e6b94b4f12a0482088839ca1d155d106/Untitled.png" style="width: 240px"/></a></figure><p></p><p><mark class="highlight-blue">First touch</mark></p><div class="indented"><p>Applications try to allocate memory from closer to cores.</p><p>“First-touch” OS support:</p><div class="indented"><p><em>
 “The first core (thread) to touch a virtual memory page will cause the virtual page to be allocated in memory close to that
 core”
@@ -1211,12 +1211,12 @@ a = 2; // last assignment to a</code></pre></div></div><p>Possible outcomes:</p>
 <span class="hljs-comment">// … some code</span>
 x = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">if</span> (y==<span class="hljs-number">0</span>) {
-	<span class="hljs-comment">// body</span>
+    <span class="hljs-comment">// body</span>
 }</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c">y = <span class="hljs-number">0</span>;
 <span class="hljs-comment">// … some code</span>
 y = <span class="hljs-number">1</span>;
 <span class="hljs-keyword">if</span> (x==<span class="hljs-number">0</span>) {
-	<span class="hljs-comment">// body</span>
+    <span class="hljs-comment">// body</span>
 }</code></pre></div></div><p>Question: can core0 and core1 both execute the body of the if-statement?</p><p>Answer:</p><div class="indented"><p>No, because they each flip the other variable from 0 to 1 before being able to enter the body.</p><p>If both variables are flipped to 1 then no body is executed → therefore this is not a good lock-algorithm.</p></div><p></p><p></p><p>
 Assuming that
 <mark class="highlight-gray"><code>x</code></mark>
@@ -1270,7 +1270,7 @@ x = <span class="hljs-number">1</span>;
 
 fence; <span class="hljs-comment">// so core1 can&#x27;t enter</span>
 <span class="hljs-keyword">if</span> (y==<span class="hljs-number">0</span>) {
-	<span class="hljs-comment">// body</span>
+    <span class="hljs-comment">// body</span>
 }</code></pre></div><div class="column" style="width: 50%"><pre class="code"><code class="hljs language-c">y = <span class="hljs-number">0</span>;
 fence;
 <span class="hljs-comment">// … some code</span>
@@ -1278,5 +1278,5 @@ y = <span class="hljs-number">1</span>;
 
 fence;
 <span class="hljs-keyword">if</span> (x==<span class="hljs-number">0</span>) {
-	<span class="hljs-comment">// body</span>
+    <span class="hljs-comment">// body</span>
 }</code></pre></div></div></details></li></ul></div><p></p><p></p></div></article></body></html>
